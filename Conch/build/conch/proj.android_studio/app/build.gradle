@@ -1,0 +1,43 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.0'
+    useLibrary 'org.apache.http.legacy'
+    defaultConfig {
+        applicationId "com.layabox.conch5"
+        minSdkVersion 14
+        targetSdkVersion 28
+        versionCode 31
+        versionName "1.0.7"
+    }
+    sourceSets.main{
+        jniLibs.srcDir 'libs'
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+            jniDebuggable true
+            renderscriptDebuggable true
+        }
+    }
+/*    externalNativeBuild {
+        ndkBuild {
+            path '../../proj.android/jni/Android.mk'
+        }
+    }*/
+}
+
+dependencies {
+    implementation  group: 'com.google.zxing', name: 'core', version: '3.3.1'
+    implementation  'com.journeyapps:zxing-android-embedded:3.3.0'
+    implementation  'com.android.support:appcompat-v7:23.1.0'   // Version 23+ is required || 要求版本23以上
+    implementation  fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation  'junit:junit:4.12'
+    implementation  project(':conch5')
+    implementation  'com.google.android.gms:play-services-appindexing:8.4.0'
+}

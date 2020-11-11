@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{54D0666B-DAC5-40CF-A3CB-2513A6C46CA2}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Conch5</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\..\..\..\..\Redist\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(Configuration)\</IntDir>
+    <OutDir>..\..\..\..\..\Redist\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_TEST_;WIN32;_DEBUG;_CONSOLE;JS_V8;V8_ALLOW_ACCESS_TO_RAW_HANDLE_CONSTRUCTOR;_CRT_SECURE_NO_WARNINGS;OPENVG_STATIC_LIBRARY;GLM_FORCE_DEPTH_ZERO_TO_ONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\..\..\..\ThirdParty\angle\include;..\..\..\..\include\common;..\..\..\..\..\ThirdParty\v8_4.6.9\include;..\..\..\..\include\render;..\..\..\..\..\ThirdParty\zip\include\win32;..\..\..\..\..\ThirdParty\openal\include;..\..\..\..\..\ThirdParty\ogg\include\win32;..\..\..\..\..\ThirdParty\websockets\include\win32;..\..\..\..\include\msgpack\include;..\..\..\..\include\render\MonkVG\include;..\..\..\..\include\render\MonkVG\src\opengl;..\..\..\..\include\render\MonkVG\src;..\..\..\..\include\render\MonkVG\glu\include;..\..\..\..\include\render\MonkVG\gles2-bc;..\..\..\..\..\ThirdParty\freetype\include\win32;..\..\..\..\..\ThirdParty\zlib\include\win32;..\..\..\..\..\ThirdParty\openssl\include\win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\..\..\..\libs\win32;..\..\..\..\..\ThirdParty\angle\lib\Debug;..\..\..\..\..\ThirdParty\v8_4.6.9\lib\windows\debug;..\..\..\..\..\ThirdParty\openal\libs\Win32;..\..\..\..\..\ThirdParty\curl\lib\win32;..\..\..\..\..\ThirdParty\freetype\lib\win32;..\..\..\..\..\ThirdParty\jpeg\lib\win32;..\..\..\..\..\ThirdParty\ogg\lib\win32;..\..\..\..\..\ThirdParty\openssl\lib\win32;..\..\..\..\..\ThirdParty\zip\lib\win32;..\..\..\..\..\ThirdParty\websockets\lib\win32;..\..\..\..\..\ThirdParty\zlib\lib\win32;..\..\..\..\..\ThirdParty\png\lib\win32;..\..\..\..\..\ThirdParty\tpg\lib\win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>winmm.lib;v8_libbase.lib;v8_base_0.lib;v8_base_1.lib;v8_base_2.lib;v8_base_3.lib;v8_nosnapshot.lib;v8_libplatform.lib;icuuc.lib;icui18n.lib;common_d.lib;render_d.lib;zlibd.lib;libjpeg.lib;libpngd.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;alut.lib;dsound.lib;OpenAL32.lib;imm32.lib;strmiids.lib;freetyped.lib;websocketsd.lib;zipd.lib;libcryptod.lib;libssld.lib;iphlpapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>Disabled</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_TEST_;WIN32;NDEBUG;_CONSOLE;JS_V8;V8_ALLOW_ACCESS_TO_RAW_HANDLE_CONSTRUCTOR;_CRT_SECURE_NO_WARNINGS;OPENVG_STATIC_LIBRARY;GLM_FORCE_DEPTH_ZERO_TO_ONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\..\..\..\ThirdParty\angle\include;..\..\..\..\include\common;..\..\..\..\..\ThirdParty\v8_4.6.9\include;..\..\..\..\include\render;..\..\..\..\..\ThirdParty\zlib\include\win32;..\..\..\..\..\ThirdParty\openal\include;..\..\..\..\..\ThirdParty\ogg\include\win32;..\..\..\..\..\ThirdParty\freetype\include\win32;..\..\..\..\..\ThirdParty\websockets\include\win32;..\..\..\..\..\ThirdParty\zip\include\win32;..\..\..\..\include\msgpack\include;..\..\..\..\include\render\MonkVG\include;..\..\..\..\include\render\MonkVG\src\opengl;..\..\..\..\include\render\MonkVG\src;..\..\..\..\include\render\MonkVG\glu\include;..\..\..\..\include\render\MonkVG\gles2-bc;..\..\..\..\..\ThirdParty\openssl\include\win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\..\..\..\..\ThirdParty\angle\lib\Release;..\..\..\..\..\ThirdParty\v8_4.6.9\lib\windows\release;..\..\..\..\..\ThirdParty\openal\libs\Win32;..\..\..\..\..\ThirdParty\curl\lib\win32;..\..\..\..\..\ThirdParty\freetype\lib\win32;..\..\..\..\..\ThirdParty\jpeg\lib\win32;..\..\..\..\..\ThirdParty\ogg\lib\win32;..\..\..\..\..\ThirdParty\openssl\lib\win32;..\..\..\..\..\ThirdParty\png\lib\win32;..\..\..\..\..\ThirdParty\websockets\lib\win32;..\..\..\..\..\ThirdParty\zip\lib\win32;..\..\..\..\..\ThirdParty\zlib\lib\win32;..\..\..\..\libs\win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>winmm.lib;v8_libbase.lib;v8_base_0.lib;v8_base_1.lib;v8_base_2.lib;v8_base_3.lib;v8_nosnapshot.lib;v8_libplatform.lib;icuuc.lib;icui18n.lib;common.lib;render.lib;zlib.lib;libjpeg.lib;libpng.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;alut.lib;dsound.lib;OpenAL32.lib;imm32.lib;strmiids.lib;freetype.lib;websockets.lib;zip.lib;libcrypto.lib;libssl.lib;iphlpapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\..\source\conch\Test\测试方法.txt" />
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\source\conch\Audio\JCAudioManager.h" />
+    <ClInclude Include="..\..\..\..\source\conch\Audio\windows\JCAudioMp3Player.h" />
+    <ClInclude Include="..\..\..\..\source\conch\Bridge\JCConchBridge.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JCCmdDispatchManager.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JCConch.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JCConchRender.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JCPublicCmdDispath.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JCSystemConfig.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JCScrpitRuntime.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JCThreadCmdMgr.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\JSInterface\JSInterface.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\JSInterface\jsobjbase.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\JSInterface\V8\JSArrayBuffer.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\JSInterface\V8\JsBinder.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\JSInterface\V8\JSCProxyTLS.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\JSInterface\V8\JSCProxyTrnasfer.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\JSInterface\V8\JSCProxyType.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\JSInterface\V8\JSEnv.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\EditBox\WinEditBox.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSAppCache.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSArrayBufferRef.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSAudio.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JsBlob.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSConchConfig.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSConsole.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSDOMParser.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSFile.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSFileReader.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSFileSystem.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSGlobalExportCFun.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSGraphics.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSHistory.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSImage.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSInput.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSLayaContext.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSMarket.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSMeasureTextInfo.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSShaderActiveInfo.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSNode2D.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSNotify.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSParticleTemplate2D.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSTextMemoryCanvas.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSWebGLContext.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSRuntime.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSWebSocket.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSWindowEditBox.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSXmlAttr.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSXmlNode.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSZip.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\XMLHttpRequest.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\v8debug\debug-agent.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\v8debug\V8Console.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\v8debug\V8CpuProfile.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\v8debug\V8HeapProfiler.h" />
+    <ClInclude Include="..\..\..\..\source\conch\JSWrapper\v8debug\V8Socket.h" />
+    <ClInclude Include="..\..\..\..\source\conch\Test\JCTestManager.h" />
+    <ClInclude Include="..\..\..\..\source\conch\WebSocket\WebSocket.h" />
+    <ClInclude Include="..\..\..\..\source\conch\WindowsEnv\AppMessage.h" />
+    <ClInclude Include="..\..\..\..\source\conch\WindowsEnv\esUtil.h" />
+    <ClInclude Include="..\..\..\..\source\conch\WindowsEnv\gles.h" />
+    <ClInclude Include="..\..\..\..\source\conch\WindowsEnv\JCConchApp.h" />
+    <ClInclude Include="..\..\..\..\source\conch\WindowsEnv\WinCtrl.h" />
+    <ClInclude Include="..\..\..\..\source\conch\WindowsEnv\winWindows.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\conch\Audio\JCAudioManager.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\Audio\windows\JCAudioMp3player.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\Bridge\JCConchBridge.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JCCmdDispatchManager.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JCConch.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JCConchRender.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JCPublicCmdDispath.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JCSystemConfig.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JCScrpitRuntime.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JCThreadCmdMgr.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\JSInterface\JSInterface.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\JSInterface\V8\JSArrayBuffer.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\JSInterface\V8\JsBinder.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\JSInterface\V8\JSEnv.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\EditBox\WinEditBox.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSAppCache.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSArrayBufferRef.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSAudio.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSConchConfig.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSConsole.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSDOMParser.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSFile.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSFileReader.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSFileSystem.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSGlobalExportCFun.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSGraphics.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSHistory.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSImage.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSInput.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSLayaContext.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSMarket.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSMeasureTextInfo.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSShaderActiveInfo.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSNode2D.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSNotify.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSParticleTemplate2D.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSTextMemoryCanvas.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSWebGLContext.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSRuntime.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSWebSocket.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSWindowEditBox.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSXmlAttr.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSXmlNode.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\JSZip.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\LayaWrap\XMLHttpRequest.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\v8debug\debug-agent.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\v8debug\V8Console.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\v8debug\V8CpuProfile.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\v8debug\V8HeapProfiler.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\JSWrapper\v8debug\V8Win32Socket.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\Test\Cases\testArrayBufferAlloc.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\Test\Cases\testBuffer.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\Test\Cases\testCache.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\Test\Cases\testCmdDispatcher.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\Test\Cases\testContextSave.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\Test\Cases\testDiskRW.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\Test\Cases\testFontParser.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\Test\Cases\testRenderFrame.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\Test\Cases\testRenderSVG.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\Test\Cases\testSample.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\Test\Cases\testURL.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\Test\JCTestManager.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\WebSocket\WebSocket.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\WindowsEnv\esUtil.c" />
+    <ClCompile Include="..\..\..\..\source\conch\WindowsEnv\gles.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\WindowsEnv\JCConchApp.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\WindowsEnv\WinCtrl.cpp" />
+    <ClCompile Include="..\..\..\..\source\conch\WindowsEnv\winWindows.cpp" />
+    <ClCompile Include="Conch5.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

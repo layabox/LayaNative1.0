@@ -1,0 +1,609 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Image">
+      <UniqueIdentifier>{9a2858a7-a557-49c1-8671-06824f11e995}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Text">
+      <UniqueIdentifier>{ec948f5e-b8df-4a23-a6ff-be8e095db167}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Performance">
+      <UniqueIdentifier>{00f7859f-567f-4244-a018-121087aeeb76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SaveData">
+      <UniqueIdentifier>{44c3b320-5266-4fbf-8d7d-b3e359154c69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Html5Render">
+      <UniqueIdentifier>{7b3fcb58-ad65-4859-ad47-7f24d291c4ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WebGLRender">
+      <UniqueIdentifier>{d3b181b4-63ce-42b8-a748-7ed08f148d95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NodeRender">
+      <UniqueIdentifier>{d5589802-6f79-4286-85cc-b7c04c75e2c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MonkVG">
+      <UniqueIdentifier>{0f92d24a-7cb7-4490-b92d-f4469b7691ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MonkVG\src">
+      <UniqueIdentifier>{2bbc1ffb-7621-436c-a78f-ba576c40e3d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MonkVG\src\opengl">
+      <UniqueIdentifier>{b2707abe-800f-4e7a-9d43-c72f8be44e12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MonkVG\glu">
+      <UniqueIdentifier>{eba8a42c-df16-42e8-8cff-843c073c51e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MonkVG\glu\libtess">
+      <UniqueIdentifier>{25bb9076-280c-4a87-af40-aa6c64f2695e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MonkVG\glu\libutil">
+      <UniqueIdentifier>{d30942bf-1dbf-4c5d-9e14-6ef5c9383433}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MonkVG\gles2-bc">
+      <UniqueIdentifier>{66a213bf-6f67-42bf-b533-fde988a0ffd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MonkVG\gles2-bc\OpenGLES20">
+      <UniqueIdentifier>{970d01f2-f761-4020-a4ad-ba2c7ed91929}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MonkVG\gles2-bc\OpenGLES20\shaders">
+      <UniqueIdentifier>{23fb4940-6d02-44d8-8b14-629b372869b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MonkVG\src\laya">
+      <UniqueIdentifier>{581f4534-dc59-41a6-830e-fc329a78f684}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{e743192b-6a16-446a-b418-dc68e6aee7da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Node">
+      <UniqueIdentifier>{e53ac931-5c14-4cd9-b4e8-ef25303df901}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle2D">
+      <UniqueIdentifier>{164fe8b0-2711-489a-8321-07a05c503d3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SaveData\RenderUtil">
+      <UniqueIdentifier>{aab4ad5e-2c64-4102-8222-9623ed52dfd0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\source\render\Image\JCImageManager.cpp">
+      <Filter>Image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\Performance\JCPerfHUD.cpp">
+      <Filter>Performance</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\RenderUtil\JCVBOManager.cpp">
+      <Filter>SaveData\RenderUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\SaveData\JCContextSaveData.cpp">
+      <Filter>SaveData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\WebGLRender\JCIDGenerator.cpp">
+      <Filter>WebGLRender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\WebGLRender\JCProgramLocationTable.cpp">
+      <Filter>WebGLRender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\WebGLRender\JCWebGLRender.cpp">
+      <Filter>WebGLRender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\WebGLRender\WebGL.cpp">
+      <Filter>WebGLRender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\Html5Render\JCHtml5Context.cpp">
+      <Filter>Html5Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\Html5Render\JCHtml5Render.cpp">
+      <Filter>Html5Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\Text\JCTextMemoryCanvas.cpp">
+      <Filter>Text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\NodeRender\JCNodeTest.cpp">
+      <Filter>NodeRender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\mkBaseObject.cpp">
+      <Filter>MonkVG\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\mkBatch.cpp">
+      <Filter>MonkVG\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\mkContext.cpp">
+      <Filter>MonkVG\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\mkFont.cpp">
+      <Filter>MonkVG\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\mkImage.cpp">
+      <Filter>MonkVG\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\mkMath.cpp">
+      <Filter>MonkVG\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\mkPaint.cpp">
+      <Filter>MonkVG\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\mkParameter.cpp">
+      <Filter>MonkVG\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\mkPath.cpp">
+      <Filter>MonkVG\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\mkVGU.cpp">
+      <Filter>MonkVG\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\opengl\glBatch.cpp">
+      <Filter>MonkVG\src\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\opengl\glContext.cpp">
+      <Filter>MonkVG\src\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\opengl\glFont.cpp">
+      <Filter>MonkVG\src\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\opengl\glImage.cpp">
+      <Filter>MonkVG\src\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\opengl\glPaint.cpp">
+      <Filter>MonkVG\src\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\opengl\glPath.cpp">
+      <Filter>MonkVG\src\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libtess\dict.c">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libtess\geom.c">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libtess\memalloc.c">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libtess\mesh.c">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libtess\normal.c">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libtess\priorityq.c">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libtess\priorityq-heap.c">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libtess\render.c">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libtess\sweep.c">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libtess\tess.c">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libtess\tessmono.c">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESConfig.cpp">
+      <Filter>MonkVG\gles2-bc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESContext.cpp">
+      <Filter>MonkVG\gles2-bc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESFile.cpp">
+      <Filter>MonkVG\gles2-bc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESImplementation.cpp">
+      <Filter>MonkVG\gles2-bc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESString.cpp">
+      <Filter>MonkVG\gles2-bc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESUtil.cpp">
+      <Filter>MonkVG\gles2-bc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\Attribute.cpp">
+      <Filter>MonkVG\gles2-bc\OpenGLES20</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\MatrixStack.cpp">
+      <Filter>MonkVG\gles2-bc\OpenGLES20</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\OpenGLES20Context.cpp">
+      <Filter>MonkVG\gles2-bc\OpenGLES20</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\OpenGLES20Implementation.cpp">
+      <Filter>MonkVG\gles2-bc\OpenGLES20</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\OpenGLESState.cpp">
+      <Filter>MonkVG\gles2-bc\OpenGLES20</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\Shader.cpp">
+      <Filter>MonkVG\gles2-bc\OpenGLES20</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\ShaderFile.cpp">
+      <Filter>MonkVG\gles2-bc\OpenGLES20</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\ShaderProgram.cpp">
+      <Filter>MonkVG\gles2-bc\OpenGLES20</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\ShaderSource.cpp">
+      <Filter>MonkVG\gles2-bc\OpenGLES20</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\Uniform.cpp">
+      <Filter>MonkVG\gles2-bc\OpenGLES20</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libutil\error.c">
+      <Filter>MonkVG\glu\libutil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libutil\glue.c">
+      <Filter>MonkVG\glu\libutil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libutil\project.c">
+      <Filter>MonkVG\glu\libutil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libutil\registry.c">
+      <Filter>MonkVG\glu\libutil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\Html5Render\JCHtml5RenderManager.cpp">
+      <Filter>Html5Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\laya\layaPath.cpp">
+      <Filter>MonkVG\src\laya</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\laya\layaContext.cpp">
+      <Filter>MonkVG\src\laya</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\laya\layaPaint.cpp">
+      <Filter>MonkVG\src\laya</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\Manager\JCBufferManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\Manager\JCShaderManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\Node\JCNode2D.cpp">
+      <Filter>Node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\Node\JCNode2DRenderer.cpp">
+      <Filter>Node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\Node\JCGraphics.cpp">
+      <Filter>Node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\Node\JCGraphicsCmdDispath.cpp">
+      <Filter>Node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\Node\JCNode2DCmdDispath.cpp">
+      <Filter>Node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\Node\JCNodeStyle.cpp">
+      <Filter>Node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\Image\JCImage.cpp">
+      <Filter>Image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\Node\JCGraphicsWordInfo.cpp">
+      <Filter>Node</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\Particle2D\JCParticleTemplate2D.cpp">
+      <Filter>Particle2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\Particle2D\JCParticleData2D.cpp">
+      <Filter>Particle2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\Particle2D\JCParticleSetting2D.cpp">
+      <Filter>Particle2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\Particle2D\JCParticleTemplate2DCmdDispath.cpp">
+      <Filter>Particle2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\render\Node\JCNode.cpp">
+      <Filter>Node</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\source\render\Image\JCImageManager.h">
+      <Filter>Image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\Performance\JCPerfHUD.h">
+      <Filter>Performance</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\RenderUtil\JCVBOManager.h">
+      <Filter>SaveData\RenderUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\SaveData\JCContextSaveData.h">
+      <Filter>SaveData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\WebGLRender\JCIDGenerator.h">
+      <Filter>WebGLRender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\WebGLRender\JCProgramLocationTable.h">
+      <Filter>WebGLRender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\WebGLRender\JCWebGLRender.h">
+      <Filter>WebGLRender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\WebGLRender\WebGL.h">
+      <Filter>WebGLRender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\Html5Render\JCHtml5Context.h">
+      <Filter>Html5Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\Html5Render\JCHtml5Render.h">
+      <Filter>Html5Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\Text\JCTextMemoryCanvas.h">
+      <Filter>Text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\NodeRender\JCNodeTest.h">
+      <Filter>NodeRender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\mkBaseObject.h">
+      <Filter>MonkVG\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\mkBatch.h">
+      <Filter>MonkVG\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\mkCommon.h">
+      <Filter>MonkVG\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\mkContext.h">
+      <Filter>MonkVG\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\mkFont.h">
+      <Filter>MonkVG\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\mkImage.h">
+      <Filter>MonkVG\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\mkMath.h">
+      <Filter>MonkVG\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\mkPaint.h">
+      <Filter>MonkVG\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\mkPath.h">
+      <Filter>MonkVG\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\opengl\glBatch.h">
+      <Filter>MonkVG\src\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\opengl\glContext.h">
+      <Filter>MonkVG\src\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\opengl\glFont.h">
+      <Filter>MonkVG\src\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\opengl\glImage.h">
+      <Filter>MonkVG\src\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\opengl\glPaint.h">
+      <Filter>MonkVG\src\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\opengl\glPath.h">
+      <Filter>MonkVG\src\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\opengl\glPlatform.h">
+      <Filter>MonkVG\src\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\dict.h">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\dict-list.h">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\geom.h">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\memalloc.h">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\mesh.h">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\normal.h">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\priorityq.h">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\priorityq-heap.h">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\priorityq-sort.h">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\render.h">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\sweep.h">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\tess.h">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\tessmono.h">
+      <Filter>MonkVG\glu\libtess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESConfig.h">
+      <Filter>MonkVG\gles2-bc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESContext.h">
+      <Filter>MonkVG\gles2-bc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESFile.h">
+      <Filter>MonkVG\gles2-bc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESImplementation.h">
+      <Filter>MonkVG\gles2-bc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESMath.h">
+      <Filter>MonkVG\gles2-bc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESPlatform.h">
+      <Filter>MonkVG\gles2-bc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESString.h">
+      <Filter>MonkVG\gles2-bc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESUtil.h">
+      <Filter>MonkVG\gles2-bc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\Attribute.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\MatrixStack.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\OpenGLES20Context.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\OpenGLES20Implementation.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\OpenGLESState.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\Shader.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\ShaderFile.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\ShaderProgram.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\ShaderSource.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\Uniform.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\all_shaders.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\alphaTest.frag.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\clipPlane.frag.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\clipPlane.vert.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\fog.glsl.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\lighting.frag.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\lighting.vert.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\lightingPerFragment.frag.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\lightingPerFragment.vert.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\lightingPerVertex.vert.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\main.frag.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\main.vert.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\postprocess.frag.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\postprocess.vert.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\texture.frag.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\texture.vert.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\texture0.frag.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\texture0.vert.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\texture1.frag.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\texture1.vert.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\texture2.frag.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\texture2.vert.h">
+      <Filter>MonkVG\gles2-bc\OpenGLES20\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libutil\gluint.h">
+      <Filter>MonkVG\glu\libutil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\Html5Render\JCHtml5RenderManager.h">
+      <Filter>Html5Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\laya\layaPath.h">
+      <Filter>MonkVG\src\laya</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\laya\layaContext.h">
+      <Filter>MonkVG\src\laya</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\laya\layaPaint.h">
+      <Filter>MonkVG\src\laya</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\Manager\JCBufferManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\Manager\JCShaderManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\Node\JCNode2D.h">
+      <Filter>Node</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\Node\JCNode2DRenderer.h">
+      <Filter>Node</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\Node\JCGraphics.h">
+      <Filter>Node</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\Node\JCGraphicsCmdDispath.h">
+      <Filter>Node</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\Node\JCNode2DCmdDispath.h">
+      <Filter>Node</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\Node\JCNodeStyle.h">
+      <Filter>Node</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\Image\JCImage.h">
+      <Filter>Image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\Node\JCGraphicsWordInfo.h">
+      <Filter>Node</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\Particle2D\JCParticleTemplate2D.h">
+      <Filter>Particle2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\Particle2D\JCParticleData2D.h">
+      <Filter>Particle2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\Particle2D\JCParticleSetting2D.h">
+      <Filter>Particle2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\Particle2D\JCParticleTemplate2DCmdDispath.h">
+      <Filter>Particle2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\render\Node\JCNode.h">
+      <Filter>Node</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

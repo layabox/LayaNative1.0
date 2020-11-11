@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\source\render\Html5Render\JCHtml5Context.cpp" />
+    <ClCompile Include="..\..\..\source\render\Html5Render\JCHtml5Render.cpp" />
+    <ClCompile Include="..\..\..\source\render\Html5Render\JCHtml5RenderManager.cpp" />
+    <ClCompile Include="..\..\..\source\render\Image\JCImage.cpp" />
+    <ClCompile Include="..\..\..\source\render\Image\JCImageManager.cpp" />
+    <ClCompile Include="..\..\..\source\render\Manager\JCBufferManager.cpp" />
+    <ClCompile Include="..\..\..\source\render\Manager\JCShaderManager.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\Attribute.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\MatrixStack.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\OpenGLES20Context.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\OpenGLES20Implementation.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\OpenGLESState.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\Shader.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\ShaderFile.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\ShaderProgram.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\ShaderSource.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\Uniform.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESConfig.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESContext.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESFile.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESImplementation.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESString.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESUtil.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libtess\dict.c" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libtess\geom.c" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libtess\memalloc.c" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libtess\mesh.c" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libtess\normal.c" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libtess\priorityq-heap.c" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libtess\priorityq.c" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libtess\render.c" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libtess\sweep.c" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libtess\tess.c" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libtess\tessmono.c" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libutil\error.c" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libutil\glue.c" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libutil\project.c" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\glu\libutil\registry.c" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\laya\layaContext.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\laya\layaPaint.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\laya\layaPath.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\mkBaseObject.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\mkBatch.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\mkContext.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\mkFont.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\mkImage.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\mkMath.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\mkPaint.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\mkParameter.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\mkPath.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\mkVGU.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\opengl\glBatch.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\opengl\glContext.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\opengl\glFont.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\opengl\glImage.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\opengl\glPaint.cpp" />
+    <ClCompile Include="..\..\..\source\render\MonkVG\src\opengl\glPath.cpp" />
+    <ClCompile Include="..\..\..\source\render\NodeRender\JCNodeTest.cpp" />
+    <ClCompile Include="..\..\..\source\render\Node\JCGraphics.cpp" />
+    <ClCompile Include="..\..\..\source\render\Node\JCGraphicsCmdDispath.cpp" />
+    <ClCompile Include="..\..\..\source\render\Node\JCGraphicsWordInfo.cpp" />
+    <ClCompile Include="..\..\..\source\render\Node\JCNode.cpp" />
+    <ClCompile Include="..\..\..\source\render\Node\JCNode2D.cpp" />
+    <ClCompile Include="..\..\..\source\render\Node\JCNode2DCmdDispath.cpp" />
+    <ClCompile Include="..\..\..\source\render\Node\JCNode2DRenderer.cpp" />
+    <ClCompile Include="..\..\..\source\render\Node\JCNodeStyle.cpp" />
+    <ClCompile Include="..\..\..\source\render\Particle2D\JCParticleData2D.cpp" />
+    <ClCompile Include="..\..\..\source\render\Particle2D\JCParticleSetting2D.cpp" />
+    <ClCompile Include="..\..\..\source\render\Particle2D\JCParticleTemplate2D.cpp" />
+    <ClCompile Include="..\..\..\source\render\Particle2D\JCParticleTemplate2DCmdDispath.cpp" />
+    <ClCompile Include="..\..\..\source\render\Performance\JCPerfHUD.cpp" />
+    <ClCompile Include="..\..\..\source\render\RenderUtil\JCVBOManager.cpp" />
+    <ClCompile Include="..\..\..\source\render\SaveData\JCContextSaveData.cpp" />
+    <ClCompile Include="..\..\..\source\render\Text\JCTextMemoryCanvas.cpp" />
+    <ClCompile Include="..\..\..\source\render\WebGLRender\JCIDGenerator.cpp" />
+    <ClCompile Include="..\..\..\source\render\WebGLRender\JCProgramLocationTable.cpp" />
+    <ClCompile Include="..\..\..\source\render\WebGLRender\JCWebGLRender.cpp" />
+    <ClCompile Include="..\..\..\source\render\WebGLRender\WebGL.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\source\render\Html5Render\JCHtml5Context.h" />
+    <ClInclude Include="..\..\..\source\render\Html5Render\JCHtml5Render.h" />
+    <ClInclude Include="..\..\..\source\render\Html5Render\JCHtml5RenderManager.h" />
+    <ClInclude Include="..\..\..\source\render\Image\JCImage.h" />
+    <ClInclude Include="..\..\..\source\render\Image\JCImageManager.h" />
+    <ClInclude Include="..\..\..\source\render\Manager\JCBufferManager.h" />
+    <ClInclude Include="..\..\..\source\render\Manager\JCShaderManager.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\Attribute.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\MatrixStack.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\OpenGLES20Context.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\OpenGLES20Implementation.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\OpenGLESState.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\Shader.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\ShaderFile.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\ShaderProgram.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\ShaderSource.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\all_shaders.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\alphaTest.frag.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\clipPlane.frag.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\clipPlane.vert.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\fog.glsl.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\lighting.frag.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\lighting.vert.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\lightingPerFragment.frag.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\lightingPerFragment.vert.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\lightingPerVertex.vert.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\main.frag.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\main.vert.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\postprocess.frag.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\postprocess.vert.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\texture.frag.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\texture.vert.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\texture0.frag.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\texture0.vert.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\texture1.frag.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\texture1.vert.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\texture2.frag.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\shaders\texture2.vert.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLES20\Uniform.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESConfig.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESContext.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESFile.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESImplementation.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESMath.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESPlatform.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESString.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\gles2-bc\OpenGLESUtil.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\dict-list.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\dict.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\geom.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\memalloc.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\mesh.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\normal.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\priorityq-heap.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\priorityq-sort.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\priorityq.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\render.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\sweep.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\tess.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libtess\tessmono.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\glu\libutil\gluint.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\laya\layaContext.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\laya\layaPaint.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\laya\layaPath.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\mkBaseObject.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\mkBatch.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\mkCommon.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\mkContext.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\mkFont.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\mkImage.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\mkMath.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\mkPaint.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\mkPath.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\opengl\glBatch.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\opengl\glContext.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\opengl\glFont.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\opengl\glImage.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\opengl\glPaint.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\opengl\glPath.h" />
+    <ClInclude Include="..\..\..\source\render\MonkVG\src\opengl\glPlatform.h" />
+    <ClInclude Include="..\..\..\source\render\NodeRender\JCNodeTest.h" />
+    <ClInclude Include="..\..\..\source\render\Node\JCGraphics.h" />
+    <ClInclude Include="..\..\..\source\render\Node\JCGraphicsCmdDispath.h" />
+    <ClInclude Include="..\..\..\source\render\Node\JCGraphicsWordInfo.h" />
+    <ClInclude Include="..\..\..\source\render\Node\JCNode.h" />
+    <ClInclude Include="..\..\..\source\render\Node\JCNode2D.h" />
+    <ClInclude Include="..\..\..\source\render\Node\JCNode2DCmdDispath.h" />
+    <ClInclude Include="..\..\..\source\render\Node\JCNode2DRenderer.h" />
+    <ClInclude Include="..\..\..\source\render\Node\JCNodeStyle.h" />
+    <ClInclude Include="..\..\..\source\render\Particle2D\JCParticleData2D.h" />
+    <ClInclude Include="..\..\..\source\render\Particle2D\JCParticleSetting2D.h" />
+    <ClInclude Include="..\..\..\source\render\Particle2D\JCParticleTemplate2D.h" />
+    <ClInclude Include="..\..\..\source\render\Particle2D\JCParticleTemplate2DCmdDispath.h" />
+    <ClInclude Include="..\..\..\source\render\Performance\JCPerfHUD.h" />
+    <ClInclude Include="..\..\..\source\render\RenderUtil\JCVBOManager.h" />
+    <ClInclude Include="..\..\..\source\render\SaveData\JCContextSaveData.h" />
+    <ClInclude Include="..\..\..\source\render\Text\JCTextMemoryCanvas.h" />
+    <ClInclude Include="..\..\..\source\render\WebGLRender\JCIDGenerator.h" />
+    <ClInclude Include="..\..\..\source\render\WebGLRender\JCProgramLocationTable.h" />
+    <ClInclude Include="..\..\..\source\render\WebGLRender\JCWebGLRender.h" />
+    <ClInclude Include="..\..\..\source\render\WebGLRender\WebGL.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{546B8E71-0960-4DF7-AE94-D03FD3AFE2CE}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>render</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\..\libs\win32</OutDir>
+    <TargetName>$(ProjectName)_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\..\libs\win32</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;OPENVG_STATIC_LIBRARY;GLM_FORCE_DEPTH_ZERO_TO_ONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\ThirdParty\angle\include;..\..\..\..\ThirdParty\zlib\include\win32;..\..\..\..\ThirdParty\freetype\include\win32;..\..\..\include\common;..\..\..\source\render\MonkVG\include;..\..\..\source\render\MonkVG\src\opengl;..\..\..\source\render\MonkVG\src;..\..\..\source\render\MonkVG\glu\include;..\..\..\source\render\MonkVG\gles2-bc;..\..\..\include\conch;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>Disabled</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;OPENVG_STATIC_LIBRARY;GLM_FORCE_DEPTH_ZERO_TO_ONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\..\ThirdParty\angle\include;..\..\..\..\ThirdParty\zlib\include\win32;..\..\..\..\ThirdParty\freetype\include\win32;..\..\..\include\common;..\..\..\source\render\MonkVG\include;..\..\..\source\render\MonkVG\src\opengl;..\..\..\source\render\MonkVG\src;..\..\..\source\render\MonkVG\glu\include;..\..\..\source\render\MonkVG\gles2-bc;..\..\..\include\conch;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

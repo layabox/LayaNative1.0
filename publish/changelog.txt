@@ -1,0 +1,72 @@
+2017年2月17日
+ version:0.9.2
+ 1、增加JS脚本全局错误捕获，当JS语法错误，CP可自行处理错误信息（比如：通过XMLHttpRequest将错误信息上传CP服务器）window.onerror
+ 2、修复Audio加载完，不回调JS的bug。
+ 3、增加Audio加载失败的回调。
+ 4、修复由于dcc错误，导致设备丢失后，图片恢复的bug。
+
+
+
+2016年12月22日
+ version：0.9.1
+ 1、新增资源加密功能
+ 2、ios去掉推送功能
+ 3、修复遮罩问题
+ 4、zOrder优化
+
+
+2016年11月10日
+1、新增粒子和自定义mesh动画
+2、index.js 游戏首页index.html加载失败的处理
+3、断网和恢复网络的全局事件 
+	document.addEventListener( "network",function(e)
+	{
+	    //0  没有网
+		//非0 有网
+		alert("e="+e.code);
+	});
+
+4、XMLHttpRequest post获得arrayBuffer的时候出现bug
+5、增加截图api 返回arrayBuffer  conch.captureScreen(function(buffer,w,h){})
+6、解决webP 格式的图片解码错误调用onerror回调以及内存泄漏
+
+2016年10月14日
+version:0.8.1
+1、android字体偏下
+2、在需要下载字体的情况下 增加先访问项目font/simhei.ttf 项目没有再到我们官网下载  
+
+0.6.1
+-----------------------------------
+1、解决了url访问外部图片，无法缓存的问题。
+2、解决了打包本地资源不起作用的bug
+3、解决了ios接听后，声音被打断无法恢复的bug
+4、修改了两个fillImage有可能会混乱的bug
+5、ios的例子中包含了iap的代码，方便开发者开发
+6、解决了使用renderTarget，alpha透明的问题。
+7、增加了js和Java、Object-C的映射。
+8、增加了启动页面和进度条，开发者可以设置加载进度。
+9、支持了https。
+10、解决了cacheAs-canvas，有的时候canvas不刷新的bug
+11、解决了cacheAs-canvas,画布不清空的bug
+12、解决了设置声音音量超过1的时候，导致音量设置不正确的问题。
+
+0.6
+-----------------------------------
+1、支持了模糊滤镜、发光滤镜
+2、修改了ColorFilter的实现方式
+3、增加了fillImage
+4、优化了文字的效率。
+5、优化了memoryCanvas的效率。
+6、修改了裁剪的bug。
+7、修改ios误报utf8的错误。
+8、修改了ios旋转屏的bug。
+9、修改了ttf字体的bug。
+10、修改了UI中，有的图片不显示的bug
+11、修改runtime运行中有的时候crash的bug
+12、修改了部分内存泄露，以及java代码中的内存泄露。
+13、增加了JS到android、ios的反射，开发者可以编写原声代码（JAVA、object-c）自己进行扩展功能。
+14、修改了renderTarget中，clip的bug。
+15、修改了cacheAs计算getBoundSize的错误。
+16、修改了mask的错误问题。
+17、runtime中，增加显示fps和部分渲染信息接口
+18、增加了ogg的功能。

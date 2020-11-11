@@ -1,0 +1,40 @@
+{
+    "template": {
+        "name": "LayaBoxSDKDemo",
+		"replace":[
+			".project",
+			"res/values/strings.xml"
+		],
+		"rename":[
+		],
+		"display":"res/values/strings.xml"
+	},
+	"package": {
+		"name": "com.example.layaboxsdk_demo",
+		"replace": [
+			"AndroidManifest.xml",
+			"src/demo/SplashDialog.java",
+			"src/demo/MainActivity.java",
+			"src/layaair/game/Market/GameEngine.java"
+		]
+	},
+	"url": {
+		"src": "mPlugin.game_plugin_set_option\\s*\\(\\s*\"gameUrl\".*\\)\\s*;",
+		"des":"mPlugin.game_plugin_set_option(\"gameUrl\", \"${url}\");",
+		"replace": [
+			"src/demo/MainActivity.java"
+		]
+	},
+    "localize":{
+        "src":"mPlugin.game_plugin_set_option\\(\"localize\".*",
+		"des":"mPlugin.game_plugin_set_option(\"localize\",\"true\");",
+        "replace":[
+            "src/demo/MainActivity.java"
+        ]
+    },
+	"res": {
+		"path": "assets/cache"
+	},
+	"renderType":"assets/scripts/config.js",
+	"version":"1.0.4"
+}

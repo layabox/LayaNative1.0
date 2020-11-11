@@ -1,0 +1,943 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5E7AB4E11DD2D269001AE49F /* JCParticleData2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E7AB4D91DD2D269001AE49F /* JCParticleData2D.cpp */; };
+		5E7AB4E21DD2D269001AE49F /* JCParticleSetting2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E7AB4DB1DD2D269001AE49F /* JCParticleSetting2D.cpp */; };
+		5E7AB4E31DD2D269001AE49F /* JCParticleTemplate2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E7AB4DD1DD2D269001AE49F /* JCParticleTemplate2D.cpp */; };
+		5E7AB4E41DD2D269001AE49F /* JCParticleTemplate2DCmdDispath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E7AB4DF1DD2D269001AE49F /* JCParticleTemplate2DCmdDispath.cpp */; };
+		9DFB1F651D3733C1006D31AD /* JCImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB1F631D3733C1006D31AD /* JCImage.cpp */; };
+		A235819B1D51910400C2E4FF /* JCGraphicsWordInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A23581991D51910400C2E4FF /* JCGraphicsWordInfo.cpp */; };
+		A293D4981D193DA400D65D4D /* JCGraphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A293D48C1D193DA400D65D4D /* JCGraphics.cpp */; };
+		A293D4991D193DA400D65D4D /* JCGraphicsCmdDispath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A293D48E1D193DA400D65D4D /* JCGraphicsCmdDispath.cpp */; };
+		A293D49A1D193DA400D65D4D /* JCNode2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A293D4901D193DA400D65D4D /* JCNode2D.cpp */; };
+		A293D49B1D193DA400D65D4D /* JCNode2DCmdDispath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A293D4921D193DA400D65D4D /* JCNode2DCmdDispath.cpp */; };
+		A293D49C1D193DA400D65D4D /* JCNode2DRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A293D4941D193DA400D65D4D /* JCNode2DRenderer.cpp */; };
+		A293D49D1D193DA400D65D4D /* JCNodeStyle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A293D4961D193DA400D65D4D /* JCNodeStyle.cpp */; };
+		A2BCED261E2376C2003ABF33 /* JCNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2BCED241E2376C2003ABF33 /* JCNode.cpp */; };
+		A2D118341D0BB25E004C229D /* render.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = A2D118331D0BB25E004C229D /* render.h */; };
+		A2D118361D0BB25E004C229D /* render.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D118351D0BB25E004C229D /* render.m */; };
+		A2D1184C1D0BB61A004C229D /* JCHtml5Context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118461D0BB61A004C229D /* JCHtml5Context.cpp */; };
+		A2D1184D1D0BB61A004C229D /* JCHtml5Render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118481D0BB61A004C229D /* JCHtml5Render.cpp */; };
+		A2D1184E1D0BB61A004C229D /* JCHtml5RenderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D1184A1D0BB61A004C229D /* JCHtml5RenderManager.cpp */; };
+		A2D118521D0BB635004C229D /* JCImageManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118501D0BB635004C229D /* JCImageManager.cpp */; };
+		A2D118551D0BB6B7004C229D /* JCNodeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118531D0BB6B7004C229D /* JCNodeTest.cpp */; };
+		A2D118581D0BB6F1004C229D /* JCPerfHUD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118561D0BB6F1004C229D /* JCPerfHUD.cpp */; };
+		A2D1185B1D0BB779004C229D /* JCVBOManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118591D0BB779004C229D /* JCVBOManager.cpp */; };
+		A2D1185E1D0BB79C004C229D /* JCContextSaveData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D1185C1D0BB79C004C229D /* JCContextSaveData.cpp */; };
+		A2D118611D0BB7AD004C229D /* JCTextMemoryCanvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D1185F1D0BB7AD004C229D /* JCTextMemoryCanvas.cpp */; };
+		A2D1186A1D0BB7C3004C229D /* JCIDGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118621D0BB7C3004C229D /* JCIDGenerator.cpp */; };
+		A2D1186B1D0BB7C3004C229D /* JCProgramLocationTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118641D0BB7C3004C229D /* JCProgramLocationTable.cpp */; };
+		A2D1186C1D0BB7C3004C229D /* JCWebGLRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118661D0BB7C3004C229D /* JCWebGLRender.cpp */; };
+		A2D1186D1D0BB7C3004C229D /* WebGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118681D0BB7C3004C229D /* WebGL.cpp */; };
+		A2D118B41D0BB987004C229D /* Attribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118A01D0BB987004C229D /* Attribute.cpp */; };
+		A2D118B51D0BB987004C229D /* MatrixStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118A21D0BB987004C229D /* MatrixStack.cpp */; };
+		A2D118B61D0BB987004C229D /* OpenGLES20Context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118A41D0BB987004C229D /* OpenGLES20Context.cpp */; };
+		A2D118B71D0BB987004C229D /* OpenGLES20Implementation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118A61D0BB987004C229D /* OpenGLES20Implementation.cpp */; };
+		A2D118B81D0BB987004C229D /* OpenGLESState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118A81D0BB987004C229D /* OpenGLESState.cpp */; };
+		A2D118B91D0BB987004C229D /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118AA1D0BB987004C229D /* Shader.cpp */; };
+		A2D118BA1D0BB987004C229D /* ShaderFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118AC1D0BB987004C229D /* ShaderFile.cpp */; };
+		A2D118BB1D0BB987004C229D /* ShaderProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118AE1D0BB987004C229D /* ShaderProgram.cpp */; };
+		A2D118BC1D0BB987004C229D /* ShaderSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118B01D0BB987004C229D /* ShaderSource.cpp */; };
+		A2D118BD1D0BB987004C229D /* Uniform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118B21D0BB987004C229D /* Uniform.cpp */; };
+		A2D118CC1D0BB9C1004C229D /* OpenGLESConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118BE1D0BB9C1004C229D /* OpenGLESConfig.cpp */; };
+		A2D118CD1D0BB9C1004C229D /* OpenGLESContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118C01D0BB9C1004C229D /* OpenGLESContext.cpp */; };
+		A2D118CE1D0BB9C1004C229D /* OpenGLESFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118C21D0BB9C1004C229D /* OpenGLESFile.cpp */; };
+		A2D118CF1D0BB9C1004C229D /* OpenGLESImplementation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118C41D0BB9C1004C229D /* OpenGLESImplementation.cpp */; };
+		A2D118D01D0BB9C1004C229D /* OpenGLESString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118C81D0BB9C1004C229D /* OpenGLESString.cpp */; };
+		A2D118D11D0BB9C1004C229D /* OpenGLESUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D118CA1D0BB9C1004C229D /* OpenGLESUtil.cpp */; };
+		A2D118D91D0BBB48004C229D /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = A2D118D41D0BBB48004C229D /* error.c */; };
+		A2D118DA1D0BBB48004C229D /* glue.c in Sources */ = {isa = PBXBuildFile; fileRef = A2D118D51D0BBB48004C229D /* glue.c */; };
+		A2D118DB1D0BBB48004C229D /* project.c in Sources */ = {isa = PBXBuildFile; fileRef = A2D118D71D0BBB48004C229D /* project.c */; };
+		A2D118DC1D0BBB48004C229D /* registry.c in Sources */ = {isa = PBXBuildFile; fileRef = A2D118D81D0BBB48004C229D /* registry.c */; };
+		A2D118F51D0BBBA7004C229D /* dict.c in Sources */ = {isa = PBXBuildFile; fileRef = A2D118DE1D0BBBA7004C229D /* dict.c */; };
+		A2D118F61D0BBBA7004C229D /* geom.c in Sources */ = {isa = PBXBuildFile; fileRef = A2D118E01D0BBBA7004C229D /* geom.c */; };
+		A2D118F71D0BBBA7004C229D /* memalloc.c in Sources */ = {isa = PBXBuildFile; fileRef = A2D118E21D0BBBA7004C229D /* memalloc.c */; };
+		A2D118F81D0BBBA7004C229D /* mesh.c in Sources */ = {isa = PBXBuildFile; fileRef = A2D118E41D0BBBA7004C229D /* mesh.c */; };
+		A2D118F91D0BBBA7004C229D /* normal.c in Sources */ = {isa = PBXBuildFile; fileRef = A2D118E61D0BBBA7004C229D /* normal.c */; };
+		A2D118FA1D0BBBA7004C229D /* priorityq-heap.c in Sources */ = {isa = PBXBuildFile; fileRef = A2D118E81D0BBBA7004C229D /* priorityq-heap.c */; };
+		A2D118FB1D0BBBA7004C229D /* priorityq.c in Sources */ = {isa = PBXBuildFile; fileRef = A2D118EB1D0BBBA7004C229D /* priorityq.c */; };
+		A2D118FC1D0BBBA7004C229D /* render.c in Sources */ = {isa = PBXBuildFile; fileRef = A2D118ED1D0BBBA7004C229D /* render.c */; };
+		A2D118FD1D0BBBA7004C229D /* sweep.c in Sources */ = {isa = PBXBuildFile; fileRef = A2D118EF1D0BBBA7004C229D /* sweep.c */; };
+		A2D118FE1D0BBBA7004C229D /* tess.c in Sources */ = {isa = PBXBuildFile; fileRef = A2D118F11D0BBBA7004C229D /* tess.c */; };
+		A2D118FF1D0BBBA7004C229D /* tessmono.c in Sources */ = {isa = PBXBuildFile; fileRef = A2D118F31D0BBBA7004C229D /* tessmono.c */; };
+		A2D1190F1D0BBC95004C229D /* glBatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D119021D0BBC95004C229D /* glBatch.cpp */; };
+		A2D119101D0BBC95004C229D /* glContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D119041D0BBC95004C229D /* glContext.cpp */; };
+		A2D119111D0BBC95004C229D /* glFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D119061D0BBC95004C229D /* glFont.cpp */; };
+		A2D119121D0BBC95004C229D /* glImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D119081D0BBC95004C229D /* glImage.cpp */; };
+		A2D119131D0BBC95004C229D /* glPaint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D1190A1D0BBC95004C229D /* glPaint.cpp */; };
+		A2D119141D0BBC95004C229D /* glPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D1190C1D0BBC95004C229D /* glPath.cpp */; };
+		A2D1191B1D0BBCB7004C229D /* layaContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D119151D0BBCB7004C229D /* layaContext.cpp */; };
+		A2D1191C1D0BBCB7004C229D /* layaPaint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D119171D0BBCB7004C229D /* layaPaint.cpp */; };
+		A2D1191D1D0BBCB7004C229D /* layaPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D119191D0BBCB7004C229D /* layaPath.cpp */; };
+		A2D119311D0BBCEC004C229D /* mkBaseObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D1191E1D0BBCEC004C229D /* mkBaseObject.cpp */; };
+		A2D119321D0BBCEC004C229D /* mkBatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D119201D0BBCEC004C229D /* mkBatch.cpp */; };
+		A2D119331D0BBCEC004C229D /* mkContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D119231D0BBCEC004C229D /* mkContext.cpp */; };
+		A2D119341D0BBCEC004C229D /* mkFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D119251D0BBCEC004C229D /* mkFont.cpp */; };
+		A2D119351D0BBCEC004C229D /* mkImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D119271D0BBCEC004C229D /* mkImage.cpp */; };
+		A2D119361D0BBCEC004C229D /* mkMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D119291D0BBCEC004C229D /* mkMath.cpp */; };
+		A2D119371D0BBCEC004C229D /* mkPaint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D1192B1D0BBCEC004C229D /* mkPaint.cpp */; };
+		A2D119381D0BBCEC004C229D /* mkParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D1192D1D0BBCEC004C229D /* mkParameter.cpp */; };
+		A2D119391D0BBCEC004C229D /* mkPath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D1192E1D0BBCEC004C229D /* mkPath.cpp */; };
+		A2D1193A1D0BBCEC004C229D /* mkVGU.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D119301D0BBCEC004C229D /* mkVGU.cpp */; };
+		A2D11A0B1D0C3311004C229D /* JCBufferManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D11A071D0C3311004C229D /* JCBufferManager.cpp */; };
+		A2D11A0C1D0C3311004C229D /* JCShaderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D11A091D0C3311004C229D /* JCShaderManager.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A2D1182E1D0BB25E004C229D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				A2D118341D0BB25E004C229D /* render.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		5E7AB4D91DD2D269001AE49F /* JCParticleData2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCParticleData2D.cpp; path = ../../../source/render/Particle2D/JCParticleData2D.cpp; sourceTree = "<group>"; };
+		5E7AB4DA1DD2D269001AE49F /* JCParticleData2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCParticleData2D.h; path = ../../../source/render/Particle2D/JCParticleData2D.h; sourceTree = "<group>"; };
+		5E7AB4DB1DD2D269001AE49F /* JCParticleSetting2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCParticleSetting2D.cpp; path = ../../../source/render/Particle2D/JCParticleSetting2D.cpp; sourceTree = "<group>"; };
+		5E7AB4DC1DD2D269001AE49F /* JCParticleSetting2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCParticleSetting2D.h; path = ../../../source/render/Particle2D/JCParticleSetting2D.h; sourceTree = "<group>"; };
+		5E7AB4DD1DD2D269001AE49F /* JCParticleTemplate2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCParticleTemplate2D.cpp; path = ../../../source/render/Particle2D/JCParticleTemplate2D.cpp; sourceTree = "<group>"; };
+		5E7AB4DE1DD2D269001AE49F /* JCParticleTemplate2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCParticleTemplate2D.h; path = ../../../source/render/Particle2D/JCParticleTemplate2D.h; sourceTree = "<group>"; };
+		5E7AB4DF1DD2D269001AE49F /* JCParticleTemplate2DCmdDispath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCParticleTemplate2DCmdDispath.cpp; path = ../../../source/render/Particle2D/JCParticleTemplate2DCmdDispath.cpp; sourceTree = "<group>"; };
+		5E7AB4E01DD2D269001AE49F /* JCParticleTemplate2DCmdDispath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCParticleTemplate2DCmdDispath.h; path = ../../../source/render/Particle2D/JCParticleTemplate2DCmdDispath.h; sourceTree = "<group>"; };
+		9DFB1F631D3733C1006D31AD /* JCImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCImage.cpp; path = ../../../source/render/Image/JCImage.cpp; sourceTree = "<group>"; };
+		9DFB1F641D3733C1006D31AD /* JCImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCImage.h; path = ../../../source/render/Image/JCImage.h; sourceTree = "<group>"; };
+		A23581991D51910400C2E4FF /* JCGraphicsWordInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCGraphicsWordInfo.cpp; path = ../../../source/render/Node/JCGraphicsWordInfo.cpp; sourceTree = "<group>"; };
+		A235819A1D51910400C2E4FF /* JCGraphicsWordInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCGraphicsWordInfo.h; path = ../../../source/render/Node/JCGraphicsWordInfo.h; sourceTree = "<group>"; };
+		A293D48C1D193DA400D65D4D /* JCGraphics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCGraphics.cpp; path = ../../../source/render/Node/JCGraphics.cpp; sourceTree = "<group>"; };
+		A293D48D1D193DA400D65D4D /* JCGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCGraphics.h; path = ../../../source/render/Node/JCGraphics.h; sourceTree = "<group>"; };
+		A293D48E1D193DA400D65D4D /* JCGraphicsCmdDispath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCGraphicsCmdDispath.cpp; path = ../../../source/render/Node/JCGraphicsCmdDispath.cpp; sourceTree = "<group>"; };
+		A293D48F1D193DA400D65D4D /* JCGraphicsCmdDispath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCGraphicsCmdDispath.h; path = ../../../source/render/Node/JCGraphicsCmdDispath.h; sourceTree = "<group>"; };
+		A293D4901D193DA400D65D4D /* JCNode2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCNode2D.cpp; path = ../../../source/render/Node/JCNode2D.cpp; sourceTree = "<group>"; };
+		A293D4911D193DA400D65D4D /* JCNode2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCNode2D.h; path = ../../../source/render/Node/JCNode2D.h; sourceTree = "<group>"; };
+		A293D4921D193DA400D65D4D /* JCNode2DCmdDispath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCNode2DCmdDispath.cpp; path = ../../../source/render/Node/JCNode2DCmdDispath.cpp; sourceTree = "<group>"; };
+		A293D4931D193DA400D65D4D /* JCNode2DCmdDispath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCNode2DCmdDispath.h; path = ../../../source/render/Node/JCNode2DCmdDispath.h; sourceTree = "<group>"; };
+		A293D4941D193DA400D65D4D /* JCNode2DRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCNode2DRenderer.cpp; path = ../../../source/render/Node/JCNode2DRenderer.cpp; sourceTree = "<group>"; };
+		A293D4951D193DA400D65D4D /* JCNode2DRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCNode2DRenderer.h; path = ../../../source/render/Node/JCNode2DRenderer.h; sourceTree = "<group>"; };
+		A293D4961D193DA400D65D4D /* JCNodeStyle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCNodeStyle.cpp; path = ../../../source/render/Node/JCNodeStyle.cpp; sourceTree = "<group>"; };
+		A293D4971D193DA400D65D4D /* JCNodeStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCNodeStyle.h; path = ../../../source/render/Node/JCNodeStyle.h; sourceTree = "<group>"; };
+		A2BCED241E2376C2003ABF33 /* JCNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCNode.cpp; path = ../../../source/render/Node/JCNode.cpp; sourceTree = "<group>"; };
+		A2BCED251E2376C2003ABF33 /* JCNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCNode.h; path = ../../../source/render/Node/JCNode.h; sourceTree = "<group>"; };
+		A2D118301D0BB25E004C229D /* librender.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = librender.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2D118331D0BB25E004C229D /* render.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = render.h; sourceTree = "<group>"; };
+		A2D118351D0BB25E004C229D /* render.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = render.m; sourceTree = "<group>"; };
+		A2D118461D0BB61A004C229D /* JCHtml5Context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCHtml5Context.cpp; path = ../../../source/render/Html5Render/JCHtml5Context.cpp; sourceTree = "<group>"; };
+		A2D118471D0BB61A004C229D /* JCHtml5Context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCHtml5Context.h; path = ../../../source/render/Html5Render/JCHtml5Context.h; sourceTree = "<group>"; };
+		A2D118481D0BB61A004C229D /* JCHtml5Render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCHtml5Render.cpp; path = ../../../source/render/Html5Render/JCHtml5Render.cpp; sourceTree = "<group>"; };
+		A2D118491D0BB61A004C229D /* JCHtml5Render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCHtml5Render.h; path = ../../../source/render/Html5Render/JCHtml5Render.h; sourceTree = "<group>"; };
+		A2D1184A1D0BB61A004C229D /* JCHtml5RenderManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCHtml5RenderManager.cpp; path = ../../../source/render/Html5Render/JCHtml5RenderManager.cpp; sourceTree = "<group>"; };
+		A2D1184B1D0BB61A004C229D /* JCHtml5RenderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCHtml5RenderManager.h; path = ../../../source/render/Html5Render/JCHtml5RenderManager.h; sourceTree = "<group>"; };
+		A2D118501D0BB635004C229D /* JCImageManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCImageManager.cpp; path = ../../../source/render/Image/JCImageManager.cpp; sourceTree = "<group>"; };
+		A2D118511D0BB635004C229D /* JCImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCImageManager.h; path = ../../../source/render/Image/JCImageManager.h; sourceTree = "<group>"; };
+		A2D118531D0BB6B7004C229D /* JCNodeTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCNodeTest.cpp; path = ../../../source/render/NodeRender/JCNodeTest.cpp; sourceTree = "<group>"; };
+		A2D118541D0BB6B7004C229D /* JCNodeTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCNodeTest.h; path = ../../../source/render/NodeRender/JCNodeTest.h; sourceTree = "<group>"; };
+		A2D118561D0BB6F1004C229D /* JCPerfHUD.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCPerfHUD.cpp; path = ../../../source/render/Performance/JCPerfHUD.cpp; sourceTree = "<group>"; };
+		A2D118571D0BB6F1004C229D /* JCPerfHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCPerfHUD.h; path = ../../../source/render/Performance/JCPerfHUD.h; sourceTree = "<group>"; };
+		A2D118591D0BB779004C229D /* JCVBOManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCVBOManager.cpp; path = ../../../source/render/RenderUtil/JCVBOManager.cpp; sourceTree = "<group>"; };
+		A2D1185A1D0BB779004C229D /* JCVBOManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCVBOManager.h; path = ../../../source/render/RenderUtil/JCVBOManager.h; sourceTree = "<group>"; };
+		A2D1185C1D0BB79C004C229D /* JCContextSaveData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCContextSaveData.cpp; path = ../../../source/render/SaveData/JCContextSaveData.cpp; sourceTree = "<group>"; };
+		A2D1185D1D0BB79C004C229D /* JCContextSaveData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCContextSaveData.h; path = ../../../source/render/SaveData/JCContextSaveData.h; sourceTree = "<group>"; };
+		A2D1185F1D0BB7AD004C229D /* JCTextMemoryCanvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCTextMemoryCanvas.cpp; path = ../../../source/render/Text/JCTextMemoryCanvas.cpp; sourceTree = "<group>"; };
+		A2D118601D0BB7AD004C229D /* JCTextMemoryCanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCTextMemoryCanvas.h; path = ../../../source/render/Text/JCTextMemoryCanvas.h; sourceTree = "<group>"; };
+		A2D118621D0BB7C3004C229D /* JCIDGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCIDGenerator.cpp; path = ../../../source/render/WebGLRender/JCIDGenerator.cpp; sourceTree = "<group>"; };
+		A2D118631D0BB7C3004C229D /* JCIDGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCIDGenerator.h; path = ../../../source/render/WebGLRender/JCIDGenerator.h; sourceTree = "<group>"; };
+		A2D118641D0BB7C3004C229D /* JCProgramLocationTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCProgramLocationTable.cpp; path = ../../../source/render/WebGLRender/JCProgramLocationTable.cpp; sourceTree = "<group>"; };
+		A2D118651D0BB7C3004C229D /* JCProgramLocationTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCProgramLocationTable.h; path = ../../../source/render/WebGLRender/JCProgramLocationTable.h; sourceTree = "<group>"; };
+		A2D118661D0BB7C3004C229D /* JCWebGLRender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCWebGLRender.cpp; path = ../../../source/render/WebGLRender/JCWebGLRender.cpp; sourceTree = "<group>"; };
+		A2D118671D0BB7C3004C229D /* JCWebGLRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCWebGLRender.h; path = ../../../source/render/WebGLRender/JCWebGLRender.h; sourceTree = "<group>"; };
+		A2D118681D0BB7C3004C229D /* WebGL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WebGL.cpp; path = ../../../source/render/WebGLRender/WebGL.cpp; sourceTree = "<group>"; };
+		A2D118691D0BB7C3004C229D /* WebGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebGL.h; path = ../../../source/render/WebGLRender/WebGL.h; sourceTree = "<group>"; };
+		A2D118A01D0BB987004C229D /* Attribute.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Attribute.cpp; path = "../../../source/render/MonkVG/gles2-bc/OpenGLES20/Attribute.cpp"; sourceTree = "<group>"; };
+		A2D118A11D0BB987004C229D /* Attribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Attribute.h; path = "../../../source/render/MonkVG/gles2-bc/OpenGLES20/Attribute.h"; sourceTree = "<group>"; };
+		A2D118A21D0BB987004C229D /* MatrixStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MatrixStack.cpp; path = "../../../source/render/MonkVG/gles2-bc/OpenGLES20/MatrixStack.cpp"; sourceTree = "<group>"; };
+		A2D118A31D0BB987004C229D /* MatrixStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatrixStack.h; path = "../../../source/render/MonkVG/gles2-bc/OpenGLES20/MatrixStack.h"; sourceTree = "<group>"; };
+		A2D118A41D0BB987004C229D /* OpenGLES20Context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OpenGLES20Context.cpp; path = "../../../source/render/MonkVG/gles2-bc/OpenGLES20/OpenGLES20Context.cpp"; sourceTree = "<group>"; };
+		A2D118A51D0BB987004C229D /* OpenGLES20Context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLES20Context.h; path = "../../../source/render/MonkVG/gles2-bc/OpenGLES20/OpenGLES20Context.h"; sourceTree = "<group>"; };
+		A2D118A61D0BB987004C229D /* OpenGLES20Implementation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OpenGLES20Implementation.cpp; path = "../../../source/render/MonkVG/gles2-bc/OpenGLES20/OpenGLES20Implementation.cpp"; sourceTree = "<group>"; };
+		A2D118A71D0BB987004C229D /* OpenGLES20Implementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLES20Implementation.h; path = "../../../source/render/MonkVG/gles2-bc/OpenGLES20/OpenGLES20Implementation.h"; sourceTree = "<group>"; };
+		A2D118A81D0BB987004C229D /* OpenGLESState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OpenGLESState.cpp; path = "../../../source/render/MonkVG/gles2-bc/OpenGLES20/OpenGLESState.cpp"; sourceTree = "<group>"; };
+		A2D118A91D0BB987004C229D /* OpenGLESState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLESState.h; path = "../../../source/render/MonkVG/gles2-bc/OpenGLES20/OpenGLESState.h"; sourceTree = "<group>"; };
+		A2D118AA1D0BB987004C229D /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Shader.cpp; path = "../../../source/render/MonkVG/gles2-bc/OpenGLES20/Shader.cpp"; sourceTree = "<group>"; };
+		A2D118AB1D0BB987004C229D /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Shader.h; path = "../../../source/render/MonkVG/gles2-bc/OpenGLES20/Shader.h"; sourceTree = "<group>"; };
+		A2D118AC1D0BB987004C229D /* ShaderFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ShaderFile.cpp; path = "../../../source/render/MonkVG/gles2-bc/OpenGLES20/ShaderFile.cpp"; sourceTree = "<group>"; };
+		A2D118AD1D0BB987004C229D /* ShaderFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShaderFile.h; path = "../../../source/render/MonkVG/gles2-bc/OpenGLES20/ShaderFile.h"; sourceTree = "<group>"; };
+		A2D118AE1D0BB987004C229D /* ShaderProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ShaderProgram.cpp; path = "../../../source/render/MonkVG/gles2-bc/OpenGLES20/ShaderProgram.cpp"; sourceTree = "<group>"; };
+		A2D118AF1D0BB987004C229D /* ShaderProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShaderProgram.h; path = "../../../source/render/MonkVG/gles2-bc/OpenGLES20/ShaderProgram.h"; sourceTree = "<group>"; };
+		A2D118B01D0BB987004C229D /* ShaderSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ShaderSource.cpp; path = "../../../source/render/MonkVG/gles2-bc/OpenGLES20/ShaderSource.cpp"; sourceTree = "<group>"; };
+		A2D118B11D0BB987004C229D /* ShaderSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShaderSource.h; path = "../../../source/render/MonkVG/gles2-bc/OpenGLES20/ShaderSource.h"; sourceTree = "<group>"; };
+		A2D118B21D0BB987004C229D /* Uniform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Uniform.cpp; path = "../../../source/render/MonkVG/gles2-bc/OpenGLES20/Uniform.cpp"; sourceTree = "<group>"; };
+		A2D118B31D0BB987004C229D /* Uniform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Uniform.h; path = "../../../source/render/MonkVG/gles2-bc/OpenGLES20/Uniform.h"; sourceTree = "<group>"; };
+		A2D118BE1D0BB9C1004C229D /* OpenGLESConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OpenGLESConfig.cpp; path = "../../../source/render/MonkVG/gles2-bc/OpenGLESConfig.cpp"; sourceTree = "<group>"; };
+		A2D118BF1D0BB9C1004C229D /* OpenGLESConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLESConfig.h; path = "../../../source/render/MonkVG/gles2-bc/OpenGLESConfig.h"; sourceTree = "<group>"; };
+		A2D118C01D0BB9C1004C229D /* OpenGLESContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OpenGLESContext.cpp; path = "../../../source/render/MonkVG/gles2-bc/OpenGLESContext.cpp"; sourceTree = "<group>"; };
+		A2D118C11D0BB9C1004C229D /* OpenGLESContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLESContext.h; path = "../../../source/render/MonkVG/gles2-bc/OpenGLESContext.h"; sourceTree = "<group>"; };
+		A2D118C21D0BB9C1004C229D /* OpenGLESFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OpenGLESFile.cpp; path = "../../../source/render/MonkVG/gles2-bc/OpenGLESFile.cpp"; sourceTree = "<group>"; };
+		A2D118C31D0BB9C1004C229D /* OpenGLESFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLESFile.h; path = "../../../source/render/MonkVG/gles2-bc/OpenGLESFile.h"; sourceTree = "<group>"; };
+		A2D118C41D0BB9C1004C229D /* OpenGLESImplementation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OpenGLESImplementation.cpp; path = "../../../source/render/MonkVG/gles2-bc/OpenGLESImplementation.cpp"; sourceTree = "<group>"; };
+		A2D118C51D0BB9C1004C229D /* OpenGLESImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLESImplementation.h; path = "../../../source/render/MonkVG/gles2-bc/OpenGLESImplementation.h"; sourceTree = "<group>"; };
+		A2D118C61D0BB9C1004C229D /* OpenGLESMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLESMath.h; path = "../../../source/render/MonkVG/gles2-bc/OpenGLESMath.h"; sourceTree = "<group>"; };
+		A2D118C71D0BB9C1004C229D /* OpenGLESPlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLESPlatform.h; path = "../../../source/render/MonkVG/gles2-bc/OpenGLESPlatform.h"; sourceTree = "<group>"; };
+		A2D118C81D0BB9C1004C229D /* OpenGLESString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OpenGLESString.cpp; path = "../../../source/render/MonkVG/gles2-bc/OpenGLESString.cpp"; sourceTree = "<group>"; };
+		A2D118C91D0BB9C1004C229D /* OpenGLESString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLESString.h; path = "../../../source/render/MonkVG/gles2-bc/OpenGLESString.h"; sourceTree = "<group>"; };
+		A2D118CA1D0BB9C1004C229D /* OpenGLESUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OpenGLESUtil.cpp; path = "../../../source/render/MonkVG/gles2-bc/OpenGLESUtil.cpp"; sourceTree = "<group>"; };
+		A2D118CB1D0BB9C1004C229D /* OpenGLESUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLESUtil.h; path = "../../../source/render/MonkVG/gles2-bc/OpenGLESUtil.h"; sourceTree = "<group>"; };
+		A2D118D41D0BBB48004C229D /* error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = error.c; path = ../../../source/render/MonkVG/glu/libutil/error.c; sourceTree = "<group>"; };
+		A2D118D51D0BBB48004C229D /* glue.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = glue.c; path = ../../../source/render/MonkVG/glu/libutil/glue.c; sourceTree = "<group>"; };
+		A2D118D61D0BBB48004C229D /* gluint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gluint.h; path = ../../../source/render/MonkVG/glu/libutil/gluint.h; sourceTree = "<group>"; };
+		A2D118D71D0BBB48004C229D /* project.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = project.c; path = ../../../source/render/MonkVG/glu/libutil/project.c; sourceTree = "<group>"; };
+		A2D118D81D0BBB48004C229D /* registry.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = registry.c; path = ../../../source/render/MonkVG/glu/libutil/registry.c; sourceTree = "<group>"; };
+		A2D118DD1D0BBBA7004C229D /* dict-list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "dict-list.h"; path = "../../../source/render/MonkVG/glu/libtess/dict-list.h"; sourceTree = "<group>"; };
+		A2D118DE1D0BBBA7004C229D /* dict.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = dict.c; path = ../../../source/render/MonkVG/glu/libtess/dict.c; sourceTree = "<group>"; };
+		A2D118DF1D0BBBA7004C229D /* dict.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dict.h; path = ../../../source/render/MonkVG/glu/libtess/dict.h; sourceTree = "<group>"; };
+		A2D118E01D0BBBA7004C229D /* geom.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = geom.c; path = ../../../source/render/MonkVG/glu/libtess/geom.c; sourceTree = "<group>"; };
+		A2D118E11D0BBBA7004C229D /* geom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = geom.h; path = ../../../source/render/MonkVG/glu/libtess/geom.h; sourceTree = "<group>"; };
+		A2D118E21D0BBBA7004C229D /* memalloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = memalloc.c; path = ../../../source/render/MonkVG/glu/libtess/memalloc.c; sourceTree = "<group>"; };
+		A2D118E31D0BBBA7004C229D /* memalloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = memalloc.h; path = ../../../source/render/MonkVG/glu/libtess/memalloc.h; sourceTree = "<group>"; };
+		A2D118E41D0BBBA7004C229D /* mesh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = mesh.c; path = ../../../source/render/MonkVG/glu/libtess/mesh.c; sourceTree = "<group>"; };
+		A2D118E51D0BBBA7004C229D /* mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh.h; path = ../../../source/render/MonkVG/glu/libtess/mesh.h; sourceTree = "<group>"; };
+		A2D118E61D0BBBA7004C229D /* normal.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = normal.c; path = ../../../source/render/MonkVG/glu/libtess/normal.c; sourceTree = "<group>"; };
+		A2D118E71D0BBBA7004C229D /* normal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = normal.h; path = ../../../source/render/MonkVG/glu/libtess/normal.h; sourceTree = "<group>"; };
+		A2D118E81D0BBBA7004C229D /* priorityq-heap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "priorityq-heap.c"; path = "../../../source/render/MonkVG/glu/libtess/priorityq-heap.c"; sourceTree = "<group>"; };
+		A2D118E91D0BBBA7004C229D /* priorityq-heap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "priorityq-heap.h"; path = "../../../source/render/MonkVG/glu/libtess/priorityq-heap.h"; sourceTree = "<group>"; };
+		A2D118EA1D0BBBA7004C229D /* priorityq-sort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "priorityq-sort.h"; path = "../../../source/render/MonkVG/glu/libtess/priorityq-sort.h"; sourceTree = "<group>"; };
+		A2D118EB1D0BBBA7004C229D /* priorityq.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = priorityq.c; path = ../../../source/render/MonkVG/glu/libtess/priorityq.c; sourceTree = "<group>"; };
+		A2D118EC1D0BBBA7004C229D /* priorityq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = priorityq.h; path = ../../../source/render/MonkVG/glu/libtess/priorityq.h; sourceTree = "<group>"; };
+		A2D118ED1D0BBBA7004C229D /* render.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = render.c; path = ../../../source/render/MonkVG/glu/libtess/render.c; sourceTree = "<group>"; };
+		A2D118EE1D0BBBA7004C229D /* render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = render.h; path = ../../../source/render/MonkVG/glu/libtess/render.h; sourceTree = "<group>"; };
+		A2D118EF1D0BBBA7004C229D /* sweep.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sweep.c; path = ../../../source/render/MonkVG/glu/libtess/sweep.c; sourceTree = "<group>"; };
+		A2D118F01D0BBBA7004C229D /* sweep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sweep.h; path = ../../../source/render/MonkVG/glu/libtess/sweep.h; sourceTree = "<group>"; };
+		A2D118F11D0BBBA7004C229D /* tess.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = tess.c; path = ../../../source/render/MonkVG/glu/libtess/tess.c; sourceTree = "<group>"; };
+		A2D118F21D0BBBA7004C229D /* tess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tess.h; path = ../../../source/render/MonkVG/glu/libtess/tess.h; sourceTree = "<group>"; };
+		A2D118F31D0BBBA7004C229D /* tessmono.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = tessmono.c; path = ../../../source/render/MonkVG/glu/libtess/tessmono.c; sourceTree = "<group>"; };
+		A2D118F41D0BBBA7004C229D /* tessmono.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tessmono.h; path = ../../../source/render/MonkVG/glu/libtess/tessmono.h; sourceTree = "<group>"; };
+		A2D119021D0BBC95004C229D /* glBatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = glBatch.cpp; path = ../../../source/render/MonkVG/src/opengl/glBatch.cpp; sourceTree = "<group>"; };
+		A2D119031D0BBC95004C229D /* glBatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glBatch.h; path = ../../../source/render/MonkVG/src/opengl/glBatch.h; sourceTree = "<group>"; };
+		A2D119041D0BBC95004C229D /* glContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = glContext.cpp; path = ../../../source/render/MonkVG/src/opengl/glContext.cpp; sourceTree = "<group>"; };
+		A2D119051D0BBC95004C229D /* glContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glContext.h; path = ../../../source/render/MonkVG/src/opengl/glContext.h; sourceTree = "<group>"; };
+		A2D119061D0BBC95004C229D /* glFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = glFont.cpp; path = ../../../source/render/MonkVG/src/opengl/glFont.cpp; sourceTree = "<group>"; };
+		A2D119071D0BBC95004C229D /* glFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glFont.h; path = ../../../source/render/MonkVG/src/opengl/glFont.h; sourceTree = "<group>"; };
+		A2D119081D0BBC95004C229D /* glImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = glImage.cpp; path = ../../../source/render/MonkVG/src/opengl/glImage.cpp; sourceTree = "<group>"; };
+		A2D119091D0BBC95004C229D /* glImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glImage.h; path = ../../../source/render/MonkVG/src/opengl/glImage.h; sourceTree = "<group>"; };
+		A2D1190A1D0BBC95004C229D /* glPaint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = glPaint.cpp; path = ../../../source/render/MonkVG/src/opengl/glPaint.cpp; sourceTree = "<group>"; };
+		A2D1190B1D0BBC95004C229D /* glPaint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glPaint.h; path = ../../../source/render/MonkVG/src/opengl/glPaint.h; sourceTree = "<group>"; };
+		A2D1190C1D0BBC95004C229D /* glPath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = glPath.cpp; path = ../../../source/render/MonkVG/src/opengl/glPath.cpp; sourceTree = "<group>"; };
+		A2D1190D1D0BBC95004C229D /* glPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glPath.h; path = ../../../source/render/MonkVG/src/opengl/glPath.h; sourceTree = "<group>"; };
+		A2D1190E1D0BBC95004C229D /* glPlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glPlatform.h; path = ../../../source/render/MonkVG/src/opengl/glPlatform.h; sourceTree = "<group>"; };
+		A2D119151D0BBCB7004C229D /* layaContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = layaContext.cpp; path = ../../../source/render/MonkVG/src/laya/layaContext.cpp; sourceTree = "<group>"; };
+		A2D119161D0BBCB7004C229D /* layaContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = layaContext.h; path = ../../../source/render/MonkVG/src/laya/layaContext.h; sourceTree = "<group>"; };
+		A2D119171D0BBCB7004C229D /* layaPaint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = layaPaint.cpp; path = ../../../source/render/MonkVG/src/laya/layaPaint.cpp; sourceTree = "<group>"; };
+		A2D119181D0BBCB7004C229D /* layaPaint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = layaPaint.h; path = ../../../source/render/MonkVG/src/laya/layaPaint.h; sourceTree = "<group>"; };
+		A2D119191D0BBCB7004C229D /* layaPath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = layaPath.cpp; path = ../../../source/render/MonkVG/src/laya/layaPath.cpp; sourceTree = "<group>"; };
+		A2D1191A1D0BBCB7004C229D /* layaPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = layaPath.h; path = ../../../source/render/MonkVG/src/laya/layaPath.h; sourceTree = "<group>"; };
+		A2D1191E1D0BBCEC004C229D /* mkBaseObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mkBaseObject.cpp; path = ../../../source/render/MonkVG/src/mkBaseObject.cpp; sourceTree = "<group>"; };
+		A2D1191F1D0BBCEC004C229D /* mkBaseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mkBaseObject.h; path = ../../../source/render/MonkVG/src/mkBaseObject.h; sourceTree = "<group>"; };
+		A2D119201D0BBCEC004C229D /* mkBatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mkBatch.cpp; path = ../../../source/render/MonkVG/src/mkBatch.cpp; sourceTree = "<group>"; };
+		A2D119211D0BBCEC004C229D /* mkBatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mkBatch.h; path = ../../../source/render/MonkVG/src/mkBatch.h; sourceTree = "<group>"; };
+		A2D119221D0BBCEC004C229D /* mkCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mkCommon.h; path = ../../../source/render/MonkVG/src/mkCommon.h; sourceTree = "<group>"; };
+		A2D119231D0BBCEC004C229D /* mkContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mkContext.cpp; path = ../../../source/render/MonkVG/src/mkContext.cpp; sourceTree = "<group>"; };
+		A2D119241D0BBCEC004C229D /* mkContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mkContext.h; path = ../../../source/render/MonkVG/src/mkContext.h; sourceTree = "<group>"; };
+		A2D119251D0BBCEC004C229D /* mkFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mkFont.cpp; path = ../../../source/render/MonkVG/src/mkFont.cpp; sourceTree = "<group>"; };
+		A2D119261D0BBCEC004C229D /* mkFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mkFont.h; path = ../../../source/render/MonkVG/src/mkFont.h; sourceTree = "<group>"; };
+		A2D119271D0BBCEC004C229D /* mkImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mkImage.cpp; path = ../../../source/render/MonkVG/src/mkImage.cpp; sourceTree = "<group>"; };
+		A2D119281D0BBCEC004C229D /* mkImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mkImage.h; path = ../../../source/render/MonkVG/src/mkImage.h; sourceTree = "<group>"; };
+		A2D119291D0BBCEC004C229D /* mkMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mkMath.cpp; path = ../../../source/render/MonkVG/src/mkMath.cpp; sourceTree = "<group>"; };
+		A2D1192A1D0BBCEC004C229D /* mkMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mkMath.h; path = ../../../source/render/MonkVG/src/mkMath.h; sourceTree = "<group>"; };
+		A2D1192B1D0BBCEC004C229D /* mkPaint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mkPaint.cpp; path = ../../../source/render/MonkVG/src/mkPaint.cpp; sourceTree = "<group>"; };
+		A2D1192C1D0BBCEC004C229D /* mkPaint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mkPaint.h; path = ../../../source/render/MonkVG/src/mkPaint.h; sourceTree = "<group>"; };
+		A2D1192D1D0BBCEC004C229D /* mkParameter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mkParameter.cpp; path = ../../../source/render/MonkVG/src/mkParameter.cpp; sourceTree = "<group>"; };
+		A2D1192E1D0BBCEC004C229D /* mkPath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mkPath.cpp; path = ../../../source/render/MonkVG/src/mkPath.cpp; sourceTree = "<group>"; };
+		A2D1192F1D0BBCEC004C229D /* mkPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mkPath.h; path = ../../../source/render/MonkVG/src/mkPath.h; sourceTree = "<group>"; };
+		A2D119301D0BBCEC004C229D /* mkVGU.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mkVGU.cpp; path = ../../../source/render/MonkVG/src/mkVGU.cpp; sourceTree = "<group>"; };
+		A2D11A071D0C3311004C229D /* JCBufferManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCBufferManager.cpp; path = ../../../source/render/Manager/JCBufferManager.cpp; sourceTree = "<group>"; };
+		A2D11A081D0C3311004C229D /* JCBufferManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCBufferManager.h; path = ../../../source/render/Manager/JCBufferManager.h; sourceTree = "<group>"; };
+		A2D11A091D0C3311004C229D /* JCShaderManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCShaderManager.cpp; path = ../../../source/render/Manager/JCShaderManager.cpp; sourceTree = "<group>"; };
+		A2D11A0A1D0C3311004C229D /* JCShaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCShaderManager.h; path = ../../../source/render/Manager/JCShaderManager.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A2D1182D1D0BB25E004C229D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5E7AB4D81DD2D247001AE49F /* Particle2D */ = {
+			isa = PBXGroup;
+			children = (
+				5E7AB4D91DD2D269001AE49F /* JCParticleData2D.cpp */,
+				5E7AB4DA1DD2D269001AE49F /* JCParticleData2D.h */,
+				5E7AB4DB1DD2D269001AE49F /* JCParticleSetting2D.cpp */,
+				5E7AB4DC1DD2D269001AE49F /* JCParticleSetting2D.h */,
+				5E7AB4DD1DD2D269001AE49F /* JCParticleTemplate2D.cpp */,
+				5E7AB4DE1DD2D269001AE49F /* JCParticleTemplate2D.h */,
+				5E7AB4DF1DD2D269001AE49F /* JCParticleTemplate2DCmdDispath.cpp */,
+				5E7AB4E01DD2D269001AE49F /* JCParticleTemplate2DCmdDispath.h */,
+			);
+			name = Particle2D;
+			sourceTree = "<group>";
+		};
+		A293D48B1D193D9100D65D4D /* Node */ = {
+			isa = PBXGroup;
+			children = (
+				A2BCED241E2376C2003ABF33 /* JCNode.cpp */,
+				A2BCED251E2376C2003ABF33 /* JCNode.h */,
+				A23581991D51910400C2E4FF /* JCGraphicsWordInfo.cpp */,
+				A235819A1D51910400C2E4FF /* JCGraphicsWordInfo.h */,
+				A293D48C1D193DA400D65D4D /* JCGraphics.cpp */,
+				A293D48D1D193DA400D65D4D /* JCGraphics.h */,
+				A293D48E1D193DA400D65D4D /* JCGraphicsCmdDispath.cpp */,
+				A293D48F1D193DA400D65D4D /* JCGraphicsCmdDispath.h */,
+				A293D4901D193DA400D65D4D /* JCNode2D.cpp */,
+				A293D4911D193DA400D65D4D /* JCNode2D.h */,
+				A293D4921D193DA400D65D4D /* JCNode2DCmdDispath.cpp */,
+				A293D4931D193DA400D65D4D /* JCNode2DCmdDispath.h */,
+				A293D4941D193DA400D65D4D /* JCNode2DRenderer.cpp */,
+				A293D4951D193DA400D65D4D /* JCNode2DRenderer.h */,
+				A293D4961D193DA400D65D4D /* JCNodeStyle.cpp */,
+				A293D4971D193DA400D65D4D /* JCNodeStyle.h */,
+			);
+			name = Node;
+			sourceTree = "<group>";
+		};
+		A2D118271D0BB25E004C229D = {
+			isa = PBXGroup;
+			children = (
+				A2D1183C1D0BB442004C229D /* Source */,
+				A2D118321D0BB25E004C229D /* render */,
+				A2D118311D0BB25E004C229D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A2D118311D0BB25E004C229D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A2D118301D0BB25E004C229D /* librender.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A2D118321D0BB25E004C229D /* render */ = {
+			isa = PBXGroup;
+			children = (
+				A2D118331D0BB25E004C229D /* render.h */,
+				A2D118351D0BB25E004C229D /* render.m */,
+			);
+			path = render;
+			sourceTree = "<group>";
+		};
+		A2D1183C1D0BB442004C229D /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				5E7AB4D81DD2D247001AE49F /* Particle2D */,
+				A293D48B1D193D9100D65D4D /* Node */,
+				A2D11A061D0C32F0004C229D /* Manager */,
+				A2D118451D0BB546004C229D /* MonkVG */,
+				A2D118441D0BB502004C229D /* WebGLRender */,
+				A2D118431D0BB4F9004C229D /* Text */,
+				A2D118421D0BB4F2004C229D /* SaveData */,
+				A2D118411D0BB4E3004C229D /* RenderUtil */,
+				A2D118401D0BB4D0004C229D /* Perfromance */,
+				A2D1183F1D0BB4A4004C229D /* NodeRender */,
+				A2D1183E1D0BB48B004C229D /* Image */,
+				A2D1183D1D0BB481004C229D /* Html5Render */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		A2D1183D1D0BB481004C229D /* Html5Render */ = {
+			isa = PBXGroup;
+			children = (
+				A2D118461D0BB61A004C229D /* JCHtml5Context.cpp */,
+				A2D118471D0BB61A004C229D /* JCHtml5Context.h */,
+				A2D118481D0BB61A004C229D /* JCHtml5Render.cpp */,
+				A2D118491D0BB61A004C229D /* JCHtml5Render.h */,
+				A2D1184A1D0BB61A004C229D /* JCHtml5RenderManager.cpp */,
+				A2D1184B1D0BB61A004C229D /* JCHtml5RenderManager.h */,
+			);
+			name = Html5Render;
+			sourceTree = "<group>";
+		};
+		A2D1183E1D0BB48B004C229D /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				9DFB1F631D3733C1006D31AD /* JCImage.cpp */,
+				9DFB1F641D3733C1006D31AD /* JCImage.h */,
+				A2D118501D0BB635004C229D /* JCImageManager.cpp */,
+				A2D118511D0BB635004C229D /* JCImageManager.h */,
+			);
+			name = Image;
+			sourceTree = "<group>";
+		};
+		A2D1183F1D0BB4A4004C229D /* NodeRender */ = {
+			isa = PBXGroup;
+			children = (
+				A2D118531D0BB6B7004C229D /* JCNodeTest.cpp */,
+				A2D118541D0BB6B7004C229D /* JCNodeTest.h */,
+			);
+			name = NodeRender;
+			sourceTree = "<group>";
+		};
+		A2D118401D0BB4D0004C229D /* Perfromance */ = {
+			isa = PBXGroup;
+			children = (
+				A2D118561D0BB6F1004C229D /* JCPerfHUD.cpp */,
+				A2D118571D0BB6F1004C229D /* JCPerfHUD.h */,
+			);
+			name = Perfromance;
+			sourceTree = "<group>";
+		};
+		A2D118411D0BB4E3004C229D /* RenderUtil */ = {
+			isa = PBXGroup;
+			children = (
+				A2D118591D0BB779004C229D /* JCVBOManager.cpp */,
+				A2D1185A1D0BB779004C229D /* JCVBOManager.h */,
+			);
+			name = RenderUtil;
+			sourceTree = "<group>";
+		};
+		A2D118421D0BB4F2004C229D /* SaveData */ = {
+			isa = PBXGroup;
+			children = (
+				A2D1185C1D0BB79C004C229D /* JCContextSaveData.cpp */,
+				A2D1185D1D0BB79C004C229D /* JCContextSaveData.h */,
+			);
+			name = SaveData;
+			sourceTree = "<group>";
+		};
+		A2D118431D0BB4F9004C229D /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				A2D1185F1D0BB7AD004C229D /* JCTextMemoryCanvas.cpp */,
+				A2D118601D0BB7AD004C229D /* JCTextMemoryCanvas.h */,
+			);
+			name = Text;
+			sourceTree = "<group>";
+		};
+		A2D118441D0BB502004C229D /* WebGLRender */ = {
+			isa = PBXGroup;
+			children = (
+				A2D118621D0BB7C3004C229D /* JCIDGenerator.cpp */,
+				A2D118631D0BB7C3004C229D /* JCIDGenerator.h */,
+				A2D118641D0BB7C3004C229D /* JCProgramLocationTable.cpp */,
+				A2D118651D0BB7C3004C229D /* JCProgramLocationTable.h */,
+				A2D118661D0BB7C3004C229D /* JCWebGLRender.cpp */,
+				A2D118671D0BB7C3004C229D /* JCWebGLRender.h */,
+				A2D118681D0BB7C3004C229D /* WebGL.cpp */,
+				A2D118691D0BB7C3004C229D /* WebGL.h */,
+			);
+			name = WebGLRender;
+			sourceTree = "<group>";
+		};
+		A2D118451D0BB546004C229D /* MonkVG */ = {
+			isa = PBXGroup;
+			children = (
+				A2D118701D0BB7EF004C229D /* src */,
+				A2D1186F1D0BB7EA004C229D /* glu */,
+				A2D1186E1D0BB7DF004C229D /* gles2-bc */,
+			);
+			name = MonkVG;
+			sourceTree = "<group>";
+		};
+		A2D1186E1D0BB7DF004C229D /* gles2-bc */ = {
+			isa = PBXGroup;
+			children = (
+				A2D118BE1D0BB9C1004C229D /* OpenGLESConfig.cpp */,
+				A2D118BF1D0BB9C1004C229D /* OpenGLESConfig.h */,
+				A2D118C01D0BB9C1004C229D /* OpenGLESContext.cpp */,
+				A2D118C11D0BB9C1004C229D /* OpenGLESContext.h */,
+				A2D118C21D0BB9C1004C229D /* OpenGLESFile.cpp */,
+				A2D118C31D0BB9C1004C229D /* OpenGLESFile.h */,
+				A2D118C41D0BB9C1004C229D /* OpenGLESImplementation.cpp */,
+				A2D118C51D0BB9C1004C229D /* OpenGLESImplementation.h */,
+				A2D118C61D0BB9C1004C229D /* OpenGLESMath.h */,
+				A2D118C71D0BB9C1004C229D /* OpenGLESPlatform.h */,
+				A2D118C81D0BB9C1004C229D /* OpenGLESString.cpp */,
+				A2D118C91D0BB9C1004C229D /* OpenGLESString.h */,
+				A2D118CA1D0BB9C1004C229D /* OpenGLESUtil.cpp */,
+				A2D118CB1D0BB9C1004C229D /* OpenGLESUtil.h */,
+				A2D118711D0BB7FF004C229D /* OpenGLES20 */,
+			);
+			name = "gles2-bc";
+			sourceTree = "<group>";
+		};
+		A2D1186F1D0BB7EA004C229D /* glu */ = {
+			isa = PBXGroup;
+			children = (
+				A2D118D31D0BBB22004C229D /* libutil */,
+				A2D118D21D0BBB1B004C229D /* libtess */,
+			);
+			name = glu;
+			sourceTree = "<group>";
+		};
+		A2D118701D0BB7EF004C229D /* src */ = {
+			isa = PBXGroup;
+			children = (
+				A2D1191E1D0BBCEC004C229D /* mkBaseObject.cpp */,
+				A2D1191F1D0BBCEC004C229D /* mkBaseObject.h */,
+				A2D119201D0BBCEC004C229D /* mkBatch.cpp */,
+				A2D119211D0BBCEC004C229D /* mkBatch.h */,
+				A2D119221D0BBCEC004C229D /* mkCommon.h */,
+				A2D119231D0BBCEC004C229D /* mkContext.cpp */,
+				A2D119241D0BBCEC004C229D /* mkContext.h */,
+				A2D119251D0BBCEC004C229D /* mkFont.cpp */,
+				A2D119261D0BBCEC004C229D /* mkFont.h */,
+				A2D119271D0BBCEC004C229D /* mkImage.cpp */,
+				A2D119281D0BBCEC004C229D /* mkImage.h */,
+				A2D119291D0BBCEC004C229D /* mkMath.cpp */,
+				A2D1192A1D0BBCEC004C229D /* mkMath.h */,
+				A2D1192B1D0BBCEC004C229D /* mkPaint.cpp */,
+				A2D1192C1D0BBCEC004C229D /* mkPaint.h */,
+				A2D1192D1D0BBCEC004C229D /* mkParameter.cpp */,
+				A2D1192E1D0BBCEC004C229D /* mkPath.cpp */,
+				A2D1192F1D0BBCEC004C229D /* mkPath.h */,
+				A2D119301D0BBCEC004C229D /* mkVGU.cpp */,
+				A2D119011D0BBBD3004C229D /* opengl */,
+				A2D119001D0BBBCD004C229D /* laya */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		A2D118711D0BB7FF004C229D /* OpenGLES20 */ = {
+			isa = PBXGroup;
+			children = (
+				A2D118A01D0BB987004C229D /* Attribute.cpp */,
+				A2D118A11D0BB987004C229D /* Attribute.h */,
+				A2D118A21D0BB987004C229D /* MatrixStack.cpp */,
+				A2D118A31D0BB987004C229D /* MatrixStack.h */,
+				A2D118A41D0BB987004C229D /* OpenGLES20Context.cpp */,
+				A2D118A51D0BB987004C229D /* OpenGLES20Context.h */,
+				A2D118A61D0BB987004C229D /* OpenGLES20Implementation.cpp */,
+				A2D118A71D0BB987004C229D /* OpenGLES20Implementation.h */,
+				A2D118A81D0BB987004C229D /* OpenGLESState.cpp */,
+				A2D118A91D0BB987004C229D /* OpenGLESState.h */,
+				A2D118AA1D0BB987004C229D /* Shader.cpp */,
+				A2D118AB1D0BB987004C229D /* Shader.h */,
+				A2D118AC1D0BB987004C229D /* ShaderFile.cpp */,
+				A2D118AD1D0BB987004C229D /* ShaderFile.h */,
+				A2D118AE1D0BB987004C229D /* ShaderProgram.cpp */,
+				A2D118AF1D0BB987004C229D /* ShaderProgram.h */,
+				A2D118B01D0BB987004C229D /* ShaderSource.cpp */,
+				A2D118B11D0BB987004C229D /* ShaderSource.h */,
+				A2D118B21D0BB987004C229D /* Uniform.cpp */,
+				A2D118B31D0BB987004C229D /* Uniform.h */,
+			);
+			name = OpenGLES20;
+			sourceTree = "<group>";
+		};
+		A2D118D21D0BBB1B004C229D /* libtess */ = {
+			isa = PBXGroup;
+			children = (
+				A2D118DD1D0BBBA7004C229D /* dict-list.h */,
+				A2D118DE1D0BBBA7004C229D /* dict.c */,
+				A2D118DF1D0BBBA7004C229D /* dict.h */,
+				A2D118E01D0BBBA7004C229D /* geom.c */,
+				A2D118E11D0BBBA7004C229D /* geom.h */,
+				A2D118E21D0BBBA7004C229D /* memalloc.c */,
+				A2D118E31D0BBBA7004C229D /* memalloc.h */,
+				A2D118E41D0BBBA7004C229D /* mesh.c */,
+				A2D118E51D0BBBA7004C229D /* mesh.h */,
+				A2D118E61D0BBBA7004C229D /* normal.c */,
+				A2D118E71D0BBBA7004C229D /* normal.h */,
+				A2D118E81D0BBBA7004C229D /* priorityq-heap.c */,
+				A2D118E91D0BBBA7004C229D /* priorityq-heap.h */,
+				A2D118EA1D0BBBA7004C229D /* priorityq-sort.h */,
+				A2D118EB1D0BBBA7004C229D /* priorityq.c */,
+				A2D118EC1D0BBBA7004C229D /* priorityq.h */,
+				A2D118ED1D0BBBA7004C229D /* render.c */,
+				A2D118EE1D0BBBA7004C229D /* render.h */,
+				A2D118EF1D0BBBA7004C229D /* sweep.c */,
+				A2D118F01D0BBBA7004C229D /* sweep.h */,
+				A2D118F11D0BBBA7004C229D /* tess.c */,
+				A2D118F21D0BBBA7004C229D /* tess.h */,
+				A2D118F31D0BBBA7004C229D /* tessmono.c */,
+				A2D118F41D0BBBA7004C229D /* tessmono.h */,
+			);
+			name = libtess;
+			sourceTree = "<group>";
+		};
+		A2D118D31D0BBB22004C229D /* libutil */ = {
+			isa = PBXGroup;
+			children = (
+				A2D118D41D0BBB48004C229D /* error.c */,
+				A2D118D51D0BBB48004C229D /* glue.c */,
+				A2D118D61D0BBB48004C229D /* gluint.h */,
+				A2D118D71D0BBB48004C229D /* project.c */,
+				A2D118D81D0BBB48004C229D /* registry.c */,
+			);
+			name = libutil;
+			sourceTree = "<group>";
+		};
+		A2D119001D0BBBCD004C229D /* laya */ = {
+			isa = PBXGroup;
+			children = (
+				A2D119151D0BBCB7004C229D /* layaContext.cpp */,
+				A2D119161D0BBCB7004C229D /* layaContext.h */,
+				A2D119171D0BBCB7004C229D /* layaPaint.cpp */,
+				A2D119181D0BBCB7004C229D /* layaPaint.h */,
+				A2D119191D0BBCB7004C229D /* layaPath.cpp */,
+				A2D1191A1D0BBCB7004C229D /* layaPath.h */,
+			);
+			name = laya;
+			sourceTree = "<group>";
+		};
+		A2D119011D0BBBD3004C229D /* opengl */ = {
+			isa = PBXGroup;
+			children = (
+				A2D119021D0BBC95004C229D /* glBatch.cpp */,
+				A2D119031D0BBC95004C229D /* glBatch.h */,
+				A2D119041D0BBC95004C229D /* glContext.cpp */,
+				A2D119051D0BBC95004C229D /* glContext.h */,
+				A2D119061D0BBC95004C229D /* glFont.cpp */,
+				A2D119071D0BBC95004C229D /* glFont.h */,
+				A2D119081D0BBC95004C229D /* glImage.cpp */,
+				A2D119091D0BBC95004C229D /* glImage.h */,
+				A2D1190A1D0BBC95004C229D /* glPaint.cpp */,
+				A2D1190B1D0BBC95004C229D /* glPaint.h */,
+				A2D1190C1D0BBC95004C229D /* glPath.cpp */,
+				A2D1190D1D0BBC95004C229D /* glPath.h */,
+				A2D1190E1D0BBC95004C229D /* glPlatform.h */,
+			);
+			name = opengl;
+			sourceTree = "<group>";
+		};
+		A2D11A061D0C32F0004C229D /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				A2D11A071D0C3311004C229D /* JCBufferManager.cpp */,
+				A2D11A081D0C3311004C229D /* JCBufferManager.h */,
+				A2D11A091D0C3311004C229D /* JCShaderManager.cpp */,
+				A2D11A0A1D0C3311004C229D /* JCShaderManager.h */,
+			);
+			name = Manager;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A2D1182F1D0BB25E004C229D /* render */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A2D118391D0BB25E004C229D /* Build configuration list for PBXNativeTarget "render" */;
+			buildPhases = (
+				A2D1182C1D0BB25E004C229D /* Sources */,
+				A2D1182D1D0BB25E004C229D /* Frameworks */,
+				A2D1182E1D0BB25E004C229D /* CopyFiles */,
+				5E4A02C41F54353800926BA4 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = render;
+			productName = render;
+			productReference = A2D118301D0BB25E004C229D /* librender.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A2D118281D0BB25E004C229D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = render;
+				TargetAttributes = {
+					A2D1182F1D0BB25E004C229D = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = A2D1182B1D0BB25E004C229D /* Build configuration list for PBXProject "render" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A2D118271D0BB25E004C229D;
+			productRefGroup = A2D118311D0BB25E004C229D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A2D1182F1D0BB25E004C229D /* render */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5E4A02C41F54353800926BA4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "chmod u+x $SRCROOT/../../copyLib.sh\n$SRCROOT/../../copyLib.sh";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A2D1182C1D0BB25E004C229D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A2D118FD1D0BBBA7004C229D /* sweep.c in Sources */,
+				A2D118CC1D0BB9C1004C229D /* OpenGLESConfig.cpp in Sources */,
+				A2D1185B1D0BB779004C229D /* JCVBOManager.cpp in Sources */,
+				A2D118CE1D0BB9C1004C229D /* OpenGLESFile.cpp in Sources */,
+				A2D1193A1D0BBCEC004C229D /* mkVGU.cpp in Sources */,
+				A2D1186B1D0BB7C3004C229D /* JCProgramLocationTable.cpp in Sources */,
+				A2D118F81D0BBBA7004C229D /* mesh.c in Sources */,
+				A2D119321D0BBCEC004C229D /* mkBatch.cpp in Sources */,
+				A2D118FE1D0BBBA7004C229D /* tess.c in Sources */,
+				A2D119311D0BBCEC004C229D /* mkBaseObject.cpp in Sources */,
+				A2BCED261E2376C2003ABF33 /* JCNode.cpp in Sources */,
+				A293D49C1D193DA400D65D4D /* JCNode2DRenderer.cpp in Sources */,
+				A2D119361D0BBCEC004C229D /* mkMath.cpp in Sources */,
+				A2D118DA1D0BBB48004C229D /* glue.c in Sources */,
+				A2D118F91D0BBBA7004C229D /* normal.c in Sources */,
+				A2D118FC1D0BBBA7004C229D /* render.c in Sources */,
+				A2D1191C1D0BBCB7004C229D /* layaPaint.cpp in Sources */,
+				A2D118D11D0BB9C1004C229D /* OpenGLESUtil.cpp in Sources */,
+				A2D118BA1D0BB987004C229D /* ShaderFile.cpp in Sources */,
+				A2D1186C1D0BB7C3004C229D /* JCWebGLRender.cpp in Sources */,
+				A2D118551D0BB6B7004C229D /* JCNodeTest.cpp in Sources */,
+				A2D118B61D0BB987004C229D /* OpenGLES20Context.cpp in Sources */,
+				A2D118F71D0BBBA7004C229D /* memalloc.c in Sources */,
+				A2D1191B1D0BBCB7004C229D /* layaContext.cpp in Sources */,
+				A2D118D01D0BB9C1004C229D /* OpenGLESString.cpp in Sources */,
+				A2D118D91D0BBB48004C229D /* error.c in Sources */,
+				A2D11A0B1D0C3311004C229D /* JCBufferManager.cpp in Sources */,
+				A2D118FA1D0BBBA7004C229D /* priorityq-heap.c in Sources */,
+				A2D1185E1D0BB79C004C229D /* JCContextSaveData.cpp in Sources */,
+				A2D118BB1D0BB987004C229D /* ShaderProgram.cpp in Sources */,
+				A2D119101D0BBC95004C229D /* glContext.cpp in Sources */,
+				A2D1190F1D0BBC95004C229D /* glBatch.cpp in Sources */,
+				A2D1184D1D0BB61A004C229D /* JCHtml5Render.cpp in Sources */,
+				A2D119341D0BBCEC004C229D /* mkFont.cpp in Sources */,
+				A2D119141D0BBC95004C229D /* glPath.cpp in Sources */,
+				A293D49B1D193DA400D65D4D /* JCNode2DCmdDispath.cpp in Sources */,
+				A2D118CD1D0BB9C1004C229D /* OpenGLESContext.cpp in Sources */,
+				A2D118FF1D0BBBA7004C229D /* tessmono.c in Sources */,
+				A235819B1D51910400C2E4FF /* JCGraphicsWordInfo.cpp in Sources */,
+				A2D118B41D0BB987004C229D /* Attribute.cpp in Sources */,
+				A2D1186A1D0BB7C3004C229D /* JCIDGenerator.cpp in Sources */,
+				A2D118DC1D0BBB48004C229D /* registry.c in Sources */,
+				A2D119391D0BBCEC004C229D /* mkPath.cpp in Sources */,
+				A2D118CF1D0BB9C1004C229D /* OpenGLESImplementation.cpp in Sources */,
+				A2D119381D0BBCEC004C229D /* mkParameter.cpp in Sources */,
+				A2D119371D0BBCEC004C229D /* mkPaint.cpp in Sources */,
+				A2D118361D0BB25E004C229D /* render.m in Sources */,
+				A2D118DB1D0BBB48004C229D /* project.c in Sources */,
+				5E7AB4E41DD2D269001AE49F /* JCParticleTemplate2DCmdDispath.cpp in Sources */,
+				A2D118FB1D0BBBA7004C229D /* priorityq.c in Sources */,
+				A2D11A0C1D0C3311004C229D /* JCShaderManager.cpp in Sources */,
+				A2D118BD1D0BB987004C229D /* Uniform.cpp in Sources */,
+				A2D118F61D0BBBA7004C229D /* geom.c in Sources */,
+				A2D1184C1D0BB61A004C229D /* JCHtml5Context.cpp in Sources */,
+				A2D1186D1D0BB7C3004C229D /* WebGL.cpp in Sources */,
+				A2D119111D0BBC95004C229D /* glFont.cpp in Sources */,
+				A2D119121D0BBC95004C229D /* glImage.cpp in Sources */,
+				A2D119131D0BBC95004C229D /* glPaint.cpp in Sources */,
+				A2D118B71D0BB987004C229D /* OpenGLES20Implementation.cpp in Sources */,
+				A2D119331D0BBCEC004C229D /* mkContext.cpp in Sources */,
+				A293D4981D193DA400D65D4D /* JCGraphics.cpp in Sources */,
+				A2D118BC1D0BB987004C229D /* ShaderSource.cpp in Sources */,
+				A2D1191D1D0BBCB7004C229D /* layaPath.cpp in Sources */,
+				5E7AB4E11DD2D269001AE49F /* JCParticleData2D.cpp in Sources */,
+				A293D49D1D193DA400D65D4D /* JCNodeStyle.cpp in Sources */,
+				A2D118B51D0BB987004C229D /* MatrixStack.cpp in Sources */,
+				A293D49A1D193DA400D65D4D /* JCNode2D.cpp in Sources */,
+				A2D118B91D0BB987004C229D /* Shader.cpp in Sources */,
+				A293D4991D193DA400D65D4D /* JCGraphicsCmdDispath.cpp in Sources */,
+				A2D118B81D0BB987004C229D /* OpenGLESState.cpp in Sources */,
+				5E7AB4E31DD2D269001AE49F /* JCParticleTemplate2D.cpp in Sources */,
+				A2D118F51D0BBBA7004C229D /* dict.c in Sources */,
+				5E7AB4E21DD2D269001AE49F /* JCParticleSetting2D.cpp in Sources */,
+				A2D118611D0BB7AD004C229D /* JCTextMemoryCanvas.cpp in Sources */,
+				A2D1184E1D0BB61A004C229D /* JCHtml5RenderManager.cpp in Sources */,
+				A2D119351D0BBCEC004C229D /* mkImage.cpp in Sources */,
+				A2D118581D0BB6F1004C229D /* JCPerfHUD.cpp in Sources */,
+				9DFB1F651D3733C1006D31AD /* JCImage.cpp in Sources */,
+				A2D118521D0BB635004C229D /* JCImageManager.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A2D118371D0BB25E004C229D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		A2D118381D0BB25E004C229D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A2D1183A1D0BB25E004C229D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				OTHER_CFLAGS = (
+					"-I../../../include/common",
+					"-I../../../../ThirdParty/freetype/include/ios",
+					"-I../../../../ThirdParty/jpeg/include/ios",
+					"-I../../../../ThirdParty/zip/include/ios",
+					"-I../../../../ThirdParty/curl/include/ios",
+					"-I../../../../ThirdParty/png/include/ios",
+					"-I../../../source/render/MonkVG/include",
+					"-I../../../source/render/MonkVG/src/opengl",
+					"-I../../../source/render/MonkVG/src",
+					"-I../../../source/render/MonkVG/glu/include",
+					"-I../../../source/render/MonkVG/gles2-bc",
+					"-I../../../include/conch",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VALID_ARCHS = "arm64 armv7 i386 x86_64";
+			};
+			name = Debug;
+		};
+		A2D1183B1D0BB25E004C229D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				OTHER_CFLAGS = (
+					"-I../../../include/common",
+					"-I../../../../ThirdParty/freetype/include/ios",
+					"-I../../../../ThirdParty/jpeg/include/ios",
+					"-I../../../../ThirdParty/zip/include/ios",
+					"-I../../../../ThirdParty/curl/include/ios",
+					"-I../../../../ThirdParty/png/include/ios",
+					"-I../../../source/render/MonkVG/include",
+					"-I../../../source/render/MonkVG/src/opengl",
+					"-I../../../source/render/MonkVG/src",
+					"-I../../../source/render/MonkVG/glu/include",
+					"-I../../../source/render/MonkVG/gles2-bc",
+					"-I../../../include/conch",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VALID_ARCHS = "arm64 armv7 i386 x86_64";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A2D1182B1D0BB25E004C229D /* Build configuration list for PBXProject "render" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A2D118371D0BB25E004C229D /* Debug */,
+				A2D118381D0BB25E004C229D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A2D118391D0BB25E004C229D /* Build configuration list for PBXNativeTarget "render" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A2D1183A1D0BB25E004C229D /* Debug */,
+				A2D1183B1D0BB25E004C229D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A2D118281D0BB25E004C229D /* Project object */;
+}
