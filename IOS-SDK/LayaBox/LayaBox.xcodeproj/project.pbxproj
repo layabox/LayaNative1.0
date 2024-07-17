@@ -581,7 +581,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 3.6;
+				CURRENT_PROJECT_VERSION = 3.7;
 				DEVELOPMENT_TEAM = MH4ZKZTS68;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -589,7 +589,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "../LayaRuntime-iOS/libs";
-				MARKETING_VERSION = 3.6;
+				MARKETING_VERSION = 3.7;
 				OTHER_CFLAGS = "-I../LayaRuntime-iOS/include/";
 				OTHER_LDFLAGS = "-lconch";
 				PRODUCT_BUNDLE_IDENTIFIER = com.layabox.conch;
@@ -605,7 +605,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 3.6;
+				CURRENT_PROJECT_VERSION = 3.7;
 				DEVELOPMENT_TEAM = MH4ZKZTS68;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -613,7 +613,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "../LayaRuntime-iOS/libs";
-				MARKETING_VERSION = 3.6;
+				MARKETING_VERSION = 3.7;
 				OTHER_CFLAGS = "-I../LayaRuntime-iOS/include/";
 				OTHER_LDFLAGS = "-lconch";
 				PRODUCT_BUNDLE_IDENTIFIER = com.layabox.conch;

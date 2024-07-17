@@ -17,7 +17,6 @@ typedef char* (*HandleFileData)(const char* data, int& len);
 class JCTouchFilter;
 @class LayaReachability;
 @class JCMp3Player;
-@class LayaWebView;
 @class LayaEditBox;
 @class LayaEditBoxDelegate;
 @class LayaAlert;
@@ -63,11 +62,6 @@ class JCTouchFilter;
     JCMp3Player*                m_pMp3Player;           //MP3播放器
     
     id<LayaPlatformInterface>   m_pMarket;              //市场类，比如91，appStore
-    
-    //界面相关的
-    //-----------------------------------------------------------------
-    
-    LayaWebView*                m_pWebView;             //webView
     
     LayaReachability*           m_pNetworkListener;     //网络监听
     

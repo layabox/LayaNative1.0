@@ -1,7 +1,13 @@
 #import "ViewController.h"
+#import <CoreTelephony/CTCellularData.h>
+#import "Reachability/Reachability.h"
 
 @implementation ViewController
-
+{
+    CTCellularData *_cellularData;
+    LayaReachability *_pNetworkListener;
+    bool _isInit;
+}
 static ViewController* g_pIOSMainViewController = nil;
 //------------------------------------------------------------------------------
 +(ViewController*)GetIOSViewController
@@ -15,6 +21,10 @@ static ViewController* g_pIOSMainViewController = nil;
     if( self != nil )
     {
         g_pIOSMainViewController = self;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkStateChange) name:LayakReachabilityChangedNotification object:nil];
+        _pNetworkListener = [LayaReachability reachabilityForInternetConnection];
+        [_pNetworkListener startNotifier];
+        _isInit = false;
         return self;
     }
     return Nil;
@@ -25,6 +35,29 @@ static ViewController* g_pIOSMainViewController = nil;
     [super viewDidLoad];
     //保持屏幕常亮，可以通过脚本设置
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+
+    
+
+     _cellularData = [[CTCellularData alloc] init];
+    if (_cellularData.restrictedState == kCTCellularDataNotRestricted || _pNetworkListener.currentReachabilityStatus != NotReachable) {
+        [self initConch];
+    } else {
+        __weak ViewController* weakSelf = self;
+        [self networkAuthorizationAvalible:^{
+            ViewController *strongSelf = weakSelf;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [strongSelf initConch];
+            });
+        }];
+    }
+  
+}
+//------------------------------------------------------------------------------
+- (void)initConch
+{
+    if (_isInit)
+        return;
+    _isInit = true;
     self->m_pGLContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
     if (self->m_pGLContext)
     {
@@ -48,10 +81,35 @@ static ViewController* g_pIOSMainViewController = nil;
     m_pGLKView.drawableStencilFormat = GLKViewDrawableStencilFormat8;
     [EAGLContext setCurrentContext:self->m_pGLContext];
     self.preferredFramesPerSecond = 10000;
-    
     //conchRuntime 初始化ConchRuntime引擎
     CGRect frame = UIScreen.mainScreen.bounds;
     m_pConchRuntime = [[conchRuntime alloc]initWithView:m_pGLKView frame:frame EAGLContext:m_pGLContext downloadThreadNum:3];
+}
+//------------------------------------------------------------------------------
+- (void)networkAuthorizationAvalible:(void(^)())changeAvaliable
+{
+    _cellularData.cellularDataRestrictionDidUpdateNotifier = ^(CTCellularDataRestrictedState state) {
+        switch (state) {
+            case kCTCellularDataRestricted:
+                break;
+            case kCTCellularDataNotRestricted:
+                changeAvaliable();
+                break;
+                //未知，第一次请求
+            case kCTCellularDataRestrictedStateUnknown:
+                break;
+            default:
+                break;
+        };
+    };
+}
+//------------------------------------------------------------------------------
+- (void)networkStateChange
+{
+    LayaNetworkStatus networkStatus = _pNetworkListener.currentReachabilityStatus;
+    if (networkStatus != NotReachable) {
+        [self initConch];
+    }
 }
 //------------------------------------------------------------------------------
 - (void)dealloc
@@ -129,6 +187,8 @@ static ViewController* g_pIOSMainViewController = nil;
 //-------------------------------------------------------------------------------
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.view.frame = m_pConchRuntime->m_currentFrame;
+    if (_isInit) {
+        self.view.frame = m_pConchRuntime->m_currentFrame;
+    }
 }
 @end

@@ -98,7 +98,6 @@
 		A2460A5B1C8DB0E10032CD8D /* MarketAppStore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MarketAppStore.mm; path = PlatformInterface/MarketAppStore.mm; sourceTree = "<group>"; };
 		A2460A811C8DB3F10032CD8D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A2460A831C8DB3FC0032CD8D /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		A2460A851C8DB4090032CD8D /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		A2460A871C8DB4160032CD8D /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		A2460A891C8DB4220032CD8D /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		A2460A8B1C8DB4370032CD8D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -198,7 +197,6 @@
 				A2460A8B1C8DB4370032CD8D /* libsqlite3.tbd */,
 				A2460A891C8DB4220032CD8D /* libsqlite3.0.tbd */,
 				A2460A871C8DB4160032CD8D /* CoreTelephony.framework */,
-				A2460A851C8DB4090032CD8D /* libstdc++.tbd */,
 				A2460A831C8DB3FC0032CD8D /* libz.tbd */,
 				A2460A811C8DB3F10032CD8D /* Foundation.framework */,
 				A2460A621C8DB1B70032CD8D /* resource */,
@@ -359,7 +357,7 @@
 				TargetAttributes = {
 					A2460A1B1C8DAF710032CD8D = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 4XRST2UF2Q;
+						DevelopmentTeam = MH4ZKZTS68;
 					};
 					A2460A341C8DAF710032CD8D = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -581,11 +579,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 4XRST2UF2Q;
+				DEVELOPMENT_TEAM = MH4ZKZTS68;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = LayaBox/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "../LayaRuntime-iOS/libs";
 				OTHER_CFLAGS = "-I../LayaRuntime-iOS/include/";
@@ -603,11 +601,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 4XRST2UF2Q;
+				DEVELOPMENT_TEAM = MH4ZKZTS68;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = LayaBox/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "../LayaRuntime-iOS/libs";
 				OTHER_CFLAGS = "-I../LayaRuntime-iOS/include/";
