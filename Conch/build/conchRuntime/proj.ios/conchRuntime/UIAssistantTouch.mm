@@ -2,7 +2,7 @@
 #import "UIAssistantTouch.h"
 #import <objc/runtime.h>
 #import "conchRuntime.h"
-#import "../../../../source/conch/JCScrpitRuntime.h"
+#import "../../../../source/conch/JCScriptRuntime.h"
 #import "conchConfig.h"
 #import <UIKit/UIAlertController.h>
 

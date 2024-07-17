@@ -38,8 +38,9 @@ namespace laya {
 	}
 	char* JsCharToC(Local<Value> p_vl) {
 		int len = 0;
-		Local<String> str = p_vl->ToString();
-		len = str->Utf8Length();
+		auto isolate = v8::Isolate::GetCurrent();
+		Local<String> str = p_vl->ToString(isolate->GetCurrentContext()).ToLocalChecked();
+		len = str->Utf8Length(isolate);
 		if (len <= 0)
 			return "";
 		JsStrBuff& curdata = JsStrBuff::getAData();
@@ -62,7 +63,7 @@ namespace laya {
 				tocharBuf = new char[len+1];
 			}
 		}
-		str->WriteUtf8(tocharBuf);
+		str->WriteUtf8(isolate, tocharBuf);
 		return tocharBuf;
 	}
 }
@@ -87,7 +88,7 @@ namespace laya{
     {
         if (data != NULL || length > 0)
         {
-            delete[](data);
+            delete[]((char*)data);
         }
         else
         {
@@ -101,9 +102,15 @@ namespace laya{
 
 	v8::Local<v8::ArrayBuffer> createJSAB(char* pData, int len) {
 		v8::Local<v8::ArrayBuffer> ab = v8::ArrayBuffer::New(v8::Isolate::GetCurrent(), len);
+        #ifdef OHOS
+        std::shared_ptr<BackingStore> contents = ab->GetBackingStore();// ab->Externalize();
+		char* pPtr = (char*)contents->Data();
+		memcpy(pPtr, pData, len);
+        #else
         v8::ArrayBuffer::Contents contents = ab->GetContents();// ab->Externalize();
 		char* pPtr = (char*)contents.Data();
 		memcpy(pPtr, pData, len);
+        #endif
 		//Externalize 以后会减去内存占用，导致不能正确GC，所以再给加回来。不知道管理ArrayBuffer的正确方法是什么。
 		//v8::Isolate::GetCurrent()->AdjustAmountOfExternalAllocatedMemory(len);
 		return ab;
@@ -112,34 +119,51 @@ namespace laya{
     v8::Local<v8::ArrayBuffer> createJSABAligned(char* pData, int len) {
         int asz = (len + 3) & 0xfffffffc;
         v8::Local<v8::ArrayBuffer> ab = v8::ArrayBuffer::New(v8::Isolate::GetCurrent(), asz);
+        #ifdef OHOS
+        std::shared_ptr<BackingStore> contents = ab->GetBackingStore();
+		char* pPtr = (char*)contents->Data();
+		memcpy(pPtr, pData, len);
+        #else
         v8::ArrayBuffer::Contents contents = ab->GetContents();// ab->Externalize();
         char* pPtr = (char*)contents.Data();
         memcpy(pPtr, pData, len);
+        #endif
         //ArrayBuffer 自己已经初始化为0了
         //Externalize 以后会减去内存占用，导致不能正确GC，所以再给加回来。不知道管理ArrayBuffer的正确方法是什么。
         //v8::Isolate::GetCurrent()->AdjustAmountOfExternalAllocatedMemory(asz);
         return ab;
     }
 
-    bool extractJSAB(JsValue jsval, JsArrayBufferData& data) {
+    bool extractJSAB(JsValue jsval, char*& data, int& len) {
 		v8::Local<v8::ArrayBuffer> ab;
 		if (jsval->IsArrayBufferView()) {
 			v8::Local<v8::ArrayBufferView> abv = v8::Local<v8::ArrayBufferView>::Cast(jsval);
-            data.len = abv->ByteLength();
+            len = abv->ByteLength();
 			ab = abv->Buffer();
+            #ifdef OHOS
+            std::shared_ptr<BackingStore> contents = ab->GetBackingStore();
+		    data = (char*)contents->Data()+abv->ByteOffset();
+            #else
             v8::ArrayBuffer::Contents contents = ab->GetContents();
             //len = contents.ByteLength();  这种情况下，用view的长度，因为可能多个view公用一个大buffer
-            data.data = (char*)contents.Data()+abv->ByteOffset();
+            data = (char*)contents.Data()+abv->ByteOffset();
+            #endif
         }
 		else if (jsval->IsArrayBuffer()) {
 			ab = v8::Local<v8::ArrayBuffer>::Cast(jsval);
+            #ifdef OHOS
+            std::shared_ptr<BackingStore> contents = ab->GetBackingStore();
+            len = contents->ByteLength();
+            data = (char*)contents->Data();
+            #else
             v8::ArrayBuffer::Contents contents = ab->GetContents();
-            data.len = contents.ByteLength();
-            data.data = (char*)contents.Data();
+            len = contents.ByteLength();
+            data = (char*)contents.Data();
+            #endif
         }
 		else {
-			data.data = NULL;
-			data.len = 0;
+			data = NULL;
+			len = 0;
 			return false;
 		}
 
@@ -159,5 +183,108 @@ namespace laya{
 		return true;
 	}
 
+    void __JSRun::ReportException(v8::Isolate* isolate, v8::TryCatch* try_catch) {
+        v8::HandleScope handle_scope(isolate);
+        v8::String::Utf8Value exception(isolate, try_catch->Exception());
+        const char* exception_string = ToCString(exception);
+        v8::Local<v8::Message> message = try_catch->Message();
+        static char errInfo[2048];
+        int curpos = 0;
+        if (message.IsEmpty()) {
+            // V8 didn't provide any extra information about this error; just
+            // print the exception.
+            int off = snprintf(errInfo, sizeof(errInfo), "%s\n", exception_string);
+
+            //通知全局错误处理脚本
+            std::string kBuf = "if(conch.onerror){conch.onerror('";
+            kBuf += UrlEncode(exception_string);
+            kBuf += "','undefined','undefined','undefined','";
+            kBuf += UrlEncode(exception_string);
+            kBuf += "');};";
+            __JSRun::Run(kBuf.c_str());
+        }
+        else {
+            auto ctx = isolate->GetCurrentContext();
+            v8::String::Utf8Value fnstr (isolate, message->GetScriptResourceName());
+            const char* filename_string = ToCString(fnstr);
+            v8::MaybeLocal<String> source_line_maybe = message->GetSourceLine(ctx);
+            v8::String::Utf8Value srclinestr(isolate, source_line_maybe.ToLocalChecked());
+            const char* sourceline_string = ToCString(srclinestr);
+            int linenum = message->GetLineNumber(ctx).FromJust();
+            int start = message->GetStartColumn(ctx).FromMaybe(0);
+            int end = message->GetEndColumn(ctx).FromMaybe(0);
+            v8::ScriptOrigin origin = message->GetScriptOrigin();
+            int lineoff = origin.ResourceLineOffset()->Value();
+            int startcol = origin.ResourceColumnOffset()->Value();
+            if (start > startcol) {
+                start -= startcol;
+                end -= startcol;
+            }
+
+            //错误行可能非常长，只取一部分
+            char errLineSrc[128];
+            if (strlen(sourceline_string) > 128) {
+                int startoff = start > 50 ? (start - 50) : 0;
+                start -= startoff;
+                end -= startoff;
+                if (end >= 128)end = 127;
+
+                memcpy(errLineSrc, sourceline_string+startoff, 128);
+                sourceline_string = errLineSrc;
+            }
+            curpos += snprintf(errInfo, sizeof(errInfo), "%s:%i:\n%s\n%s\n", 
+                filename_string, 
+                linenum, 
+                exception_string, 
+                sourceline_string);
+            //打印具体哪一行，哪一列
+            if (curpos < sizeof(errInfo)) {
+                int st = curpos;
+                int srclen = snprintf(errInfo + curpos, sizeof(errInfo) - curpos, "%s\n", sourceline_string);
+                curpos += srclen;
+                if (curpos < sizeof(errInfo)) {
+                    for (int si = 0; si < srclen; si++) {
+                        char& c = errInfo[st+si];
+                        if (c != ' ' && c != '\t' && c != '\r')c = ' ';
+                        if (si >= start && si <= end)c = '^';
+                    }
+                }
+            }
+            curpos += snprintf(errInfo + curpos,sizeof(errInfo)-curpos, "\n");
+			v8::Local<v8::Value> stack_trace_string;
+			if (try_catch->StackTrace(ctx).ToLocal(&stack_trace_string) && stack_trace_string->IsString() && v8::Local<v8::String>::Cast(stack_trace_string)->Length() > 0) 
+			{
+				v8::String::Utf8Value stack_trace(isolate, stack_trace_string);
+                const char* stack_trace_string = ToCString(stack_trace);
+                if (curpos < sizeof(errInfo)) {
+                    curpos += snprintf(errInfo + curpos,sizeof(errInfo)-curpos, "%s", stack_trace_string);
+                }
+            }
+
+            //通知全局错误处理脚本
+            std::string kBuf = "if(conch.onerror){conch.onerror('";
+            kBuf += UrlEncode(exception_string);
+            kBuf += "','";
+            kBuf += UrlEncode(filename_string);
+            kBuf += "','";
+            //kBuf += std::to_string(linenum);
+            std::ostringstream os;
+            os << linenum;
+            kBuf += os.str();
+            kBuf += "','";
+            kBuf += "undefined";
+            kBuf += "','";
+            kBuf += UrlEncode(errInfo);
+            kBuf += "');};";
+            __JSRun::Run(kBuf.c_str());
+
+        }
+
+		if (gbAlertException)
+		{
+			JSAlert(errInfo);
+		}
+		LOGE("==JSERROR:\n%s", errInfo);
+    }
 }
 #endif

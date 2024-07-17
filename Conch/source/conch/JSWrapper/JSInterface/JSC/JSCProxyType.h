@@ -1,7 +1,7 @@
-﻿
+
 #ifndef __JSCProxyType_h
 #define __JSCProxyType_h
-
+#define NDEBUG
 #include <assert.h>
 #include "JSCProxyTLS.h"
 

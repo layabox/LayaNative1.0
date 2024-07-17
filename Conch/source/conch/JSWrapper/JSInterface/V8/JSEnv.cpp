@@ -3,13 +3,16 @@
 #include "JSEnv.h"
 #include <v8-profiler.h>
 #include "JSArrayBuffer.h"
+#ifdef JS_V8_DEBUGGER
 #include "../../v8debug/debug-agent.h"
+#endif
 #include "util/Log.h"
 #include "JSCProxyTLS.h"
 #ifdef WIN32
 #include <windows.h>
 #include <process.h>
 #endif
+#include "IsolateData.h"
 //#define V8PROFILE
 
 namespace laya{
@@ -19,36 +22,74 @@ namespace laya{
 	const char* ToCString(const v8::String::Utf8Value& value){
 		return *value ? *value : "<string conversion failed>";
 	}
-   
-	Javascript::Javascript() {
+   Javascript::Javascript()
+   {
 		m_pIsolate = NULL;
 		m_pPlatform = NULL;
-		//m_JsDbgAgentThread = NULL;
-		//m_v8dbgAgent = NULL;
+        m_iListenPort = 0;
+
+
+		m_pPlatform = v8::platform::NewDefaultPlatform().release();
+		v8::V8::InitializePlatform(m_pPlatform);
+		v8::V8::Initialize();
+		static char* flags[] =
+		{
+#if __APPLE__
+            " --jitless",
+#endif
+			"--expose_gc",
+			"--no-flush-bytecode",
+			"--no-lazy",
+		};
+		for (auto f : flags)
+		{
+			v8::V8::SetFlagsFromString(f, strlen(f));
+		}
+   }
+	Javascript::~Javascript() {
+     	v8::V8::Dispose();
+		v8::V8::ShutdownPlatform();
+		delete m_pPlatform;
 	}
 
 	void Javascript::init(int p_iPort) {
-		v8::V8::InitializeICU();
-		m_pPlatform = v8::platform::CreateDefaultPlatform();
-		v8::V8::InitializePlatform(m_pPlatform);
-		v8::V8::Initialize();
-		//v8::V8::InitializeExternalStartupData("E:\\conch4\\trunk\\Redist\\conch.exe");
 		if( p_iPort > 0 && p_iPort <0xFFFF ){
 			m_iListenPort = p_iPort;
 		}else
 			m_iListenPort = 0;
+
 	}
 
     void Javascript::uninit() {//不能在v8线程
-        if (0 != m_pIsolate) {
-            m_pIsolate->Dispose();
-            m_pIsolate = 0;
-            ArrayBufferAllocator* pABAlloc = ArrayBufferAllocator::getInstance();
-            //pABAlloc->FreeAllAlive();
-            delete pABAlloc;
-        }
     }
+	void Javascript::initJSEngine()
+    {
+		v8::Isolate::CreateParams create_params;
+		create_params.array_buffer_allocator = v8::ArrayBuffer::Allocator::NewDefaultAllocator();
+		m_pIsolate = v8::Isolate::New(create_params);
+		m_pIsolate->Enter();
+		v8::HandleScope handle_scope(m_pIsolate);
+		v8::Local<v8::Context> context = v8::Context::New(m_pIsolate);
+		m_context.Reset(m_pIsolate, context);
+		m_IsolateData = new IsolateData(m_pIsolate, NULL);
+		m_IsolateData->m_data = (void*)this;
+		//m_pIsolate->SetPromiseRejectCallback(PromiseRejectHandlerInMainThread);
+		context->Enter();
+    }
+    void Javascript::uninitJSEngine()
+    {
+		{
+			v8::HandleScope handle_scope(m_pIsolate);
+			v8::Local<v8::Context> context = m_context.Get(m_pIsolate);
+			context->Exit();
+			m_context.Reset();
+			delete m_IsolateData;
+			m_pIsolate->Exit();
+			
+		}
+		m_pIsolate->Dispose();
 
+    }
 	void Javascript::run(const char* p_pszJS, std::function<void(void)> preRunFunc) {
 	}
 
@@ -56,102 +97,13 @@ namespace laya{
 	}
 	
 	void Javascript::run(voidfun func, void* pdata) {
-		v8::Isolate::CreateParams create_params;
-        ArrayBufferAllocator* pABAlloc = ArrayBufferAllocator::getInstance();
-		create_params.array_buffer_allocator = pABAlloc;
-		m_pIsolate = v8::Isolate::New(create_params);
-		v8::V8::SetFlagsFromString("--expose_gc",11);
-		v8::V8::SetFlagsFromString("--allow-natives-syntax", 22);	//导出内部的%函数
-		//v8::V8::SetFlagsFromString("--trace-gc-verbose",18);
-
-#ifdef V8PROFILE
-		v8::V8::SetFlagsFromString("--prof",6);
-		char* pSingleLogFile = "--no-logfile_per_isolate";
-		v8::V8::SetFlagsFromString(pSingleLogFile,strlen(pSingleLogFile));
-#ifdef ANDROID
-		char* profFile = "--logfile /sdcard/lr2perf/v8.log";
-#elif WIN32
-		char* profFile = "--logfile d:/temp/v8.log";
-#endif
-		v8::V8::SetFlagsFromString( profFile, strlen(profFile));
-#endif
-		v8::Locker* pLocker = NULL;
-		if(m_iListenPort>0)
-			pLocker = new v8::Locker(m_pIsolate);//这个是debug需要的。调用这个后，isolate就所在线程会用锁来同步。
-
-		{//这个{}是为了能让 Scope起作用
-			v8::Isolate::Scope _isolate(m_pIsolate);
-			v8::HandleScope _scope(m_pIsolate);
-
-			v8::Handle<v8::ObjectTemplate> pGlobalTemplate = v8::ObjectTemplate::New();
-
-			v8::Local<v8::Context> context = v8::Context::New(m_pIsolate,
-																NULL,
-																pGlobalTemplate,
-																v8::Handle<v8::Value>());
-			context->Enter();
-
-			//v8::CpuProfiler* pCpuProf =  m_pIsolate->GetCpuProfiler();
-			//pCpuProf->StartCpuProfiling(v8::String::New(""));
-			//pCpuProf->StopCpuProfiling(v8::String::New(""));
-			if(m_iListenPort>0 ){
-				{
-                    std::unique_lock<std::recursive_mutex> __guard(m_Lock);
-					if( m_DebugMessageContext.IsEmpty() ){
-						m_DebugMessageContext.Reset(m_pIsolate, v8::Local<v8::Context>::New(m_pIsolate, context) );
-					}
-				}
-				//m_v8dbgAgent = new DebuggerAgent("layabox", m_iListenPort);
-				//v8::Debug::SetMessageHandler(DebuggerAgentMessageHandler);
-			}
-			v8::TryCatch try_catch;
-			//_defRunLoop();
-			func(pdata);
-			if(try_catch.HasCaught()){
-				v8::String::Utf8Value exceptioninfo(try_catch.Exception());
-				printf("Exception info [%s]\n", *exceptioninfo);
-			}
-
-			//当js线程要结束的时候，关闭调试，否则调试器客户端在线程结束后再发送调试事件，会导致非法。
-			if(m_iListenPort>0){
-				//v8::Debug::DisableAgent();
-			}
-			if(!m_DebugMessageContext.IsEmpty()){
-				m_DebugMessageContext.Reset();
-			}
-
-			//v8::Local<v8::Context>::New(m_pIsolate, context)->Exit();
-            context->Exit();
-        }
-        //{
-        //    v8::Isolate::Scope _isolate(m_pIsolate);
-        //    v8::HandleScope _scope(m_pIsolate);
-
-        //    v8::Handle<v8::ObjectTemplate> pGlobalTemplate = v8::ObjectTemplate::New();
-        //    auto context1 = v8::Context::New(m_pIsolate);
-        //    auto context2 = v8::Context::New(m_pIsolate,nullptr,pGlobalTemplate);
-        //}
-        //while (!m_pIsolate->IdleNotificationDeadline(m_pPlatform->MonotonicallyIncreasingTime() + 1.0)) {
-        //    int a = 0;
-        //}
-        //m_pIsolate->LowMemoryNotification();
-        //m_pIsolate->ContextDisposedNotification();
-
-		if(pLocker)
-			delete pLocker;
-		//m_pIsolate->Dispose();
-		//v8::V8::Dispose();
-		v8::V8::ShutdownPlatform();
-		delete m_pPlatform;
-		m_pPlatform = NULL;
-		//调试相关
-		//if (m_v8dbgAgent) {
-		//	m_v8dbgAgent->Shutdown();
-		//	delete m_v8dbgAgent;
-		//	m_v8dbgAgent = NULL;
-		//}
-        //pABAlloc->FreeAllAlive();
-        //delete pABAlloc;
+		v8::TryCatch try_catch(m_pIsolate);
+		//_defRunLoop();
+		func(pdata);
+		if(try_catch.HasCaught()){
+			v8::String::Utf8Value exceptioninfo(m_pIsolate, try_catch.Exception());
+			printf("Exception info [%s]\n", *exceptioninfo);
+		}
 	}
 
 	JSThread::JSThread(){
@@ -185,7 +137,8 @@ namespace laya{
 
 		runObj task;
 		while (!m_bStop) {
-			v8::TryCatch trycatch;
+			v8::HandleScope handle_scope(v8::Isolate::GetCurrent());
+			v8::TryCatch trycatch(v8::Isolate::GetCurrent());
 			if (!m_funcLoop) {
 				//现在的waitdata返回false不再表示要退出。
 				//事件唤醒流程
@@ -220,7 +173,9 @@ namespace laya{
 	}
 
 	void JSThread::_runLoop(){
+		m_JS.initJSEngine();
 		m_JS.run(call_JSThread__defRunLoop,this);
+        m_JS.uninitJSEngine();
 	}
 };
 #endif

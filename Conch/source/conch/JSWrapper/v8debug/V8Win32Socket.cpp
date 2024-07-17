@@ -1,6 +1,7 @@
 // ----------------------------------------------------------------------------
 // Win32 socket support.
 //
+#ifdef JS_V8_DEBUGGER
 #include "V8Socket.h"
 #include <memory>
 
@@ -167,3 +168,4 @@ namespace laya {
 		return ntohl(value);
 	}
 }
+#endif

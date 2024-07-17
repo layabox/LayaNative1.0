@@ -9,7 +9,7 @@
 //包含头文件
 #include "JSLayaContext.h"
 #include "JSMeasureTextInfo.h"
-#include "../../JCScrpitRuntime.h"
+#include "../../JCScriptRuntime.h"
 #include "../../JCCmdDispatchManager.h"
 #include "../../JCConchRender.h"
 #include "../../JCConch.h"
@@ -71,7 +71,7 @@ namespace laya
             JCFontInfo * pFontInfo = JCScriptRuntime::s_JSRT->m_pFontManager->getFontInfoFromText(sFont);
             pMeasureTextInfo->measureText(pFontInfo, sText);
         }
-        return JSP_TO_JS(JSMeasureTextInfo, pMeasureTextInfo);
+        return JSP_TO_JS(JSMeasureTextInfo*, pMeasureTextInfo);
     }
     void JSLayaContext::setGetPixelsCallback(JSValueAsParam p_pCallback)
     {
@@ -79,7 +79,7 @@ namespace laya
     }
     void JSLayaContext::onGetPixelsCallbackCallJS(unsigned char *pPixels, int nLength, int w, int h)
     {
-        if (m_pGetPixelsCallBackFunction.isValid()) {
+        if (!m_pGetPixelsCallBackFunction.Empty()) {
             JsValue ab = createJSAB((char*)pPixels, nLength);
             m_pGetPixelsCallBackFunction.Call(ab, w, h);
         }
@@ -90,7 +90,7 @@ namespace laya
     }
     void JSLayaContext::onToBase64CallbackCallJS(const char* pBase64)
     {
-        if (m_pToBase64CallBackFunction.isValid()) {
+        if (!m_pToBase64CallBackFunction.Empty()) {
             m_pToBase64CallBackFunction.Call(pBase64);
             delete[] pBase64;
         }

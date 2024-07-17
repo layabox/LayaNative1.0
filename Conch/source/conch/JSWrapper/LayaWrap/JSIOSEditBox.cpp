@@ -12,7 +12,7 @@
 #include <util/Log.h>
 #include <util/JCColor.h>
 #include "../../CToObjectC.h"
-#include "../../JCScrpitRuntime.h"
+#include "../../JCScriptRuntime.h"
 	
 namespace laya 
 {

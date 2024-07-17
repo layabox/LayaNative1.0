@@ -11,7 +11,7 @@
 #include "util/Log.h"
 #include <util/JCMemorySurvey.h>
 #include <FontRender/JCMeasureTextManager.h>
-#include "../../JCScrpitRuntime.h"
+#include "../../JCScriptRuntime.h"
 #include "JSGraphics.h"
 #include "../../../conch/JCSystemConfig.h"
 #ifdef ANDROID

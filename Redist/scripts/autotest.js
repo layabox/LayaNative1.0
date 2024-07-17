@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var test = require("./unitTest");
+const test = require("./unitTest");
 function AllTest() {
     this.test_clone = function (test) {
         try {
@@ -9,14 +9,16 @@ function AllTest() {
             c.addEventListener('', null);
         }
         catch (e) {
-            test.err("\n            cloneNode\u4E4B\u540E\uFF0C\u5E94\u8BE5\u6709 addEventListener \u51FD\u6570\u3002\n        ");
+            test.err(`
+            cloneNode之后，应该有 addEventListener 函数。
+        `);
         }
     };
     this.testEventDispatch = function (test) {
         var called = false;
         var canv = document.createElement('canvas');
         document.body.appendChild(canv);
-        canv.addEventListener('mmousemove', function (evt) {
+        canv.addEventListener('mmousemove', (evt) => {
             called = true;
         });
         var evt = new MouseEvent('mmousemove');
@@ -31,22 +33,22 @@ function AllTest() {
         var canv = document.createElement('canvas');
         var result = [];
         document.body.appendChild(canv);
-        document.addEventListener('mousedown', function (evt) {
+        document.addEventListener('mousedown', (evt) => {
             result.push(1);
         }, true);
-        document.body.addEventListener('mousedown', function (evt) {
+        document.body.addEventListener('mousedown', (evt) => {
             result.push(2);
         }, true);
-        canv.addEventListener('mousedown', function (evt) {
+        canv.addEventListener('mousedown', (evt) => {
             result.push(3);
         });
-        document.body.addEventListener('mousedown', function (evt) {
+        document.body.addEventListener('mousedown', (evt) => {
             result.push(4);
         });
-        document.addEventListener('mousedown', function (evt) {
+        document.addEventListener('mousedown', (evt) => {
             result.push(5);
         });
-        window.addEventListener('mousedown', function (evt) {
+        window.addEventListener('mousedown', (evt) => {
             result.push(6);
         });
         var evt = new MouseEvent('mousedown');
@@ -64,7 +66,7 @@ function AllTest() {
     this.testZip = function (test) {
         var zf = new ZipFile();
         zf.setSrc('');
-        zf.forEach(function (id, name, dir, sz) {
+        zf.forEach((id, name, dir, sz) => {
             var ab = zf.readFile(id);
         });
         zf.close();
@@ -87,9 +89,9 @@ function AllTest() {
     };
     this.testPost = function (test) {
         var ab = new Uint32Array([0, 1, 2]);
-        conch._postUrl('http://localhost:8888/testpost', 1, ab.buffer, null, function (buf) {
-        }, function (e) {
-        }, function () {
+        conch._postUrl('http://localhost:8888/testpost', 1, ab.buffer, null, (buf) => {
+        }, (e) => {
+        }, () => {
             return 0;
         });
     };

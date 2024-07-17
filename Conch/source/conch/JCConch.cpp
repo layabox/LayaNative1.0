@@ -17,16 +17,18 @@
 #include "JSWrapper/JSInterface/JSInterface.h"
 #include "JSWrapper/LayaWrap/JSFileReader.h"
 #include "JSWrapper/LayaWrap/JSGlobalExportCFun.h"
-#include "JCScrpitRuntime.h"
+#include "JCScriptRuntime.h"
 #include <downloadMgr/JCDownloadMgr.h>
 #include "JCThreadCmdMgr.h"
 #include "JCSystemConfig.h"
 
-#ifdef JS_V8
+#ifdef JS_V8_DEBUGGER
     #include "JSWrapper/v8debug/debug-agent.h"
 #endif
 #ifdef ANDROID
     #include "CToJavaBridge.h"
+#elif OHOS
+    #include "helper/NapiHelper.h"
 #elif __APPLE__
     #include "CToObjectC.h"
     #include "pthread.h"
@@ -71,6 +73,8 @@ namespace laya
 #ifdef ANDROID
 		CToJavaBridge::JavaRet kRet;
         CToJavaBridge::GetInstance()->callMethod(CToJavaBridge::JavaClass.c_str(), "vibrate", kRet);
+#elif OHOS
+        NapiHelper::GetInstance()->startVibration(0.1f);
 #endif
 	}
 	JCConch::JCConch(int nDownloadThreadNum)
@@ -103,7 +107,7 @@ namespace laya
         char* jsportfile = "d:/temp/sdcard/layabox/jsdebug.txt";
 #elif ANDROID
         char* jsportfile = "/sdcard/layabox/jsdebug.txt";
-#elif __APPLE__
+#elif __APPLE__ || OHOS
         char* jsportfile = "";
 #endif
         if (s_nDebugPort <= 0) {
@@ -123,7 +127,7 @@ namespace laya
                 fclose(fp);
             }
         }
-#ifdef JS_V8
+#ifdef JS_V8_DEBUGGER
         if (s_nDebugPort > 0) 
         {
             LOGI("open js debug port at %d", s_nDebugPort);
@@ -156,7 +160,7 @@ namespace laya
             delete m_pScrpitRuntime;
             m_pScrpitRuntime = NULL;
         }
-#ifdef JS_V8
+#ifdef JS_V8_DEBUGGER
         if (m_pDbgAgent) {
             m_pDbgAgent->Shutdown();
             delete m_pDbgAgent;

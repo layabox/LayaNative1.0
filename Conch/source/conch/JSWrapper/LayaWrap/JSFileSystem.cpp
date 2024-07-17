@@ -88,12 +88,13 @@ namespace laya{
 #ifdef JS_V8
 			//st.type;
 			v8::Isolate* pIso = v8::Isolate::GetCurrent();
+			v8::Local<v8::Context> context = pIso->GetCurrentContext();
 			//v8::HandleScope scope(pIso); 不用了，还得想办法escape
 			v8::Local<v8::Object> retobj = v8::Object::New(pIso);
-			retobj->Set(Js_Str(pIso, "isDirectory"), v8::Boolean::New(pIso, isDir));
-			retobj->Set(Js_Str(pIso, "isFile"), v8::Boolean::New(pIso, isFile));
-			retobj->Set(Js_Str(pIso, "size"), v8::Number::New(pIso, sz));
-			retobj->Set(Js_Str(pIso, "mtime"), v8::Date::New(pIso, wtime*1000));
+			retobj->Set(context, Js_Str(pIso, "isDirectory"), v8::Boolean::New(pIso, isDir));
+			retobj->Set(context, Js_Str(pIso, "isFile"), v8::Boolean::New(pIso, isFile));
+			retobj->Set(context, Js_Str(pIso, "size"), v8::Number::New(pIso, sz));
+			retobj->Set(context, Js_Str(pIso, "mtime"), v8::Date::New(context, (double)(wtime*1000)).ToLocalChecked());
 			return retobj;
 #elif JS_JSC
             JSContextRef ctx = laya::__TlsData::GetInstance()->GetCurContext();
@@ -101,7 +102,7 @@ namespace laya{
 			JSObjectSetProperty(ctx, retobj, JSStringCreateWithUTF8CString("isDirectory"), JSValueMakeBoolean(ctx, isDir), kJSPropertyAttributeNone, nullptr);
 			JSObjectSetProperty(ctx, retobj, JSStringCreateWithUTF8CString("isFile"), JSValueMakeBoolean(ctx,isFile), kJSPropertyAttributeNone, nullptr);
 			JSObjectSetProperty(ctx, retobj, JSStringCreateWithUTF8CString("size"), JSValueMakeNumber(ctx,sz), kJSPropertyAttributeNone, nullptr);
-			JSObjectSetProperty(ctx, retobj, JSStringCreateWithUTF8CString("mtime"), laya::__TransferToJs<long>::ToJsDate(wtime*1000), kJSPropertyAttributeNone, nullptr);
+			JSObjectSetProperty(ctx, retobj, JSStringCreateWithUTF8CString("mtime"), laya::__TransferToJs<uint64_t>::ToJsDate(wtime*1000), kJSPropertyAttributeNone, nullptr);
 			return retobj;
 #endif
 		}
@@ -114,14 +115,15 @@ namespace laya{
     bool JSFileSystem::JSWriteFileSync(const char* p_sUrl, JSValueAsParam args)
     {
         if (!p_sUrl) return false;
-        JsArrayBufferData ab(!isSupportTypedArrayAPI());
-        bool bisab = extractJSAB(args, ab);
+  		char* pABPtr = NULL;
+        int nABLen = 0;
+        bool bisab = extractJSAB(args, pABPtr, nABLen);
         bool bret = false;
         if (bisab) 
         {
-            if (ab.data && ab.len > 0)
+            if (pABPtr && nABLen > 0)
             {
-                bret = writeFileSync1(p_sUrl, ab.data, ab.len, 0);
+                bret = writeFileSync1(p_sUrl, pABPtr, nABLen, 0);
             }
         }
         else 

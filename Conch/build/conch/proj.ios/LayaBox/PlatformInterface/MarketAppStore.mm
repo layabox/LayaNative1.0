@@ -142,11 +142,6 @@
 {
     
 }
--(bool)LP_getIsInstalledWX
-{
-    return false;
-}
-
 - (void)onSuccess:(NSString *)p_pProductionIdentifier quantity:(NSInteger)p_iNumber orderID:(NSString *)p_sOrderID
 {
     NSString* pJsonString = @"{  \"order_id\" : \"error\",  \"amount\" : \"0\",  \"code\" : \"-2\", \"desc\" : \"error\",  \"product_id\" : \"error\"}";

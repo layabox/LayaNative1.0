@@ -4,7 +4,7 @@
 #include <util/Log.h>
 #include <util/JCZlib.h>
 #include <util/JCMemorySurvey.h>
-#include "../../JCScrpitRuntime.h"
+#include "../../JCScriptRuntime.h"
 #include "JSGlobalExportCFun.h"
 #include <fstream>
 
@@ -186,7 +186,7 @@ namespace laya
     */
     void JsFileReader::__LoadRemoteFile(JsFile *p_pFile)
     {
-        retainThis();	//防止被釋放
+        makeStrong();	//防止被釋放
         OnStart();
         if (m_bSync)
         {
@@ -329,7 +329,7 @@ namespace laya
         readyState = EMPTY;
         m_hFileObject.Reset();	//完成后，要把对File的引用去掉
         m_pFile = 0;
-        releaseThis();
+        makeWeak();
     }
     JsValue JsFileReader::GetResult()
     {

@@ -9,7 +9,7 @@
 
 #import "LayaWebView.h"
 #import "conchRuntime.h"
-#import "../../../../source/conch/JCScrpitRuntime.h"
+#import "../../../../source/conch/JCScriptRuntime.h"
 #import "NSString.h"
 
 @implementation LayaWebView

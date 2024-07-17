@@ -81,7 +81,5 @@ enum MarketState
 -(void)LP_onResp:(id)resp;
 //设置状态
 -(void)LP_setMarketState:(MarketState)p_nState;
-//获得是否安装了微信
--(bool)LP_getIsInstalledWX;
 
 @end

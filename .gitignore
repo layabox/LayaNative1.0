@@ -30,6 +30,7 @@ Intermediate
 *.opendb
 intermediates
 .idea
+# ThirdParty
 gdbserver
 gdb.setup
 *.bin
@@ -37,3 +38,4 @@ libcommon.a
 librender.a
 liblaya.so
 .gradle
+Conch/build/build

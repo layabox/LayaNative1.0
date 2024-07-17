@@ -1,4 +1,4 @@
-﻿/**
+/**
 @file			JCJpegImg.cpp
 @brief			
 @author			hugao
@@ -211,7 +211,8 @@ namespace laya
 	  /* Now we can initialize the JPEG decompression object. */
 	  jpeg_create_decompress(&cinfo);
 
-      jpeg_set_marker_processor(&cinfo, LAYA_MARKER, ReadLayaProfile);
+      //jpg with ICC_PROFILE print Corrupt JPEG data: 68 extraneous bytes before marker 0xdb
+      //jpeg_set_marker_processor(&cinfo, LAYA_MARKER, ReadLayaProfile);
 
 	  /* Step 2: specify data source (eg, a file) */
 

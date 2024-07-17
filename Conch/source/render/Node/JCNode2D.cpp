@@ -464,7 +464,7 @@ namespace laya
                 if (tf->skewX || tf->skewY){
                     Matrix32 m;
                     m.skew(tf->skewX, tf->skewY);
-                    Matrix32::mul(m_pMatrix, m_pMatrix, &m);    //要保证先skew才能与layaair一致。
+                    Matrix32::mul(m_pMatrix, &m, m_pMatrix);    //要保证先skew才能与layaair一致。
                 }
             }
         }

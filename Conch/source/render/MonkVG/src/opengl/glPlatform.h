@@ -19,7 +19,7 @@
 #include <GLES2/gl2ext.h>
 #endif
 #include "glu.h"
-typedef float GLdouble;
+//typedef float GLdouble;
 #ifndef APIENTRY
     #define APIENTRY
 #endif // APIENTRY

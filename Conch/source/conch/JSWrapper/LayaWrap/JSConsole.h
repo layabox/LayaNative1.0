@@ -20,7 +20,7 @@
 */
 namespace laya 
 {
-class JSConsole:public JsObjBase
+class JSConsole:public JsObjBase, public JSObjNode
 {
 public:
 	static JsObjClassInfo JSCLSINFO;

@@ -29,10 +29,10 @@ namespace laya{
     protected:
         //std::vector<char*> m_vAliveBuffer;
 	};
-	struct JsArrayBufferData;
+
 	v8::Local<v8::ArrayBuffer> createJSAB(char* pData, int len);
     v8::Local<v8::ArrayBuffer> createJSABAligned(char* pData, int len);
-	bool extractJSAB(v8::Local<v8::Value> ab, JsArrayBufferData& data);
+	bool extractJSAB(v8::Local<v8::Value> ab, char*& data, int& len);
 }
 
 #endif

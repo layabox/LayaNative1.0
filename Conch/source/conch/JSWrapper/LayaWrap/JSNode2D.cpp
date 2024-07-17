@@ -7,7 +7,7 @@
 */
 
 #include "JSNode2D.h"
-#include "../../JCScrpitRuntime.h"
+#include "../../JCScriptRuntime.h"
 #include "../../JCCmdDispatchManager.h"
 #include "../../JCConchRender.h"
 #include "../../JCConch.h"

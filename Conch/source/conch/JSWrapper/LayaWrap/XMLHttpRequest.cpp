@@ -3,7 +3,7 @@
 #include <util/JCCommonMethod.h>
 #include <util/Log.h>
 #include <downloadMgr/JCDownloadMgr.h>
-#include "../../JCScrpitRuntime.h"
+#include "../../JCScriptRuntime.h"
 #include <util/JCIThreadCmdMgr.h>
 namespace laya
 {
@@ -143,7 +143,7 @@ namespace laya
             return;
         }
 
-        //TODO ¼ì²âÊÇ·ñÊÇºÏ·¨µÄ
+        //TODO ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ÇºÏ·ï¿½ï¿½ï¿½
 
         setRequestHeaderInternal(name, value);
         return;
@@ -157,7 +157,7 @@ namespace laya
 
     void XMLHttpRequest::setRequestHeaderInternal(const std::string& name, const std::string& value) {
         m_requestHeaders[name] = value;
-        //TODO ÓÃ¿¼ÂÇÉ¾³ýÃ´
+        //TODO ï¿½Ã¿ï¿½ï¿½ï¿½É¾ï¿½ï¿½Ã´
     }
 
     void XMLHttpRequest::abort() {
@@ -165,14 +165,14 @@ namespace laya
 
     void XMLHttpRequest::set_onreadystatechange(JSValueAsParam pObj) {
         m_funcOnStateChg.set(onstatchgid, this, pObj);
-        if (m_funcOnStateChg.IsFunction()) {
-            m_funcOnStateChg.__BindThis(m_This);
-        }
+        //if (m_funcOnStateChg.IsFunction()) {
+        //    m_funcOnStateChg.__BindThis(m_This);
+        //}
     }
     void _onPostComplete_JSThread(XMLHttpRequest* pxhr, char* p_Buff, int p_nLen, bool p_bBin, std::weak_ptr<int> cbref) {
         if (!cbref.lock())
             return;       
-        //¼ì²éÒ»ÏÂjs»·¾³
+        //ï¿½ï¿½ï¿½Ò»ï¿½ï¿½jsï¿½ï¿½ï¿½ï¿½
         if (!pxhr->IsMyJsEnv())
             return;
         if (p_Buff) {
@@ -199,6 +199,7 @@ namespace laya
         else {
             pxhr->m_jsfunPostError.Call(-1);
         }
+        pxhr->makeWeak();
     }
 
     void _onPostError_JSThread(XMLHttpRequest* pxhr, int curle, int httpresponse, std::weak_ptr<int> cbref) {
@@ -207,6 +208,7 @@ namespace laya
         if (!pxhr->IsMyJsEnv())
             return;
         pxhr->m_jsfunPostError.Call(curle, httpresponse);
+        pxhr->makeWeak();
     }
     void _onPostError(XMLHttpRequest* xhr, IConchThreadCmdMgr* pPoster, int curle, int httpresponse, std::weak_ptr<int> cbref) {
         pPoster->postToJS(std::bind(_onPostError_JSThread, xhr, curle, httpresponse, cbref));
@@ -223,11 +225,11 @@ namespace laya
         char* pBuff = new char[p_Buff.m_nLen + 1];//(bin?0:1)];
         memcpy(pBuff, p_Buff.m_pPtr, p_Buff.m_nLen);
         //if(!bin){
-        pBuff[p_Buff.m_nLen] = 0;	//²»¹ÜÊÇ²»ÊÇ¶þ½øÖÆ¶¼±£»¤Ò»ÏÂ
+        pBuff[p_Buff.m_nLen] = 0;	//ï¿½ï¿½ï¿½ï¿½ï¿½Ç²ï¿½ï¿½Ç¶ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
                                     //}
 
         if (curlr != 0 || httpr<200 || httpr>300) {
-            //´íÎó
+            //ï¿½ï¿½ï¿½ï¿½
             pPoster->postToJS(std::bind(_onPostError_JSThread, pxhr, curlr, httpr, callbackref));
         }
         else {
@@ -243,7 +245,7 @@ namespace laya
     bool isfunc = pObj->IsFunction();
     //v8::Persistent<v8::Function>* pFunc = new v8::Persistent<v8::Function>(pIso, v8::Local<v8::Function>::Cast(pObj));
     v8::Persistent<v8::Object>* ppf = weakHoldJsObj(v8::Local<v8::Object>::Cast(pObj));
-    mpJsOnReadyStateChange = (JsFunction*) ppf; //ÊÇ·ñÎ£ÏÕ£¬ÐèÒª²âÊÔ // v8::Persistent<v8::Function>::Cast(*ppf);
+    mpJsOnReadyStateChange = (JsFunction*) ppf; //ï¿½Ç·ï¿½Î£ï¿½Õ£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ // v8::Persistent<v8::Function>::Cast(*ppf);
     }
     */
     /*
@@ -268,6 +270,7 @@ namespace laya
             return;
         }
         else {
+            makeStrong();	//é˜²æ­¢è¢«é‡‹æ”¾
             std::weak_ptr<int> cbref(m_CallbackRef);
             pdmgr->postData(p_pszUrl, p_pszString, strlen(p_pszString), 
                 std::bind(_onPostComplete, this, isBin(), m_pCmdPoster, 
@@ -300,9 +303,9 @@ namespace laya
 
     void XMLHttpRequest::setPostCB(JSValueAsParam p_onOK, JSValueAsParam p_onError) {
         m_jsfunPostComplete.set(oncompleteid, this, p_onOK);
-        m_jsfunPostComplete.__BindThis(m_This);
+        //m_jsfunPostComplete.__BindThis(m_This);
         m_jsfunPostError.set(onerrid, this, p_onError);
-        m_jsfunPostError.__BindThis(m_This);
+        //m_jsfunPostError.__BindThis(m_This);
         std::weak_ptr<int> cbref(m_CallbackRef);
         m_funcPostComplete = std::bind(_onPostComplete, this, isBin(),m_pCmdPoster, 
             std::placeholders::_1, 
@@ -320,7 +323,7 @@ namespace laya
                 HTTPHeaderMap::iterator it = m_requestHeaders.begin();
                 while (it != m_requestHeaders.end()) {
                     std::string head = (*it).first;
-                    head += ": ";//±ê×¼ÊÇ¿ÉÒÔÓÐÈÎÒâ¸ö¿Õ¸ñ
+                    head += ": ";//ï¿½ï¿½×¼ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¸ï¿½
                     head += (*it).second;
                     headers.push_back(head);
                     it++;
@@ -329,6 +332,9 @@ namespace laya
             }
             else
                 pDMgr->postData(p_pszURL, p_pData, p_nLen, m_funcPostComplete);
+
+
+            makeStrong();	//é˜²æ­¢è¢«é‡‹æ”¾
         }
     }
 
@@ -343,7 +349,7 @@ namespace laya
             HTTPHeaderMap::iterator it = m_requestHeaders.begin();
             while (it != m_requestHeaders.end()) {
                 std::string head = (*it).first;
-                head += ": ";//±ê×¼ÊÇ¿ÉÒÔÓÐÈÎÒâ¸ö¿Õ¸ñ
+                head += ": ";//ï¿½ï¿½×¼ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¸ï¿½
                 head += (*it).second;
                 headers.push_back(head);
                 it++;
@@ -360,7 +366,11 @@ namespace laya
         JCDownloadMgr* pdmgr = JCDownloadMgr::getInstance();
         char* pData = NULL;
         int nDataLen = 0;
-        JsArrayBufferData ab(!isSupportTypedArrayAPI());
+
+
+        char* pABPtr = NULL;
+        int nABLen = 0;
+        bool bisab = extractJSAB(arg1, pABPtr, nABLen);
         if (!pdmgr)
         {
             m_pCmdPoster->postToJS(std::bind(_onPostError_JSThread, this, -1,0, std::weak_ptr<int>(m_CallbackRef)));
@@ -368,7 +378,7 @@ namespace laya
         }
         else
         {
-            //ÅÐ¶ÏÊÇ·ñÎªstringÀàÐÍ
+            //ï¿½Ð¶ï¿½ï¿½Ç·ï¿½Îªstringï¿½ï¿½ï¿½ï¿½
             if (__TransferToCpp<char *>::is(arg1))
             {
                 pData = JS_TO_CPP(char*, arg1);
@@ -380,11 +390,11 @@ namespace laya
             }
             else
             {
-                bool bisab = extractJSAB(arg1, ab);
+                bool bisab = extractJSAB(arg1, pABPtr, nABLen);
                 if (bisab)
                 {
-                    postData(pdmgr, p_sUrl, ab.data, ab.len);
-                    // m_responseTypeCode = ResponseTypeArrayBuffer; ²»ÄÜ¸ù¾ÝÕâ¸öÀ´¾ø¶Ô·µ»ØÀàÐÍ
+                    postData(pdmgr, p_sUrl, pABPtr, nABLen);
+                    // m_responseTypeCode = ResponseTypeArrayBuffer; ï¿½ï¿½ï¿½Ü¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 }
                 else
                 {

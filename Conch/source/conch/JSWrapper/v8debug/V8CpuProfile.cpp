@@ -4,7 +4,7 @@
 #include "debug-agent.h"
 #include <util/JCJson.h>
 #include "../JSInterface/V8/JSEnv.h"
-#include "../../JCScrpitRuntime.h"
+#include "../../JCScriptRuntime.h"
 #include <util/JCIThreadCmdMgr.h>
 
 using v8::CpuProfile;
@@ -58,7 +58,7 @@ namespace laya {
 	}
 
 	/*
-		·µ»ØÒ»¸ö¶ÔÏóÊý×é
+		ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		[{line:l,hitCount:h},{}...]
 	*/
 	char* GetLineTicks_(v8::CpuProfileNode* node) {

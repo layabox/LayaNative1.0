@@ -7,7 +7,7 @@
 */
 
 #include "JSArrayBufferRef.h"
-#include "../../JCScrpitRuntime.h"
+#include "../../JCScriptRuntime.h"
 #include "buffer/JCBuffer.h"
 #include "../../JCCmdDispatchManager.h"
 

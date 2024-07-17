@@ -16,6 +16,11 @@
 #elif __APPLE__
     #include "../../CToObjectC.h"
 #endif
+#ifdef OHOS 
+	#include "aki/jsbind.h"
+	#include "napi/NAPIFun.h"
+	#include "helper/NapiHelper.h"
+#endif
 #include "../../JCSystemConfig.h"
 #include "JSInput.h"
 #include "JSConchConfig.h"
@@ -24,6 +29,15 @@
 namespace laya
 {
     ADDJSCLSINFO(JSRuntime, JSObjNode);
+    JSRuntime* JSRuntime::ms_pRuntime = NULL;
+	JSRuntime* JSRuntime::getInstance()
+	{
+		if (ms_pRuntime == NULL)
+		{
+			ms_pRuntime = new JSRuntime();
+		}
+		return ms_pRuntime;
+	}
     JSRuntime::JSRuntime()
     {
         m_pScrpitRuntime = JCScriptRuntime::s_JSRT;
@@ -31,6 +45,7 @@ namespace laya
     }
     JSRuntime::~JSRuntime()
     {
+        ms_pRuntime  = NULL;
         m_pScrpitRuntime = NULL;
     }
     void JSRuntime::setOnFrameFunction(JSValueAsParam p_pFunction)
@@ -140,15 +155,18 @@ namespace laya
 		CToJavaBridge::GetInstance()->callMethod(CToJavaBridge::JavaClass.c_str(), "captureScreen", kRet);
 #elif __APPLE__
         CToObjectCCaptureScreen();
+#elif OHOS
+        NAPIFun::m_bTakeScreenshot = true;
 #endif
     }
     bool JSRuntime::initFreeTypeDefaultFontFromBuffer(JSValueAsParam pArrayBufferArgs)
     {
-        JsArrayBufferData ab(false);
-        bool bIsArrayBuffer = extractJSAB(pArrayBufferArgs, ab);
-        if (bIsArrayBuffer)
+        char* pABPtr = NULL;
+        int nABLen = 0;
+        bool bisab = extractJSAB(pArrayBufferArgs, pABPtr, nABLen);
+        if (bisab)
         {
-            return m_pScrpitRuntime->m_pFreeTypeRender->initDefaultFont(ab.data, ab.len);
+            return m_pScrpitRuntime->m_pFreeTypeRender->initDefaultFont(pABPtr, nABLen);
         }
         return false;
     }
@@ -158,11 +176,12 @@ namespace laya
     }
     bool JSRuntime::setFontFaceFromBuffer(const char* sFontFamily, JSValueAsParam pArrayBufferArgs )
     {
-        JsArrayBufferData ab(false);
-        bool bIsArrayBuffer = extractJSAB(pArrayBufferArgs, ab);
-        if (bIsArrayBuffer)
+        char* pABPtr = NULL;
+        int nABLen = 0;
+        bool bisab = extractJSAB(pArrayBufferArgs, pABPtr, nABLen);
+        if (bisab)
         {
-            return m_pScrpitRuntime->m_pFreeTypeRender->setFontFaceFromBuffer(sFontFamily, ab.data, ab.len);
+            return m_pScrpitRuntime->m_pFreeTypeRender->setFontFaceFromBuffer(sFontFamily, pABPtr, nABLen);
         }
         return false;
     }
@@ -233,14 +252,15 @@ namespace laya
     }
     void JSRuntime::appendBuffer(JSValueAsParam pArrayBufferArgs, int nDataSize, int nOffset)
     {
-        JsArrayBufferData ab(!isSupportTypedArrayAPI());
-        bool bIsArrayBuffer = extractJSAB(pArrayBufferArgs, ab);
-        if (bIsArrayBuffer)
+        char* pABPtr = NULL;
+        int nABLen = 0;
+        bool bisab = extractJSAB(pArrayBufferArgs, pABPtr, nABLen);
+        if (bisab)
         {
-            if (nDataSize+nOffset <= ab.len)
+            if (nDataSize+nOffset <= nABLen)
             {
                 JCMemClass* pWebGLCmd = m_pScrpitRuntime->m_pRenderCmd;
-                pWebGLCmd->append(ab.data + nOffset, nDataSize);
+                pWebGLCmd->append(pABPtr + nOffset, nDataSize);
             }
             else
             {
@@ -260,6 +280,8 @@ namespace laya
 #elif ANDROID
         CToJavaBridge::JavaRet kRet;
         CToJavaBridge::GetInstance()->callMethod(CToJavaBridge::JavaClass.c_str(), "setScreenWakeLock", p_bWakeLock, kRet);
+#elif OHOS
+        NapiHelper::GetInstance()->setKeepScreenOn(p_bWakeLock);
 #elif WIN32
 
 #endif
@@ -272,6 +294,14 @@ namespace laya
 #elif ANDROID
         CToJavaBridge::JavaRet kRet;
         CToJavaBridge::GetInstance()->callMethod(CToJavaBridge::JavaClass.c_str(), "setSensorAble", p_bSensorAble, kRet);
+#elif OHOS
+        if(p_bSensorAble) {
+            NapiHelper::GetInstance()->enableAccelerometer();
+            NapiHelper::GetInstance()->enableOrientation();
+        } else {
+            NapiHelper::GetInstance()->disableAccelerometer();
+            NapiHelper::GetInstance()->disableOrientation();
+        } 
 #elif WIN32
 
 #endif
@@ -328,35 +358,38 @@ namespace laya
 
     bool JSRuntime::saveAsPng(JSValueAsParam pArrayBufferArgs, int w, int h, const char* p_pszFile)
     {
-        JsArrayBufferData ab(!isSupportTypedArrayAPI());
-        bool bIsArrayBuffer = extractJSAB(pArrayBufferArgs, ab);
-        if (bIsArrayBuffer)
+        char* pABPtr = NULL;
+        int nABLen = 0;
+        bool bisab = extractJSAB(pArrayBufferArgs, pABPtr, nABLen);
+        if (bisab)
         {
-            return laya::saveAsPng(ab.data, w, h, p_pszFile);
+            return laya::saveAsPng(pABPtr, w, h, p_pszFile);
         }
         return false;
     }
     bool JSRuntime::saveAsJpeg(JSValueAsParam pArrayBufferArgs, int w, int h, const char* p_pszFile)
     {
-        JsArrayBufferData ab(!isSupportTypedArrayAPI());
-        bool bIsArrayBuffer = extractJSAB(pArrayBufferArgs, ab);
-        if (bIsArrayBuffer)
+        char* pABPtr = NULL;
+        int nABLen = 0;
+        bool bisab = extractJSAB(pArrayBufferArgs, pABPtr, nABLen);
+        if (bisab)
         {
             ImageBaseInfo info;
             info.m_nBpp = 32;
             info.m_nWidth = w;
             info.m_nHeight = h;
-            return laya::saveAsJpeg(ab.data, info, p_pszFile);
+            return laya::saveAsJpeg(pABPtr, info, p_pszFile);
         }
         return false;
     }
     JsValue JSRuntime::convertBitmapToPng(JSValueAsParam pArrayBufferArgs, int w, int h)
     {
-        JsArrayBufferData ab(!isSupportTypedArrayAPI());
-        bool bIsArrayBuffer = extractJSAB(pArrayBufferArgs, ab);
-        if (bIsArrayBuffer)
+        char* pABPtr = NULL;
+        int nABLen = 0;
+        bool bisab = extractJSAB(pArrayBufferArgs, pABPtr, nABLen);
+        if (bisab)
         {
-            std::pair<unsigned char*, unsigned long> ret = laya::convertBitmapToPng((const char*)ab.data, w, h, 8);
+            std::pair<unsigned char*, unsigned long> ret = laya::convertBitmapToPng((const char*)pABPtr, w, h, 8);
             if (ret.first != nullptr)
                 return  createJSAB((char*)ret.first, ret.second);
         }
@@ -364,11 +397,12 @@ namespace laya
     }
     JsValue JSRuntime::convertBitmapToJpeg(JSValueAsParam pArrayBufferArgs, int w, int h)
     {
-        JsArrayBufferData ab(!isSupportTypedArrayAPI());
-        bool bIsArrayBuffer = extractJSAB(pArrayBufferArgs, ab);
-        if (bIsArrayBuffer)
+        char* pABPtr = NULL;
+        int nABLen = 0;
+        bool bisab = extractJSAB(pArrayBufferArgs, pABPtr, nABLen);
+        if (bisab)
         {
-            std::pair<unsigned char*, unsigned long> ret = laya::convertBitmapToJpeg((const char*)ab.data, w, h, 32);
+            std::pair<unsigned char*, unsigned long> ret = laya::convertBitmapToJpeg((const char*)pABPtr, w, h, 32);
             if (ret.first != nullptr)
                 return  createJSAB((char*)ret.first, ret.second);
         }
@@ -381,7 +415,11 @@ namespace laya
         CToJavaBridge::JavaRet ret;
         CToJavaBridge::GetInstance()->callMethod(CToJavaBridge::JavaClass.c_str(), "setExternalLink", sUrl,x,y,w,h, bCloseWebview?1:0,ret);
 #elif __APPLE__
-       CToObjectCSetExternalLink( sUrl,x,y,w,h, bCloseWebview);
+       //CToObjectCSetExternalLink( sUrl,x,y,w,h, bCloseWebview);
+#elif OHOS
+        if(auto setExternalLink = aki::JSBind::GetJSFunction("WebUtils.createWebview")) {
+            setExternalLink->Invoke<void>(sUrl,x,y,w,h, bCloseWebview?1:0);
+        }
 #elif WIN32
 
 #endif
@@ -393,7 +431,11 @@ namespace laya
         CToJavaBridge::JavaRet ret;
         CToJavaBridge::GetInstance()->callMethod(CToJavaBridge::JavaClass.c_str(), "setExternalLink", sUrl, 0, 0, 0, 0,1,ret);
 #elif __APPLE__
-        CToObjectCSetExternalLink(sUrl, 0, 0, 0, 0, true);
+        //CToObjectCSetExternalLink(sUrl, 0, 0, 0, 0, true);
+#elif OHOS
+        if(auto setExternalLink = aki::JSBind::GetJSFunction("WebUtils.createWebview")) {
+            setExternalLink->Invoke<void>(sUrl,0, 0, 0, 0, 1);
+        }
 #elif WIN32
 
 #endif
@@ -404,7 +446,11 @@ namespace laya
         CToJavaBridge::JavaRet ret;
         CToJavaBridge::GetInstance()->callMethod(CToJavaBridge::JavaClass.c_str(), "closeExternalLink", ret);
 #elif __APPLE__
-        CToObjectCCloseExternalLink();
+        //CToObjectCCloseExternalLink();
+#elif OHOS
+        if(auto closeWebview = aki::JSBind::GetJSFunction("WebUtils.closeWebview")) {
+            closeWebview->Invoke<void>();
+        }
 #elif WIN32
 
 #endif
@@ -416,7 +462,11 @@ namespace laya
         CToJavaBridge::JavaRet ret;
         CToJavaBridge::GetInstance()->callMethod(CToJavaBridge::JavaClass.c_str(), "callWebViewJS", sFunctionName, sJsonParam, sCallbackFunction, ret);
 #elif __APPLE__
-        CToObjectCCallWebviewJS(sFunctionName, sJsonParam, sCallbackFunction);
+        //CToObjectCCallWebviewJS(sFunctionName, sJsonParam, sCallbackFunction);
+#elif OHOS
+        if(auto callWebViewJS = aki::JSBind::GetJSFunction("WebUtils.callWebViewJS")) {
+            callWebViewJS->Invoke<void>(sFunctionName, sJsonParam, sCallbackFunction);
+        }
 #elif WIN32
 
 #endif
@@ -427,7 +477,11 @@ namespace laya
         CToJavaBridge::JavaRet ret;
         CToJavaBridge::GetInstance()->callMethod(CToJavaBridge::JavaClass.c_str(), "hideExternalLink", ret);
 #elif __APPLE__
-        CToObjectCHideWebView();
+        //CToObjectCHideWebView();
+#elif OHOS
+        if(auto hideWebview = aki::JSBind::GetJSFunction("WebUtils.hideWebview")) {
+            hideWebview->Invoke<void>();
+        }
 #elif WIN32
         
 #endif
@@ -438,7 +492,11 @@ namespace laya
         CToJavaBridge::JavaRet ret;
         CToJavaBridge::GetInstance()->callMethod(CToJavaBridge::JavaClass.c_str(), "showExternalLink", ret);
 #elif __APPLE__
-        CToObjectCShowWebView();
+        //CToObjectCShowWebView();
+#elif OHOS
+        if(auto showWebView = aki::JSBind::GetJSFunction("WebUtils.showWebView")) {
+            showWebView->Invoke<void>();
+        }
 #elif WIN32
         
 #endif
@@ -463,63 +521,80 @@ namespace laya
 #ifdef ANDROID
         CToJavaBridge::JavaRet ret;
         CToJavaBridge::GetInstance()->callMethod(CToJavaBridge::JavaClass.c_str(), "exit", ret);
+#elif OHOS
+        NapiHelper::GetInstance()->exitGame();
 #elif __APPLE__
 #elif WIN32
 
 #endif
     }
+#if OHOS
+    std::string JSRuntime::postMessage(const char *eventName, const char *data) {
+        std::string result = NapiHelper::GetInstance()->postMessageToUIThread(eventName, data);
+        return result;
+    }
+
+    std::string JSRuntime::postSyncMessage(const char *eventName, const char *data) {
+        std::string result = NapiHelper::GetInstance()->postSyncMessageToUIThread(eventName, data);
+        return result;
+    }
+#endif
     void JSRuntime::exportJS()
     {
-        JSP_GLOBAL_CLASS("conch", JSRuntime);
-        JSP_ADD_METHOD("setOnFrame", JSRuntime::setOnFrameFunction);
-        JSP_ADD_METHOD("setOnDraw", JSRuntime::setOnDrawFunction);
-        JSP_ADD_METHOD("setOnResize", JSRuntime::setOnResizeFunction);
-        JSP_ADD_METHOD("setHref", JSRuntime::setHref);
-        JSP_ADD_METHOD("disableConchResManager", JSRuntime::disableConchResManager);
-        JSP_ADD_METHOD("disableConchAutoRestoreLostedDevice", JSRuntime::disableConchAutoRestoreLostedDevice);
-        JSP_ADD_METHOD("setOnInvalidGLRes", JSRuntime::setOnInvalidGLRes);
-        JSP_ADD_METHOD("setMouseEvtFunction", JSRuntime::setMouseEvtFunction);
-        JSP_ADD_METHOD("setKeyEvtFunction", JSRuntime::setKeyEvtFunction);
-        JSP_ADD_METHOD("setTouchEvtFunction", JSRuntime::setTouchEvtFunction);
-        JSP_ADD_METHOD("setDeviceMotionEvtFunction", JSRuntime::setDeviceMotionEvtFunction);
-        JSP_ADD_METHOD("setNetworkEvtFunction", JSRuntime::setNetworkEvtFunction);
-		JSP_ADD_METHOD("setOnBackPressedFunction", JSRuntime::setOnBackPressedFunction);
-        JSP_ADD_METHOD("setCmdBuffer", JSRuntime::setCmdBuffer);
-        JSP_ADD_METHOD("setBuffer", JSRuntime::setBuffer);
-        JSP_ADD_METHOD("showLoadingView", JSRuntime::showLoadingView);
-        JSP_ADD_METHOD("flushRenderCommands", JSRuntime::flushRenderCommands);
-        JSP_ADD_METHOD("appendBuffer", JSRuntime::appendBuffer);
-        JSP_ADD_PROPERTY_RO(presetUrl, JSRuntime,getPresetUrl);
-        JSP_ADD_METHOD("showAssistantTouch", JSRuntime::showAssistantTouch);
-        JSP_ADD_METHOD("setScreenWakeLock", JSRuntime::setScreenWakeLock);
-        JSP_ADD_METHOD("setSensorAble", JSRuntime::setSensorAble);
+        JSP_GLOBAL_CLASS("conch", JSRuntime, this);
+        JSP_GLOBAL_ADD_METHOD("setOnFrame", JSRuntime::setOnFrameFunction);
+        JSP_GLOBAL_ADD_METHOD("setOnDraw", JSRuntime::setOnDrawFunction);
+        JSP_GLOBAL_ADD_METHOD("setOnResize", JSRuntime::setOnResizeFunction);
+        JSP_GLOBAL_ADD_METHOD("setHref", JSRuntime::setHref);
+        JSP_GLOBAL_ADD_METHOD("disableConchResManager", JSRuntime::disableConchResManager);
+        JSP_GLOBAL_ADD_METHOD("disableConchAutoRestoreLostedDevice", JSRuntime::disableConchAutoRestoreLostedDevice);
+        JSP_GLOBAL_ADD_METHOD("setOnInvalidGLRes", JSRuntime::setOnInvalidGLRes);
+        JSP_GLOBAL_ADD_METHOD("setMouseEvtFunction", JSRuntime::setMouseEvtFunction);
+        JSP_GLOBAL_ADD_METHOD("setKeyEvtFunction", JSRuntime::setKeyEvtFunction);
+        JSP_GLOBAL_ADD_METHOD("setTouchEvtFunction", JSRuntime::setTouchEvtFunction);
+        JSP_GLOBAL_ADD_METHOD("setDeviceMotionEvtFunction", JSRuntime::setDeviceMotionEvtFunction);
+        JSP_GLOBAL_ADD_METHOD("setNetworkEvtFunction", JSRuntime::setNetworkEvtFunction);
+		JSP_GLOBAL_ADD_METHOD("setOnBackPressedFunction", JSRuntime::setOnBackPressedFunction);
+        JSP_GLOBAL_ADD_METHOD("setCmdBuffer", JSRuntime::setCmdBuffer);
+        JSP_GLOBAL_ADD_METHOD("setBuffer", JSRuntime::setBuffer);
+        JSP_GLOBAL_ADD_METHOD("showLoadingView", JSRuntime::showLoadingView);
+        JSP_GLOBAL_ADD_METHOD("flushRenderCommands", JSRuntime::flushRenderCommands);
+        JSP_GLOBAL_ADD_METHOD("appendBuffer", JSRuntime::appendBuffer);
+        JSP_GLOBAL_ADD_PROPERTY_RO(presetUrl, JSRuntime,getPresetUrl);
+        JSP_GLOBAL_ADD_METHOD("showAssistantTouch", JSRuntime::showAssistantTouch);
+        JSP_GLOBAL_ADD_METHOD("setScreenWakeLock", JSRuntime::setScreenWakeLock);
+        JSP_GLOBAL_ADD_METHOD("setSensorAble", JSRuntime::setSensorAble);
         //字体相关的
-        JSP_ADD_METHOD("initFreeTypeDefaultFontFromFile",JSRuntime::initFreeTypeDefaultFontFromFile);
-        JSP_ADD_METHOD("initFreeTypeDefaultFontFromBuffer", JSRuntime::initFreeTypeDefaultFontFromBuffer);
-        JSP_ADD_METHOD("setFontFaceFromUrl", JSRuntime::setFontFaceFromUrl);
-        JSP_ADD_METHOD("setFontFaceFromBuffer", JSRuntime::setFontFaceFromBuffer);
-        JSP_ADD_METHOD("removeFont", JSRuntime::removeFont);
-        JSP_ADD_METHOD("readFileFromAsset", JSRuntime::readFileFromAsset);
-        JSP_ADD_METHOD("getCachePath", JSRuntime::getCachePath);
-        JSP_ADD_METHOD("strTobufer", JSRuntime::strTobufer);
-        JSP_ADD_METHOD("callMethod", JSRuntime::callMethod);
-        JSP_ADD_METHOD("printCorpseImages", JSRuntime::printCorpseImages);
-        JSP_ADD_METHOD("getCountVertext", JSRuntime::getCountVertext);
-        JSP_ADD_METHOD("getCountGroup", JSRuntime::getCountGroup);
-        JSP_ADD_METHOD("getCountNode", JSRuntime::getCountNode);
-        JSP_ADD_METHOD("setExternalLink", JSRuntime::setExternalLink);
-        JSP_ADD_METHOD("setExternalLinkEx", JSRuntime::setExternalLinkEx);
-        JSP_ADD_METHOD("closeExternalLink", JSRuntime::closeExternalLink);
-        JSP_ADD_METHOD("hideWebview", JSRuntime::hideWebview);
-        JSP_ADD_METHOD("showWebview", JSRuntime::showWebView);
-        JSP_ADD_METHOD("captureScreen", JSRuntime::captureScreen);
-        JSP_ADD_METHOD("saveAsPng", JSRuntime::saveAsPng);
-        JSP_ADD_METHOD("saveAsJpeg", JSRuntime::saveAsJpeg);
-        JSP_ADD_METHOD("convertBitmapToPng", JSRuntime::convertBitmapToPng);
-        JSP_ADD_METHOD("convertBitmapToJpeg", JSRuntime::convertBitmapToJpeg);
-        JSP_ADD_METHOD("callWebviewJS", JSRuntime::callWebviewJS);
-		JSP_ADD_METHOD("regShaderDefine", JSRuntime::regShaderDefine);
-        JSP_ADD_METHOD("exit", JSRuntime::exit);
+        JSP_GLOBAL_ADD_METHOD("initFreeTypeDefaultFontFromFile",JSRuntime::initFreeTypeDefaultFontFromFile);
+        JSP_GLOBAL_ADD_METHOD("initFreeTypeDefaultFontFromBuffer", JSRuntime::initFreeTypeDefaultFontFromBuffer);
+        JSP_GLOBAL_ADD_METHOD("setFontFaceFromUrl", JSRuntime::setFontFaceFromUrl);
+        JSP_GLOBAL_ADD_METHOD("setFontFaceFromBuffer", JSRuntime::setFontFaceFromBuffer);
+        JSP_GLOBAL_ADD_METHOD("removeFont", JSRuntime::removeFont);
+        JSP_GLOBAL_ADD_METHOD("readFileFromAsset", JSRuntime::readFileFromAsset);
+        JSP_GLOBAL_ADD_METHOD("getCachePath", JSRuntime::getCachePath);
+        JSP_GLOBAL_ADD_METHOD("strTobufer", JSRuntime::strTobufer);
+        JSP_GLOBAL_ADD_METHOD("callMethod", JSRuntime::callMethod);
+        JSP_GLOBAL_ADD_METHOD("printCorpseImages", JSRuntime::printCorpseImages);
+        JSP_GLOBAL_ADD_METHOD("getCountVertext", JSRuntime::getCountVertext);
+        JSP_GLOBAL_ADD_METHOD("getCountGroup", JSRuntime::getCountGroup);
+        JSP_GLOBAL_ADD_METHOD("getCountNode", JSRuntime::getCountNode);
+        JSP_GLOBAL_ADD_METHOD("setExternalLink", JSRuntime::setExternalLink);
+        JSP_GLOBAL_ADD_METHOD("setExternalLinkEx", JSRuntime::setExternalLinkEx);
+        JSP_GLOBAL_ADD_METHOD("closeExternalLink", JSRuntime::closeExternalLink);
+        JSP_GLOBAL_ADD_METHOD("hideWebview", JSRuntime::hideWebview);
+        JSP_GLOBAL_ADD_METHOD("showWebview", JSRuntime::showWebView);
+        JSP_GLOBAL_ADD_METHOD("captureScreen", JSRuntime::captureScreen);
+        JSP_GLOBAL_ADD_METHOD("saveAsPng", JSRuntime::saveAsPng);
+        JSP_GLOBAL_ADD_METHOD("saveAsJpeg", JSRuntime::saveAsJpeg);
+        JSP_GLOBAL_ADD_METHOD("convertBitmapToPng", JSRuntime::convertBitmapToPng);
+        JSP_GLOBAL_ADD_METHOD("convertBitmapToJpeg", JSRuntime::convertBitmapToJpeg);
+        JSP_GLOBAL_ADD_METHOD("callWebviewJS", JSRuntime::callWebviewJS);
+		JSP_GLOBAL_ADD_METHOD("regShaderDefine", JSRuntime::regShaderDefine);
+        JSP_GLOBAL_ADD_METHOD("exit", JSRuntime::exit);
+        #ifdef OHOS
+        JSP_GLOBAL_ADD_METHOD("postMessage", JSRuntime::postMessage);
+		JSP_GLOBAL_ADD_METHOD("postSyncMessage", JSRuntime::postSyncMessage);
+        #endif
         JSP_INSTALL_GLOBAL_CLASS("conch", JSRuntime, this );
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 #include "winWindows.h"
 #include "AppMessage.h"
-#include "../JCScrpitRuntime.h"
+#include "../JCScriptRuntime.h"
 #include "../JSWrapper/LayaWrap/JSWindowEditBox.h"
 #include "WinCtrl.h"
 #include <CommCtrl.h>

@@ -29,7 +29,7 @@
 #include "JCSystemConfig.h"
 #include "JSWrapper/LayaWrap/JSGlobalExportCFun.h"
 #include "JCConchRender.h"
-#include "JCScrpitRuntime.h"
+#include "JCScriptRuntime.h"
 #include <imageLib/JCImageRW.h>
 
 using namespace laya;

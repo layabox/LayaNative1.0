@@ -11,7 +11,7 @@
 #include <util/Log.h>
 #include <util/JCMemorySurvey.h>
 #include "../JSInterface/JSInterface.h"
-#include "../../JCScrpitRuntime.h"
+#include "../../JCScriptRuntime.h"
 #include <downloadCache/JCFileSource.h>
 #include <resource/JCFileResManager.h>
 #include <WebGLRender/JCWebGLRender.h>
@@ -95,6 +95,7 @@ void JSImage::onLoadedCallJSFunction(std::weak_ptr<int> callbackref)
            m_pOnLoad.Call();
         }
     }
+    makeWeak();
 }
 void JSImage::sendCreateImageMsgToRenderThread()
 {
@@ -118,6 +119,7 @@ void JSImage::onErrorCallJSFunction( int p_nError,std::weak_ptr<int> callbackref
 	if (!IsMyJsEnv())return;
     LOGW("download image file error! %s\n", m_sUrl.c_str());
     m_pOnError.Call(p_nError);
+    makeWeak();
 }
 bool JSImage::getComplete()
 {
@@ -222,6 +224,7 @@ bool JSImage::downloadImage(bool p_bSyncDecode)
     JCFileRes* pRes = JCScriptRuntime::s_JSRT->m_pFileResMgr->getRes(m_sUrl);
     pRes->setOnReadyCB(std::bind(&JSImage::onDownloadOK, this, std::placeholders::_1, false, cbref));
     pRes->setOnErrorCB(std::bind(&JSImage::onDownloadError, this, std::placeholders::_1, std::placeholders::_2, cbref));
+    makeStrong();	//防止被釋放
     return true;
 }
 int JSImage::GetWidth()
@@ -234,13 +237,14 @@ int JSImage::GetHeight()
 }
 void JSImage::putBitmapDataJS(JSValueAsParam pArrayBuffer, int width, int height)
 {
-    JsArrayBufferData ab(!isSupportTypedArrayAPI());
-    bool bIsArrayBuffer = extractJSAB(pArrayBuffer, ab);
+    char* pArrayBufferPtr = NULL;
+    int nABLen = 0;
+    bool bIsArrayBuffer = extractJSAB(pArrayBuffer, pArrayBufferPtr, nABLen);
     if (bIsArrayBuffer)
     {
-        if (ab.len >= width * height * 4)
+        if (nABLen >= width * height * 4)
         {
-            putBitmapData(ab.data,width, height);
+            putBitmapData(pArrayBufferPtr,width, height);
         }
         else
         {

@@ -2,6 +2,7 @@
 LOCAL_PATH:= $(call my-dir)
 
 #liblayaair.a
+
 include $(CLEAR_VARS)
 LOCAL_MODULE := liblayaair
 LOCAL_CFLAGS := \
@@ -11,26 +12,33 @@ LOCAL_CFLAGS := \
   -DJS_V8 \
   -DIN_LIBRARY \
   -D_GLIBCXX_PERMIT_BACKWARD_HASH \
-  -DV8_ALLOW_ACCESS_TO_RAW_HANDLE_CONSTRUCTOR \
-  -frtti \
+  -DANDROID_ARM_NEON=TRUE \
+  -DANDROID_STL=c++_shared \
+  -DANDROID_TOOLCHAIN=clang \
+  -fno-rtti \
+  #todo -DJS_V8_DEBUGGER \
 
-LOCAL_CFLAGS += -std=c++11
+LOCAL_CPPFLAGS += -std=c++11
 ifeq ($(APP_PERFTEST),1)
 LOCAL_CFLAGS += -DPERFTEST 
 endif
 
 LOCAL_CXXFLAGS := -O3
 
+ifeq ($(TARGET_ARCH),arm64)
+   LOCAL_CFLAGS += -DV8_COMPRESS_POINTERS
+   LOCAL_CPPFLAGS += -DV8_COMPRESS_POINTERS
+endif
+
 LOCAL_SRC_FILES := \
         ../../../../source/conch/JSWrapper/v8debug/debug-agent.cpp \
-        ../../../../source/conch/JSWrapper/v8debug/V8Win32Socket.cpp \
-        ../../../../source/conch/JSWrapper/v8debug/V8HeapProfiler.cpp \
-        ../../../../source/conch/JSWrapper/v8debug/V8CpuProfile.cpp \
-        ../../../../source/conch/JSWrapper/v8debug/V8Console.cpp \
+        ../../../../source/conch/JSWrapper/v8debug/V8WSSv.cpp \
         ../../../../source/conch/JSWrapper/JSInterface/JSInterface.cpp \
         ../../../../source/conch/JSWrapper/JSInterface/V8/JSEnv.cpp \
         ../../../../source/conch/JSWrapper/JSInterface/V8/JsBinder.cpp \
         ../../../../source/conch/JSWrapper/JSInterface/V8/JSArrayBuffer.cpp \
+		../../../../source/conch/JSWrapper/JSInterface/V8/IsolateData.cpp \
+		../../../../source/conch/JSWrapper/JSInterface/JSObjBase.cpp \
         ../../../../source/conch/JSWrapper/LayaWrap/JSAndroidEditBox.cpp \
         ../../../../source/conch/JSWrapper/LayaWrap/JSAppCache.cpp \
         ../../../../source/conch/JSWrapper/LayaWrap/JSAudio.cpp \
@@ -69,11 +77,12 @@ LOCAL_SRC_FILES := \
         ../../../../source/conch/JCConchRender.cpp \
         ../../../../source/conch/JCPublicCmdDispath.cpp \
         ../../../../source/conch/JCThreadCmdMgr.cpp \
-        ../../../../source/conch/JCScrpitRuntime.cpp \
+        ../../../../source/conch/JCScriptRuntime.cpp \
         ../../../../source/conch/JCSystemConfig.cpp \
         ../../../../source/conch/CToJavaBridge.cpp \
         ../../../../source/conch/JNIFun.cpp \
 		../../../../source/conch/Bridge/JCConchBridge.cpp \
+        #../../../../source/conch/JSWrapper/v8debug/debug-agent.cpp \
 
 
 LOCAL_C_INCLUDES := ../../../../../ThirdParty/curl/include/android \
@@ -81,12 +90,11 @@ LOCAL_C_INCLUDES := ../../../../../ThirdParty/curl/include/android \
         ../../../../../ThirdParty/jpeg/include/android \
         ../../../../../ThirdParty/freetype/include/android \
         ../../../../../ThirdParty/zip/include/android \
-        ../../../../../ThirdParty/v8_4.6.9/include \
+        ../../../../../ThirdParty/v8_8.8/include \
         ../../../../../ThirdParty/ogg/include/android \
         ../../../../../ThirdParty/websockets/include/android \
 		../../../../../ThirdParty/openssl/include/android \
-        ../../../../include/common/OpenAL/include \
-        ../../../../include/common/OpenAL/OpenAL32/Include \
+        ../../../../../ThirdParty/openal/include/android \
         ../../../../include/common \
         ../../../../include/render \
         ../../../../include/msgpack/include \
@@ -100,20 +108,16 @@ LOCAL_C_INCLUDES := ../../../../../ThirdParty/curl/include/android \
 LOCAL_IS64:=armv7
 ifeq ($(TARGET_ARCH),arm64)
 LOCAL_IS64:=arm64
-else ifeq ($(TARGET_ARCH_ABI),armeabi)
-LOCAL_IS64:=arm
 else ifeq ($(TARGET_ARCH),x86)
 LOCAL_IS64:=x86
 endif
-
-LOCAL_LDLIBS    := -llog -lGLESv2 -landroid \
+LOCAL_DISABLE_FATAL_LINKER_WARNINGS := true
+LOCAL_LDLIBS    := -lOpenSLES -llog -lGLESv3 -landroid -ljnigraphics -lm -lz -lc++ \
         ../../../../libs/android-$(LOCAL_IS64)/librender.a \
         ../../../../libs/android-$(LOCAL_IS64)/libcommon.a \
         ../../../../../ThirdParty/curl/lib/android-$(LOCAL_IS64)/libcurl.a \
-        ../../../../../ThirdParty/v8_4.6.9/lib/android-$(LOCAL_IS64)/libv8_base.a \
-        ../../../../../ThirdParty/v8_4.6.9/lib/android-$(LOCAL_IS64)/libv8_nosnapshot.a \
-        ../../../../../ThirdParty/v8_4.6.9/lib/android-$(LOCAL_IS64)/libv8_libplatform.a \
-        ../../../../../ThirdParty/v8_4.6.9/lib/android-$(LOCAL_IS64)/libv8_libbase.a \
+        ../../../../../ThirdParty/v8_8.8/lib/android-$(LOCAL_IS64)/libv8_monolith.a \
+        ../../../../../ThirdParty/v8_8.8/lib/android-$(LOCAL_IS64)/libinspector.a \
         ../../../../../ThirdParty/websockets/lib/android-$(LOCAL_IS64)/libwebsockets.a \
         ../../../../../ThirdParty/jpeg/lib/android-$(LOCAL_IS64)/libjpeg.a \
         ../../../../../ThirdParty/png/lib/android-$(LOCAL_IS64)/libpng.a \
@@ -125,16 +129,9 @@ LOCAL_LDLIBS    := -llog -lGLESv2 -landroid \
         ../../../../../ThirdParty/openssl/lib/android-$(LOCAL_IS64)/libssl.a \
         ../../../../../ThirdParty/openssl/lib/android-$(LOCAL_IS64)/libcrypto.a \
 		../../../../../ThirdParty/zlib/lib/android-$(LOCAL_IS64)/libz.a \
+        ../../../../../ThirdParty/openal/lib/android-$(LOCAL_IS64)/libopenal.a \
 			
-ifeq ($(TARGET_ARCH),arm64)
-LOCAL_LDLIBS += $(NDK_DIR)/sources/cxx-stl/gnu-libstdc++/4.9/libs/arm64-v8a/libgnustl_static.a
-else ifeq ($(TARGET_ARCH_ABI),armeabi)
-LOCAL_LDLIBS += $(NDK_DIR)/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi/libgnustl_static.a
-else ifeq ($(TARGET_ARCH),x86)
-LOCAL_LDLIBS += $(NDK_DIR)/sources/cxx-stl/gnu-libstdc++/4.9/libs/x86/libgnustl_static.a
-else
-LOCAL_LDLIBS += $(NDK_DIR)/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi-v7a/libgnustl_static.a
-endif
+
 
 include $(BUILD_SHARED_LIBRARY)
 

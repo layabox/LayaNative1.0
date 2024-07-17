@@ -10,7 +10,7 @@
 
 #import "LayaPlatformFactory.h"
 #import "../../../../../source/conch/JSWrapper/LayaWrap/JSMarket.h"
-#import "../../../../../source/conch/JCScrpitRuntime.h"
+#import "../../../../../source/conch/JCScriptRuntime.h"
 
 //-------------------------------------------------------------------------------
 static LayaPlatformFactory* g_pPlatformFactory = nil;

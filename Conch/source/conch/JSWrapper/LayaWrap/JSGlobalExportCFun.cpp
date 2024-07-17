@@ -31,6 +31,10 @@
 #ifdef ANDROID
     #include "JSAndroidEditBox.h"
 	#include "../../CToJavaBridge.h"
+#elif OHOS
+    #include "JSOHOSEditBox.h"
+    #include "aki/jsbind.h"
+    #include "helper/NapiHelper.h"
 #elif WIN32
 	#include <Windows.h>
     #include "JSWindowEditBox.h"
@@ -65,6 +69,8 @@ extern bool g_bGLCanvasSizeChanged;
 	int g_bEnableTouch = true;
 #elif __APPLE__
 	int g_bEnableTouch = true;
+#elif OHOS
+	int g_bEnableTouch = true;
 #endif
  std::string g_sExePath = "";
 
@@ -91,46 +97,45 @@ void alert(const char* fmt, ...)
 }
 namespace laya 
 {
-    //下载大文件，zip用的
-    struct JSFuncWrapper :public JsObjBase
+ //下载大文件，zip用的
+    struct JSFuncWrapper
     {
-        enum { onprogid, oncompid };
-        static JsObjClassInfo JSCLSINFO;
         JsObjHandle funcOnProg;
         JsObjHandle funcOnComp;
         bool stop;
         JSFuncWrapper(JSValueAsParam onprog, JSValueAsParam onComp)
         {
-            createJSObj();
-            funcOnProg.set(onprogid, this, onprog);
-            funcOnComp.set(oncompid, this, onComp);
+            funcOnProg.set(onprog);
+            funcOnComp.set(onComp);
             stop = false;
         }
+		~JSFuncWrapper()
+		{
+			funcOnProg.Reset();
+			funcOnComp.Reset();
+		}
     };
-    ADDJSCLSINFO(JSFuncWrapper, JSObjNode);
 
-
-    void downloadBig_onProg_js(JSFuncWrapper* pWrapper, unsigned int total, unsigned int now, float speed){
+    void downloadBig_onProg_js(JSFuncWrapper* pWrapper, unsigned int total, unsigned int now, float speed)
+    {
         if (pWrapper->funcOnProg.Empty())return;
-        pWrapper->funcOnProg.Call(total, now, speed);
-        pWrapper->stop = __TransferToCpp<bool>::ToCpp(pWrapper->funcOnProg.m_pReturn);
+        pWrapper->funcOnProg.CallWithReturn(JSP_GLOBAL_OBJECT, total, now, speed, pWrapper->stop);
     }
-
-    int downloadBig_onProg(unsigned int total, unsigned int now, float speed, JSFuncWrapper* pWrapper){
-        if (pWrapper && pWrapper->stop)
-            return 1;			//TODO 删除的事情
+    int downloadBig_onProg(unsigned int total, unsigned int now, float speed, JSFuncWrapper* pWrapper)
+    {
+        if (pWrapper && pWrapper->stop)return 1;
         JCScriptRuntime::s_JSRT->m_pPoster->postToJS(std::bind(downloadBig_onProg_js, pWrapper, total, now, speed));
         return 0;
     }
-
-    void downloadBig_onComp_js(int curlret, int httpret, JSFuncWrapper* pWrapper){
-        if (!pWrapper->IsMyJsEnv()){
+    void downloadBig_onComp_js(int curlret, int httpret, JSFuncWrapper* pWrapper)
+    {
+        /*if (!pWrapper->IsMyJsEnv()){
             delete pWrapper;
             return;
-        }
-
-        if (!pWrapper->funcOnComp.Empty()) {
-            pWrapper->funcOnComp.Call(curlret,httpret);
+        }*/
+        if (!pWrapper->funcOnComp.Empty()) 
+        {
+            pWrapper->funcOnComp.Call(JSP_GLOBAL_OBJECT, curlret,httpret);
         }
         delete pWrapper;
     }
@@ -163,10 +168,10 @@ namespace laya
 
 
     void downloadHeader_onComp_js(char* pBuff, int curlret, int httpret, JSFuncWrapper* pWrapper) {
-        if (!pWrapper->IsMyJsEnv()) {
+        /*if (!pWrapper->IsMyJsEnv()) {
             delete pWrapper;
             return;
-        }
+        }*/
 
         if (!pWrapper->funcOnComp.Empty()) {
             if (pBuff) {
@@ -241,6 +246,8 @@ namespace laya
         CToJavaBridge::GetInstance()->callMethod(CToJavaBridge::JavaClass.c_str(), "alert", p_sBuffer, kRet);
 #elif __APPLE__
         CToObjectCAlert(p_sBuffer);
+#elif OHOS
+        NapiHelper::GetInstance()->showDialog(p_sBuffer);
 #endif
     }
     void JSAlert(const char* p_sBuffer)
@@ -343,10 +350,10 @@ namespace laya
     }
 
     std::string calcMD5_JSAB(JSValueAsParam pjs){
-        JsArrayBufferData ab(!isSupportTypedArrayAPI());
-        if (!extractJSAB(pjs, ab))
-            return "";
-        std::string ret = calcMD5((unsigned char*)ab.data, ab.len);
+        char* pABPtr = NULL;
+        int nABLen = 0;
+        if (!extractJSAB(pjs, pABPtr, nABLen))return "";
+        std::string ret = calcMD5((unsigned char*)pABPtr, nABLen);
         return ret;
     }
 
@@ -385,6 +392,9 @@ namespace laya
 #endif
 #ifdef __APPLE__
         JSIOSEditBox::exportJS();
+#endif
+#ifdef OHOS
+        JSOHOSEditBox::exportJS();
 #endif
         JSNode2D::exportJS();
         JSGraphics::exportJS();

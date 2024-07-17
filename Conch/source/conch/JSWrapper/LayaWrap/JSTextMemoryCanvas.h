@@ -16,7 +16,7 @@
 
 namespace laya
 {
-    class JSTextMemoryCanvas :public JsObjBase
+    class JSTextMemoryCanvas :public JsObjBase, public JSObjNode
 	{
     public:
 
@@ -27,7 +27,8 @@ namespace laya
         JSTextMemoryCanvas();
 
 		~JSTextMemoryCanvas();
-
+    	static JSTextMemoryCanvas* getInstance();
+		static JSTextMemoryCanvas*  ms_pTextMemoryCanvas;
 	public:
 		const char* getFillStyle();
 		void setFillStyle( const char* sColor );

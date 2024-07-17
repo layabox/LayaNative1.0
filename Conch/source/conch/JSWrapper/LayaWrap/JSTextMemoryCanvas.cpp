@@ -12,12 +12,21 @@
 #include <math.h>
 #include "JSTextMemoryCanvas.h"
 #include "JSMeasureTextInfo.h"
-#include "../../JCScrpitRuntime.h"
+#include "../../JCScriptRuntime.h"
 #include <util/Log.h>
 
 namespace laya
 {
+	JSTextMemoryCanvas*  JSTextMemoryCanvas::ms_pTextMemoryCanvas = NULL;
 	ADDJSCLSINFO(JSTextMemoryCanvas, JSObjNode);
+    JSTextMemoryCanvas* JSTextMemoryCanvas::getInstance()
+    {
+        if (!ms_pTextMemoryCanvas)
+        {
+            ms_pTextMemoryCanvas = new JSTextMemoryCanvas();
+        }
+        return ms_pTextMemoryCanvas;
+    }
     JSTextMemoryCanvas::JSTextMemoryCanvas()
     {
         AdjustAmountOfExternalAllocatedMemory(20480);
@@ -27,6 +36,7 @@ namespace laya
     }
     JSTextMemoryCanvas::~JSTextMemoryCanvas()
     {
+        ms_pTextMemoryCanvas = NULL;
     }
     void JSTextMemoryCanvas::setFontInfo(const char* sFontInfo)
     {
@@ -57,10 +67,10 @@ namespace laya
         if (m_pTextMemoryCanvas->m_pCurrentTexUnit == NULL || m_pTextMemoryCanvas->m_pCurrentTexUnit->fontInfo == NULL || sText == NULL)
         {
             LOGW("JSMemoryCanvas::measureText 没有设置FontInfo");
-            return JSP_TO_JS(JSMeasureTextInfo, pMTextInfo);
+            return JSP_TO_JS(JSMeasureTextInfo*, pMTextInfo);
         }
         pMTextInfo->measureText(m_pTextMemoryCanvas->m_pCurrentTexUnit->fontInfo, sText);
-        return JSP_TO_JS(JSMeasureTextInfo, pMTextInfo);
+        return JSP_TO_JS(JSMeasureTextInfo*, pMTextInfo);
     }
 	void JSTextMemoryCanvas::setTextBaseline(const char* baseLine)
 	{
@@ -106,20 +116,20 @@ namespace laya
     }
 	void JSTextMemoryCanvas::exportJS() 
     {
-        JSP_GLOBAL_CLASS("ConchTextCanvas", JSTextMemoryCanvas);
-        JSP_ADD_PROPERTY(fillStyle, JSTextMemoryCanvas, getFillStyle, setFillStyle);
-        JSP_ADD_PROPERTY(font, JSTextMemoryCanvas, getFontInfo, setFontInfo);
-        JSP_ADD_PROPERTY(textBaseline, JSTextMemoryCanvas, getTextBaseline, setTextBaseline);
-        JSP_ADD_PROPERTY(width, JSTextMemoryCanvas, getWidth, setWidth);
-        JSP_ADD_PROPERTY(height, JSTextMemoryCanvas, getHeight, setHeight);
-        JSP_ADD_PROPERTY_RO(conchImgId, JSTextMemoryCanvas, getImageID);
-        JSP_ADD_METHOD("setFillStyle", JSTextMemoryCanvas::setFillStyle);
-        JSP_ADD_METHOD("setFontInfo", JSTextMemoryCanvas::setFontInfo);
-        JSP_ADD_METHOD("isTextCanvas", JSTextMemoryCanvas::isTextCanvas);
-        JSP_ADD_METHOD("measureText", JSTextMemoryCanvas::measureText);
-        JSP_ADD_METHOD("fillText", JSTextMemoryCanvas::fillText);
-        JSP_ADD_METHOD("setTargetTextureID", JSTextMemoryCanvas::setTargetTextureID);
-        JSP_ADD_METHOD("size", JSTextMemoryCanvas::setSize);
+        JSP_GLOBAL_CLASS("ConchTextCanvas", JSTextMemoryCanvas, this);
+        JSP_GLOBAL_ADD_PROPERTY(fillStyle, JSTextMemoryCanvas, getFillStyle, setFillStyle);
+        JSP_GLOBAL_ADD_PROPERTY(font, JSTextMemoryCanvas, getFontInfo, setFontInfo);
+        JSP_GLOBAL_ADD_PROPERTY(textBaseline, JSTextMemoryCanvas, getTextBaseline, setTextBaseline);
+        JSP_GLOBAL_ADD_PROPERTY(width, JSTextMemoryCanvas, getWidth, setWidth);
+        JSP_GLOBAL_ADD_PROPERTY(height, JSTextMemoryCanvas, getHeight, setHeight);
+        JSP_GLOBAL_ADD_PROPERTY_RO(conchImgId, JSTextMemoryCanvas, getImageID);
+        JSP_GLOBAL_ADD_METHOD("setFillStyle", JSTextMemoryCanvas::setFillStyle);
+        JSP_GLOBAL_ADD_METHOD("setFontInfo", JSTextMemoryCanvas::setFontInfo);
+        JSP_GLOBAL_ADD_METHOD("isTextCanvas", JSTextMemoryCanvas::isTextCanvas);
+        JSP_GLOBAL_ADD_METHOD("measureText", JSTextMemoryCanvas::measureText);
+        JSP_GLOBAL_ADD_METHOD("fillText", JSTextMemoryCanvas::fillText);
+        JSP_GLOBAL_ADD_METHOD("setTargetTextureID", JSTextMemoryCanvas::setTargetTextureID);
+        JSP_GLOBAL_ADD_METHOD("size", JSTextMemoryCanvas::setSize);
         JSP_INSTALL_GLOBAL_CLASS("ConchTextCanvas", JSTextMemoryCanvas, this);
 	}
 }

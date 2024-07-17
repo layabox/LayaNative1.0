@@ -19,7 +19,7 @@
 #include <util/JCLayaUrl.h>
 #include <util/JCCommonMethod.h>
 #include "JSFile.h"
-#include "../../JCScrpitRuntime.h"
+#include "../../JCScriptRuntime.h"
 #include <util/JCIThreadCmdMgr.h>
 #include <functional>
 #include "../../Audio/JCAudioManager.h"
@@ -44,7 +44,11 @@ JSAudio::JSAudio()
 	m_sLocalFileName = "";
 	m_bIsOgg = false;
 	m_bDownloaded = false;
+		#ifdef OHOS
+		audioRenderInfo = NULL;
+		#else
     m_pOpenALInfo = NULL;
+		#endif
 	AdjustAmountOfExternalAllocatedMemory( 534 );
 	JCMemorySurvey::GetInstance()->newClass( "audio",534,this );
 	m_CallbackRef.reset(new int(1));
@@ -106,10 +110,17 @@ void JSAudio::setMuted( bool p_bMuted )
 	}
 	else if( m_nType == 1 )
 	{
+			#ifdef OHOS
+            if (audioRenderInfo && audioRenderInfo->m_pAudio == this)
+            {
+                JCAudioManager::GetInstance()->setWavVolume(audioRenderInfo, m_bMuted ? 0 : m_nVolume);
+            }
+			#else
         if (m_pOpenALInfo && m_pOpenALInfo->m_pAudio == this)
         {
             JCAudioManager::GetInstance()->setWavVolume(m_pOpenALInfo, m_bMuted ? 0 : m_nVolume);
         }
+			#endif
 	}
 }
 //------------------------------------------------------------------------------
@@ -338,10 +349,17 @@ void JSAudio::setVolume( float p_nVolume )
 	}
 	else if( m_nType == 1 )
 	{
+			#ifdef OHOS
+            if (audioRenderInfo && audioRenderInfo->m_pAudio == this)
+            {
+                JCAudioManager::GetInstance()->setWavVolume(audioRenderInfo,m_nVolume);
+            }
+			#else
         if (m_pOpenALInfo && m_pOpenALInfo->m_pAudio == this)
         {
             JCAudioManager::GetInstance()->setWavVolume(m_pOpenALInfo,m_nVolume);
         }
+			#endif
 	}
 }
 //------------------------------------------------------------------------------
@@ -372,11 +390,19 @@ void JSAudio::play()
 	}
 	else if( m_nType == 1 )
 	{
+			#ifdef OHOS
+		    audioRenderInfo = JCAudioManager::GetInstance()->playWav( this,m_sSrc, m_bIsOgg);
+            if (audioRenderInfo)
+            {
+                JCAudioManager::GetInstance()->setWavVolume(audioRenderInfo, m_nVolume);
+            }
+			#else
 		m_pOpenALInfo = JCAudioManager::GetInstance()->playWav( this,m_sSrc,m_bIsOgg );
         if (m_pOpenALInfo)
         {
             JCAudioManager::GetInstance()->setWavVolume(m_pOpenALInfo, m_nVolume);
         }
+			#endif
 	}
 }
 //------------------------------------------------------------------------------
@@ -388,11 +414,19 @@ void JSAudio::pause()
 	}
     else
     {
+			#ifdef OHOS
+            if (audioRenderInfo && audioRenderInfo->m_pAudio == this)
+            {
+                JCAudioManager::GetInstance()->stopWav(audioRenderInfo);
+                audioRenderInfo = NULL;
+            }
+			#else
         if (m_pOpenALInfo && m_pOpenALInfo->m_pAudio == this)
         {
             JCAudioManager::GetInstance()->stopWav(m_pOpenALInfo);
             m_pOpenALInfo = NULL;
         }
+			#endif
     }
 }
 //------------------------------------------------------------------------------
@@ -404,11 +438,19 @@ void JSAudio::stop()
 	}
     else
     {
+			#ifdef OHOS
+            if (audioRenderInfo && audioRenderInfo->m_pAudio == this)
+            {
+                JCAudioManager::GetInstance()->stopWav(audioRenderInfo);
+                audioRenderInfo = NULL;
+            }
+			#else
         if (m_pOpenALInfo && m_pOpenALInfo->m_pAudio == this)
         {
             JCAudioManager::GetInstance()->stopWav(m_pOpenALInfo);
             m_pOpenALInfo = NULL;
         }
+			#endif
     }
 }
 void JSAudio::setCurrentTime(float nCurrentTime)
@@ -432,6 +474,16 @@ void JSAudio::onPlayEndCallJSFunction( std::weak_ptr<int> callbackref)
 	if( !callbackref.lock())
 		return;
 	m_pJSFunctionAudioEnd.Call();
+	#ifdef OHOS
+	if(audioRenderInfo->_audioRender!=nullptr) {
+        OH_AudioRenderer_Release(audioRenderInfo->_audioRender);
+    }
+    if(audioRenderInfo->_builder != nullptr) {
+        OH_AudioStreamBuilder_Destroy(audioRenderInfo->_builder);
+    }
+    audioRenderInfo->m_pAudio = NULL;
+    audioRenderInfo->m_bPlaying = false;
+	#endif
 }
 //------------------------------------------------------------------------------
 void JSAudio::onCanplayCallJSFunction( std::weak_ptr<int> callbackref)

@@ -1,4 +1,4 @@
-﻿/**
+/**
 @file			JCGpuProgram.cpp
 @brief			
 @author			guo
@@ -171,14 +171,14 @@ namespace laya{
         glShaderSource(nGLVS, 2, strShaders, NULL);
         glCompileShader(nGLVS);
         if (!checkCompile(nGLVS, "VS"))
-            return nullptr;
+            return false;
 
         nGLPS = glCreateShader(GL_FRAGMENT_SHADER);
         strShaders[1] = m_pTemp->m_strPS.c_str();
         glShaderSource(nGLPS, 2, strShaders, NULL);
         glCompileShader(nGLPS);
         if (!checkCompile(nGLPS, "PS"))
-            return nullptr;
+            return false;
 
         int nProgram = glCreateProgram();
         glAttachShader(nProgram, nGLVS);

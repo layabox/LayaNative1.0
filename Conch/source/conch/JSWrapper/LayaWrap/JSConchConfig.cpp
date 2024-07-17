@@ -10,7 +10,7 @@
 #include "JSConchConfig.h"
 #include "JSInput.h"
 #include "resource/JCFileResManager.h"
-#include "../../JCScrpitRuntime.h"
+#include "../../JCScriptRuntime.h"
 #include "../../../Conch/source/conch/JCConch.h"
 #ifdef ANDROID
     #include "../../CToJavaBridge.h"
@@ -18,6 +18,10 @@
     #include <Windows.h>
 #elif __APPLE__
     #include "../../CToObjectC.h"
+#elif OHOS
+    #include "aki/jsbind.h"
+    #include <string>
+    #include "helper/NapiHelper.h"
 #endif
 #include "downloadMgr/JCDownloadMgr.h"
 #include "util/Log.h"
@@ -25,7 +29,11 @@
 #include "../../JCConchRender.h"
 #include "../../JCConch.h"
 #include "../../WebSocket/WebSocket.h"
+#ifdef OHOS
+#include <resource/Audio/JCAudioWavPlayer-openharmony.h>
+#else
 #include <resource/Audio/JCAudioWavPlayer.h>
+#endif
 #include "../../Audio/JCAudioManager.h"
 #include "JSGraphics.h"
 #include <3DRS/JCRenderer.h>
@@ -106,6 +114,8 @@ namespace laya
         return CToObjectCGetUsedMem();
 #elif WIN32
         return getAppUsedMem();
+#elif OHOS
+        return NapiHelper::GetInstance()->getUsedMem();
 #endif
         return 0;
     }
@@ -118,6 +128,8 @@ namespace laya
             return (int)(kRet.floatRet);
         }
         return 0;
+#elif OHOS
+        return NapiHelper::GetInstance()->getAvalidMem();
 #elif WIN32
         MEMORYSTATUSEX statex;
         statex.dwLength = sizeof(statex);
@@ -137,6 +149,8 @@ namespace laya
             return kRet.floatRet;
         }
         return 0;
+#elif OHOS
+        return NapiHelper::GetInstance()->getScreenInch();
 #elif WIN32
         return 0;
 #elif __APPLE__
@@ -192,6 +206,30 @@ namespace laya
         MoveWindow(g_hWnd, 0, 0, g_nInnerWidth, g_nInnerHeight, true);
 #elif __APPLE__
         CToObjectCSetScreenOrientation(p_nOrientation);
+#elif OHOS
+        int orientation = 0;
+        if(p_nOrientation == landscape) {
+           orientation = 2;
+        } else if(p_nOrientation == portrait) {
+           orientation = 1;
+        } else if(p_nOrientation == user) {
+           orientation = 0;
+        } else if(p_nOrientation == behind) {
+           orientation = 5;
+        } else if(p_nOrientation == nosensor) {
+           orientation = 11;
+        } else if(p_nOrientation == sensor_landscape) {
+           orientation = 7;
+        } else if(p_nOrientation == sensor_portrait) {
+           orientation = 6;
+        } else if(p_nOrientation == reverse_landscape) {
+           orientation = 4;
+        } else if(p_nOrientation == reverse_portrait) {
+           orientation = 3;
+        } else if(p_nOrientation == sensor || p_nOrientation == full_sensor) {
+           orientation = 3;
+        }
+        NapiHelper::GetInstance()->setPreferredOrientation(orientation);
 #endif
 
     }
@@ -217,6 +255,8 @@ namespace laya
         return 1;
 #elif __APPLE__
         return CToObjectCGetNetworkType();
+#elif OHOS
+        return NapiHelper::GetInstance()->getNetworkType();
 #endif
         return 0;
     }
@@ -301,6 +341,8 @@ namespace laya
         return "Conch-android";
 #elif WIN32
         return "Conch-window";
+#elif OHOS
+        return "Conch-ohos";
 #endif
     }
     const char* JSConchConfig::getBrowserInfo()
@@ -311,6 +353,8 @@ namespace laya
         return "Conch-android";
 #elif WIN32
         return "Conch-window";
+#elif OHOS
+        return "Conch-ohos";
 #endif
     }
     const char* JSConchConfig::getGuid()
@@ -334,11 +378,13 @@ namespace laya
     const char* JSConchConfig::getRuntimeVersion()
     {
 #ifdef __APPLE__
-        return "ios-conch5-1.0.7";
+        return "ios-conch5-1.0.10";
 #elif ANDROID
-        return "android-conch5-1.0.7";
+        return "android-conch5-1.0.10";
+#elif OHOS
+        return "ohos-conch5-1.0.10";
 #elif WIN32
-        return "window-conch5-1.0.7";
+        return "window-conch5-1.0.10";
 #endif
     }
     const char* JSConchConfig::getAppVersion()
@@ -349,6 +395,9 @@ namespace laya
 #elif ANDROID
         //TODO
         return "1.0";
+#elif OHOS
+        m_sAppVersion = NapiHelper::GetInstance()->getAppVersion();
+        return m_sAppVersion.c_str();
 #elif WIN32
         //TODO
         return "1.0";
@@ -361,6 +410,9 @@ namespace laya
         return m_sAppLocalVersion.c_str();
 #elif ANDROID
         return "1.0";
+#elif OHOS
+        m_sAppLocalVersion = NapiHelper::GetInstance()->getAppLocalVersion();
+        return m_sAppLocalVersion.c_str();
 #elif WIN32
         return "1.0";
 #endif
@@ -413,6 +465,9 @@ namespace laya
             m_sDeviceInfo = CToJavaBridge::GetInstance()->getJavaString(kRet.pJNI, kRet.strRet);
         }
         LOGI("getDeviceInfo::get_Value=%s", m_sDeviceInfo.c_str());
+        return m_sDeviceInfo.c_str();
+#elif OHOS
+        m_sDeviceInfo = NapiHelper::GetInstance()->getDeviceInfo();
         return m_sDeviceInfo.c_str();
 #elif WIN32
         return "{\"resolution\":\"1920*1080\",	\"guid\":\"xxxxxxxxx\",\"imei\":[\"imeixxx\"],\"imsi\":[\"imsixxx\"],\"os\":\"windows\",\"osversion\":\"windows7 64\",\"phonemodel\":\"Wintel\"	}";
@@ -683,76 +738,76 @@ namespace laya
     }
     void JSConchConfig::exportJS()
     {
-        JSP_GLOBAL_CLASS("conchConfig", JSConchConfig);
-        JSP_ADD_PROPERTY_RO(supportTextureCustomData, JSConchConfig, supportTextureCustomData);
-        JSP_ADD_PROPERTY_RO(glCaps, JSConchConfig, getGLCaps);
-        JSP_ADD_PROPERTY_RO(paramExt, JSConchConfig, getJsonparamExt);
-        JSP_ADD_PROPERTY(urlIgnoreCase, JSConchConfig, getUrlIgnoreCase, setUrlIgnoreCase);
-        JSP_ADD_PROPERTY(maxTextureMemSize, JSConchConfig,getMaxTextureMemSize,setMaxTextureMemSize);
-        JSP_ADD_PROPERTY(pushAtlasLimitSize, JSConchConfig, getPushAtlasLimitSize,setPushAtlasLimitSize);
-        JSP_ADD_PROPERTY(atlasNum, JSConchConfig,getAtlasNum,setAtlasNum);
-        JSP_ADD_PROPERTY(localizable, JSConchConfig, getLocalable, setLocalable);
-        JSP_ADD_PROPERTY(useAndroidSystemFont, JSConchConfig, getUseAndroidSystemFont, setUseAndroidSystemFont);
-        JSP_ADD_METHOD("getStoragePath", JSConchConfig::getLocalStoragePath);
-        JSP_ADD_METHOD("getTotalMem", JSConchConfig::getTotalMem);
-        JSP_ADD_METHOD("getUsedMem", JSConchConfig::getUsedMem);
-        JSP_ADD_METHOD("getAvalidMem", JSConchConfig::getAvalidMem);
-        JSP_ADD_METHOD("getScreenInch", JSConchConfig::getScreenInch);
-        JSP_ADD_METHOD("setTouchMoveRange", JSConchConfig::setTouchMoveRange);
-        JSP_ADD_METHOD("setScreenOrientation", JSConchConfig::setScreenOrientation);
-        JSP_ADD_METHOD("setScreenScale", JSConchConfig::setScreenScale);
-        JSP_ADD_METHOD("getScreenScaleW", JSConchConfig::getScreenScaleW);
-        JSP_ADD_METHOD("getScreenScaleH", JSConchConfig::getScreenScaleH);
-        JSP_ADD_METHOD("setUrlIgnoreCase", JSConchConfig::setUrlIgnoreCase);
-        JSP_ADD_METHOD("getUrlIgnoreCase", JSConchConfig::getUrlIgnoreCase);
-        JSP_ADD_METHOD("getNetworkType", JSConchConfig::getNetworkType);
-        JSP_ADD_METHOD("getRuntimeVersion", JSConchConfig::getRuntimeVersion);
-        JSP_ADD_METHOD("setDownloadTryNum", JSConchConfig::setDownloadTryNum);
-        JSP_ADD_METHOD("setDownloadPathReplace", JSConchConfig::setDownloadPathReplace);
-        JSP_ADD_METHOD("setDownloadTail", JSConchConfig::setDownloadTail);
-        JSP_ADD_METHOD("setDownloadNoResponseTimeout", JSConchConfig::setDownloadNoResponseTimeout);
-        JSP_ADD_METHOD("setDownloadReplaceExt", JSConchConfig::setDownloadReplaceExt);
-        JSP_ADD_METHOD("setDownloadIgnoreCRLR", JSConchConfig::setDownloadIgnoreCRLR);
-        JSP_ADD_METHOD("addChkIgnoreChksumExt", JSConchConfig::addChkIgnoreChksumExt);
-        JSP_ADD_METHOD("clearChkIgnoreChksumExt", JSConchConfig::clearChkIgnoreChksumExt);
-        JSP_ADD_METHOD("setDownloadUnmask", JSConchConfig::setDownloadUnmask);
-        JSP_ADD_METHOD("resetDownloadUnmask", JSConchConfig::resetDownloadUnmask);
-        JSP_ADD_METHOD("setDownloadVersionString", JSConchConfig::setDownloadVersionString);
-        JSP_ADD_METHOD("getOS", JSConchConfig::getOS);
-        JSP_ADD_METHOD("getAppVersion", JSConchConfig::getAppVersion);
-        JSP_ADD_METHOD("getAppLocalVersion", JSConchConfig::getAppLocalVersion);
-        JSP_ADD_METHOD("getBrowserInfo", JSConchConfig::getBrowserInfo);
-        JSP_ADD_METHOD("getGuid", JSConchConfig::getGuid);
-        JSP_ADD_METHOD("getDeviceModel", JSConchConfig::getDeviceModel);
-        JSP_ADD_METHOD("getDeviceInfo", JSConchConfig::getDeviceInfo);
-        JSP_ADD_METHOD("getSystemVersion", JSConchConfig::getSystemVersion);
-        JSP_ADD_METHOD("getIsPlug", JSConchConfig::getIsPlug);
-        JSP_ADD_METHOD("setLimitFPS", JSConchConfig::setLimitFPS);
-        JSP_ADD_METHOD("setMouseFrame", JSConchConfig::setMouseFrame);
-        JSP_ADD_METHOD("setSlowFrame", JSConchConfig::setSlowFrame);
-        JSP_ADD_METHOD("setCurlProxy", JSConchConfig::setCurlProxy);
-        JSP_ADD_METHOD("setWebsocketProxy", JSConchConfig::setWebsocketProxy);
-        JSP_ADD_METHOD("setTouchMode", JSConchConfig::setTouchMode);
-        JSP_ADD_METHOD("getTouchMode", JSConchConfig::getTouchMode);
-        JSP_ADD_METHOD("setTransparentMode", JSConchConfig::setTransparentMode);
-        JSP_ADD_METHOD("setDebugLevel", JSConchConfig::setDebugLevel);
-        JSP_ADD_METHOD("setImageReleaseSpaceTime", JSConchConfig::setImageReleaseSpaceTime);
-        JSP_ADD_METHOD("enableMemorySurvey", JSConchConfig::enableMemorySurvey);
-        JSP_ADD_METHOD("printAllMemorySurvey", JSConchConfig::printAllMemorySurvey);
-        JSP_ADD_METHOD("showInternalPerfBar", JSConchConfig::showInternalPerfBar);
-        JSP_ADD_METHOD("useChoreographer", JSConchConfig::useChoreographer);
-        JSP_ADD_METHOD("setGraphicsTextBaseLine", JSConchConfig::setGraphicsTextBaseLine);
+        JSP_GLOBAL_CLASS("conchConfig", JSConchConfig, this);
+        JSP_GLOBAL_ADD_PROPERTY_RO(supportTextureCustomData, JSConchConfig, supportTextureCustomData);
+        JSP_GLOBAL_ADD_PROPERTY_RO(glCaps, JSConchConfig, getGLCaps);
+        JSP_GLOBAL_ADD_PROPERTY_RO(paramExt, JSConchConfig, getJsonparamExt);
+        JSP_GLOBAL_ADD_PROPERTY(urlIgnoreCase, JSConchConfig, getUrlIgnoreCase, setUrlIgnoreCase);
+        JSP_GLOBAL_ADD_PROPERTY(maxTextureMemSize, JSConchConfig,getMaxTextureMemSize,setMaxTextureMemSize);
+        JSP_GLOBAL_ADD_PROPERTY(pushAtlasLimitSize, JSConchConfig, getPushAtlasLimitSize,setPushAtlasLimitSize);
+        JSP_GLOBAL_ADD_PROPERTY(atlasNum, JSConchConfig,getAtlasNum,setAtlasNum);
+        JSP_GLOBAL_ADD_PROPERTY(localizable, JSConchConfig, getLocalable, setLocalable);
+        JSP_GLOBAL_ADD_PROPERTY(useAndroidSystemFont, JSConchConfig, getUseAndroidSystemFont, setUseAndroidSystemFont);
+        JSP_GLOBAL_ADD_METHOD("getStoragePath", JSConchConfig::getLocalStoragePath);
+        JSP_GLOBAL_ADD_METHOD("getTotalMem", JSConchConfig::getTotalMem);
+        JSP_GLOBAL_ADD_METHOD("getUsedMem", JSConchConfig::getUsedMem);
+        JSP_GLOBAL_ADD_METHOD("getAvalidMem", JSConchConfig::getAvalidMem);
+        JSP_GLOBAL_ADD_METHOD("getScreenInch", JSConchConfig::getScreenInch);
+        JSP_GLOBAL_ADD_METHOD("setTouchMoveRange", JSConchConfig::setTouchMoveRange);
+        JSP_GLOBAL_ADD_METHOD("setScreenOrientation", JSConchConfig::setScreenOrientation);
+        JSP_GLOBAL_ADD_METHOD("setScreenScale", JSConchConfig::setScreenScale);
+        JSP_GLOBAL_ADD_METHOD("getScreenScaleW", JSConchConfig::getScreenScaleW);
+        JSP_GLOBAL_ADD_METHOD("getScreenScaleH", JSConchConfig::getScreenScaleH);
+        JSP_GLOBAL_ADD_METHOD("setUrlIgnoreCase", JSConchConfig::setUrlIgnoreCase);
+        JSP_GLOBAL_ADD_METHOD("getUrlIgnoreCase", JSConchConfig::getUrlIgnoreCase);
+        JSP_GLOBAL_ADD_METHOD("getNetworkType", JSConchConfig::getNetworkType);
+        JSP_GLOBAL_ADD_METHOD("getRuntimeVersion", JSConchConfig::getRuntimeVersion);
+        JSP_GLOBAL_ADD_METHOD("setDownloadTryNum", JSConchConfig::setDownloadTryNum);
+        JSP_GLOBAL_ADD_METHOD("setDownloadPathReplace", JSConchConfig::setDownloadPathReplace);
+        JSP_GLOBAL_ADD_METHOD("setDownloadTail", JSConchConfig::setDownloadTail);
+        JSP_GLOBAL_ADD_METHOD("setDownloadNoResponseTimeout", JSConchConfig::setDownloadNoResponseTimeout);
+        JSP_GLOBAL_ADD_METHOD("setDownloadReplaceExt", JSConchConfig::setDownloadReplaceExt);
+        JSP_GLOBAL_ADD_METHOD("setDownloadIgnoreCRLR", JSConchConfig::setDownloadIgnoreCRLR);
+        JSP_GLOBAL_ADD_METHOD("addChkIgnoreChksumExt", JSConchConfig::addChkIgnoreChksumExt);
+        JSP_GLOBAL_ADD_METHOD("clearChkIgnoreChksumExt", JSConchConfig::clearChkIgnoreChksumExt);
+        JSP_GLOBAL_ADD_METHOD("setDownloadUnmask", JSConchConfig::setDownloadUnmask);
+        JSP_GLOBAL_ADD_METHOD("resetDownloadUnmask", JSConchConfig::resetDownloadUnmask);
+        JSP_GLOBAL_ADD_METHOD("setDownloadVersionString", JSConchConfig::setDownloadVersionString);
+        JSP_GLOBAL_ADD_METHOD("getOS", JSConchConfig::getOS);
+        JSP_GLOBAL_ADD_METHOD("getAppVersion", JSConchConfig::getAppVersion);
+        JSP_GLOBAL_ADD_METHOD("getAppLocalVersion", JSConchConfig::getAppLocalVersion);
+        JSP_GLOBAL_ADD_METHOD("getBrowserInfo", JSConchConfig::getBrowserInfo);
+        JSP_GLOBAL_ADD_METHOD("getGuid", JSConchConfig::getGuid);
+        JSP_GLOBAL_ADD_METHOD("getDeviceModel", JSConchConfig::getDeviceModel);
+        JSP_GLOBAL_ADD_METHOD("getDeviceInfo", JSConchConfig::getDeviceInfo);
+        JSP_GLOBAL_ADD_METHOD("getSystemVersion", JSConchConfig::getSystemVersion);
+        JSP_GLOBAL_ADD_METHOD("getIsPlug", JSConchConfig::getIsPlug);
+        JSP_GLOBAL_ADD_METHOD("setLimitFPS", JSConchConfig::setLimitFPS);
+        JSP_GLOBAL_ADD_METHOD("setMouseFrame", JSConchConfig::setMouseFrame);
+        JSP_GLOBAL_ADD_METHOD("setSlowFrame", JSConchConfig::setSlowFrame);
+        JSP_GLOBAL_ADD_METHOD("setCurlProxy", JSConchConfig::setCurlProxy);
+        JSP_GLOBAL_ADD_METHOD("setWebsocketProxy", JSConchConfig::setWebsocketProxy);
+        JSP_GLOBAL_ADD_METHOD("setTouchMode", JSConchConfig::setTouchMode);
+        JSP_GLOBAL_ADD_METHOD("getTouchMode", JSConchConfig::getTouchMode);
+        JSP_GLOBAL_ADD_METHOD("setTransparentMode", JSConchConfig::setTransparentMode);
+        JSP_GLOBAL_ADD_METHOD("setDebugLevel", JSConchConfig::setDebugLevel);
+        JSP_GLOBAL_ADD_METHOD("setImageReleaseSpaceTime", JSConchConfig::setImageReleaseSpaceTime);
+        JSP_GLOBAL_ADD_METHOD("enableMemorySurvey", JSConchConfig::enableMemorySurvey);
+        JSP_GLOBAL_ADD_METHOD("printAllMemorySurvey", JSConchConfig::printAllMemorySurvey);
+        JSP_GLOBAL_ADD_METHOD("showInternalPerfBar", JSConchConfig::showInternalPerfBar);
+        JSP_GLOBAL_ADD_METHOD("useChoreographer", JSConchConfig::useChoreographer);
+        JSP_GLOBAL_ADD_METHOD("setGraphicsTextBaseLine", JSConchConfig::setGraphicsTextBaseLine);
 #ifdef ANDROID
         //目前只有android实现了这个函数，所以ios等就不往外导了，这样判断方便。
-        JSP_ADD_METHOD("setResolution", JSConchConfig::setResolution);
+        JSP_GLOBAL_ADD_METHOD("setResolution", JSConchConfig::setResolution);
 #endif
         //TEST
-        JSP_ADD_METHOD("test_sleep", JSConchConfig::testSleep);
-        JSP_ADD_METHOD("setImageMisoperationWarningTime", JSConchConfig::setImageMisoperationWarningTime);
-        JSP_ADD_METHOD("setDownloadConnTimeout", JSConchConfig::setDownloadConnTimeout);
-        JSP_ADD_METHOD("setDownloadOptTimeout", JSConchConfig::setDownloadOptTimeout);
-        JSP_ADD_METHOD("enableEncodeURI", JSConchConfig::enableEncodeURI);
-        JSP_ADD_METHOD("setSoundGarbageCollectionTime", JSConchConfig::setSoundGarbageCollectionTime);
+        JSP_GLOBAL_ADD_METHOD("test_sleep", JSConchConfig::testSleep);
+        JSP_GLOBAL_ADD_METHOD("setImageMisoperationWarningTime", JSConchConfig::setImageMisoperationWarningTime);
+        JSP_GLOBAL_ADD_METHOD("setDownloadConnTimeout", JSConchConfig::setDownloadConnTimeout);
+        JSP_GLOBAL_ADD_METHOD("setDownloadOptTimeout", JSConchConfig::setDownloadOptTimeout);
+        JSP_GLOBAL_ADD_METHOD("enableEncodeURI", JSConchConfig::enableEncodeURI);
+        JSP_GLOBAL_ADD_METHOD("setSoundGarbageCollectionTime", JSConchConfig::setSoundGarbageCollectionTime);
         JSP_INSTALL_GLOBAL_CLASS("conchConfig", JSConchConfig, this);
     }
 }

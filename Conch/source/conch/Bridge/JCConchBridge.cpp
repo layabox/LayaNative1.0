@@ -7,7 +7,7 @@
 */
 
 #include "JCConchBridge.h"
-#include "../../conch/JCScrpitRuntime.h"
+#include "../../conch/JCScriptRuntime.h"
 #include "../JSWrapper/LayaWrap/JSLayaContext.h"
 
 namespace laya

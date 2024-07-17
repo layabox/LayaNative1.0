@@ -1,8 +1,7 @@
 {
     "compilerOptions": {
-        "module": "system",
-        "noLib": true,
-        "target": "es5",
+        "module": "AMD",
+        "target": "es2017",
         "noImplicitAny": false,
         "rootDir": ".",
         "removeComments": true,

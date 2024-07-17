@@ -159,7 +159,6 @@ public:
     
     void openAppStoreUrl( const char* p_sAppID );
     
-    bool getIsInstalledWx();
 public:
 	
     std::string  getLocalInfo();

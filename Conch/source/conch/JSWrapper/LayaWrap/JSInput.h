@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include "../JSInterface/JSInterface.h"
-#include "../../JCScrpitRuntime.h"
+#include "../../JCScriptRuntime.h"
 #include <mutex>
 
 namespace laya
@@ -22,7 +22,7 @@ namespace laya
 		static JsObjClassInfo JSCLSINFO;
 		static void exportJS();
 		static JSInput* getInstance();
-		static void Reset();			//临时
+		static void Reset();			//锟斤拷时
 	public:
 		JSInput();
 		~JSInput();
@@ -41,7 +41,7 @@ namespace laya
 	public:
 		static JSInput*                     m_pInstance;
         IConchThreadCmdMgr*                 m_pCmdPoster;
-        bool                                m_bTouchMode;   ///<true为查询模式  false为回调模式
+        bool                                m_bTouchMode;   ///<true为锟斤拷询模式  false为锟截碉拷模式
         std::vector<TouchEventInfo>         m_vInputEvents;
         std::vector<TouchEventInfo>         m_vInputEventsJS;
         std::recursive_mutex                m_Lock;

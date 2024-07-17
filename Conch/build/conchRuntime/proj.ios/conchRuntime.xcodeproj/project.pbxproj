@@ -14,6 +14,7 @@
 		5E7AB4D71DD2CE2B001AE49F /* LayaScreenShotter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5E7AB4D61DD2CE2B001AE49F /* LayaScreenShotter.mm */; };
 		5E7AB4E71DD2D2AD001AE49F /* JSParticleTemplate2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E7AB4E51DD2D2AD001AE49F /* JSParticleTemplate2D.cpp */; };
 		5E8E47811D8F939400662E69 /* LayaDeviceSensor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5E8E47801D8F939400662E69 /* LayaDeviceSensor.mm */; };
+		8AC2E85F2BFCBD22000AA356 /* JSObjBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AC2E85E2BFCBD21000AA356 /* JSObjBase.cpp */; };
 		9D8D6C6B1D43604A00EFE81A /* reflection.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D8D6C6A1D43604900EFE81A /* reflection.mm */; };
 		A2729C9A1D20C51C00EC01E6 /* JSHistory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2729C981D20C51C00EC01E6 /* JSHistory.cpp */; };
 		A28DB2A31D2CB24400BAED5C /* LayaAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = A28DB2A21D2CB24400BAED5C /* LayaAlert.mm */; };
@@ -31,7 +32,6 @@
 		A2C56AE11C8ADB5A009DDC1D /* CToObjectCIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = A2C56AD31C8ADB5A009DDC1D /* CToObjectCIOS.mm */; };
 		A2C56AE21C8ADB5A009DDC1D /* LayaEditBox.mm in Sources */ = {isa = PBXBuildFile; fileRef = A2C56AD51C8ADB5A009DDC1D /* LayaEditBox.mm */; };
 		A2C56AE31C8ADB5A009DDC1D /* LayaEditBoxDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = A2C56AD71C8ADB5A009DDC1D /* LayaEditBoxDelegate.mm */; };
-		A2C56AE41C8ADB5A009DDC1D /* LayaWebView.mm in Sources */ = {isa = PBXBuildFile; fileRef = A2C56AD91C8ADB5A009DDC1D /* LayaWebView.mm */; };
 		A2C56AE51C8ADB5A009DDC1D /* LayaToast.mm in Sources */ = {isa = PBXBuildFile; fileRef = A2C56ADB1C8ADB5A009DDC1D /* LayaToast.mm */; };
 		A2C56AE61C8ADB5A009DDC1D /* TouchFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2C56ADC1C8ADB5A009DDC1D /* TouchFilter.cpp */; };
 		A2C56AE71C8ADB5A009DDC1D /* UIEditBox.mm in Sources */ = {isa = PBXBuildFile; fileRef = A2C56ADF1C8ADB5A009DDC1D /* UIEditBox.mm */; };
@@ -42,7 +42,7 @@
 		A2D1197A1D0BCA06004C229D /* JCConch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D1196D1D0BCA06004C229D /* JCConch.cpp */; };
 		A2D1197B1D0BCA06004C229D /* JCConchRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D1196F1D0BCA06004C229D /* JCConchRender.cpp */; };
 		A2D1197C1D0BCA06004C229D /* JCPublicCmdDispath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D119711D0BCA06004C229D /* JCPublicCmdDispath.cpp */; };
-		A2D1197D1D0BCA06004C229D /* JCScrpitRuntime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D119731D0BCA06004C229D /* JCScrpitRuntime.cpp */; };
+		A2D1197D1D0BCA06004C229D /* JCScriptRuntime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D119731D0BCA06004C229D /* JCScriptRuntime.cpp */; };
 		A2D1197E1D0BCA06004C229D /* JCSystemConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D119751D0BCA06004C229D /* JCSystemConfig.cpp */; };
 		A2D1197F1D0BCA06004C229D /* JCThreadCmdMgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D119771D0BCA06004C229D /* JCThreadCmdMgr.cpp */; };
 		A2D119911D0BCA59004C229D /* JSInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2D1198E1D0BCA59004C229D /* JSInterface.cpp */; };
@@ -106,6 +106,7 @@
 		5E7AB4E61DD2D2AD001AE49F /* JSParticleTemplate2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSParticleTemplate2D.h; path = ../../../../source/conch/JSWrapper/LayaWrap/JSParticleTemplate2D.h; sourceTree = "<group>"; };
 		5E8E477F1D8F939400662E69 /* LayaDeviceSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayaDeviceSensor.h; sourceTree = "<group>"; };
 		5E8E47801D8F939400662E69 /* LayaDeviceSensor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LayaDeviceSensor.mm; sourceTree = "<group>"; };
+		8AC2E85E2BFCBD21000AA356 /* JSObjBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JSObjBase.cpp; path = ../../../../source/conch/JSWrapper/JSInterface/JSObjBase.cpp; sourceTree = "<group>"; };
 		9D8D6C691D43604900EFE81A /* refection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = refection.h; path = Reflection/refection.h; sourceTree = "<group>"; };
 		9D8D6C6A1D43604900EFE81A /* reflection.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = reflection.mm; path = Reflection/reflection.mm; sourceTree = "<group>"; };
 		A2729C981D20C51C00EC01E6 /* JSHistory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JSHistory.cpp; path = ../../../../source/conch/JSWrapper/LayaWrap/JSHistory.cpp; sourceTree = "<group>"; };
@@ -142,8 +143,6 @@
 		A2C56AD51C8ADB5A009DDC1D /* LayaEditBox.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LayaEditBox.mm; sourceTree = "<group>"; };
 		A2C56AD61C8ADB5A009DDC1D /* LayaEditBoxDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayaEditBoxDelegate.h; sourceTree = "<group>"; };
 		A2C56AD71C8ADB5A009DDC1D /* LayaEditBoxDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LayaEditBoxDelegate.mm; sourceTree = "<group>"; };
-		A2C56AD81C8ADB5A009DDC1D /* LayaWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayaWebView.h; sourceTree = "<group>"; };
-		A2C56AD91C8ADB5A009DDC1D /* LayaWebView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LayaWebView.mm; sourceTree = "<group>"; };
 		A2C56ADA1C8ADB5A009DDC1D /* LayaToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayaToast.h; sourceTree = "<group>"; };
 		A2C56ADB1C8ADB5A009DDC1D /* LayaToast.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LayaToast.mm; sourceTree = "<group>"; };
 		A2C56ADC1C8ADB5A009DDC1D /* TouchFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TouchFilter.cpp; sourceTree = "<group>"; };
@@ -164,8 +163,8 @@
 		A2D119701D0BCA06004C229D /* JCConchRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCConchRender.h; path = ../../../../source/conch/JCConchRender.h; sourceTree = "<group>"; };
 		A2D119711D0BCA06004C229D /* JCPublicCmdDispath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCPublicCmdDispath.cpp; path = ../../../../source/conch/JCPublicCmdDispath.cpp; sourceTree = "<group>"; };
 		A2D119721D0BCA06004C229D /* JCPublicCmdDispath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCPublicCmdDispath.h; path = ../../../../source/conch/JCPublicCmdDispath.h; sourceTree = "<group>"; };
-		A2D119731D0BCA06004C229D /* JCScrpitRuntime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCScrpitRuntime.cpp; path = ../../../../source/conch/JCScrpitRuntime.cpp; sourceTree = "<group>"; };
-		A2D119741D0BCA06004C229D /* JCScrpitRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCScrpitRuntime.h; path = ../../../../source/conch/JCScrpitRuntime.h; sourceTree = "<group>"; };
+		A2D119731D0BCA06004C229D /* JCScriptRuntime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCScriptRuntime.cpp; path = ../../../../source/conch/JCScriptRuntime.cpp; sourceTree = "<group>"; };
+		A2D119741D0BCA06004C229D /* JCScriptRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCScriptRuntime.h; path = ../../../../source/conch/JCScriptRuntime.h; sourceTree = "<group>"; };
 		A2D119751D0BCA06004C229D /* JCSystemConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCSystemConfig.cpp; path = ../../../../source/conch/JCSystemConfig.cpp; sourceTree = "<group>"; };
 		A2D119761D0BCA06004C229D /* JCSystemConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCSystemConfig.h; path = ../../../../source/conch/JCSystemConfig.h; sourceTree = "<group>"; };
 		A2D119771D0BCA06004C229D /* JCThreadCmdMgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JCThreadCmdMgr.cpp; path = ../../../../source/conch/JCThreadCmdMgr.cpp; sourceTree = "<group>"; };
@@ -293,8 +292,6 @@
 				A2C56AD51C8ADB5A009DDC1D /* LayaEditBox.mm */,
 				A2C56AD61C8ADB5A009DDC1D /* LayaEditBoxDelegate.h */,
 				A2C56AD71C8ADB5A009DDC1D /* LayaEditBoxDelegate.mm */,
-				A2C56AD81C8ADB5A009DDC1D /* LayaWebView.h */,
-				A2C56AD91C8ADB5A009DDC1D /* LayaWebView.mm */,
 				A2C56ADA1C8ADB5A009DDC1D /* LayaToast.h */,
 				A2C56ADB1C8ADB5A009DDC1D /* LayaToast.mm */,
 				A2C56ADC1C8ADB5A009DDC1D /* TouchFilter.cpp */,
@@ -374,8 +371,8 @@
 				A2D119701D0BCA06004C229D /* JCConchRender.h */,
 				A2D119711D0BCA06004C229D /* JCPublicCmdDispath.cpp */,
 				A2D119721D0BCA06004C229D /* JCPublicCmdDispath.h */,
-				A2D119731D0BCA06004C229D /* JCScrpitRuntime.cpp */,
-				A2D119741D0BCA06004C229D /* JCScrpitRuntime.h */,
+				A2D119731D0BCA06004C229D /* JCScriptRuntime.cpp */,
+				A2D119741D0BCA06004C229D /* JCScriptRuntime.h */,
 				A2D119751D0BCA06004C229D /* JCSystemConfig.cpp */,
 				A2D119761D0BCA06004C229D /* JCSystemConfig.h */,
 				A2D119771D0BCA06004C229D /* JCThreadCmdMgr.cpp */,
@@ -408,6 +405,7 @@
 		A2D119551D0BC946004C229D /* JSInterface */ = {
 			isa = PBXGroup;
 			children = (
+				8AC2E85E2BFCBD21000AA356 /* JSObjBase.cpp */,
 				A2D1198E1D0BCA59004C229D /* JSInterface.cpp */,
 				A2D1198F1D0BCA59004C229D /* JSInterface.h */,
 				A2D119901D0BCA59004C229D /* jsobjbase.h */,
@@ -583,6 +581,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = A2EE05501C8A77B700A35FB6;
@@ -622,9 +621,10 @@
 				A2D119CF1D0BCA70004C229D /* JSConsole.cpp in Sources */,
 				A2D119DB1D0BCA70004C229D /* JSNotify.cpp in Sources */,
 				A2D119D71D0BCA70004C229D /* JSInput.cpp in Sources */,
-				A2D1197D1D0BCA06004C229D /* JCScrpitRuntime.cpp in Sources */,
+				A2D1197D1D0BCA06004C229D /* JCScriptRuntime.cpp in Sources */,
 				A2C56AC21C8ADAF2009DDC1D /* LayaNotifyManager.m in Sources */,
 				A2D119DA1D0BCA70004C229D /* JSMeasureTextInfo.cpp in Sources */,
+				8AC2E85F2BFCBD22000AA356 /* JSObjBase.cpp in Sources */,
 				A2C56AE11C8ADB5A009DDC1D /* CToObjectCIOS.mm in Sources */,
 				A2D119F81D0BFA31004C229D /* JSCBinder.cpp in Sources */,
 				A2D119E01D0BCA70004C229D /* JSWebGLContext.cpp in Sources */,
@@ -649,7 +649,6 @@
 				A2C56AE51C8ADB5A009DDC1D /* LayaToast.mm in Sources */,
 				A2D119F71D0BFA31004C229D /* JSCArrayBuffer.cpp in Sources */,
 				A2C56ACF1C8ADB37009DDC1D /* JCMp3Player.mm in Sources */,
-				A2C56AE41C8ADB5A009DDC1D /* LayaWebView.mm in Sources */,
 				A2D1195A1D0BC981004C229D /* WebSocket.cpp in Sources */,
 				A2D11A051D0C30D1004C229D /* JSFileSystem.cpp in Sources */,
 				A2C56AE01C8ADB5A009DDC1D /* conchConfig.mm in Sources */,

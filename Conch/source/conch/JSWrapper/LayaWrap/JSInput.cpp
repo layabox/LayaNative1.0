@@ -59,7 +59,7 @@ namespace laya
         t[7] = e.rb;
         t[8] = e.rg;
         t[9] = e.interval;
-#ifdef JS_JSC
+/*#ifdef JS_JSC
         if (!isSupportTypedArrayAPI())
         {
             JSContextRef ctx = __TlsData::GetInstance()->GetCurContext();
@@ -67,7 +67,7 @@ namespace laya
             JSObjectSetTypedArrayData(ctx,arrayObj,(const uint8_t *)JCScriptRuntime::s_JSRT->m_pOtherBufferSharedWidthJS,(size_t)JCScriptRuntime::s_JSRT->m_nOtherBufferSharedWidthJSLen);
         
         }
-#endif
+#endif*/
         
         JCScriptRuntime::s_JSRT->m_pJSDeviceMotionEvtFunction.Call(e.type);
     }

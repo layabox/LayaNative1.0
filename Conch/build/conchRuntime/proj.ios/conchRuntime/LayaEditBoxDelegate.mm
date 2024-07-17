@@ -13,7 +13,7 @@
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
 #import "conchRuntime.h"
-#import "JCScrpitRuntime.h"
+#import "JCScriptRuntime.h"
 #import "LayaEditBox.h"
 
 //-------------------------------------------------------------------------------

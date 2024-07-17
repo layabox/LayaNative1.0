@@ -11,7 +11,7 @@
 
 #include <stdio.h>
 #include "../JSInterface/JSInterface.h"
-#include "../../JCScrpitRuntime.h"
+#include "../../JCScriptRuntime.h"
 
 /** 
  * @brief 这个获得的是桌面分辨率
@@ -33,7 +33,7 @@ namespace laya
         JSRuntime();
 
 	    ~JSRuntime();
-
+        static JSRuntime* getInstance();
     public:
 
         void setOnFrameFunction( JSValueAsParam p_pFunction );
@@ -156,10 +156,17 @@ namespace laya
 		void regShaderDefine(const char* name, long long value);
 
         void exit();
+#if OHOS
+        std::string postMessage(const char *eventName, const char *data);
 
+        std::string postSyncMessage(const char *eventName, const char *data);
+#endif
     public:
 
         JCScriptRuntime*        m_pScrpitRuntime;
+    private:
+
+		static JSRuntime* ms_pRuntime;
 
     };
 }

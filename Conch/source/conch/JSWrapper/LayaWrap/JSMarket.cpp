@@ -21,7 +21,7 @@
 #endif
 #include "JSConchConfig.h"
 #include "../../JCConch.h"
-#include "../../JCScrpitRuntime.h"
+#include "../../JCScriptRuntime.h"
 
 
 namespace laya 
@@ -84,7 +84,7 @@ void JSMarket::onInitCallback( std::string p_sJsonParam )
 //------------------------------------------------------------------------------
 void JSMarket::onInitCallbackCallJS( std::string p_sJsonParam )
 {
-	if(m_pInitJSFunction.isValid())
+	if(!m_pInitJSFunction.Empty())
 		m_pInitJSFunction.Call( p_sJsonParam.c_str() );
 }
 //------------------------------------------------------------------------------
@@ -113,7 +113,7 @@ void JSMarket::onLoginCallback( std::string jsonParam )
 void JSMarket::onLoginCallbackCallJS( std::string jsonParam )
 {
     //回调为了和onAuthorizeCallback 统一，因为js层想用同一个回调
-	if(m_pLoginJSFunction.isValid())
+	if(!m_pLoginJSFunction.Empty())
 		m_pLoginJSFunction.Call( jsonParam );
 }
 //------------------------------------------------------------------------------
@@ -181,7 +181,7 @@ void JSMarket::onLogoutCallback( std::string jsonParam )
 void JSMarket::onLogoutCallbackCallJS( std::string jsonParam)
 {
 	LOGI(">>>>>>>>>>JSMarket::onLogoutCallbackCallJS p_sMsg=%s",jsonParam.c_str() );
-	if (m_pLogoutJSFunction.isValid())
+	if (!m_pLogoutJSFunction.Empty())
 		m_pLogoutJSFunction.Call( jsonParam );
 }
 //------------------------------------------------------------------------------
@@ -209,7 +209,7 @@ void JSMarket::onSwitchUser( std::string p_sJsonParam )
 void JSMarket::onSwitchUserCallJS( std::string p_sJsonParam )
 {
 	LOGI(">>>>>>>>>>JSMarket::onSwitchUserCallJS p_sMsg=%s",p_sJsonParam.c_str() );
-	if (m_pSwitchUserJSFunction.isValid())
+	if (!m_pSwitchUserJSFunction.Empty())
 		m_pSwitchUserJSFunction.Call( p_sJsonParam );
 }
 
@@ -239,7 +239,7 @@ void JSMarket::onEnterPlatform( std::string p_sJsonParam )
 void JSMarket::onEnterPlatformCallJS( std::string p_sJsonParam )
 {
 	LOGI(">>>>>>>>>>JSMarket::onEnterPlatformCallJS p_sMsg=%s",p_sJsonParam.c_str() );
-	if(m_pEnterPlatformJSFunction.isValid())
+	if(!m_pEnterPlatformJSFunction.Empty())
 		m_pEnterPlatformJSFunction.Call( p_sJsonParam );
 }
 //------------------------------------------------------------------------------
@@ -266,7 +266,7 @@ void JSMarket::onEnterBBS( std::string p_sJsonParam )
 void JSMarket::onEnterBBSCallJS( std::string p_sJsonParam )
 {
 	LOGI(">>>>>>>>>>JSMarket::onEnterBBSCallJS p_sMsg=%s",p_sJsonParam.c_str() );
-	if( m_pEnterBBSJSFunction.isValid())
+	if( !m_pEnterBBSJSFunction.Empty())
 		m_pEnterBBSJSFunction.Call( p_sJsonParam );
 }
 //------------------------------------------------------------------------------
@@ -294,7 +294,7 @@ void JSMarket::onEnterFeedback( std::string p_sJsonParam )
 void JSMarket::onEnterFeedbackCallJS( std::string p_sJsonParam )
 {
 	LOGI(">>>>>>>>>>JSMarket::onEnterFeedbackCallJS p_sMsg=%s",p_sJsonParam.c_str() );
-	if(m_pEnterFeedbackJSFunction.isValid())
+	if(!m_pEnterFeedbackJSFunction.Empty())
 		m_pEnterFeedbackJSFunction.Call( p_sJsonParam );
 }
 //------------------------------------------------------------------------------
@@ -321,7 +321,7 @@ void JSMarket::onEnterAccountMgr( std::string p_sJsonParam )
 void JSMarket::onEnterAccountMgrCallJS( std::string p_sJsonParam )
 {
 	LOGI(">>>>>>>>>>JSMarket::onEnterAccountMgrCallJS p_sMsg=%s",p_sJsonParam.c_str() );
-	if(m_pEnterAccountMgrJSFunction.isValid())
+	if(!m_pEnterAccountMgrJSFunction.Empty())
 		m_pEnterAccountMgrJSFunction.Call( p_sJsonParam );
 }
 //------------------------------------------------------------------------------
@@ -349,7 +349,7 @@ void JSMarket::onCZEvent( std::string jsonParam )
 void JSMarket::onCZEventCallJS( std::string p_sDesc )
 {
     LOGI(">>>>>>>>>>JSMarket::onCZEventCallJS desc=%s",p_sDesc.c_str() );
-	if(m_pCZJSFunction.isValid())
+	if(!m_pCZJSFunction.Empty())
 		m_pCZJSFunction.Call( p_sDesc );
 }
 //------------------------------------------------------------------------------
@@ -375,7 +375,7 @@ void JSMarket::onBuyPropsCallback( std::string p_sDesc )
 //------------------------------------------------------------------------------
 void JSMarket::onBuyPropsCallbackCallJS( std::string p_sDesc )
 {
-	if(m_pBuyPropsJSFunction.isValid())
+	if(!m_pBuyPropsJSFunction.Empty())
 		m_pBuyPropsJSFunction.Call( p_sDesc );
 }
 //------------------------------------------------------------------------------
@@ -417,7 +417,7 @@ void JSMarket::onSetCZInfo( std::string p_sJsonParam )
 }
 void JSMarket::onSetCZInfoCallJS( std::string p_sJsonParam )
 {
-	if(m_pSetCZInfoJSFunction.isValid())
+	if(!m_pSetCZInfoJSFunction.Empty())
 		m_pSetCZInfoJSFunction.Call( p_sJsonParam );
 }
 //-----------------------------------------------------------------------------
@@ -445,7 +445,7 @@ void JSMarket::onShareAndFeedCallback( std::string jsonParam )
 void JSMarket::onShareAndFeedCallbackCallJS( std::string jsonParam )
 {
 	LOGI(">>>>>>>>>>JSMarket::onShareAndFeedCallbackCallJS sMsg=%s",jsonParam.c_str() );
-	if(m_pFeedAndShareJSFunction.isValid())
+	if(!m_pFeedAndShareJSFunction.Empty())
 		m_pFeedAndShareJSFunction.Call( jsonParam );
 }
 //------------------------------------------------------------------------------
@@ -472,7 +472,7 @@ void JSMarket::onInviteCallback( std::string jsonParam )
 //------------------------------------------------------------------------------
 void JSMarket::onInviteCallbackCallJS( std::string jsonParam )
 {
-	if(m_pInviteJSFunction.isValid())
+	if(!m_pInviteJSFunction.Empty())
 		m_pInviteJSFunction.Call( jsonParam );
 }
 //------------------------------------------------------------------------------
@@ -500,7 +500,7 @@ void JSMarket::onAuthorizeCallback( std::string jsonParam )
 void JSMarket::onAuthorizeCallbackCallJS( std::string jsonParam )
 {
     LOGI(">>>>>>>>>>JSMarket::onAuthorizeCallbackCallJS params=%s",jsonParam.c_str());
-	if(m_pAuthorizeJSFunction.isValid())
+	if(!m_pAuthorizeJSFunction.Empty())
 		m_pAuthorizeJSFunction.Call( jsonParam);
 }
 //------------------------------------------------------------------------------
@@ -525,7 +525,7 @@ void JSMarket::onRefreshTokenCallback( std::string p_sJsonParam )
 void JSMarket::onRefreshTokenCallbackCallJS( std::string p_sJsonParam )
 {
     LOGI(">>>>>>>>>>JSMarket::onRefreshTokenCallbackCallJS token=%s",p_sJsonParam.c_str());
-	if (m_pRefreshTokenJSFunction.isValid())
+	if (!m_pRefreshTokenJSFunction.Empty())
 		m_pRefreshTokenJSFunction.Call( p_sJsonParam);
 }
 //------------------------------------------------------------------------------
@@ -552,7 +552,7 @@ void JSMarket::onGetFameFriendsCallback( std::string p_sJsonParam)
 void JSMarket::onGetFameFriendsCallbackCallJS( std::string p_sJsonParam)
 {
     LOGI(">>>>>>>>>>JSMarket::onGetFameFriendsCallbackCallJS p_sMsg=%s",p_sJsonParam.c_str());
-	if(m_pGetFriendsJSFunction.isValid())
+	if(!m_pGetFriendsJSFunction.Empty())
 		m_pGetFriendsJSFunction.Call( p_sJsonParam);
 }
 //------------------------------------------------------------------------------
@@ -595,7 +595,7 @@ void JSMarket::onSendToDesktopCallback( std::string p_sJsonParam )
 void JSMarket::onSendToDesktopCallbackCallJS( std::string p_sJsonParam )
 {
     LOGI(">>>>>>>>>>JSMarket::onSendToDesktopCallbackCallJS p_sMsg=%s",p_sJsonParam.c_str() );
-	if(m_pSendToDesktopJSFunction.isValid())
+	if(!m_pSendToDesktopJSFunction.Empty())
 		m_pSendToDesktopJSFunction.Call( p_sJsonParam );
 }
 //------------------------------------------------------------------------------
@@ -759,7 +759,7 @@ void JSMarket::onSendMessageToPlatform( std::string p_sJsonParam )
 }
 void JSMarket::onSendMessageToPlatformCallJS( std::string p_sJsonParam )
 {
-	if (m_pSendMessageToPlatformFunction.isValid())
+	if (!m_pSendMessageToPlatformFunction.Empty())
 		m_pSendMessageToPlatformFunction.Call(p_sJsonParam);
 }
 //------------------------------------------------------------------------------
@@ -784,7 +784,7 @@ void JSMarket::onTopicCircle( std::string p_sJsonParam )
 }
 void JSMarket::onTopicCircleCallJS( std::string p_sJsonParam )
 {
-	if(m_pTopicCircleFunction.isValid())
+	if(!m_pTopicCircleFunction.Empty())
 		m_pTopicCircleFunction.Call(p_sJsonParam);
 }
 //------------------------------------------------------------------------------------
@@ -808,7 +808,7 @@ void JSMarket::onGetUserInfo(std::string p_sJsonParam)
 }
 void JSMarket::onGetUserInfoCallJS(std::string p_sJsonParam)
 {
-	if(m_pGetUserInfoJSFunction.isValid())
+	if(!m_pGetUserInfoJSFunction.Empty())
 		m_pGetUserInfoJSFunction.Call(p_sJsonParam);
 }
 //------------------------------------------------------------------------------------
@@ -832,7 +832,7 @@ void JSMarket::onGetAvailableLoginType(std::string p_sJsonParam)
 }
 void JSMarket::onGetAvailableLoginTypeCallJS(std::string p_sJsonParam)
 {
-	if(m_pGetAvailableLoginType.isValid())
+	if(!m_pGetAvailableLoginType.Empty())
 		m_pGetAvailableLoginType.Call(p_sJsonParam);
 }
 //--------------------------------------------------------------------------------------
@@ -887,18 +887,9 @@ void JSMarket::openAppStoreUrl( const char* p_sAppID )
 #elif WIN32
 #endif
 }
-bool JSMarket::getIsInstalledWx()
-{
-#ifdef __APPLE__
-    return CToObjectCGetIsInstalledWx();
-#elif ANDROID
-#elif WIN32
-#endif
-    return false;
-}
 void JSMarket::exportJS()
 {
-    JSP_GLOBAL_CLASS("conchMarket", JSMarket);
+    JSP_GLOBAL_CLASS("conchMarket", JSMarket, JCScriptRuntime::s_JSRT->m_pMarket);
     JSP_ADD_METHOD("getMarketName", JSMarket::getMarketName);
     JSP_ADD_METHOD("getLoginType", JSMarket::getLoginType);
     JSP_ADD_METHOD("setIsClearConchEngineMemory", JSMarket::setIsClearConchEngineMemory);
@@ -931,7 +922,6 @@ void JSMarket::exportJS()
     JSP_ADD_METHOD("writeLocalInfo", JSMarket::writeLocalInfo);
     JSP_ADD_METHOD("getLocalInfo", JSMarket::getLocalInfo);
     JSP_ADD_METHOD("openAppStoreUrl", JSMarket::openAppStoreUrl);
-    JSP_ADD_METHOD("getIsInstalledWx", JSMarket::getIsInstalledWx);
     JSP_INSTALL_GLOBAL_CLASS("conchMarket", JSMarket, JCScriptRuntime::s_JSRT->m_pMarket);
 }
 

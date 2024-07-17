@@ -12,7 +12,7 @@
 #endif
 #include "JSAndroidEditBox.h"
 #include "../JSInterface/JSInterface.h"
-#include "../../JCScrpitRuntime.h"
+#include "../../JCScriptRuntime.h"
 #include "util/Log.h"
 #ifdef ANDROID
 	#include "../../CToJavaBridge.h"

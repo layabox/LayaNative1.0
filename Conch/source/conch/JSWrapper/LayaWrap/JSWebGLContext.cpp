@@ -7,7 +7,7 @@
 */
 
 #include "JSWebGLContext.h"
-#include "../../JCScrpitRuntime.h"
+#include "../../JCScriptRuntime.h"
 #include "../../JCCmdDispatchManager.h"
 #include "../../JCConchRender.h"
 #include "../../JCConch.h"
@@ -71,7 +71,7 @@ namespace laya
         pActiveInfo->m_sName = m_pShaderActiveInfo->name;
         pActiveInfo->m_nType = m_pShaderActiveInfo->type;
         pActiveInfo->m_nSize = m_pShaderActiveInfo->size;
-        return JSP_TO_JS(JSShaderActiveInfo, pActiveInfo);
+        return JSP_TO_JS(JSShaderActiveInfo*, pActiveInfo);
     }
     JsValue JSWebGLContext::getActiveUniformEx(const char* vs, const char* ps, const char* define, int nIndex)
     {
@@ -80,7 +80,7 @@ namespace laya
         pActiveInfo->m_sName = m_pShaderActiveInfo->name;
         pActiveInfo->m_nType = m_pShaderActiveInfo->type;
         pActiveInfo->m_nSize = m_pShaderActiveInfo->size;
-        return JSP_TO_JS(JSShaderActiveInfo, pActiveInfo);
+        return JSP_TO_JS(JSShaderActiveInfo*, pActiveInfo);
     }
     void JSWebGLContext::_getProgramParameterEx(const std::string& vs, const std::string& ps, const std::string& define, int type)
     {
@@ -111,7 +111,7 @@ namespace laya
             m_sShaderPS = ps;
             m_sShaderDefine = define;
 
-            //ÖØĞÂnewĞÂµÄshader
+            //ï¿½ï¿½ï¿½ï¿½newï¿½Âµï¿½shader
             m_pShaderTemplate = new JCGpuProgramTemplate(vs.c_str(), ps.c_str());
             m_pGpuProgram = m_pShaderTemplate->getInst(define.c_str(), 0);
         }

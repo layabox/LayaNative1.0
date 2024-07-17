@@ -6,7 +6,7 @@
 @date			2016_5_18
 */
 
-//°üº¬Í·ÎÄ¼þ
+//ï¿½ï¿½ï¿½ï¿½Í·ï¿½Ä¼ï¿½
 #include "JSXmlNode.h"
 #include <sstream>
 //#include "util/JCCommonMethod.h"
@@ -95,7 +95,7 @@ namespace laya
     }
     JsValue  JSXmlNode::getParentNode()
     {
-         return JSP_TO_JS(JSXmlNode, m_parentNode);
+         return JSP_TO_JS(JSXmlNode*, m_parentNode);
     }
     JsValue  JSXmlNode::getFirstChild()
     {

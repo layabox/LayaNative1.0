@@ -1,7 +1,7 @@
 APP_MODULES := libcommon
-APP_PLATFORM := android-14
+APP_PLATFORM := android-21
 NDK_TOOLCHAIN_VERSION := 4.9
-APP_STL := gnustl_static
+APP_STL := c++_shared
 APP_OPTIM := release
-#Ê¹ÓÃÓ²¼þfp
+#Ê¹ï¿½ï¿½Ó²ï¿½ï¿½fp
 APP_ABI          := armeabi-v7a arm64-v8a x86

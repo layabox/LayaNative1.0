@@ -24,6 +24,9 @@
 
 #ifdef ANDROID
     #include "../downloadCache/JCAndroidFileSource.h"
+#elif OHOS
+    #include "../downloadCache/JCOHOSFileSource.h"
+    #include "napi/plugin_manager.h"
 #else
     #include "../downloadCache/JCIosFileSource.h"
 #endif
@@ -40,6 +43,9 @@ extern std::string gRedistPath;
 	std::string gAPKExpansionPatchPath="";
 #elif __APPLE__
 extern std::string gAssetRootPath;
+#elif OHOS
+NativeResourceManager* g_pAssetManager = nullptr;
+std::string gAssetRootPath="";
 #else
 std::string gAssetRootPath="d:/temp/myassets";
 #endif
@@ -418,6 +424,10 @@ namespace laya
 				delete pfr;
 			}
 		}
+#elif OHOS
+		JCOHOSFileSource* pAssets = new JCOHOSFileSource();
+		pAssets->Init((NativeResourceManager*)g_pAssetManager, assetsPath.c_str());
+		pFileReader = pAssets;
 #else
 		JCIosFileSource* pAssets = new JCIosFileSource();
 		pAssets->Init(assetsPath.c_str());

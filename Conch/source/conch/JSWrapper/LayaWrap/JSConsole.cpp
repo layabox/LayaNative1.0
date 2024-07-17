@@ -89,18 +89,30 @@ void JSConsole::log(int p_nType,const char* p_sBuffer )
     switch (logLevel)
     {
     case Warn:
-        LOGI(" %s", p_sBuffer);
+        # ifdef OHOS
+            LOGI(" %{public}s", p_sBuffer);
+        # else
+            LOGI(" %s", p_sBuffer);
+        #endif
         break;
     case Error:
-        LOGI(" %s", p_sBuffer);
+        #ifdef OHOS
+            LOGI(" %{public}s", p_sBuffer);
+        #else
+            LOGI(" %s", p_sBuffer);
+        #endif
         break;
     default:
-        LOGI(" %s", p_sBuffer);
+        #ifdef OHOS
+            LOGI(" %{public}s", p_sBuffer);
+        #else
+            LOGI(" %s", p_sBuffer);
+        #endif
         break;
     }
 #endif
     
-#ifdef JS_V8
+#ifdef JS_V8_DEBUGGER
 	if (gLayaLogNoParam) {
 		v8::HandleScope hs(mpJsIso);
 		int flags = v8::StackTrace::kLineNumber | v8::StackTrace::kScriptNameOrSourceURL | v8::StackTrace::kFunctionName;
@@ -130,8 +142,8 @@ void JSConsole::log(int p_nType,const char* p_sBuffer )
 }
 void JSConsole::exportJS() 
 {
-    JSP_GLOBAL_CLASS("_console", JSConsole);
-    JSP_ADD_METHOD("log", JSConsole::log);
+    JSP_GLOBAL_CLASS("_console", JSConsole, JSConsole::GetInstance());
+    JSP_GLOBAL_ADD_METHOD("log", JSConsole::log);
     JSP_INSTALL_GLOBAL_CLASS("_console", JSConsole, JSConsole::GetInstance());
 }
 

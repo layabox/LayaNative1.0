@@ -54,7 +54,7 @@ namespace laya
     }
     JsValue JsFile::GetlastModifiedDate()
     {
-        return (__TransferToJs<long long>::ToJsDate(lastModifiedDate));
+        return (__TransferToJs<int64_t>::ToJsDate(lastModifiedDate));
     }
     const char *JsFile::GetName()
     {

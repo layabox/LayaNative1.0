@@ -9,7 +9,7 @@
 
 #import "LayaPlatformCallback.h"
 #import "../../../../../source/conch/JSWrapper/LayaWrap/JSMarket.h"
-#import "../../../../../source/conch/JCScrpitRuntime.h"
+#import "../../../../../source/conch/JCScriptRuntime.h"
 #import <util/JCCommonMethod.h>
 
 //-------------------------------------------------------------------------------

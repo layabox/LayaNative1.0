@@ -6,7 +6,7 @@
 #include "../JSInterface/V8/JSEnv.h"
 #include <util/JCCommonMethod.h>
 #include <util/JCIThreadCmdMgr.h>
-#include "../../JCScrpitRuntime.h"
+#include "../../JCScriptRuntime.h"
 
 namespace laya {
 	using v8::Isolate;
@@ -26,7 +26,7 @@ namespace laya {
 	
 	char V8HeapProfiler::sTmpBuff[];
 	const char* TakeSnapshort = "takeHeapSnapshot";
-	const char* startHeapTrack = "startTrackingHeapObjects";	//Ò»µ©·¢ÆðÕâ¸öÇëÇó£¬¾ÍÒªÃ¿¸ôÒ»¶ÎÊ±¼ä·¢ËÍ HeapProfiler.lastSeenObjectId ÊÂ¼þ
+	const char* startHeapTrack = "startTrackingHeapObjects";	//Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó£¬¾ï¿½ÒªÃ¿ï¿½ï¿½Ò»ï¿½ï¿½Ê±ï¿½ä·¢ï¿½ï¿½ HeapProfiler.lastSeenObjectId ï¿½Â¼ï¿½
 	const char* stopHeapTrack = "stopTrackingHeapObjects";
 	//"_lookupHeapObjectId";
 	//"heapStatsUpdate";
@@ -35,7 +35,7 @@ namespace laya {
 	const char* addHeapSnapshotChunk = "addHeapSnapshotChunk";
 	const char* getObjByHeapObjID = "getObjectByHeapObjectId";
 
-	//½ø¶ÈÌáÊ¾¡£±ØÐëÔÚjsÏß³ÌÖ´ÐÐ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½jsï¿½ß³ï¿½Ö´ï¿½ï¿½
 	class ActivityControlAdapter : public ActivityControl {
 	public:
 		ActivityControlAdapter(V8HeapProfiler* pobj){
@@ -65,10 +65,10 @@ namespace laya {
 
 	v8::OutputStream::WriteResult V8HeapProfiler::WriteAsciiChunk(char* data, int size) {
 		static char buf[51200*2 + 512];
-		//chunkºóÃæ¾ÍÊÇÒ»¸ö×Ö·û´®£¨¿ÉÄÜÊÇÒ»²¿·Öjson£©£¬¿Í»§¶Ë×Ô¼º×é×°³ÉÍêÕûµÄjson¶ÔÏó
+		//chunkï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½jsonï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½jsonï¿½ï¿½ï¿½ï¿½
 		int l = snprintf(buf, sizeof(buf), "{\"seq\":%d,\"type\":\"event\",\"success\":true,\
 \"running\":true,\"event\":\"HeapProfiler.addHeapSnapshotChunk\",\"body\":{\"chunk\":\"", DebuggerAgent::g_nSeqNum++ );
-		//È»ºó¿ªÊ¼¸´ÖÆchunkµÄÄÚÈÝ£¬ÒòÎªÒª×ª»»ËùÒÔ×Ô¼ºÐ´,Ê£ÏÂµÄÊÇ %s\"}}
+		//È»ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½chunkï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ÎªÒª×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½Ð´,Ê£ï¿½Âµï¿½ï¿½ï¿½ %s\"}}
 		char *st = buf + l;
 		char *st1 = st;
 		for (int i = 0; i < size; i++) {
@@ -85,7 +85,7 @@ namespace laya {
 		return kContinue;
 	}
 
-	//Óë Date.now µÈÐ§µÄÊ±¼ä
+	//ï¿½ï¿½ Date.now ï¿½ï¿½Ð§ï¿½ï¿½Ê±ï¿½ï¿½
 	int64_t jsnow() {
 		return tmGetCurms();
 		/*
@@ -106,7 +106,7 @@ namespace laya {
 
 	v8::OutputStream::WriteResult V8HeapProfiler::WriteHeapStatsChunk(v8::HeapStatsUpdate* data, int count) {
 		v8::HeapProfiler* pProf = v8::Isolate::GetCurrent()->GetHeapProfiler();
-		//·¢ËÍ HeapProfiler.heapStatsUpdate ÊÂ¼þ
+		//ï¿½ï¿½ï¿½ï¿½ HeapProfiler.heapStatsUpdate ï¿½Â¼ï¿½
 		//{"seq":28,"type":"event","success":true,"running":true,"event":"HeapProfiler.heapStatsUpdate","body":{"statsUpdate":[6,45,11960,7,1,1352,8,159,14536]}}
 		StrBuff buf(512,128);
 		buf << "{\"seq\":" << DebuggerAgent::g_nSeqNum++ << ",\"type\":\"event\",\"success\":true,\"running\":true,\"event\":\"HeapProfiler.heapStatsUpdate\",\"body\":{\"statsUpdate\":[";
@@ -116,7 +116,7 @@ namespace laya {
 		}
 		buf<< "]}}";
 		agent_->session_->DebuggerMessage(buf.getBuffer(), buf.getDataSize());
-		//·¢ËÍ HeapProfiler.lastSeenObjectId ÊÂ¼þ
+		//ï¿½ï¿½ï¿½ï¿½ HeapProfiler.lastSeenObjectId ï¿½Â¼ï¿½
 		//{"seq":13,"type":"event","success":true,"running":true,"event":"HeapProfiler.lastSeenObjectId","body":{"lastSeenObjectId":null,"timestamp":1449392312736}}
 		StrBuff buf1(512, 128);
 		buf1 << "{\"seq\":" << DebuggerAgent::g_nSeqNum++ << ",\"type\":\"event\",\"success\":true,\"running\":true,\"event\":\"HeapProfiler.lastSeenObjectId\",\"body\":{\"lastSeenObjectId\":";
@@ -124,7 +124,7 @@ namespace laya {
 		else buf1 << lastSeenObj;
 		buf1 << ",\"timestamp\":" << jsnow() << "}}";
 		agent_->session_->DebuggerMessage(buf1.getBuffer(), buf1.getDataSize());
-		//ÏÂÒ»´Î
+		//ï¿½ï¿½Ò»ï¿½ï¿½
 		//lastSeenObj = pProf->GetHeapStats(this);
 		return kContinue;
 	}
@@ -175,7 +175,7 @@ namespace laya {
 		v8::HeapProfiler* pHeapProf = pIso->GetHeapProfiler();
 		ActivityControlAdapter ctrl(this);
 		NR nr;
-		//Ö´ÐÐµÄ¹ý³ÌÖÐ»áµ÷ÓÃ ReportProgressValue£¬ Ö´ÐÐÍêÁËºó£¬²Å»áÍË³ö
+		//Ö´ï¿½ÐµÄ¹ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ ReportProgressValueï¿½ï¿½ Ö´ï¿½ï¿½ï¿½ï¿½ï¿½Ëºó£¬²Å»ï¿½ï¿½Ë³ï¿½
 		v8::HeapSnapshot* pSnapshort = (v8::HeapSnapshot*)pHeapProf->TakeHeapSnapshot(needProg?(&ctrl):NULL,&nr);
 		pSnapshort->Serialize(this);
         pSnapshort->Delete();
@@ -194,7 +194,7 @@ namespace laya {
 		trackHeap = true;
 		v8::HeapProfiler* pProf = v8::Isolate::GetCurrent()->GetHeapProfiler();
 		pProf->StartTrackingHeapObjects();
-		//Õâ¸ö»áÓÃµ½ OutputStream ½Ó¿ÚµÄ WriteHeapStatsChunk º¯Êý¡£
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ OutputStream ï¿½Ó¿Úµï¿½ WriteHeapStatsChunk ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		lastSeenObj = pProf->GetHeapStats(this);
 	}
 
@@ -210,7 +210,7 @@ namespace laya {
 		if (!trackHeap)
 			return;
 		static int id = 0;
-		if (id++ % 6 != 0)return;	//ÁÙÊ±
+		if (id++ % 6 != 0)return;	//ï¿½ï¿½Ê±
 
 		v8::HeapProfiler* pProf = v8::Isolate::GetCurrent()->GetHeapProfiler();
 		lastSeenObj = pProf->GetHeapStats(this);

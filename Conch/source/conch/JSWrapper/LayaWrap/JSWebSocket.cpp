@@ -13,7 +13,7 @@
 #include <util/JCCommonMethod.h>
 #include <util/JCMemorySurvey.h>
 #include "../../WebSocket/WebSocket.h"
-#include "../../JCScrpitRuntime.h"
+#include "../../JCScriptRuntime.h"
 #include <util/JCIThreadCmdMgr.h>
 
 namespace laya
@@ -29,7 +29,11 @@ namespace laya
 
     void JSWebSocketDelegate::onOpen(WebSocket* ws)
     {
-        LOGI("JSWebSocketDelegate::onOpen() this=%x ws=%x", (long)this,(long)m_js_WebSocket);
+#ifdef OHOS
+        LOGI("JSWebSocketDelegate::onOpen() this=%{public}x ws=%{public}x", (long)this, (long)m_js_WebSocket);
+#else
+        LOGI("JSWebSocketDelegate::onOpen() this=%x ws=%x", (long)this, (long)m_js_WebSocket);
+#endif
         std::string p_sEvent;
         m_js_WebSocket->closeTime = 0;
         m_pCmdPoster->postToJS(std::bind(&JSWebSocket::onSocketOpenCallJSFunction, m_js_WebSocket, p_sEvent, jswsref));
@@ -45,7 +49,11 @@ namespace laya
 
     void JSWebSocketDelegate::onClose(WebSocket* ws)
     {
+#ifdef OHOS
+        LOGI("JSWebSocketDelegate::onClose()this=%{public}x ws=%{public}x", (long)this, (long)m_js_WebSocket);
+#else
         LOGI("JSWebSocketDelegate::onClose()this=%x ws=%x", (long)this, (long)m_js_WebSocket);
+#endif
         std::string p_sEvent = "error";
         auto pFuncation = std::bind(&JSWebSocket::onSocketCloseCallJSFunction, m_js_WebSocket, p_sEvent,
             tmGetCurms(), jswsref);
@@ -84,7 +92,11 @@ namespace laya
         m_pWebSocket = new WebSocket();
         closeTime = 0;
         m_pWebSocketDelegate = new JSWebSocketDelegate(this);
+#ifdef OHOS
+        LOGI("new JSWebSocket::this=%{public}x deletgate=%{public}x", (long)this, (long)m_pWebSocketDelegate);
+#else
         LOGI("new JSWebSocket::this=%x deletgate=%x", (long)this, (long)m_pWebSocketDelegate);
+#endif
         m_nBinaryType = Type_String;
         m_nWebSocketState = WSS_INIT;
         if (Init(p_sUrl))
@@ -101,7 +113,11 @@ namespace laya
     //------------------------------------------------------------------------------
     JSWebSocket::~JSWebSocket()
     {
-        LOGI("release JSWebSocket this=%x deletgate=%x", (long) this, (long)m_pWebSocketDelegate);
+#ifdef OHOS
+        LOGI("release JSWebSocket this=%{public}x deletgate=%{public}x", (long)this, (long)m_pWebSocketDelegate);
+#else
+        LOGI("release JSWebSocket this=%x deletgate=%x", (long)this, (long)m_pWebSocketDelegate);
+#endif
         if (m_pWebSocket) {
             m_pWebSocket->clearDelegate();	//去掉delegate，防止发给js对象。因为跨线程之后，js对象已经删除了。
             m_pWebSocket->close();
@@ -125,7 +141,11 @@ namespace laya
         if (!cbref.lock())
             return;
         closeTime = closetm;
-        LOGI("JSWebSocket::onSocketCloseCallJSFunction this=%x", (long) this);
+#ifdef OHOS
+        LOGI("JSWebSocket::onSocketCloseCallJSFunction this=%{public}x", (long)this);
+#else
+        LOGI("JSWebSocket::onSocketCloseCallJSFunction this=%x", (long)this);
+#endif
         if (m_nWebSocketState == WSS_OPEN) {
             m_pJSFunctionOnClose.Call(p_sEvent.c_str());
         }
@@ -235,7 +255,11 @@ namespace laya
     //------------------------------------------------------------------------------
     void JSWebSocket::close()
     {
+#ifdef OHOS
+        LOGI("JSWebSocket::close this=%{public}x deletgate=%{public}x", (long)this, (long)m_pWebSocketDelegate);
+#else
         LOGI("JSWebSocket::close this=%x deletgate=%x", (long)this, (long)m_pWebSocketDelegate);
+#endif
         if (m_nWebSocketState == WSS_OPEN)
         {
             if (m_pWebSocket)
@@ -268,14 +292,16 @@ namespace laya
     void JSWebSocket::JsSend(JSValueAsParam args)
     {
         enBinaryType type = m_nBinaryType;
-        JsArrayBufferData ab(!isSupportTypedArrayAPI());
+        char* pABPtr = NULL;
+        int nABLen = 0;
+ 
         if (__TransferToCpp<char *>::is(args))
         {
             type = Type_String;
         }
         else
         {
-            bool bisab = extractJSAB(args, ab);
+            bool bisab = extractJSAB(args, pABPtr, nABLen);
             type = bisab ? Type_ArrayBuffer : Type_Unknown;
         }
         switch (type)
@@ -283,7 +309,7 @@ namespace laya
         case Type_ArrayBuffer:
             if (m_nWebSocketState == WSS_OPEN && m_pWebSocket)
             {
-                m_pWebSocket->send((const unsigned char*)ab.data, (unsigned int)ab.len);
+                m_pWebSocket->send((const unsigned char*)pABPtr, (unsigned int)nABLen);
             }
             break;
         case Type_String:

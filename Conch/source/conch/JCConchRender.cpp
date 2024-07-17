@@ -9,7 +9,7 @@
 #include "JCConchRender.h"
 #include <util/Log.h>
 #include <util/JCCommonMethod.h>
-#include "JCScrpitRuntime.h"
+#include "JCScriptRuntime.h"
 #include "JCSystemConfig.h"
 #include <downloadCache/JCFileSource.h>
 #include <Html5Render/JCHtml5Context.h>

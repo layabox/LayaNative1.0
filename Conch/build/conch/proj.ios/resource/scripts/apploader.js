@@ -1,29 +1,16 @@
 'use strict';
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var ConchNode = (function () {
-    function ConchNode() {
+class ConchNode {
+    constructor() {
         this._nativeObj = new conchNode2D();
         this.id = this._nativeObj.conchID;
     }
-    ConchNode.prototype.setRootNode = function () {
+    setRootNode() {
         this._nativeObj.setRootNode();
-    };
-    ConchNode.prototype.setFPSNode = function () {
+    }
+    setFPSNode() {
         this._nativeObj.setFPSNode();
-    };
-    ConchNode.prototype.addChildAt = function (c, i) {
+    }
+    addChildAt(c, i) {
         if (!c)
             return;
         var _ = conch.bf;
@@ -32,31 +19,31 @@ var ConchNode = (function () {
         _.wu32(0);
         _.wu32(c.id);
         _.wu32(i);
-    };
-    ConchNode.prototype.removeChild = function (c) {
+    }
+    removeChild(c) {
         if (!c)
             return;
         _Buffer.oneInt(this, 1, c.id);
-    };
-    ConchNode.prototype.size = function (w, h) {
+    }
+    size(w, h) {
         _Buffer.point(this, 2, w, h);
-    };
-    ConchNode.prototype.pos = function (x, y) {
+    }
+    pos(x, y) {
         _Buffer.point(this, 3, x, y);
-    };
-    ConchNode.prototype.pivot = function (x, y) {
+    }
+    pivot(x, y) {
         _Buffer.point(this, 4, x, y);
-    };
-    ConchNode.prototype.scale = function (x, y) {
+    }
+    scale(x, y) {
         _Buffer.point(this, 5, x, y);
-    };
-    ConchNode.prototype.skew = function (x, y) {
+    }
+    skew(x, y) {
         _Buffer.point(this, 6, x, y);
-    };
-    ConchNode.prototype.rotate = function (r) {
+    }
+    rotate(r) {
         _Buffer.oneNum(this, 7, r);
-    };
-    ConchNode.prototype.bgColor = function (bg) {
+    }
+    bgColor(bg) {
         if (!bg) {
             this.removeType(0x81);
             return;
@@ -67,58 +54,58 @@ var ConchNode = (function () {
             n = 0xFFFFFFFF;
         }
         _Buffer.oneInt(this, 8, n);
-    };
-    ConchNode.prototype.font = function (str) {
+    }
+    font(str) {
         var _ = conch.bf;
         _.needsz(12);
         _.wu32(this.id);
         _.wu32(9);
         _.wstring(str, true);
-    };
-    ConchNode.prototype.text = function (d) {
-    };
-    ConchNode.prototype.transform = function (a, b, c, d, tx, ty) {
+    }
+    text(d) {
+    }
+    transform(a, b, c, d, tx, ty) {
         _Buffer.setMatrix(this, 11, a, b, c, d, tx, ty);
-    };
-    ConchNode.prototype.setTransform = function (a, b, c, d, tx, ty) {
+    }
+    setTransform(a, b, c, d, tx, ty) {
         _Buffer.setMatrix(this, 12, a, b, c, d, tx, ty);
-    };
-    ConchNode.prototype.alpha = function (a) {
+    }
+    alpha(a) {
         _Buffer.oneNum(this, 13, a);
-    };
-    ConchNode.prototype.filter = function (r, g, b, gray) {
+    }
+    filter(r, g, b, gray) {
         _Buffer.rect(this, 14, r, g, b, gray);
-    };
-    ConchNode.prototype.visible = function (b) {
+    }
+    visible(b) {
         _Buffer.oneInt(this, 15, b ? 1 : 0);
-    };
-    ConchNode.prototype.blendMode = function (v) {
+    }
+    blendMode(v) {
         if (!v) {
             this.removeType(0x08);
             return;
         }
         var d = CanvasRenderingContext2D.BLEND[v] || 0;
         _Buffer.oneInt(this, 16, d);
-    };
-    ConchNode.prototype.scrollRect = function (x, y, w, h) {
+    }
+    scrollRect(x, y, w, h) {
         _Buffer.rect(this, 17, x, y, w, h);
-    };
-    ConchNode.prototype.mask = function (node) {
+    }
+    mask(node) {
         var i = node ? node.id : -1;
         _Buffer.oneInt(this, 18, i);
-    };
-    ConchNode.prototype.graphics = function (g) {
+    }
+    graphics(g) {
         var i = g ? g.id : -1;
         _Buffer.oneInt(this, 19, i);
-    };
-    ConchNode.prototype.custom = function (t) {
+    }
+    custom(t) {
         if (t == null) {
             this.removeType(0x400);
         }
         else
             _Buffer.oneInt(this, 20, t.id);
-    };
-    ConchNode.prototype.removeType = function (t) {
+    }
+    removeType(t) {
         switch (t) {
             case 0x10:
                 t = 0x20;
@@ -133,11 +120,11 @@ var ConchNode = (function () {
                 break;
         }
         _Buffer.oneInt(this, 21, t);
-    };
-    ConchNode.prototype.cacheAs = function (t) {
+    }
+    cacheAs(t) {
         _Buffer.oneInt(this, 22, t);
-    };
-    ConchNode.prototype.border = function (b) {
+    }
+    border(b) {
         if (!b) {
             this.removeType(0x82);
             return;
@@ -148,14 +135,14 @@ var ConchNode = (function () {
             bc = 0xFFFFFFFF;
         }
         _Buffer.oneInt(this, 23, bc);
-    };
-    ConchNode.prototype.optimizeScrollRect = function (b) {
+    }
+    optimizeScrollRect(b) {
         _Buffer.oneInt(this, 24, b ? 1 : 0);
-    };
-    ConchNode.prototype.blurFilter = function (strength) {
+    }
+    blurFilter(strength) {
         _Buffer.oneNum(this, 25, strength);
-    };
-    ConchNode.prototype.glowFilter = function (color, blur, offX, offY) {
+    }
+    glowFilter(color, blur, offX, offY) {
         var c = ColorUtil.getColorNum(color);
         if (isNaN(c)) {
             console.error("growFilter" + color + "not support");
@@ -169,8 +156,8 @@ var ConchNode = (function () {
         _.wf32(blur);
         _.wf32(offX);
         _.wf32(offY);
-    };
-    ConchNode.prototype.setFilterMatrix = function (mat, alpha) {
+    }
+    setFilterMatrix(mat, alpha) {
         if (!mat || !alpha) {
             this.removeType(0x20);
             return;
@@ -181,20 +168,20 @@ var ConchNode = (function () {
         _.wu32(27);
         _.wab(mat, 64);
         _.wab(alpha, 16);
-    };
-    ConchNode.prototype.repaint = function () {
+    }
+    repaint() {
         var _ = conch.bf;
         _.needsz(8);
         _.wu32(this.id);
         _.wu32(28);
-    };
-    ConchNode.prototype.setZOrder = function (z) {
+    }
+    setZOrder(z) {
         _Buffer.oneNum(this, 29, z);
-    };
-    ConchNode.prototype.updateZOrder = function () {
+    }
+    updateZOrder() {
         _Buffer.noParm(this, 30);
-    };
-    ConchNode.prototype.drawToCanvas = function (canvas, offsetX, offsetY) {
+    }
+    drawToCanvas(canvas, offsetX, offsetY) {
         var _ = conch.bf;
         _.needsz(8);
         _.wu32(this.id);
@@ -202,40 +189,39 @@ var ConchNode = (function () {
         _.wu32(canvas._ctx2d.id);
         _.wf32(offsetX);
         _.wf32(offsetY);
-    };
-    return ConchNode;
-}());
-var ConchGraphics = (function () {
-    function ConchGraphics() {
+    }
+}
+class ConchGraphics {
+    constructor() {
         this._cmds = null;
         this._nativeObj = new _conchGraphics();
         this.id = this._nativeObj.conchID;
     }
-    ConchGraphics.prototype._addCmd = function (a) {
+    _addCmd(a) {
         if (!this._cmds)
             this._one = a;
         this._cmds = this._cmds || [];
         this._cmds.push(a);
-    };
-    ConchGraphics.prototype._repaint = function () {
-    };
-    ConchGraphics.prototype.clear = function () {
+    }
+    _repaint() {
+    }
+    clear() {
         this._repaint();
         this._cmds && (this._cmds.length = 0);
         _Buffer.noParm(this, 0);
-    };
-    ConchGraphics.prototype.destroy = function () {
+    }
+    destroy() {
         this._sp = null;
         this._cmds = null;
         this._temp = null;
         this._bounds = null;
         this._rstBoundPoints = null;
         _Buffer.noParm(this, 1);
-    };
-    ConchGraphics.prototype.alpha = function (a) {
+    }
+    alpha(a) {
         _Buffer.oneNum(this, 2, a);
-    };
-    ConchGraphics.prototype.rotate = function (angle, pivotX, pivotY) {
+    }
+    rotate(angle, pivotX, pivotY) {
         var _ = conch.bf;
         _.needsz(20);
         _.wu32(this.id);
@@ -244,34 +230,34 @@ var ConchGraphics = (function () {
         _.wf32(pivotX || 0);
         _.wf32(pivotY || 0);
         this._addCmd([3, angle, pivotX || 0, pivotY || 0]);
-    };
-    ConchGraphics.prototype.transform = function (mat, pivotX, pivotY) {
+    }
+    transform(mat, pivotX, pivotY) {
         _Buffer.setMatrix(this, 4, mat.a, mat.b, mat.c, mat.d, mat.tx - (pivotX || 0), mat.ty - pivotY || 0);
         this._addCmd([4, mat, pivotX || 0, pivotY || 0]);
-    };
-    ConchGraphics.prototype.scale = function (x, y, pivotX, pivotY) {
+    }
+    scale(x, y, pivotX, pivotY) {
         _Buffer.rect(this, 5, x, y, pivotX || 0, pivotY || 0);
         this._addCmd([5, x, y, pivotX || 0, pivotY || 0]);
-    };
-    ConchGraphics.prototype.translate = function (x, y) {
+    }
+    translate(x, y) {
         _Buffer.point(this, 6, x, y);
         this._addCmd([6, x, y]);
-    };
-    ConchGraphics.prototype.save = function () {
+    }
+    save() {
         _Buffer.noParm(this, 7);
         this._addCmd([7]);
-    };
-    ConchGraphics.prototype.restore = function () {
+    }
+    restore() {
         _Buffer.noParm(this, 8);
         this._addCmd([8]);
-    };
-    ConchGraphics.prototype.clipRect = function (x, y, w, h) {
+    }
+    clipRect(x, y, w, h) {
         _Buffer.rect(this, 9, x, y, w, h);
-    };
-    ConchGraphics.prototype.blendMode = function (s) {
+    }
+    blendMode(s) {
         _Buffer.oneInt(this, 10, CanvasRenderingContext2D.BLEND[s] || 0);
-    };
-    ConchGraphics.prototype.fillText = function (text, x, y, font, color, textAlign, decorationLine) {
+    }
+    fillText(text, x, y, font, color, textAlign, decorationLine) {
         var d = ColorUtil.getColorNum(color);
         if (isNaN(d)) {
             console.error("graphic fillText color :" + color + " not support");
@@ -291,8 +277,8 @@ var ConchGraphics = (function () {
         _.wstring(font, true);
         _.needsz(4);
         _.wstring(text, true);
-    };
-    ConchGraphics.prototype.fillBorderText = function (text, x, y, font, fillColor, borderColor, lineWidth, textAlign, decorationLine) {
+    }
+    fillBorderText(text, x, y, font, fillColor, borderColor, lineWidth, textAlign, decorationLine) {
         if (borderColor) {
             font += " " + 1 + " " + borderColor;
             if (decorationLine > 0) {
@@ -305,8 +291,8 @@ var ConchGraphics = (function () {
             }
         }
         this.fillText(text, x, y, font, fillColor, textAlign, 0);
-    };
-    ConchGraphics.prototype._fands = function (fillColor, lineColor, lineWidth) {
+    }
+    _fands(fillColor, lineColor, lineWidth) {
         var _ = conch.bf;
         lineWidth = lineWidth || 1;
         var fd = -1, ld = -1, flag = 1;
@@ -338,14 +324,14 @@ var ConchGraphics = (function () {
         _.wu32(fd);
         _.wu32(ld);
         _.wu32(flag);
-    };
-    ConchGraphics.prototype.drawRect = function (x, y, width, height, fillColor, lineColor, lineWidth) {
+    }
+    drawRect(x, y, width, height, fillColor, lineColor, lineWidth) {
         var offset = lineColor ? 0.5 : 0;
         _Buffer.rect(this, 13, x + offset, y + offset, width, height);
         this._fands(fillColor, lineColor, lineWidth);
         this._addCmd([13, x + offset, y + offset, width, height]);
-    };
-    ConchGraphics.prototype.drawCircle = function (x, y, radius, fillColor, lineColor, lineWidth) {
+    }
+    drawCircle(x, y, radius, fillColor, lineColor, lineWidth) {
         var offset = lineColor ? 0.5 : 0;
         var _ = conch.bf;
         _.needsz(20);
@@ -356,8 +342,8 @@ var ConchGraphics = (function () {
         _.wf32(radius);
         this._fands(fillColor, lineColor, lineWidth);
         this._addCmd([14, x + offset, y + offset, radius]);
-    };
-    ConchGraphics.prototype.drawPie = function (x, y, radius, startAngle, endAngle, fillColor, lineColor, lineWidth) {
+    }
+    drawPie(x, y, radius, startAngle, endAngle, fillColor, lineColor, lineWidth) {
         var offset = lineColor ? 0.5 : 0;
         var _ = conch.bf;
         _.needsz(28);
@@ -370,8 +356,8 @@ var ConchGraphics = (function () {
         _.wf32(endAngle);
         this._fands(fillColor, lineColor, lineWidth);
         this._addCmd([15, x + offset, y + offset, radius, startAngle, endAngle]);
-    };
-    ConchGraphics.prototype.drawImageM = function (img, sx, sy, sw, sh, dx, dy, dw, dh, mat, alpha) {
+    }
+    drawImageM(img, sx, sy, sw, sh, dx, dy, dw, dh, mat, alpha) {
         alpha = alpha ? alpha : 1.0;
         var sz = mat ? 76 : 52;
         var fid = mat ? 17 : 16;
@@ -394,8 +380,8 @@ var ConchGraphics = (function () {
         else {
             this._addCmd([16, dx, dy, dw, dh, img]);
         }
-    };
-    ConchGraphics.prototype.drawPoly = function (x, y, points, fillColor, lineColor, lineWidth) {
+    }
+    drawPoly(x, y, points, fillColor, lineColor, lineWidth) {
         var _ = conch.bf, pl = points.length, i;
         _.needsz(pl * 4 + 36);
         _.wu32(this.id);
@@ -408,8 +394,8 @@ var ConchGraphics = (function () {
             _.wf32(points[i]);
         }
         this._addCmd([18, x, y, points]);
-    };
-    ConchGraphics.prototype.drawPath = function (x, y, paths, brush, pen) {
+    }
+    drawPath(x, y, paths, brush, pen) {
         var _ = conch.bf, pl = paths.length, i, bl = 0, plen = 0, fc, sc, ab, bfl = 0;
         if (brush) {
             bl = 1;
@@ -493,8 +479,8 @@ var ConchGraphics = (function () {
             _.wf32(pen.miterLimit);
         }
         this._addCmd([19, x + 0.5, y + 0.5, paths]);
-    };
-    ConchGraphics.prototype.drawLine = function (x1, y1, x2, y2, lineColor, lineWidth) {
+    }
+    drawLine(x1, y1, x2, y2, lineColor, lineWidth) {
         var lc = ColorUtil.getColorNum(lineColor);
         if (isNaN(lc)) {
             console.error("drawLine lineColor:" + lineColor + "not support");
@@ -512,8 +498,8 @@ var ConchGraphics = (function () {
         _.wf32(lineWidth || 1);
         _.wu32(lc);
         this._addCmd([20, x1, y1, x2, y2]);
-    };
-    ConchGraphics.prototype._drawPs = function (fid, x, y, points, lineColor, lineWidth) {
+    }
+    _drawPs(fid, x, y, points, lineColor, lineWidth) {
         var lc = ColorUtil.getColorNum(lineColor), pl = points.length;
         if (isNaN(lc)) {
             console.error("_drawPs lineColor:" + lineColor + "not support");
@@ -531,31 +517,31 @@ var ConchGraphics = (function () {
         for (var i = 0; i < pl; i++) {
             _.wf32(points[i]);
         }
-    };
-    ConchGraphics.prototype.drawLines = function (x, y, points, lineColor, lineWidth) {
+    }
+    drawLines(x, y, points, lineColor, lineWidth) {
         this._drawPs(21, x, y, points, lineColor, lineWidth);
-    };
-    ConchGraphics.prototype.drawCurves = function (x, y, points, lineColor, lineWidth) {
+    }
+    drawCurves(x, y, points, lineColor, lineWidth) {
         this._drawPs(22, x, y, points, lineColor, lineWidth);
         this._addCmd([22, x + 0.5, y + 0.5, points]);
-    };
-    ConchGraphics.prototype.replaceText = function (text) {
+    }
+    replaceText(text) {
         var _ = conch.bf;
         _.needsz(12);
         _.wu32(this.id);
         _.wu32(28);
         _.wstring(text, true);
         return true;
-    };
-    ConchGraphics.prototype.replaceTextColor = function (c) {
+    }
+    replaceTextColor(c) {
         var fc = ColorUtil.getColorNum(c);
         if (isNaN(fc)) {
             console.error("replaceTextColor:" + c + "not support");
             fc = 0xFFFFFFFF;
         }
         _Buffer.oneInt(this, 23, fc);
-    };
-    ConchGraphics.prototype._fillImage = function (pat, x, y, fx, fy, w, h) {
+    }
+    _fillImage(pat, x, y, fx, fy, w, h) {
         var _ = conch.bf;
         _.needsz(56);
         _.wu32(this.id);
@@ -606,8 +592,8 @@ var ConchGraphics = (function () {
         _.wf32(w);
         _.wf32(h);
         this._addCmd([24, x + fx, y + fy, w, h]);
-    };
-    ConchGraphics.prototype.setSkinMesh = function (ib, vb, eleNum, iStart, texture, mat) {
+    }
+    setSkinMesh(ib, vb, eleNum, iStart, texture, mat) {
         var img = texture.source;
         var _ = conch.bf;
         if (ib.conch_id === undefined || !ib._upload) {
@@ -665,15 +651,15 @@ var ConchGraphics = (function () {
         _.wf32(mat.ty);
         _.wf32(0);
         _.wf32(0);
-    };
-    ConchGraphics.prototype.drawParticle = function (par) {
+    }
+    drawParticle(par) {
         var _ = conch.bf;
         _.needsz(20);
         _.wu32(this.id);
         _.wu32(26);
         _.wu32(par ? par.id : -1);
-    };
-    ConchGraphics.prototype.drawImageS = function (img, sx, sy, sw, sh, dx, dy, dw, dh, pos) {
+    }
+    drawImageS(img, sx, sy, sw, sh, dx, dy, dw, dh, pos) {
         var _ = conch.bf;
         var len;
         if (!(pos instanceof Float32Array)) {
@@ -703,9 +689,8 @@ var ConchGraphics = (function () {
         _.wu32(bImage ? 0 : 1);
         _.wu32(len);
         _.wab(pos, len);
-    };
-    return ConchGraphics;
-}());
+    }
+}
 window["ConchNode"] = ConchNode;
 window["ConchGraphics"] = ConchGraphics;
 conch["platCallBack"] = function (ret) {
@@ -728,10 +713,8 @@ conch["platCallBack"] = function (ret) {
         callback && callback(rs);
     }
 };
-var PlatformBase = (function () {
-    function PlatformBase() {
-    }
-    PlatformBase.prototype.call = function (methodName, p1, p2, p3, p4, p5, p6, p7, p8, p9) {
+class PlatformBase {
+    call(methodName, p1, p2, p3, p4, p5, p6, p7, p8, p9) {
         var a = Array.prototype.slice.call(arguments);
         a.shift();
         try {
@@ -741,8 +724,8 @@ var PlatformBase = (function () {
         catch (e) {
             return null;
         }
-    };
-    PlatformBase.prototype.callWithBack = function (callback, methodName, p1, p2, p3, p4, p5, p6, p7, p8, p9) {
+    }
+    callWithBack(callback, methodName, p1, p2, p3, p4, p5, p6, p7, p8, p9) {
         this.callBackList[methodName] = callback;
         var a = Array.prototype.slice.call(arguments);
         a.splice(0, 2);
@@ -753,84 +736,75 @@ var PlatformBase = (function () {
         catch (e) {
             return null;
         }
-    };
-    return PlatformBase;
-}());
-var PlatformClass = (function (_super) {
-    __extends(PlatformClass, _super);
-    function PlatformClass(clsName) {
-        var _this = _super.call(this) || this;
-        _this.objid = -1;
-        _this.className = clsName;
-        _this.callBackList = {};
-        PlatformClass.clsMap[clsName] = _this;
-        return _this;
     }
-    PlatformClass.createClass = function (clsName) {
+}
+class PlatformClass extends PlatformBase {
+    constructor(clsName) {
+        super();
+        this.objid = -1;
+        this.className = clsName;
+        this.callBackList = {};
+        PlatformClass.clsMap[clsName] = this;
+    }
+    static createClass(clsName) {
         return PlatformClass.clsMap[clsName] || new PlatformClass(clsName);
-    };
-    PlatformClass.prototype.newObject = function (p1, p2, p3, p4, p5, p6, p7, p8, p9) {
+    }
+    newObject(p1, p2, p3, p4, p5, p6, p7, p8, p9) {
         var a = Array.prototype.slice.call(arguments);
         a.splice(0, 0, "<init>");
         var rs = new PlatformObj(this);
         rs.init.apply(rs, a);
         return rs;
-    };
-    PlatformClass.clsMap = {};
-    return PlatformClass;
-}(PlatformBase));
-var PlatformObj = (function (_super) {
-    __extends(PlatformObj, _super);
-    function PlatformObj(cls) {
-        var _this = _super.call(this) || this;
-        _this.cls = cls;
-        _this.className = cls.className;
-        _this.callBackList = {};
-        return _this;
     }
-    PlatformObj.prototype.init = function () {
+}
+PlatformClass.clsMap = {};
+class PlatformObj extends PlatformBase {
+    constructor(cls) {
+        super();
+        this.cls = cls;
+        this.className = cls.className;
+        this.callBackList = {};
+    }
+    init() {
         this.objid = PlatformObj.objNum++;
         this.call.apply(this, arguments) || -1;
         PlatformObj.objMap[this.objid] = this;
-    };
-    PlatformObj.objMap = {};
-    PlatformObj.objNum = 0;
-    return PlatformObj;
-}(PlatformBase));
-var ConchFps = (function (_super) {
-    __extends(ConchFps, _super);
-    function ConchFps(color, fontSize, x, y) {
-        var _this = _super.call(this) || this;
-        _this.pos(x, y);
-        _this.color = color;
-        _this.fontSize = fontSize;
-        _this.fontstr = "normal 100 " + fontSize + "px Arial";
-        _this._repaint = false;
-        _this.fps = _this.vertex = _this.drawCall = _this.countNode = 0;
-        _this.textAligh = "left";
-        _this.left = new ConchNode();
-        _this.addChildAt(_this.left, 0);
-        var g = new ConchGraphics();
-        _this._graphics = g;
-        g.fillText("FPS", 2, 2, _this.fontstr, color, _this.textAligh, 0);
-        g.fillText("Vertex", 2, fontSize + 10, _this.fontstr, color, _this.textAligh, 0);
-        g.fillText("DrawCall", 2, fontSize * 2 + 20, _this.fontstr, color, _this.textAligh, 0);
-        g.fillText("Sprite", 2, fontSize * 3 + 30, _this.fontstr, color, _this.textAligh, 0);
-        _this.graphics(g);
-        _this.left.pos(fontSize * 5, 0);
-        _this.left._graphics = new ConchGraphics();
-        _this.left.graphics(_this.left._graphics);
-        var g = _this.left._graphics;
-        g.fillText("0", 0, 2, _this.fontstr, _this.color, _this.textAligh, 0);
-        g.fillText("0", 0, _this.fontSize + 10, _this.fontstr, _this.color, _this.textAligh, 0);
-        g.fillText("0", 0, _this.fontSize * 2 + 20, _this.fontstr, _this.color, _this.textAligh, 0);
-        g.fillText("0", 0, _this.fontSize * 3 + 30, _this.fontstr, _this.color, _this.textAligh, 0);
-        _this.setFPSNode();
-        _this.size(_this.fontSize * 7 + 10, _this.fontSize * 4 + 40);
-        _this.bgColor("rgba(150,150,150,0.8)");
-        return _this;
     }
-    ConchFps.prototype.render = function (f) {
+}
+PlatformObj.objMap = {};
+PlatformObj.objNum = 0;
+class ConchFps extends ConchNode {
+    constructor(color, fontSize, x, y) {
+        super();
+        this.pos(x, y);
+        this.color = color;
+        this.fontSize = fontSize;
+        this.fontstr = "normal 100 " + fontSize + "px Arial";
+        this._repaint = false;
+        this.fps = this.vertex = this.drawCall = this.countNode = 0;
+        this.textAligh = "left";
+        this.left = new ConchNode();
+        this.addChildAt(this.left, 0);
+        var g = new ConchGraphics();
+        this._graphics = g;
+        g.fillText("FPS", 2, 2, this.fontstr, color, this.textAligh, 0);
+        g.fillText("Vertex", 2, fontSize + 10, this.fontstr, color, this.textAligh, 0);
+        g.fillText("DrawCall", 2, fontSize * 2 + 20, this.fontstr, color, this.textAligh, 0);
+        g.fillText("Sprite", 2, fontSize * 3 + 30, this.fontstr, color, this.textAligh, 0);
+        this.graphics(g);
+        this.left.pos(fontSize * 5, 0);
+        this.left._graphics = new ConchGraphics();
+        this.left.graphics(this.left._graphics);
+        var g = this.left._graphics;
+        g.fillText("0", 0, 2, this.fontstr, this.color, this.textAligh, 0);
+        g.fillText("0", 0, this.fontSize + 10, this.fontstr, this.color, this.textAligh, 0);
+        g.fillText("0", 0, this.fontSize * 2 + 20, this.fontstr, this.color, this.textAligh, 0);
+        g.fillText("0", 0, this.fontSize * 3 + 30, this.fontstr, this.color, this.textAligh, 0);
+        this.setFPSNode();
+        this.size(this.fontSize * 7 + 10, this.fontSize * 4 + 40);
+        this.bgColor("rgba(150,150,150,0.8)");
+    }
+    render(f) {
         var t = conch.getCountVertext();
         var d = conch.getCountGroup();
         var countNode = conch.getCountNode();
@@ -870,9 +844,8 @@ var ConchFps = (function (_super) {
             g.fillText(this.drawCall + "", 0, this.fontSize * 2 + 20, this.fontstr, this.color, this.textAligh, 0);
             g.fillText(this.countNode + "", 0, this.fontSize * 3 + 30, this.fontstr, this.color, this.textAligh, 0);
         }
-    };
-    return ConchFps;
-}(ConchNode));
+    }
+}
 window["PlatformClass"] = PlatformClass;
 window["PlatformObj"] = PlatformObj;
 function loadRawCache(cache, relUrl, encode) {
@@ -892,81 +865,77 @@ function loadRawCache(cache, relUrl, encode) {
     }
     return null;
 }
-var ConchParticleTemplate2D = (function () {
-    function ConchParticleTemplate2D() {
+class ConchParticleTemplate2D {
+    constructor() {
         this._nativeObj = new _conchParticleTemplate2D();
         this.id = this._nativeObj.conchID;
         this.setShader();
     }
-    Object.defineProperty(ConchParticleTemplate2D.prototype, "settings", {
-        set: function (st) {
-            var _ = conch.bf;
-            _.needsz(32);
-            _.wu32(this.id);
-            _.wu32(0);
-            _.wu32(216);
-            _.wu32(st.textureCount);
-            _.wu32(st.maxPartices);
-            _.wu32(st.blendState === 7 ? 7 : st.blendState + 11);
-            _.wu32(st.useEndRadian ? 1 : 0);
-            _.wu32(st.colorComponentInter ? 1 : 0);
-            _.wu32(st.disableColor ? 1 : 0);
-            var temp = new Float32Array([
-                st.duration,
-                st.ageAddScale,
-                st.emitterVelocitySensitivity,
-                st.minStartSize,
-                st.maxStartSize,
-                st.minEndSize,
-                st.maxEndSize,
-                st.minHorizontalVelocity,
-                st.maxHorizontalVelocity,
-                st.minVerticalVelocity,
-                st.maxVerticalVelocity,
-                st.endVelocity,
-                st.minRotateSpeed,
-                st.maxRotateSpeed,
-                st.minStartRadius,
-                st.maxStartRadius,
-                st.minEndRadius,
-                st.maxEndRadius,
-                st.minHorizontalStartRadian,
-                st.maxHorizontalStartRadian,
-                st.minVerticalStartRadian,
-                st.maxVerticalStartRadian,
-                st.minHorizontalEndRadian,
-                st.maxHorizontalEndRadian,
-                st.minVerticalEndRadian,
-                st.maxVerticalEndRadian,
-                st.gravity[0],
-                st.gravity[1],
-                st.gravity[2],
-                st.minStartColor[0],
-                st.minStartColor[1],
-                st.minStartColor[2],
-                st.minStartColor[3],
-                st.maxStartColor[0],
-                st.maxStartColor[1],
-                st.maxStartColor[2],
-                st.maxStartColor[3],
-                st.minEndColor[0],
-                st.minEndColor[1],
-                st.minEndColor[2],
-                st.minEndColor[3],
-                st.maxEndColor[0],
-                st.maxEndColor[1],
-                st.maxEndColor[2],
-                st.maxEndColor[3],
-                st.positionVariance[0],
-                st.positionVariance[1],
-                st.positionVariance[2],
-            ]);
-            _.wab(temp, 192);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ConchParticleTemplate2D.prototype.setShader = function () {
+    set settings(st) {
+        var _ = conch.bf;
+        _.needsz(32);
+        _.wu32(this.id);
+        _.wu32(0);
+        _.wu32(216);
+        _.wu32(st.textureCount);
+        _.wu32(st.maxPartices);
+        _.wu32(st.blendState === 7 ? 7 : st.blendState + 11);
+        _.wu32(st.useEndRadian ? 1 : 0);
+        _.wu32(st.colorComponentInter ? 1 : 0);
+        _.wu32(st.disableColor ? 1 : 0);
+        var temp = new Float32Array([
+            st.duration,
+            st.ageAddScale,
+            st.emitterVelocitySensitivity,
+            st.minStartSize,
+            st.maxStartSize,
+            st.minEndSize,
+            st.maxEndSize,
+            st.minHorizontalVelocity,
+            st.maxHorizontalVelocity,
+            st.minVerticalVelocity,
+            st.maxVerticalVelocity,
+            st.endVelocity,
+            st.minRotateSpeed,
+            st.maxRotateSpeed,
+            st.minStartRadius,
+            st.maxStartRadius,
+            st.minEndRadius,
+            st.maxEndRadius,
+            st.minHorizontalStartRadian,
+            st.maxHorizontalStartRadian,
+            st.minVerticalStartRadian,
+            st.maxVerticalStartRadian,
+            st.minHorizontalEndRadian,
+            st.maxHorizontalEndRadian,
+            st.minVerticalEndRadian,
+            st.maxVerticalEndRadian,
+            st.gravity[0],
+            st.gravity[1],
+            st.gravity[2],
+            st.minStartColor[0],
+            st.minStartColor[1],
+            st.minStartColor[2],
+            st.minStartColor[3],
+            st.maxStartColor[0],
+            st.maxStartColor[1],
+            st.maxStartColor[2],
+            st.maxStartColor[3],
+            st.minEndColor[0],
+            st.minEndColor[1],
+            st.minEndColor[2],
+            st.minEndColor[3],
+            st.maxEndColor[0],
+            st.maxEndColor[1],
+            st.maxEndColor[2],
+            st.maxEndColor[3],
+            st.positionVariance[0],
+            st.positionVariance[1],
+            st.positionVariance[2],
+        ]);
+        _.wab(temp, 192);
+    }
+    setShader() {
         var _ = conch.bf;
         var shader = CanvasRenderingContext2D.particleShader;
         if (shader.conch_id == undefined) {
@@ -979,39 +948,33 @@ var ConchParticleTemplate2D = (function () {
             _.needsz(4);
             _.wstring(shader.ps, true);
         }
-    };
-    Object.defineProperty(ConchParticleTemplate2D.prototype, "texture", {
-        get: function () {
-            return this._tex;
-        },
-        set: function (tex) {
-            this._tex = tex;
-            _Buffer.oneInt(this, 1, tex.source.imgId);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ConchParticleTemplate2D.prototype.dispose = function () {
-    };
-    ConchParticleTemplate2D.prototype.play = function () {
+    }
+    get texture() {
+        return this._tex;
+    }
+    set texture(tex) {
+        this._tex = tex;
+        _Buffer.oneInt(this, 1, tex.source.imgId);
+    }
+    dispose() {
+    }
+    play() {
         _Buffer.noParm(this, 2);
-    };
-    ConchParticleTemplate2D.prototype.stop = function () {
+    }
+    stop() {
         _Buffer.noParm(this, 3);
-    };
-    return ConchParticleTemplate2D;
-}());
+    }
+}
 window["ConchParticleTemplate2D"] = ConchParticleTemplate2D;
-var WindowBase64 = (function () {
-    function WindowBase64() {
+class WindowBase64 {
+    constructor() {
         this.atob = function () { return null; };
         this.btoa = function () { return null; };
     }
-    return WindowBase64;
-}());
+}
 window["WindowBase64"] = WindowBase64;
-var _Buffer = (function () {
-    function _Buffer() {
+class _Buffer {
+    constructor() {
         this.ABSIZE = 20 * 1024;
         this._cmdBuf = new DataView(new ArrayBuffer(this.ABSIZE));
         this._cmdPos = new Uint32Array(this._cmdBuf.buffer, 0, 1);
@@ -1021,33 +984,33 @@ var _Buffer = (function () {
         this._floatArray = new Float32Array(this._cmdBuf.buffer);
         this._nativeobj = conch;
     }
-    _Buffer.prototype.needsz = function (d) {
+    needsz(d) {
         if (this._cmdPos[0] + d > this.ABSIZE) {
             this._nativeobj.flushRenderCommands();
         }
-    };
-    _Buffer.prototype.initPos = function (d) {
+    }
+    initPos(d) {
         this._cmdPos[0] = d;
-    };
-    _Buffer.prototype.wu8 = function (v) {
+    }
+    wu8(v) {
         this._byteArray[this._cmdPos[0]++] = v;
-    };
-    _Buffer.prototype.wu32 = function (v) {
+    }
+    wu32(v) {
         this._intArray[(this._cmdPos[0] += 4) / 4 - 1] = v;
-    };
-    _Buffer.prototype.wu16 = function (v) {
+    }
+    wu16(v) {
         this._shortArray[(this._cmdPos[0] += 2) / 2 - 1] = v;
-    };
-    _Buffer.prototype.wf32 = function (v) {
+    }
+    wf32(v) {
         this._floatArray[(this._cmdPos[0] += 4) / 4 - 1] = v;
-    };
-    _Buffer.prototype.wf32Rect = function (x, y, w, h) {
+    }
+    wf32Rect(x, y, w, h) {
         this.wf32(x);
         this.wf32(y);
         this.wf32(w);
         this.wf32(h);
-    };
-    _Buffer.prototype.wu64 = function (value) {
+    }
+    wu64(value) {
         var temp = value.toString(16);
         var len = temp.length;
         var pre, last;
@@ -1061,8 +1024,8 @@ var _Buffer = (function () {
         }
         this.wu32(pre);
         this.wu32(last);
-    };
-    _Buffer.prototype.wab = function (arraybuffer, length, offset) {
+    }
+    wab(arraybuffer, length, offset) {
         offset = offset ? offset : 0;
         if (length > this.ABSIZE / 2) {
             this.flush();
@@ -1089,8 +1052,8 @@ var _Buffer = (function () {
                 this.wu8(0);
             }
         }
-    };
-    _Buffer.prototype.wstring = function (str, is32) {
+    }
+    wstring(str, is32) {
         var ab = conch.strTobufer(str);
         var len = ab.byteLength;
         if (is32)
@@ -1101,13 +1064,13 @@ var _Buffer = (function () {
             return;
         }
         this.wab(ab, len);
-    };
-    _Buffer.prototype.flush = function () {
+    }
+    flush() {
         if (this._cmdPos[0] <= 4)
             return;
         this._nativeobj.flushRenderCommands();
-    };
-    _Buffer.readString = function (bf, pos, len) {
+    }
+    static readString(bf, pos, len) {
         len = bf.getUint16(pos, true);
         pos += 2;
         var value = "";
@@ -1134,8 +1097,8 @@ var _Buffer = (function () {
             }
         }
         return value;
-    };
-    _Buffer.setMatrix = function (that, fid, m11, m12, m21, m22, dx, dy) {
+    }
+    static setMatrix(that, fid, m11, m12, m21, m22, dx, dy) {
         var _ = conch.bf;
         _.needsz(32);
         _.wu32(that.id);
@@ -1146,43 +1109,43 @@ var _Buffer = (function () {
         _.wf32(m22);
         _.wf32(dx);
         _.wf32(dy);
-    };
-    _Buffer.rect = function (that, fid, x, y, w, h) {
+    }
+    static rect(that, fid, x, y, w, h) {
         var _ = conch.bf;
         _.needsz(24);
         _.wu32(that.id);
         _.wu32(fid);
         _.wf32Rect(x, y, w, h);
-    };
-    _Buffer.noParm = function (that, fid) {
+    }
+    static noParm(that, fid) {
         var _ = conch.bf;
         _.needsz(8);
         _.wu32(that.id);
         _.wu32(fid);
-    };
-    _Buffer.oneNum = function (that, fid, n) {
+    }
+    static oneNum(that, fid, n) {
         var _ = conch.bf;
         _.needsz(12);
         _.wu32(that.id);
         _.wu32(fid);
         _.wf32(n);
-    };
-    _Buffer.oneInt = function (that, fid, n) {
+    }
+    static oneInt(that, fid, n) {
         var _ = conch.bf;
         _.needsz(12);
         _.wu32(that.id);
         _.wu32(fid);
         _.wu32(n);
-    };
-    _Buffer.point = function (that, fid, x, y) {
+    }
+    static point(that, fid, x, y) {
         var _ = conch.bf;
         _.needsz(16);
         _.wu32(that.id);
         _.wu32(fid);
         _.wf32(x);
         _.wf32(y);
-    };
-    _Buffer.wany = function (_, ab, t) {
+    }
+    static wany(_, ab, t) {
         switch (t) {
             case 0:
                 _.needsz(4);
@@ -1203,9 +1166,8 @@ var _Buffer = (function () {
             default:
                 break;
         }
-    };
-    return _Buffer;
-}());
+    }
+}
 conch.bf = new _Buffer();
 conch.setCmdBuffer(conch.bf._byteArray.buffer);
 conch.bf.initPos(4);
@@ -1221,44 +1183,40 @@ function _process() {
     this._debugObject = {};
 }
 window.process = new _process();
-var SubtleCrypto = (function () {
-    function SubtleCrypto() {
+class SubtleCrypto {
+    decrypt(algorithm, key, data) {
     }
-    SubtleCrypto.prototype.decrypt = function (algorithm, key, data) {
-    };
-    SubtleCrypto.prototype.deriveBits = function (algorithm, baseKey, length) {
-    };
-    SubtleCrypto.prototype.deriveKey = function (algorithm, baseKey, derivedKeyType, extractable, keyUsages) {
-    };
-    SubtleCrypto.prototype.digest = function (algorithm, data) {
-    };
-    SubtleCrypto.prototype.encrypt = function (algorithm, key, data) {
-    };
-    SubtleCrypto.prototype.exportKey = function (format, key) {
-    };
-    SubtleCrypto.prototype.generateKey = function (algorithm, extractable, keyUsages) {
-    };
-    SubtleCrypto.prototype.importKey = function (format, keyData, algorithm, extractable, keyUsages) {
-    };
-    SubtleCrypto.prototype.sign = function (algorithm, key, data) {
-    };
-    SubtleCrypto.prototype.unwrapKey = function (format, wrappedKey, unwrappingKey, unwrapAlgorithm, unwrappedKeyAlgorithm, extractable, keyUsages) {
-    };
-    SubtleCrypto.prototype.verify = function (algorithm, key, signature, data) {
-    };
-    SubtleCrypto.prototype.wrapKey = function (format, key, wrappingKey, wrapAlgorithm) {
-    };
-    return SubtleCrypto;
-}());
-var Crypto = (function () {
-    function Crypto() {
+    deriveBits(algorithm, baseKey, length) {
+    }
+    deriveKey(algorithm, baseKey, derivedKeyType, extractable, keyUsages) {
+    }
+    digest(algorithm, data) {
+    }
+    encrypt(algorithm, key, data) {
+    }
+    exportKey(format, key) {
+    }
+    generateKey(algorithm, extractable, keyUsages) {
+    }
+    importKey(format, keyData, algorithm, extractable, keyUsages) {
+    }
+    sign(algorithm, key, data) {
+    }
+    unwrapKey(format, wrappedKey, unwrappingKey, unwrapAlgorithm, unwrappedKeyAlgorithm, extractable, keyUsages) {
+    }
+    verify(algorithm, key, signature, data) {
+    }
+    wrapKey(format, key, wrappingKey, wrapAlgorithm) {
+    }
+}
+class Crypto {
+    constructor() {
         this.subtle = new SubtleCrypto();
     }
-    Crypto.prototype.getRandomValues = function (array) {
+    getRandomValues(array) {
         return null;
-    };
-    return Crypto;
-}());
+    }
+}
 var LogLevel;
 (function (LogLevel) {
     LogLevel[LogLevel["Warn"] = 0] = "Warn";
@@ -1267,94 +1225,91 @@ var LogLevel;
     LogLevel[LogLevel["Info"] = 3] = "Info";
     LogLevel[LogLevel["Runtime"] = 4] = "Runtime";
 })(LogLevel || (LogLevel = {}));
-var Console = (function () {
-    function Console() {
+class Console {
+    constructor() {
     }
-    Console.prototype.assert = function (test, message) {
+    assert(test, message) {
         var c = _console;
         if (test) {
             c.log(3, message);
         }
         ;
-    };
-    Console.prototype.clear = function () { };
-    Console.prototype.count = function (countTitle) {
-    };
-    Console.prototype.debug = function (message) {
+    }
+    clear() { }
+    count(countTitle) {
+    }
+    debug(message) {
         var c = _console;
         c.log(LogLevel.Debug, message);
-    };
-    Console.prototype.dir = function (value) {
-    };
-    Console.prototype.dirxml = function (value) {
-    };
-    Console.prototype.error = function (message) {
+    }
+    dir(value) {
+    }
+    dirxml(value) {
+    }
+    error(message) {
         var c = _console;
         c.log(LogLevel.Error, message);
-    };
-    Console.prototype.group = function (groupTitle) { };
-    Console.prototype.groupCollapsed = function (groupTitle) { };
-    Console.prototype.groupEnd = function () { };
-    Console.prototype.info = function (message) {
+    }
+    group(groupTitle) { }
+    groupCollapsed(groupTitle) { }
+    groupEnd() { }
+    info(message) {
         var c = _console;
         c.log(LogLevel.Info, message);
-    };
-    Console.prototype.log = function (message) {
+    }
+    log(message) {
         var c = _console;
         c.log(LogLevel.Info, message);
-    };
-    Console.prototype.profile = function (reportName) {
-    };
-    Console.prototype.profileEnd = function () { };
-    Console.prototype.select = function (element) { };
-    Console.prototype.time = function (timerName) { };
-    Console.prototype.timeEnd = function (timerName) { };
-    Console.prototype.trace = function (message) {
-    };
-    Console.prototype.warn = function (message) {
+    }
+    profile(reportName) {
+    }
+    profileEnd() { }
+    select(element) { }
+    time(timerName) { }
+    timeEnd(timerName) { }
+    trace(message) {
+    }
+    warn(message) {
         var c = _console;
         c.log(LogLevel.Warn, message);
-    };
-    return Console;
-}());
-var GlobalEventHandlers = (function () {
-    function GlobalEventHandlers() {
     }
-    GlobalEventHandlers.prototype.onpointercancel = function (ev) {
-        return null;
-    };
-    GlobalEventHandlers.prototype.onpointerdown = function (ev) {
-        return null;
-    };
-    GlobalEventHandlers.prototype.onpointerenter = function (ev) {
-        return null;
-    };
-    GlobalEventHandlers.prototype.onpointerleave = function (ev) {
-        return null;
-    };
-    GlobalEventHandlers.prototype.onpointermove = function (ev) {
-        return null;
-    };
-    GlobalEventHandlers.prototype.onpointerout = function (ev) {
-        return null;
-    };
-    GlobalEventHandlers.prototype.onpointerover = function (ev) {
-        return null;
-    };
-    GlobalEventHandlers.prototype.onpointerup = function (ev) {
-        return null;
-    };
-    return GlobalEventHandlers;
-}());
-var ErrorEvent = (function () {
-    function ErrorEvent() {
+}
+class GlobalEventHandlers {
+    constructor() {
     }
-    ErrorEvent.prototype.initErrorEvent = function (typeArg, canBubbleArg, cancelableArg, messageArg, filenameArg, linenoArg) {
-    };
-    return ErrorEvent;
-}());
-var Event = (function () {
-    function Event(type, eventInitDict) {
+    onpointercancel(ev) {
+        return null;
+    }
+    onpointerdown(ev) {
+        return null;
+    }
+    onpointerenter(ev) {
+        return null;
+    }
+    onpointerleave(ev) {
+        return null;
+    }
+    onpointermove(ev) {
+        return null;
+    }
+    onpointerout(ev) {
+        return null;
+    }
+    onpointerover(ev) {
+        return null;
+    }
+    onpointerup(ev) {
+        return null;
+    }
+}
+class ErrorEvent {
+    constructor() {
+    }
+    initErrorEvent(typeArg, canBubbleArg, cancelableArg, messageArg, filenameArg, linenoArg) {
+    }
+}
+class Event {
+    constructor(type, eventInitDict) {
         this._propagationStopped = false;
         this.type = type;
         this.timeStamp = Date.now();
@@ -1366,34 +1321,32 @@ var Event = (function () {
             this.cancelable = eventInitDict.cancelable;
         }
     }
-    Event.prototype.initEvent = function (eventTypeArg, canBubbleArg, cancelableArg) {
+    initEvent(eventTypeArg, canBubbleArg, cancelableArg) {
         this.type = eventTypeArg;
         this.bubbles = canBubbleArg;
         this.cancelable = cancelableArg;
-    };
-    Event.prototype.preventDefault = function () {
+    }
+    preventDefault() {
         if (!this.cancelable)
             return;
         this.defaultPrevented = true;
-    };
-    Event.prototype.stopImmediatePropagation = function () {
-    };
-    Event.prototype.stopPropagation = function () {
+    }
+    stopImmediatePropagation() {
+    }
+    stopPropagation() {
         this._propagationStopped = true;
-    };
-    Event.AT_TARGET = 2;
-    Event.BUBBLING_PHASE = 3;
-    Event.CAPTURING_PHASE = 1;
-    return Event;
-}());
+    }
+}
+Event.AT_TARGET = 2;
+Event.BUBBLING_PHASE = 3;
+Event.CAPTURING_PHASE = 1;
 var _lbEvent = window['Event'] = Event;
 var _lbMap = Map;
-var EventTarget = (function () {
-    function EventTarget() {
-        var _this = this;
+class EventTarget {
+    constructor() {
         this._evtMaps = new _lbMap();
-        this.removeEventListener = function (type, listener, useCapture) {
-            var listeners = _this._evtMaps.get(type);
+        this.removeEventListener = (type, listener, useCapture) => {
+            var listeners = this._evtMaps.get(type);
             if (!listeners)
                 return;
             var newlisteners = [];
@@ -1402,24 +1355,24 @@ var EventTarget = (function () {
                     newlisteners.push(listeners[i]);
                 }
             }
-            _this._evtMaps.set(type, newlisteners);
+            this._evtMaps.set(type, newlisteners);
         };
         this.dispatchEvent = this._dispatchEvent.bind(this);
         this.addEventListener = this._addEventListener.bind(this);
         this.fireEventListeners = this._fireEventListeners.bind(this);
     }
-    EventTarget.prototype.addEventListener = function (type, listener, useCapture) {
-    };
-    EventTarget.prototype._addEventListener = function (type, listener, useCapture) {
+    addEventListener(type, listener, useCapture) {
+    }
+    _addEventListener(type, listener, useCapture) {
         var listeners = this._evtMaps.get(type) || [];
         listeners.push({ listener: listener, useCapture: useCapture });
         this._evtMaps.set(type, listeners);
-    };
-    EventTarget.prototype._dispatchEvent = function (evt) {
+    }
+    _dispatchEvent(evt) {
         this.fireEventListeners(evt);
         return !evt.defaultPrevented;
-    };
-    EventTarget.prototype._fireEventListeners = function (evt) {
+    }
+    _fireEventListeners(evt) {
         var listeners = this._evtMaps.get(evt.type);
         if (listeners) {
             listeners.forEach(function (listener) {
@@ -1439,145 +1392,118 @@ var EventTarget = (function () {
                 }
             });
         }
-    };
-    return EventTarget;
-}());
-var UIEvent = (function (_super) {
-    __extends(UIEvent, _super);
-    function UIEvent(type, eventInitDict) {
-        var _this = _super.call(this, type) || this;
-        _this.bubbles = true;
-        if (eventInitDict) {
-            _this.initUIEvent(type, eventInitDict.bubbles, eventInitDict.cancelable, eventInitDict.view, eventInitDict.detail);
-        }
-        return _this;
     }
-    UIEvent.prototype.initUIEvent = function (typeArg, canBubbleArg, cancelableArg, viewArg, detailArg) {
+}
+class UIEvent extends Event {
+    constructor(type, eventInitDict) {
+        super(type);
+        this.bubbles = true;
+        if (eventInitDict) {
+            this.initUIEvent(type, eventInitDict.bubbles, eventInitDict.cancelable, eventInitDict.view, eventInitDict.detail);
+        }
+    }
+    initUIEvent(typeArg, canBubbleArg, cancelableArg, viewArg, detailArg) {
         this.type = typeArg;
         this.cancelable = canBubbleArg;
         this.cancelable = cancelableArg;
         this.view = viewArg;
         this.detail = detailArg;
-    };
-    return UIEvent;
-}(Event));
-var PointerEvent = (function () {
-    function PointerEvent(typeArg, eventInitDict) {
     }
-    return PointerEvent;
-}());
-var MouseEvent = (function (_super) {
-    __extends(MouseEvent, _super);
-    function MouseEvent(typeArg, eventInitDict) {
-        var _this = _super.call(this, typeArg, eventInitDict) || this;
+}
+class PointerEvent {
+    constructor(typeArg, eventInitDict) {
+    }
+}
+class MouseEvent extends UIEvent {
+    constructor(typeArg, eventInitDict) {
+        super(typeArg, eventInitDict);
         if (eventInitDict) {
             for (var v in eventInitDict) {
-                _this[v] = eventInitDict[v];
+                this[v] = eventInitDict[v];
             }
         }
-        return _this;
     }
-    MouseEvent.prototype.getModifierState = function (keyArg) {
+    getModifierState(keyArg) {
         return false;
-    };
-    MouseEvent.prototype.initMouseEvent = function (typeArg, canBubbleArg, cancelableArg, viewArg, detailArg, screenXArg, screenYArg, clientXArg, clientYArg, ctrlKeyArg, altKeyArg, shiftKeyArg, metaKeyArg, buttonArg, relatedTargetArg) {
-        var _this = this;
+    }
+    initMouseEvent(typeArg, canBubbleArg, cancelableArg, viewArg, detailArg, screenXArg, screenYArg, clientXArg, clientYArg, ctrlKeyArg, altKeyArg, shiftKeyArg, metaKeyArg, buttonArg, relatedTargetArg) {
         var args = arguments;
-        ['type', 'bubbles', 'cancelable', 'view', 'detail', 'screenX', 'screenY', 'clientX', 'clientY', 'ctrlKey', 'altKey', 'shiftKey', 'metaKey', 'button', 'relatedTarget'].forEach(function (v, i, a) {
-            _this[v] = args[i];
+        ['type', 'bubbles', 'cancelable', 'view', 'detail', 'screenX', 'screenY', 'clientX', 'clientY', 'ctrlKey', 'altKey', 'shiftKey', 'metaKey', 'button', 'relatedTarget'].forEach((v, i, a) => {
+            this[v] = args[i];
         });
-    };
-    return MouseEvent;
-}(UIEvent));
+    }
+}
 var _lbMouseEvent = window['MouseEvent'] = MouseEvent;
-var MouseWheelEvent = (function (_super) {
-    __extends(MouseWheelEvent, _super);
-    function MouseWheelEvent() {
-        return _super.call(this, "mousewheel") || this;
+class MouseWheelEvent extends MouseEvent {
+    constructor() {
+        super("mousewheel");
     }
-    MouseWheelEvent.prototype.initMouseWheelEvent = function (typeArg, canBubbleArg, cancelableArg, viewArg, detailArg, screenXArg, screenYArg, clientXArg, clientYArg, buttonArg, relatedTargetArg, modifiersListArg, wheelDeltaArg) {
-    };
-    return MouseWheelEvent;
-}(MouseEvent));
-var WheelEvent = (function (_super) {
-    __extends(WheelEvent, _super);
-    function WheelEvent(typeArg, eventInitDict) {
-        var _this = _super.call(this, typeArg, eventInitDict) || this;
+    initMouseWheelEvent(typeArg, canBubbleArg, cancelableArg, viewArg, detailArg, screenXArg, screenYArg, clientXArg, clientYArg, buttonArg, relatedTargetArg, modifiersListArg, wheelDeltaArg) {
+    }
+}
+class WheelEvent extends MouseEvent {
+    constructor(typeArg, eventInitDict) {
+        super(typeArg, eventInitDict);
         if (eventInitDict) {
-            _this.deltaMode = eventInitDict.deltaMode;
-            _this.deltaX = eventInitDict.deltaX;
-            _this.deltaY = eventInitDict.deltaY;
-            _this.deltaZ = eventInitDict.deltaZ;
+            this.deltaMode = eventInitDict.deltaMode;
+            this.deltaX = eventInitDict.deltaX;
+            this.deltaY = eventInitDict.deltaY;
+            this.deltaZ = eventInitDict.deltaZ;
         }
-        return _this;
     }
-    WheelEvent.prototype.getCurrentPoint = function (element) {
-    };
-    WheelEvent.prototype.initWheelEvent = function (typeArg, canBubbleArg, cancelableArg, viewArg, detailArg, screenXArg, screenYArg, clientXArg, clientYArg, buttonArg, relatedTargetArg, modifiersListArg, deltaXArg, deltaYArg, deltaZArg, deltaMode) {
-    };
-    WheelEvent.DOM_DELTA_LINE = 1;
-    WheelEvent.DOM_DELTA_PAGE = 2;
-    WheelEvent.DOM_DELTA_PIXEL = 0;
-    return WheelEvent;
-}(MouseEvent));
-var Touch = (function () {
-    function Touch() {
+    getCurrentPoint(element) {
     }
-    return Touch;
-}());
-var TouchList = (function (_super) {
-    __extends(TouchList, _super);
-    function TouchList() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    initWheelEvent(typeArg, canBubbleArg, cancelableArg, viewArg, detailArg, screenXArg, screenYArg, clientXArg, clientYArg, buttonArg, relatedTargetArg, modifiersListArg, deltaXArg, deltaYArg, deltaZArg, deltaMode) {
     }
-    TouchList.prototype.item = function (index) {
+}
+WheelEvent.DOM_DELTA_LINE = 1;
+WheelEvent.DOM_DELTA_PAGE = 2;
+WheelEvent.DOM_DELTA_PIXEL = 0;
+class Touch {
+    constructor() {
+    }
+}
+class TouchList extends Array {
+    item(index) {
         return this[index];
-    };
-    return TouchList;
-}(Array));
-var DeviceMotionEvent = (function (_super) {
-    __extends(DeviceMotionEvent, _super);
-    function DeviceMotionEvent() {
-        return _super.call(this, 'devicemotion') || this;
     }
-    DeviceMotionEvent.prototype.initDeviceMotionEvent = function (type, bubbles, cancelable, acceleration, accelerationIncludingGravity, rotationRate, interval) {
-    };
-    return DeviceMotionEvent;
-}(Event));
+}
+class DeviceMotionEvent extends Event {
+    constructor() {
+        super('devicemotion');
+    }
+    initDeviceMotionEvent(type, bubbles, cancelable, acceleration, accelerationIncludingGravity, rotationRate, interval) {
+    }
+}
 window["DeviceMotionEvent"] = DeviceMotionEvent;
-var DeviceOrientationEvent = (function (_super) {
-    __extends(DeviceOrientationEvent, _super);
-    function DeviceOrientationEvent() {
-        return _super.call(this, 'deviceorientation') || this;
+class DeviceOrientationEvent extends Event {
+    constructor() {
+        super('deviceorientation');
     }
-    DeviceOrientationEvent.prototype.initDeviceOrientationEvent = function (type, bubbles, cancelable, alpha, beta, gamma, absolute) {
-    };
-    return DeviceOrientationEvent;
-}(Event));
+    initDeviceOrientationEvent(type, bubbles, cancelable, alpha, beta, gamma, absolute) {
+    }
+}
 window["DeviceOrientationEvent"] = DeviceOrientationEvent;
-var DocumentEvent = (function () {
-    function DocumentEvent() {
+class DocumentEvent {
+    constructor() {
     }
-    DocumentEvent.prototype.createEvent = function (eventInterface) {
+    createEvent(eventInterface) {
         return null;
-    };
-    return DocumentEvent;
-}());
-var ProgressEvent = (function (_super) {
-    __extends(ProgressEvent, _super);
-    function ProgressEvent(type) {
-        return _super.call(this, type) || this;
     }
-    ProgressEvent.prototype.initProgressEvent = function (typeArg, canBubbleArg, cancelableArg, lengthComputableArg, loadedArg, totalArg) {
+}
+class ProgressEvent extends Event {
+    constructor(type) {
+        super(type);
+    }
+    initProgressEvent(typeArg, canBubbleArg, cancelableArg, lengthComputableArg, loadedArg, totalArg) {
         this.type = typeArg;
         this.cancelBubble = canBubbleArg;
         this.cancelable = cancelableArg;
         this.lengthComputable = lengthComputableArg;
         this.loaded = loadedArg;
         this.total = totalArg;
-    };
-    return ProgressEvent;
-}(Event));
+    }
+}
 var _lbProgressEvent = window["ProgressEvent"] = ProgressEvent;
 var VendorIDSource;
 (function (VendorIDSource) {
@@ -1585,65 +1511,45 @@ var VendorIDSource;
     VendorIDSource[VendorIDSource["usb"] = 1] = "usb";
 })(VendorIDSource || (VendorIDSource = {}));
 ;
-var BluetoothDevice = (function () {
-    function BluetoothDevice() {
-    }
-    BluetoothDevice.prototype.connectGATT = function () {
+class BluetoothDevice {
+    connectGATT() {
         return null;
-    };
-    return BluetoothDevice;
-}());
-var Bluetooth = (function (_super) {
-    __extends(Bluetooth, _super);
-    function Bluetooth() {
-        return _super !== null && _super.apply(this, arguments) || this;
     }
-    Bluetooth.prototype.requestDevice = function (options) {
+}
+class Bluetooth extends EventTarget {
+    requestDevice(options) {
         return null;
-    };
-    return Bluetooth;
-}(EventTarget));
-var Gamepad = (function () {
-    function Gamepad() {
     }
-    return Gamepad;
-}());
-var GamepadEvent = (function (_super) {
-    __extends(GamepadEvent, _super);
-    function GamepadEvent() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    return GamepadEvent;
-}(Event));
-var Storage = (function () {
-    function Storage() {
+}
+class Gamepad {
+}
+class GamepadEvent extends Event {
+}
+class Storage {
+    constructor() {
         this.storagePath = conchConfig.getStoragePath();
         this.filename = '';
         this.db = {};
         this._len = 0;
     }
-    Object.defineProperty(Storage.prototype, "length", {
-        get: function () {
-            return this._len;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Storage.prototype.getItem = function (key) {
+    get length() {
+        return this._len;
+    }
+    getItem(key) {
         return this.db[key] || null;
-    };
-    Storage.prototype.key = function (index) {
+    }
+    key(index) {
         var keys = Object.keys(this.db);
         keys.sort();
         return keys[index] || null;
-    };
-    Storage.prototype.removeItem = function (key) {
+    }
+    removeItem(key) {
         if (this.db[key])
             this._len--;
         delete this.db[key];
         this.savedb();
-    };
-    Storage.prototype._setItem = function (key, data) {
+    }
+    _setItem(key, data) {
         if (this.db[key] == null)
             this._len++;
         this.db[key] = data;
@@ -1654,12 +1560,12 @@ var Storage = (function () {
             enumerable: true,
             configurable: true
         });
-    };
-    Storage.prototype.setItem = function (key, data) {
+    }
+    setItem(key, data) {
         this._setItem(key, data);
         this.savedb();
-    };
-    Storage.prototype.create = function (url) {
+    }
+    create(url) {
         url = location.fullpath;
         if (location.protocol == "file:") {
             this.filename = url.substring(8).replace(/:/g, '_').replace(/[\\\/]/g, '__');
@@ -1675,46 +1581,41 @@ var Storage = (function () {
             this._setItem(v, db[v]);
         }
         return this;
-    };
-    Storage.prototype.onChange = function (changes) {
+    }
+    onChange(changes) {
         if (changes && changes.length) {
         }
-    };
-    Storage.prototype.clear = function () {
+    }
+    clear() {
         this.db = {};
         this.savedb();
-    };
-    Storage.prototype.savedb = function () {
+    }
+    savedb() {
         writeStrFileSync(this.filename, JSON.stringify(this.db));
-    };
-    return Storage;
-}());
+    }
+}
 window["Storage"] = Storage;
-var WindowLocalStorage = (function () {
-    function WindowLocalStorage() {
+class WindowLocalStorage {
+    constructor() {
         this.localStorage = new Storage();
     }
-    return WindowLocalStorage;
-}());
-var WindowSessionStorage = (function () {
-    function WindowSessionStorage() {
-    }
-    WindowSessionStorage.prototype.getItem = function (i) {
+}
+class WindowSessionStorage {
+    getItem(i) {
         return this[i] || null;
-    };
-    WindowSessionStorage.prototype.setItem = function (i, b) {
+    }
+    setItem(i, b) {
         this[i] = b;
-    };
-    return WindowSessionStorage;
-}());
+    }
+}
 window.loadLocalStorage = function (url) {
     return new Storage().create(url);
 };
-var _Cookie = (function () {
-    function _Cookie() {
+class _Cookie {
+    constructor() {
         this.domain = "";
     }
-    _Cookie.addCookie = function (s) {
+    static addCookie(s) {
         var result = _Cookie.sreg.exec(s);
         if (result == null) {
             console.warn("设置cookie无效");
@@ -1729,8 +1630,8 @@ var _Cookie = (function () {
             }
             return temp;
         }
-    };
-    _Cookie.pushCookie = function (c) {
+    }
+    static pushCookie(c) {
         if (!c.isValid())
             return false;
         for (var i = 0, len = _Cookie.cookies.length; i < len; i++) {
@@ -1742,11 +1643,11 @@ var _Cookie = (function () {
         }
         _Cookie.cookies.push(c);
         return true;
-    };
-    _Cookie.flush = function () {
+    }
+    static flush() {
         writeStrFileSync(document._cookiePath, _Cookie.getString("in", "\""));
-    };
-    _Cookie.getString = function (type, joinstr) {
+    }
+    static getString(type, joinstr) {
         var a = [];
         for (var i = 0, len = _Cookie.cookies.length; i < len; i++) {
             var temp = _Cookie.cookies[i];
@@ -1760,17 +1661,17 @@ var _Cookie = (function () {
             }
         }
         return a.join(joinstr);
-    };
-    _Cookie.toLocalString = function () {
+    }
+    static toLocalString() {
         return _Cookie.getString("out", "; ");
-    };
-    _Cookie.prototype.isValid = function () {
+    }
+    isValid() {
         if (this.expires && (this.expires.getTime() < Date.now())) {
             return false;
         }
         return true;
-    };
-    _Cookie.init = function (s) {
+    }
+    static init(s) {
         if (s) {
             var temp = s.split("\"");
             for (var i = 0, len = temp.length; i < len; i++) {
@@ -1783,8 +1684,8 @@ var _Cookie = (function () {
                 _Cookie.pushCookie(t);
             }
         }
-    };
-    _Cookie.prototype.toLocalString = function (type) {
+    }
+    toLocalString(type) {
         switch (type) {
             case "in":
                 return this.key + "=" + encodeURIComponent(this.value) + "; expires=" + this.expires.toGMTString() + "; domain=" + encodeURIComponent(this.domain);
@@ -1793,36 +1694,32 @@ var _Cookie = (function () {
             default:
                 return null;
         }
-    };
-    _Cookie.cookies = [];
-    _Cookie.sreg = new RegExp("([^=]*)\\s*=\\s*([^;]*)\\s*;\\s*(expires\\s*=\\s*(.{23,26}GMT)|)");
-    return _Cookie;
-}());
-var KeyboardEvent = (function (_super) {
-    __extends(KeyboardEvent, _super);
-    function KeyboardEvent(typeArg, eventInitDict) {
-        var _this = _super.call(this, typeArg) || this;
+    }
+}
+_Cookie.cookies = [];
+_Cookie.sreg = new RegExp("([^=]*)\\s*=\\s*([^;]*)\\s*;\\s*(expires\\s*=\\s*(.{23,26}GMT)|)");
+class KeyboardEvent extends UIEvent {
+    constructor(typeArg, eventInitDict) {
+        super(typeArg);
         if (eventInitDict) {
             var ini = eventInitDict;
-            _this.altKey = eventInitDict.altKey;
-            _this.initKeyboardEvent(typeArg, ini.bubbles, ini.cancelable, ini.view, ini.key, ini.location, null, ini.repeat, null);
+            this.altKey = eventInitDict.altKey;
+            this.initKeyboardEvent(typeArg, ini.bubbles, ini.cancelable, ini.view, ini.key, ini.location, null, ini.repeat, null);
         }
-        return _this;
     }
-    KeyboardEvent.prototype.initKeyboardEvent = function (typeArg, canBubbleArg, cancelableArg, viewArg, keyArg, locationArg, modifiersListArg, repeat, locale) {
+    initKeyboardEvent(typeArg, canBubbleArg, cancelableArg, viewArg, keyArg, locationArg, modifiersListArg, repeat, locale) {
         this.type = typeArg;
         this.cancelable = canBubbleArg;
         this.cancelable = cancelableArg;
         this.key = keyArg;
         this.location = locationArg;
         this.locale = locale;
-    };
-    KeyboardEvent.DOM_KEY_LOCATION_LEFT = 1;
-    KeyboardEvent.DOM_KEY_LOCATION_NUMPAD = 3;
-    KeyboardEvent.DOM_KEY_LOCATION_RIGHT = 2;
-    KeyboardEvent.DOM_KEY_LOCATION_STANDARD = 0;
-    return KeyboardEvent;
-}(UIEvent));
+    }
+}
+KeyboardEvent.DOM_KEY_LOCATION_LEFT = 1;
+KeyboardEvent.DOM_KEY_LOCATION_NUMPAD = 3;
+KeyboardEvent.DOM_KEY_LOCATION_RIGHT = 2;
+KeyboardEvent.DOM_KEY_LOCATION_STANDARD = 0;
 var _lbKeyboardEvent = window["KeyboardEvent"] = KeyboardEvent;
 (function (layaDoc) {
     'use strict';
@@ -1832,18 +1729,17 @@ var _lbKeyboardEvent = window["KeyboardEvent"] = KeyboardEvent;
     var APP_TOUCH_PT_DOWN = 5;
     var APP_TOUCH_PT_UP = 6;
     var m_vTouchs = [];
-    var touchEvt = (function (_super) {
-        __extends(touchEvt, _super);
-        function touchEvt(type, id, name, x, y) {
-            var _this = _super.call(this, '') || this;
-            _this.changedTouches = [];
-            _this.touches = [];
-            _this.targetTouches = _this.changedTouches;
+    class touchEvt extends UIEvent {
+        constructor(type, id, name, x, y) {
+            super('');
+            this.changedTouches = [];
+            this.touches = [];
+            this.targetTouches = this.changedTouches;
             var touch = new Touch();
             touch.identifier = id;
             touch.pageX = touch.screenX = touch.clientX = x;
             touch.pageY = touch.screenY = touch.clientY = y;
-            _this.changedTouches.push(touch);
+            this.changedTouches.push(touch);
             switch (type) {
                 case APP_TOUCH_DOWN:
                 case APP_TOUCH_PT_DOWN:
@@ -1885,24 +1781,22 @@ var _lbKeyboardEvent = window["KeyboardEvent"] = KeyboardEvent;
                     m_vTouchs = [];
                     break;
             }
-            _this.touches = m_vTouchs;
+            this.touches = m_vTouchs;
             switch (type) {
                 case 0:
                 case 5:
-                    _this.type = "touchstart";
+                    this.type = "touchstart";
                     break;
                 case 1:
                 case 6:
-                    _this.type = "touchend";
+                    this.type = "touchend";
                     break;
                 case 2:
-                    _this.type = "touchmove";
+                    this.type = "touchmove";
                     break;
             }
-            return _this;
         }
-        return touchEvt;
-    }(UIEvent));
+    }
     var joystickEvt = function (TL_xOffset, TL_yOffset, TR_xOffset, TR_yOffset, LT_Offset, RT_Offset) {
         this.THUMBL_xOffset = TL_xOffset;
         this.THUMBL_yOffset = TL_yOffset;
@@ -1912,7 +1806,7 @@ var _lbKeyboardEvent = window["KeyboardEvent"] = KeyboardEvent;
         this.RT_Offset = RT_Offset;
     };
     var keyEvt = function (name, code, keychar, flag) { this.type = name; this.keyCode = code; this.keyChar = keychar; this.altKey = flag & 0x1; this.shiftKey = (flag & 0x2) != 0; this.ctrlKey = (flag & 0x4) != 0; this.preventDefault = function () { }; };
-    conch.setTouchEvtFunction(function (touchtype, id, etype, x, y) {
+    conch.setTouchEvtFunction((touchtype, id, etype, x, y) => {
         if (conch.disableMultiTouch && id != 0)
             return;
         var doc = window.document;
@@ -2004,113 +1898,70 @@ var _lbKeyboardEvent = window["KeyboardEvent"] = KeyboardEvent;
         document.dispatchEvent(event);
     });
 })(window.document);
-var Navigator = (function () {
-    function Navigator() {
+class Navigator {
+    constructor() {
     }
-    Object.defineProperty(Navigator.prototype, "appName", {
-        get: function () { return 'Netscape'; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Navigator.prototype, "appVersion", {
-        get: function () { return this.userAgent; },
-        enumerable: true,
-        configurable: true
-    });
+    get appName() { return 'Netscape'; }
+    get appVersion() { return this.userAgent; }
     ;
-    Object.defineProperty(Navigator.prototype, "platform", {
-        get: function () { return window.layabox.devinfo.os; },
-        enumerable: true,
-        configurable: true
-    });
+    get platform() { return window.layabox.devinfo.os; }
     ;
-    Object.defineProperty(Navigator.prototype, "userAgent", {
-        get: function () {
-            var os = window.layabox.devinfo.os;
-            if (os == "ios")
-                return "LayaBox(iPhone; CPU iPhone OS Mac OS X)";
-            else if (os == "android")
-                return "LayaBox Android";
-            else
-                return 'LayaBox/2.1';
-        },
-        enumerable: true,
-        configurable: true
-    });
+    get userAgent() {
+        var os = window.layabox.devinfo.os;
+        if (os == "ios")
+            return "LayaBox(iPhone; CPU iPhone OS Mac OS X)";
+        else if (os == "android")
+            return "LayaBox Android";
+        else
+            return 'LayaBox/2.1';
+    }
     ;
-    Object.defineProperty(Navigator.prototype, "sv", {
-        get: function () {
-            var v = window.layabox.devinfo.osversion;
-            var t = parseFloat(v);
-            if (isNaN(t)) {
-                t = v.charCodeAt(0) - 71;
-            }
-            return t;
-        },
-        enumerable: true,
-        configurable: true
-    });
+    get sv() {
+        var v = window.layabox.devinfo.osversion;
+        var t = parseFloat(v);
+        if (isNaN(t)) {
+            t = v.charCodeAt(0) - 71;
+        }
+        return t;
+    }
     ;
-    Object.defineProperty(Navigator.prototype, "appCodeName", {
-        get: function () { return 'Mozilla'; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Navigator.prototype, "language", {
-        get: function () { return 'zh-CN'; },
-        enumerable: true,
-        configurable: true
-    });
+    get appCodeName() { return 'Mozilla'; }
+    get language() { return 'zh-CN'; }
     ;
-    Object.defineProperty(Navigator.prototype, "userLanguage", {
-        get: function () { return 'zh-CN'; },
-        enumerable: true,
-        configurable: true
-    });
-    Navigator.prototype.getGamepads = function () {
+    get userLanguage() { return 'zh-CN'; }
+    getGamepads() {
         return null;
-    };
-    Navigator.prototype.javaEnabled = function () { return false; };
-    Navigator.prototype.vibrate = function (pattern) {
-        return false;
-    };
-    Navigator.prototype.addEventListener = function (type, listener, useCapture) {
-    };
-    return Navigator;
-}());
-var Node = (function (_super) {
-    __extends(Node, _super);
-    function Node() {
-        var _this = _super.call(this) || this;
-        _this._childs = [];
-        _this._zip = 0;
-        _this._z = 0;
-        _this.nodeType = 1;
-        _this._zip = Node._nodeid++;
-        return _this;
     }
-    Object.defineProperty(Node.prototype, "firstChild", {
-        get: function () {
-            return this._childs ? this._childs[0] : null;
-        },
-        set: function (node) {
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Node.prototype, "childNodes", {
-        get: function () {
-            return this._childs;
-        },
-        set: function (nodes) {
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Node.prototype.insertBefore = function (newChild, oldChild) {
+    javaEnabled() { return false; }
+    vibrate(pattern) {
+        return false;
+    }
+    addEventListener(type, listener, useCapture) {
+    }
+}
+class Node extends EventTarget {
+    constructor() {
+        super();
+        this._childs = [];
+        this._zip = 0;
+        this._z = 0;
+        this.nodeType = 1;
+        this._zip = Node._nodeid++;
+    }
+    get firstChild() {
+        return this._childs ? this._childs[0] : null;
+    }
+    set firstChild(node) {
+    }
+    get childNodes() {
+        return this._childs;
+    }
+    set childNodes(nodes) {
+    }
+    insertBefore(newChild, oldChild) {
         this.appendChild(newChild);
-    };
-    Node.prototype.appendChild = function (newChild) {
+    }
+    appendChild(newChild) {
         if (newChild == null)
             return null;
         if (newChild == this)
@@ -2128,8 +1979,8 @@ var Node = (function (_super) {
             }
         }
         return newChild;
-    };
-    Node.prototype.cloneNode = function (deep) {
+    }
+    cloneNode(deep) {
         if (deep) {
             deep = false;
         }
@@ -2146,8 +1997,8 @@ var Node = (function (_super) {
             return newObj;
         }
         return clone(this);
-    };
-    Node.prototype.removeChild = function (oldChild) {
+    }
+    removeChild(oldChild) {
         var p = this._childs.indexOf(oldChild);
         if (p >= 0) {
             this._childs.splice(p, 1);
@@ -2159,8 +2010,8 @@ var Node = (function (_super) {
         }
         else
             return null;
-    };
-    Node.prototype.smpJson = function () {
+    }
+    smpJson() {
         var ret = '{';
         var me = this;
         for (var v in me) {
@@ -2171,8 +2022,8 @@ var Node = (function (_super) {
         }
         ret += '}';
         return ret;
-    };
-    Node.prototype.getAncestorsNode = function () {
+    }
+    getAncestorsNode() {
         var ret = new Array();
         var obj = this;
         while (obj.parentNode) {
@@ -2180,66 +2031,52 @@ var Node = (function (_super) {
             obj = obj.parentNode;
         }
         return ret;
-    };
-    Node._nodeid = 0;
-    return Node;
-}(EventTarget));
-var NodeSelector = (function () {
-    function NodeSelector() {
     }
-    NodeSelector.prototype.querySelector = function (selectors) {
+}
+Node._nodeid = 0;
+class NodeSelector {
+    querySelector(selectors) {
         return null;
-    };
-    NodeSelector.prototype.querySelectorAll = function (selectors) {
+    }
+    querySelectorAll(selectors) {
         return [];
-    };
-    return NodeSelector;
-}());
-var ChildNode = (function () {
-    function ChildNode() {
     }
-    ChildNode.prototype.remove = function () {
-    };
-    return ChildNode;
-}());
-var ElementTraversal = (function () {
-    function ElementTraversal() {
+}
+class ChildNode {
+    constructor() { }
+    remove() {
     }
-    return ElementTraversal;
-}());
-var Element = (function (_super) {
-    __extends(Element, _super);
-    function Element() {
-        var _this = _super.call(this) || this;
-        _this.__visible = true;
-        return _this;
+}
+class ElementTraversal {
+    constructor() {
     }
-    Object.defineProperty(Element.prototype, "id", {
-        get: function () {
-            return this._id;
-        },
-        set: function (s) {
-            this._id = s;
-            document.all.push(this);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Element.prototype.setAttribute = function (name, value) {
+}
+class Element extends Node {
+    constructor() {
+        super();
+        this.__visible = true;
+    }
+    set id(s) {
+        this._id = s;
+        document.all.push(this);
+    }
+    get id() {
+        return this._id;
+    }
+    setAttribute(name, value) {
         if (!this._attribs)
             this._attribs = [];
         this._attribs[name] = value;
-    };
-    Element.prototype.getAttribute = function (name) {
+    }
+    getAttribute(name) {
         return this._attribs ? this._attribs[name] : null;
-    };
-    return Element;
-}(Node));
+    }
+}
 applyMixins(Element, [Node, GlobalEventHandlers, ElementTraversal, NodeSelector, ChildNode]);
 var ns_Timer;
 (function (ns_Timer) {
-    var timerobj = (function () {
-        function timerobj(curtm, interval, obj, func, args, num) {
+    class timerobj {
+        constructor(curtm, interval, obj, func, args, num) {
             this.del = false;
             this.interval = (interval < 18) ? -1 : interval;
             if (Math.abs(conch.maxInterval - interval) < 1)
@@ -2250,8 +2087,7 @@ var ns_Timer;
             this.args = args;
             this.num = num;
         }
-        return timerobj;
-    }());
+    }
     var timerqueue = function () {
         this.AniFrame = [];
         this.tmq = new Array();
@@ -2300,29 +2136,25 @@ var ns_Timer;
         };
     };
     var gTimerQueue = new timerqueue();
-    var _WindowTimersExtension = (function () {
-        function _WindowTimersExtension() {
+    class _WindowTimersExtension {
+        clearImmediate(handle) {
         }
-        _WindowTimersExtension.prototype.clearImmediate = function (handle) {
-        };
-        _WindowTimersExtension.prototype.setImmediate = function (expression) {
+        setImmediate(expression) {
             return 0;
-        };
-        return _WindowTimersExtension;
-    }());
-    ns_Timer._WindowTimersExtension = _WindowTimersExtension;
-    var _WindowTimers = (function (_super) {
-        __extends(_WindowTimers, _super);
-        function _WindowTimers() {
-            return _super.call(this) || this;
         }
-        _WindowTimers.prototype.clearInterval = function (handle) {
+    }
+    ns_Timer._WindowTimersExtension = _WindowTimersExtension;
+    class _WindowTimers extends _WindowTimersExtension {
+        constructor() {
+            super();
+        }
+        clearInterval(handle) {
             gTimerQueue.delTimer(handle);
-        };
-        _WindowTimers.prototype.clearTimeout = function (handle) {
+        }
+        clearTimeout(handle) {
             gTimerQueue.delTimer(handle);
-        };
-        _WindowTimers.prototype.setInterval = function (handler, timeout, parm) {
+        }
+        setInterval(handler, timeout, parm) {
             var b = _WindowTimers.ET;
             if (arguments.length > 2) {
                 b = Array.prototype.slice.call(arguments);
@@ -2330,8 +2162,8 @@ var ns_Timer;
                 handler.arg = b;
             }
             return gTimerQueue.addTimer(timeout, b, handler, null, -1);
-        };
-        _WindowTimers.prototype.setTimeout = function (handler, timeout, parm) {
+        }
+        setTimeout(handler, timeout, parm) {
             if (!timeout)
                 timeout = 0;
             var b = _WindowTimers.ET;
@@ -2341,10 +2173,9 @@ var ns_Timer;
                 handler.arg = b;
             }
             return gTimerQueue.addTimer(timeout, b, handler, null, 1);
-        };
-        _WindowTimers.ET = [];
-        return _WindowTimers;
-    }(_WindowTimersExtension));
+        }
+    }
+    _WindowTimers.ET = [];
     ns_Timer._WindowTimers = _WindowTimers;
     var animfrm = 0;
     function requestAnimationFrame(callback) {
@@ -2372,7 +2203,7 @@ var ns_Timer;
         if (document)
             document.onframeend();
     });
-    conch.setOnDraw(function (vsync) {
+    conch.setOnDraw((vsync) => {
         var curAnimFrms = gTimerQueue.AniFrame;
         gTimerQueue.AniFrame = [];
         curAnimFrms.forEach(function (af) {
@@ -2385,11 +2216,10 @@ var ns_Timer;
 var WindowTimers = ns_Timer._WindowTimers;
 var requestAnimationFrame = ns_Timer.requestAnimationFrame;
 var cancelAnimationFrame = ns_Timer.cancelAnimationFrame;
-var Location = (function () {
-    function Location() {
-        var _this = this;
+class Location {
+    constructor() {
         this._nativeObj = conch;
-        this.setHref = function (url) {
+        this.setHref = (url) => {
             if (!url || url.length < 8) {
                 alert("您的地址不符合要求");
                 return;
@@ -2397,141 +2227,105 @@ var Location = (function () {
             var s = new RegExp("(http|file|https)://([^/:]*)(:(\\d+)|)([^?]+)(.*|)", "g");
             var result;
             if ((result = s.exec(url)) != null) {
-                _this._href = result[0];
-                _this._hostname = result[2];
-                _this._host = result[2] + result[3];
-                _this._pathname = result[5];
-                _this._port = result[4];
-                _this._search = result[6];
-                _this._protocol = result[1] + ":";
-                _this._origin = _this._protocol + "//" + _this._host;
-                var i = _this._pathname ? _this._pathname.lastIndexOf("/") : -1;
+                this._href = result[0];
+                this._hostname = result[2];
+                this._host = result[2] + result[3];
+                this._pathname = result[5];
+                this._port = result[4];
+                this._search = result[6];
+                this._protocol = result[1] + ":";
+                this._origin = this._protocol + "//" + this._host;
+                var i = this._pathname ? this._pathname.lastIndexOf("/") : -1;
                 if (i != -1) {
-                    var temp = _this._pathname.substring(0, i);
-                    _this._fullpath = _this._origin + temp;
+                    var temp = this._pathname.substring(0, i);
+                    this._fullpath = this._origin + temp;
                 }
                 else {
-                    _this._fullpath = _this._origin + _this._pathname;
+                    this._fullpath = this._origin + this._pathname;
                 }
             }
             else {
                 alert("您的地址不符合要求");
             }
-            _this.bk_setHref(url);
-            window.localStorage.create(_this._fullpath + '/');
+            this.bk_setHref(url);
+            window.localStorage.create(this._fullpath + '/');
         };
         this.bk_setHref = this._nativeObj.setHref.bind(this._nativeObj);
     }
-    Object.defineProperty(Location.prototype, "hostname", {
-        get: function () {
-            return this._hostname;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Location.prototype, "host", {
-        get: function () {
-            return this._host;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Location.prototype, "fullpath", {
-        get: function () {
-            return this._fullpath;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Location.prototype, "pathname", {
-        get: function () {
-            return this._pathname;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Location.prototype, "protocol", {
-        get: function () {
-            return this._protocol;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Location.prototype, "search", {
-        get: function () {
-            return this._search;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Location.prototype, "port", {
-        get: function () {
-            return this._port;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Location.prototype, "origin", {
-        get: function () {
-            return this._origin;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Location.prototype, "href", {
-        get: function () {
-            return this._href;
-        },
-        set: function (url) {
-            url = this.normalizeUrl(url);
-            var oldhref = this._href;
-            if (url != oldhref) {
-                this.setHref(url);
-                if (this._href != oldhref)
-                    reloadJS(true);
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Location.prototype.setBaseHref = function (basehref) {
-    };
-    Location.prototype.getBaseHref = function () {
-        return "";
-    };
-    Location.prototype.assign = function (url) {
-    };
-    Location.prototype.reload = function (forcedReload) {
-        reloadJS(forcedReload);
-    };
-    Location.prototype.replace = function (url) {
-    };
-    Location.prototype.toString = function () {
+    get hostname() {
+        return this._hostname;
+    }
+    get host() {
+        return this._host;
+    }
+    get fullpath() {
+        return this._fullpath;
+    }
+    get pathname() {
+        return this._pathname;
+    }
+    get protocol() {
+        return this._protocol;
+    }
+    get search() {
+        return this._search;
+    }
+    get port() {
+        return this._port;
+    }
+    get origin() {
+        return this._origin;
+    }
+    get href() {
         return this._href;
-    };
-    Location.prototype.normalizeUrl = function (url) {
+    }
+    set href(url) {
+        url = this.normalizeUrl(url);
+        var oldhref = this._href;
+        if (url != oldhref) {
+            this.setHref(url);
+            if (this._href != oldhref)
+                reloadJS(true);
+        }
+    }
+    setBaseHref(basehref) {
+    }
+    getBaseHref() {
+        return "";
+    }
+    assign(url) {
+    }
+    reload(forcedReload) {
+        reloadJS(forcedReload);
+    }
+    replace(url) {
+    }
+    toString() {
+        return this._href;
+    }
+    normalizeUrl(url) {
         url = url.replace(/\\/g, '/');
         if (url[0] === '/')
             url = 'file://' + url;
         else if (url[1] === ':')
             url = 'file:///' + url;
         return url.trim();
-    };
-    Location.prototype.parseQuery = function (url) {
+    }
+    parseQuery(url) {
         var ret = {};
         var p1 = url.indexOf('?');
         if (p1 < 0)
             return null;
         var q = url.substr(p1 + 1);
-        q && q.split('&').forEach(function (v, i, a) {
+        q && q.split('&').forEach((v, i, a) => {
             var kv = v.split('=');
             if (kv.length === 2) {
                 ret[kv[0].trim()] = kv[1].trim();
             }
         });
         return ret;
-    };
-    Location.prototype.resolve = function (fileName) {
+    }
+    resolve(fileName) {
         var urlcache = Location.__urlCache__[fileName];
         if (urlcache != null)
             return urlcache;
@@ -2582,49 +2376,40 @@ var Location = (function () {
         Location.__urlCache__[fileName] = fileName;
         Location.__urlCache__[urlfull] = fileName;
         return fileName;
-    };
-    Location.__urlCache__ = {};
-    return Location;
-}());
-var ConchVirtualBitmap = (function () {
-    function ConchVirtualBitmap() {
     }
-    return ConchVirtualBitmap;
-}());
+}
+Location.__urlCache__ = {};
+class ConchVirtualBitmap {
+}
 function applyMixins(derivedCtor, baseCtors) {
-    baseCtors.forEach(function (baseCtor) {
-        Object.getOwnPropertyNames(baseCtor.prototype).forEach(function (name) {
+    baseCtors.forEach(baseCtor => {
+        Object.getOwnPropertyNames(baseCtor.prototype).forEach(name => {
             if (name !== 'constructor') {
                 derivedCtor.prototype[name] = baseCtor.prototype[name];
             }
         });
     });
 }
-var IDBEnvironment = (function () {
-    function IDBEnvironment() {
+class IDBEnvironment {
+}
+class _Window extends EventTarget {
+    constructor() {
+        super();
+        this.timer = new WindowTimers();
+        this.clearInterval = this.timer.clearInterval;
+        this.clearTimeout = this.timer.clearTimeout;
+        this.setInterval = this.timer.setInterval;
+        this.setTimeout = this.timer.setTimeout;
+        this._removeEventListener = this.removeEventListener;
+        this.removeEventListener = this.removeEventListenernew;
     }
-    return IDBEnvironment;
-}());
-var _Window = (function (_super) {
-    __extends(_Window, _super);
-    function _Window() {
-        var _this = _super.call(this) || this;
-        _this.timer = new WindowTimers();
-        _this.clearInterval = _this.timer.clearInterval;
-        _this.clearTimeout = _this.timer.clearTimeout;
-        _this.setInterval = _this.timer.setInterval;
-        _this.setTimeout = _this.timer.setTimeout;
-        _this._removeEventListener = _this.removeEventListener;
-        _this.removeEventListener = _this.removeEventListenernew;
-        return _this;
-    }
-    _Window.prototype._addEventListener = function (type, listener, useCapture) {
+    _addEventListener(type, listener, useCapture) {
         if (type == "devicemotion" || type == "deviceorientation") {
             conch.setSensorAble(true);
         }
-        _super.prototype._addEventListener.call(this, type, listener, useCapture);
-    };
-    _Window.prototype.removeEventListenernew = function (type, listener, useCapture) {
+        super._addEventListener(type, listener, useCapture);
+    }
+    removeEventListenernew(type, listener, useCapture) {
         this._removeEventListener(type, listener, useCapture);
         if (type == "devicemotion" || type == "deviceorientation") {
             var de = this._evtMaps.get("devicemotion");
@@ -2633,25 +2418,23 @@ var _Window = (function (_super) {
                 conch.setSensorAble(false);
             }
         }
-    };
-    return _Window;
-}(EventTarget));
-var XMLHttpRequest = (function (_super) {
-    __extends(XMLHttpRequest, _super);
-    function XMLHttpRequest() {
-        var _this = _super.call(this) || this;
-        _this._hasReqHeader = false;
-        _this.withCredentials = false;
-        _this.setResponseHeader = function (name, value) {
+    }
+}
+class XMLHttpRequest extends EventTarget {
+    constructor() {
+        super();
+        this._hasReqHeader = false;
+        this.withCredentials = false;
+        this.setResponseHeader = function (name, value) {
             this._head = value;
         };
-        _this.xhr = new _XMLHttpRequest();
-        _this._readyState = 0;
-        _this._responseText = _this._response = _this._responseType = _this._url = "";
-        _this._responseType = "text";
-        _this._method = "GET";
-        _this.xhr._t = _this;
-        _this.xhr.set_onreadystatechange(function (r) {
+        this.xhr = new _XMLHttpRequest();
+        this._readyState = 0;
+        this._responseText = this._response = this._responseType = this._url = "";
+        this._responseType = "text";
+        this._method = "GET";
+        this.xhr._t = this;
+        this.xhr.set_onreadystatechange(function (r) {
             var _t = this._t;
             if (r == 1) {
                 _t._readyState = 1;
@@ -2673,117 +2456,80 @@ var XMLHttpRequest = (function (_super) {
                 _t.dispatchEvent(ev);
             }
         });
-        return _this;
     }
-    XMLHttpRequest.prototype.setRequestHeader = function (name, value) {
+    setRequestHeader(name, value) {
         this.xhr.setRequestHeader(name, value);
         this._hasReqHeader = true;
-    };
-    XMLHttpRequest.prototype.getAllResponseHeaders = function () {
+    }
+    getAllResponseHeaders() {
         return this._head;
-    };
-    Object.defineProperty(XMLHttpRequest.prototype, "responseText", {
-        get: function () {
-            return this._responseText;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(XMLHttpRequest.prototype, "response", {
-        get: function () {
-            return this._response;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(XMLHttpRequest.prototype, "responseType", {
-        get: function () {
-            return this._responseType;
-        },
-        set: function (type) {
-            this._responseType = type;
-            if (type == 'blob') {
-                this.xhr.responseTypeCode = 4;
-            }
-            else if (type == 'arraybuffer') {
-                this.xhr.responseTypeCode = 5;
-            }
-            else {
-                this.xhr.responseTypeCode = 1;
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(XMLHttpRequest.prototype, "url", {
-        get: function () {
-            return this._url;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(XMLHttpRequest.prototype, "async", {
-        get: function () {
-            return this._async;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(XMLHttpRequest.prototype, "readyState", {
-        get: function () {
-            return this._readyState;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(XMLHttpRequest.prototype, "status", {
-        get: function () {
-            return this._status;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    XMLHttpRequest.prototype._loadsus = function () {
+    }
+    get responseText() {
+        return this._responseText;
+    }
+    get response() {
+        return this._response;
+    }
+    get responseType() {
+        return this._responseType;
+    }
+    set responseType(type) {
+        this._responseType = type;
+        if (type == 'blob') {
+            this.xhr.responseTypeCode = 4;
+        }
+        else if (type == 'arraybuffer') {
+            this.xhr.responseTypeCode = 5;
+        }
+        else {
+            this.xhr.responseTypeCode = 1;
+        }
+    }
+    get url() {
+        return this._url;
+    }
+    get async() {
+        return this._async;
+    }
+    get readyState() {
+        return this._readyState;
+    }
+    get status() {
+        return this._status;
+    }
+    _loadsus() {
         var e = new _lbEvent("load");
         e.target = this;
         this._onloadcb(e);
-    };
-    Object.defineProperty(XMLHttpRequest.prototype, "onreadystatechange", {
-        get: function () {
-            return this._onrchgcb;
-        },
-        set: function (listen) {
-            this._onrchgcb = listen;
-            if (listen == null)
-                return;
-            if (this._readyState != 0) {
-                var e = new _lbEvent("readystatechange");
-                e.target = this;
-                this._onrchgcb(e);
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(XMLHttpRequest.prototype, "onload", {
-        get: function () {
-            return this._onloadcb;
-        },
-        set: function (listen) {
-            this._onloadcb = listen;
-            if (listen == null)
-                return;
-            if (this._readyState == 4 && this._status == 200) {
-                this._loadsus();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    XMLHttpRequest.prototype.getResponseHeader = function () {
+    }
+    set onreadystatechange(listen) {
+        this._onrchgcb = listen;
+        if (listen == null)
+            return;
+        if (this._readyState != 0) {
+            var e = new _lbEvent("readystatechange");
+            e.target = this;
+            this._onrchgcb(e);
+        }
+    }
+    get onreadystatechange() {
+        return this._onrchgcb;
+    }
+    set onload(listen) {
+        this._onloadcb = listen;
+        if (listen == null)
+            return;
+        if (this._readyState == 4 && this._status == 200) {
+            this._loadsus();
+        }
+    }
+    get onload() {
+        return this._onloadcb;
+    }
+    getResponseHeader() {
         return this._head;
-    };
-    XMLHttpRequest.prototype.open = function (type, url, async) {
+    }
+    open(type, url, async) {
         console.log('xhr.' + type + ' url=' + url);
         if (!url)
             return;
@@ -2794,13 +2540,13 @@ var XMLHttpRequest = (function (_super) {
         this._url = url;
         this._async = (async == null || async == undefined || async == true) ? true : false;
         this.xhr._open(this._method, this._url, this._async);
-    };
-    XMLHttpRequest.prototype.overrideMimeType = function (mime) {
+    }
+    overrideMimeType(mime) {
         if (this._responseType == "text" || this._responseText == "")
             this._responseType = "arraybuffer";
         this.xhr.mimeType = "1";
-    };
-    XMLHttpRequest.prototype.send = function (body) {
+    }
+    send(body) {
         if (body) {
             if (body instanceof ArrayBuffer || ArrayBuffer.isView(body) || body instanceof DataView)
                 this._responseType = 'arraybuffer';
@@ -2878,7 +2624,7 @@ var XMLHttpRequest = (function (_super) {
                 if (_t.xhr.mimeType) {
                     var u8arr = new Uint8Array(_t._response);
                     var strret = "";
-                    u8arr.forEach(function (v, i, arr) {
+                    u8arr.forEach((v, i, arr) => {
                         if (v >= 0x80) {
                             strret += String.fromCharCode(0xf700 | v);
                         }
@@ -2921,14 +2667,11 @@ var XMLHttpRequest = (function (_super) {
             else
                 fileRead.readAsText(file);
         }
-    };
-    return XMLHttpRequest;
-}(EventTarget));
-window.XMLHttpRequest = XMLHttpRequest;
-var ColorUtil = (function () {
-    function ColorUtil() {
     }
-    ColorUtil.getColorNum = function (str) {
+}
+window.XMLHttpRequest = XMLHttpRequest;
+class ColorUtil {
+    static getColorNum(str) {
         if (!str)
             return 0;
         if (typeof (str) == "number") {
@@ -2955,8 +2698,8 @@ var ColorUtil = (function () {
             var c = ColorUtil._COLOR_MAP[str];
             return c ? ColorUtil.getColorNum(c) : NaN;
         }
-    };
-    ColorUtil.getColNum = function (c, isRgb) {
+    }
+    static getColNum(c, isRgb) {
         var temp, i, s, result = [], st;
         var t = isRgb ? ColorUtil.RGBReg.exec(c) : ColorUtil.HSLReg.exec(c);
         if (t) {
@@ -2981,8 +2724,8 @@ var ColorUtil = (function () {
         }
         else
             return NaN;
-    };
-    ColorUtil.getRGBByRGBStr = function (str) {
+    }
+    static getRGBByRGBStr(str) {
         str = str.substr(1);
         var i, len = str.length, result;
         switch (len) {
@@ -2998,8 +2741,8 @@ var ColorUtil = (function () {
                 break;
         }
         return result;
-    };
-    ColorUtil.toHexColor = function (color) {
+    }
+    static toHexColor(color) {
         if (color < 0 || isNaN(color))
             return null;
         if (color > 0xff000000) {
@@ -3012,8 +2755,8 @@ var ColorUtil = (function () {
         while (str.length < 6)
             str = "0" + str;
         return "#" + str;
-    };
-    ColorUtil.hue2rgb = function (p, q, t) {
+    }
+    static hue2rgb(p, q, t) {
         if (t < 0)
             t += 1;
         if (t > 1)
@@ -3025,8 +2768,8 @@ var ColorUtil = (function () {
         if (t < 2 / 3)
             return p + (q - p) * (2 / 3 - t) * 6;
         return p;
-    };
-    ColorUtil.hsl2rgb = function (h, s, l) {
+    }
+    static hsl2rgb(h, s, l) {
         var r, g, b;
         if (s == 0) {
             r = g = b = l;
@@ -3039,279 +2782,189 @@ var ColorUtil = (function () {
             b = ColorUtil.hue2rgb(p, q, h - 1 / 3);
         }
         return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
-    };
-    ColorUtil._COLOR_MAP = { "white": '#FFFFFF', "red": '#FF0000', "green": '#00FF00', "blue": '#0000FF', "black": '#000000', "yellow": '#FFFF00', 'gray': '#AAAAAA' };
-    ColorUtil.RGBReg = new RegExp("rgb([a]{0,1})\\s*[(]([\\d,.\\s-]*)?[)]");
-    ColorUtil.HSLReg = new RegExp("hsl([a]{0,1})\\s*[(]([\\d,.\\s-%]*)?[)]");
-    return ColorUtil;
-}());
-var ContextDataInfo = (function () {
-    function ContextDataInfo() {
     }
-    ContextDataInfo.prototype.ru16 = function (i) {
+}
+ColorUtil._COLOR_MAP = { "white": '#FFFFFF', "red": '#FF0000', "green": '#00FF00', "blue": '#0000FF', "black": '#000000', "yellow": '#FFFF00', 'gray': '#AAAAAA' };
+ColorUtil.RGBReg = new RegExp("rgb([a]{0,1})\\s*[(]([\\d,.\\s-]*)?[)]");
+ColorUtil.HSLReg = new RegExp("hsl([a]{0,1})\\s*[(]([\\d,.\\s-%]*)?[)]");
+class ContextDataInfo {
+    constructor() {
+    }
+    ru16(i) {
         return this.buffer.getUint16(this.curpos + i, true);
-    };
-    ContextDataInfo.prototype.wu16 = function (i, v) {
+    }
+    wu16(i, v) {
         this.buffer.setUint16(this.curpos + i, v, true);
-    };
-    ContextDataInfo.prototype.ru32 = function (i) {
+    }
+    ru32(i) {
         return this.buffer.getUint32(this.curpos + i, true);
-    };
-    ContextDataInfo.prototype.wu32 = function (i, v) {
+    }
+    wu32(i, v) {
         this.buffer.setUint32(this.curpos + i, v, true);
-    };
-    ContextDataInfo.prototype.rf32 = function (i) {
+    }
+    rf32(i) {
         return this.buffer.getFloat32(this.curpos + i, true);
-    };
-    ContextDataInfo.prototype.wf32 = function (i, v) {
+    }
+    wf32(i, v) {
         this.buffer.setFloat32(this.curpos + i, v, true);
-    };
-    Object.defineProperty(ContextDataInfo.prototype, "fillStyle", {
-        get: function () {
-            return this.ru32(0);
-        },
-        set: function (t) {
-            this.wu32(0, t);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ContextDataInfo.prototype, "storkeStyle", {
-        get: function () {
-            return this.ru32(4);
-        },
-        set: function (t) {
-            this.wu32(4, t);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ContextDataInfo.prototype, "lineWidth", {
-        get: function () {
-            return this.rf32(8);
-        },
-        set: function (t) {
-            this.wf32(8, t);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ContextDataInfo.prototype, "textBaseLineType", {
-        get: function () {
-            return this.ru16(12);
-        },
-        set: function (t) {
-            this.wu16(12, t);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ContextDataInfo.prototype, "textAlignType", {
-        get: function () {
-            return this.ru16(14);
-        },
-        set: function (t) {
-            this.wu16(14, t);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ContextDataInfo.prototype, "blendType", {
-        get: function () {
-            return this.ru16(16);
-        },
-        set: function (t) {
-            this.wu16(16, t);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ContextDataInfo.prototype, "repetition", {
-        get: function () {
-            return this.ru16(18);
-        },
-        set: function (v) {
-            this.wu16(18, v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ContextDataInfo.prototype, "shadowColor", {
-        get: function () {
-            return this.ru32(20);
-        },
-        set: function (t) {
-            this.wu32(20, t);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ContextDataInfo.prototype, "shadowBlur", {
-        get: function () {
-            return this.rf32(24);
-        },
-        set: function (t) {
-            this.wf32(24, t);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ContextDataInfo.prototype, "shadowOffsetX", {
-        get: function () {
-            return this.rf32(28);
-        },
-        set: function (t) {
-            this.wf32(28, t);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ContextDataInfo.prototype, "shadowOffsetY", {
-        get: function () {
-            return this.rf32(32);
-        },
-        set: function (t) {
-            this.wf32(32, t);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ContextDataInfo.prototype, "lineCap", {
-        get: function () {
-            return this.ru16(36);
-        },
-        set: function (t) {
-            this.wu16(36, t);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ContextDataInfo.prototype, "lineJoin", {
-        get: function () {
-            return this.ru16(38);
-        },
-        set: function (t) {
-            this.wu16(38, t);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ContextDataInfo.prototype, "miterLimit", {
-        get: function () {
-            return this.rf32(40);
-        },
-        set: function (t) {
-            this.wf32(40, t);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ContextDataInfo.prototype, "alpha", {
-        get: function () {
-            return this.rf32(44);
-        },
-        set: function (t) {
-            this.wf32(44, t);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ContextDataInfo.prototype, "font", {
-        get: function () {
-            return _Buffer.readString(this.buffer, this.curpos + 48, 64);
-        },
-        set: function (f) {
-            if (!f)
-                f = "";
-            var pos = 48;
-            var ab = conch.strTobufer(f);
-            var size = ab.byteLength;
-            if (size + 2 > 64) {
-                console.error("font不能超过64字符");
-                return;
-            }
-            this.wu16(pos, size);
-            pos += 2;
-            var uint8array = new Uint8Array(ab, 0, size);
-            this.arrayBuffer.set(uint8array, this.curpos + pos);
-            pos += size;
-            for (var i = size + 2; i < 64; ++i) {
-                this.buffer.setUint8(pos, 0);
-                pos++;
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ContextDataInfo.prototype, "fillType", {
-        get: function () {
-            return this.ru16(112);
-        },
-        set: function (t) {
-            this.wu16(112, t);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ContextDataInfo.prototype, "storkeType", {
-        get: function () {
-            return this.ru16(114);
-        },
-        set: function (t) {
-            this.ru16(114);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ContextDataInfo.prototype, "x", {
-        get: function () {
-            return this.ru32(116);
-        },
-        set: function (t) {
-            this.wu32(116, t);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ContextDataInfo.prototype, "y", {
-        get: function () {
-            return this.ru32(120);
-        },
-        set: function (t) {
-            this.wu32(120, t);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ContextDataInfo.prototype, "w", {
-        get: function () {
-            return this.ru32(124);
-        },
-        set: function (t) {
-            this.wu32(124, t);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ContextDataInfo.prototype, "h", {
-        get: function () {
-            return this.ru32(128);
-        },
-        set: function (t) {
-            this.wu32(128, t);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ContextDataInfo.prototype.init = function () {
+    }
+    get fillStyle() {
+        return this.ru32(0);
+    }
+    set fillStyle(t) {
+        this.wu32(0, t);
+    }
+    get storkeStyle() {
+        return this.ru32(4);
+    }
+    set storkeStyle(t) {
+        this.wu32(4, t);
+    }
+    get lineWidth() {
+        return this.rf32(8);
+    }
+    set lineWidth(t) {
+        this.wf32(8, t);
+    }
+    get textBaseLineType() {
+        return this.ru16(12);
+    }
+    set textBaseLineType(t) {
+        this.wu16(12, t);
+    }
+    get textAlignType() {
+        return this.ru16(14);
+    }
+    set textAlignType(t) {
+        this.wu16(14, t);
+    }
+    get blendType() {
+        return this.ru16(16);
+    }
+    set blendType(t) {
+        this.wu16(16, t);
+    }
+    get repetition() {
+        return this.ru16(18);
+    }
+    set repetition(v) {
+        this.wu16(18, v);
+    }
+    get shadowColor() {
+        return this.ru32(20);
+    }
+    set shadowColor(t) {
+        this.wu32(20, t);
+    }
+    get shadowBlur() {
+        return this.rf32(24);
+    }
+    set shadowBlur(t) {
+        this.wf32(24, t);
+    }
+    get shadowOffsetX() {
+        return this.rf32(28);
+    }
+    set shadowOffsetX(t) {
+        this.wf32(28, t);
+    }
+    get shadowOffsetY() {
+        return this.rf32(32);
+    }
+    set shadowOffsetY(t) {
+        this.wf32(32, t);
+    }
+    get lineCap() {
+        return this.ru16(36);
+    }
+    set lineCap(t) {
+        this.wu16(36, t);
+    }
+    get lineJoin() {
+        return this.ru16(38);
+    }
+    set lineJoin(t) {
+        this.wu16(38, t);
+    }
+    get miterLimit() {
+        return this.rf32(40);
+    }
+    set miterLimit(t) {
+        this.wf32(40, t);
+    }
+    get alpha() {
+        return this.rf32(44);
+    }
+    set alpha(t) {
+        this.wf32(44, t);
+    }
+    get font() {
+        return _Buffer.readString(this.buffer, this.curpos + 48, 64);
+    }
+    set font(f) {
+        if (!f)
+            f = "";
+        var pos = 48;
+        var ab = conch.strTobufer(f);
+        var size = ab.byteLength;
+        if (size + 2 > 64) {
+            console.error("font不能超过64字符");
+            return;
+        }
+        this.wu16(pos, size);
+        pos += 2;
+        var uint8array = new Uint8Array(ab, 0, size);
+        this.arrayBuffer.set(uint8array, this.curpos + pos);
+        pos += size;
+        for (var i = size + 2; i < 64; ++i) {
+            this.buffer.setUint8(pos, 0);
+            pos++;
+        }
+    }
+    get fillType() {
+        return this.ru16(112);
+    }
+    set fillType(t) {
+        this.wu16(112, t);
+    }
+    get storkeType() {
+        return this.ru16(114);
+    }
+    set storkeType(t) {
+        this.ru16(114);
+    }
+    get x() {
+        return this.ru32(116);
+    }
+    set x(t) {
+        this.wu32(116, t);
+    }
+    get y() {
+        return this.ru32(120);
+    }
+    set y(t) {
+        this.wu32(120, t);
+    }
+    get w() {
+        return this.ru32(124);
+    }
+    set w(t) {
+        this.wu32(124, t);
+    }
+    get h() {
+        return this.ru32(128);
+    }
+    set h(t) {
+        this.wu32(128, t);
+    }
+    init() {
         this.fillStyle = 0xffffffff;
         this.lineWidth = 1;
         this.alpha = 1;
-    };
-    return ContextDataInfo;
-}());
-var ContextSaveData = (function () {
-    function ContextSaveData() {
+    }
+}
+class ContextSaveData {
+    constructor() {
         this.curData = new ContextDataInfo();
         this.sizeofData = 132;
         this.datasize = 20 * this.sizeofData;
@@ -3320,7 +2973,7 @@ var ContextSaveData = (function () {
         this.curData.curpos = 0;
         this.curData.init();
     }
-    ContextSaveData.prototype.save = function () {
+    save() {
         this.curData.curpos += this.sizeofData;
         if (this.curData.curpos >= this.datasize) {
             var enlargeSize = 20 * this.sizeofData;
@@ -3334,8 +2987,8 @@ var ContextSaveData = (function () {
         var temp = new Uint8Array(this.curData.buffer.buffer, this.curData.curpos - this.sizeofData, this.sizeofData);
         this.curData.arrayBuffer.set(temp, this.curData.curpos);
         return true;
-    };
-    ContextSaveData.prototype.restore = function () {
+    }
+    restore() {
         if (this.curData.curpos > 0) {
             this.curData.curpos -= this.sizeofData;
             return true;
@@ -3343,11 +2996,10 @@ var ContextSaveData = (function () {
         else {
             throw "save and restore don't make a pair.";
         }
-    };
-    return ContextSaveData;
-}());
-var CanvasPattern = (function () {
-    function CanvasPattern(img, r, x, y, w, h) {
+    }
+}
+class CanvasPattern {
+    constructor(img, r, x, y, w, h) {
         if (img !== undefined) {
             this.image = img;
             this.x = x;
@@ -3357,54 +3009,50 @@ var CanvasPattern = (function () {
             this.repetition = r;
         }
     }
-    return CanvasPattern;
-}());
-var CanvasGradient = (function () {
-    function CanvasGradient() {
+}
+class CanvasGradient {
+    addColorStop(fs, color) {
     }
-    CanvasGradient.prototype.addColorStop = function (fs, color) {
-    };
-    return CanvasGradient;
-}());
-var CanvasRenderingContext2D = (function () {
-    function CanvasRenderingContext2D() {
+}
+class CanvasRenderingContext2D {
+    constructor() {
         this._nativeObj = new context();
         this._saveData = new ContextSaveData();
         this.id = this._nativeObj.conchID;
     }
-    CanvasRenderingContext2D.prototype.setSize = function (w, h) {
+    setSize(w, h) {
         if (!isNaN(w) && !isNaN(h)) {
             this._nativeObj.setSize(w, h);
         }
-    };
-    CanvasRenderingContext2D.prototype.setCanvasType = function (type) {
+    }
+    setCanvasType(type) {
         var _ = conch.bf;
         _.needsz(16);
         _.wu32(0);
         _.wu32(9);
         _.wu32(this.id);
         _.wu32(type);
-    };
-    CanvasRenderingContext2D.prototype.setCanvasClip = function (b) {
+    }
+    setCanvasClip(b) {
         var _ = conch.bf;
         _.needsz(16);
         _.wu32(0);
         _.wu32(17);
         _.wu32(this.id);
         _.wu32(b ? 1 : 0);
-    };
-    CanvasRenderingContext2D.prototype.save = function () {
+    }
+    save() {
         _Buffer.noParm(this, 0);
         this._saveData.save();
-    };
-    CanvasRenderingContext2D.prototype.restore = function () {
+    }
+    restore() {
         _Buffer.noParm(this, 1);
         this._saveData.restore();
-    };
-    CanvasRenderingContext2D.prototype.beginPath = function () {
+    }
+    beginPath() {
         _Buffer.noParm(this, 2);
-    };
-    CanvasRenderingContext2D.prototype.drawImage = function (image, offsetX, offsetY, width, height, canvasOffsetX, canvasOffsetY, canvasImageWidth, canvasImageHeight) {
+    }
+    drawImage(image, offsetX, offsetY, width, height, canvasOffsetX, canvasOffsetY, canvasImageWidth, canvasImageHeight) {
         var n = arguments.length, _ = conch.bf;
         if (image instanceof HTMLImageElement) {
             switch (n) {
@@ -3463,119 +3111,107 @@ var CanvasRenderingContext2D = (function () {
             _.wf32(canvasImageWidth);
             _.wf32(canvasImageHeight);
         }
-    };
-    CanvasRenderingContext2D.prototype.rect = function (x, y, w, h) {
+    }
+    rect(x, y, w, h) {
         _Buffer.rect(this, 6, x, y, w, h);
-    };
-    CanvasRenderingContext2D.prototype.clip = function (fillRule) {
+    }
+    clip(fillRule) {
         _Buffer.noParm(this, 7);
-    };
-    CanvasRenderingContext2D.prototype.scale = function (x, y) {
+    }
+    scale(x, y) {
         _Buffer.point(this, 8, x, y);
-    };
-    CanvasRenderingContext2D.prototype.rotate = function (angle) {
+    }
+    rotate(angle) {
         _Buffer.oneNum(this, 9, angle);
-    };
-    CanvasRenderingContext2D.prototype.translate = function (x, y) {
+    }
+    translate(x, y) {
         _Buffer.point(this, 10, x, y);
-    };
-    CanvasRenderingContext2D.prototype.transform = function (m11, m12, m21, m22, dx, dy) {
+    }
+    transform(m11, m12, m21, m22, dx, dy) {
         _Buffer.setMatrix(this, 11, m11, m12, m21, m22, dx, dy);
-    };
-    CanvasRenderingContext2D.prototype.setTransform = function (m11, m12, m21, m22, dx, dy) {
+    }
+    setTransform(m11, m12, m21, m22, dx, dy) {
         _Buffer.setMatrix(this, 12, m11, m12, m21, m22, dx, dy);
-    };
-    Object.defineProperty(CanvasRenderingContext2D.prototype, "globalAlpha", {
-        get: function () { return this._saveData.curData.alpha; },
-        set: function (v) {
-            _Buffer.oneNum(this, 13, v);
-            this._saveData.curData.alpha = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    CanvasRenderingContext2D.prototype.clearRect = function (x, y, w, h) {
+    }
+    set globalAlpha(v) {
+        _Buffer.oneNum(this, 13, v);
+        this._saveData.curData.alpha = v;
+    }
+    get globalAlpha() { return this._saveData.curData.alpha; }
+    clearRect(x, y, w, h) {
         _Buffer.rect(this, 14, x, y, w, h);
-    };
-    CanvasRenderingContext2D.prototype.closePath = function () {
+    }
+    closePath() {
         _Buffer.noParm(this, 15);
-    };
-    Object.defineProperty(CanvasRenderingContext2D.prototype, "fillStyle", {
-        get: function () {
-            var s = this._saveData.curData, t = s.fillType;
-            if (t == 0)
-                return ColorUtil.toHexColor(s.fillStyle);
-            else {
-                return new CanvasPattern(s.fillStyle, s.repetition, s.x, s.y, s.w, s.h);
+    }
+    set fillStyle(fs) {
+        var _ = conch.bf, s = this._saveData.curData;
+        ;
+        if (typeof (fs) == "string") {
+            var d = ColorUtil.getColorNum(fs);
+            if (isNaN(d)) {
+                console.error("fillStyle 不支持color:" + fs);
+                d = 0xFFFFFFFF;
             }
-        },
-        set: function (fs) {
-            var _ = conch.bf, s = this._saveData.curData;
-            ;
-            if (typeof (fs) == "string") {
-                var d = ColorUtil.getColorNum(fs);
-                if (isNaN(d)) {
-                    console.error("fillStyle 不支持color:" + fs);
-                    d = 0xFFFFFFFF;
-                }
-                _Buffer.oneInt(this, 16, d);
-                s.fillType = 0;
-                s.fillStyle = d;
-            }
-            else if (fs instanceof CanvasPattern) {
-                var imgid = fs.image, x = fs.x, y = fs.y, w = fs.w, h = fs.h, rt = fs.repetition;
-                _.needsz(32);
-                _.wu32(this.id);
-                _.wu32(47);
-                _.wu32(imgid);
-                _.wu32(rt);
-                _.wf32Rect(x, y, w, h);
-                s.fillType = 1;
-                s.fillStyle = imgid;
-                s.repetition = rt;
-                s.x = x;
-                s.y = y;
-                s.w = w;
-                s.h = h;
-            }
-            else
-                console.error("fillStyle 不支持此方式:" + fs);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    CanvasRenderingContext2D.prototype.fillRect = function (x, y, w, h) {
+            _Buffer.oneInt(this, 16, d);
+            s.fillType = 0;
+            s.fillStyle = d;
+        }
+        else if (fs instanceof CanvasPattern) {
+            var imgid = fs.image, x = fs.x, y = fs.y, w = fs.w, h = fs.h, rt = fs.repetition;
+            _.needsz(32);
+            _.wu32(this.id);
+            _.wu32(47);
+            _.wu32(imgid);
+            _.wu32(rt);
+            _.wf32Rect(x, y, w, h);
+            s.fillType = 1;
+            s.fillStyle = imgid;
+            s.repetition = rt;
+            s.x = x;
+            s.y = y;
+            s.w = w;
+            s.h = h;
+        }
+        else
+            console.error("fillStyle 不支持此方式:" + fs);
+    }
+    get fillStyle() {
+        var s = this._saveData.curData, t = s.fillType;
+        if (t == 0)
+            return ColorUtil.toHexColor(s.fillStyle);
+        else {
+            return new CanvasPattern(s.fillStyle, s.repetition, s.x, s.y, s.w, s.h);
+        }
+    }
+    fillRect(x, y, w, h) {
         _Buffer.rect(this, 17, x, y, w, h);
-    };
-    Object.defineProperty(CanvasRenderingContext2D.prototype, "strokeStyle", {
-        get: function () {
-            var d = this._saveData.curData.storkeStyle;
-            return ColorUtil.toHexColor(d);
-        },
-        set: function (v) {
-            if (typeof (v) == "string") {
-                var d = ColorUtil.getColorNum(v);
-                if (isNaN(d)) {
-                    console.error("strokeStyle 不支持color:" + v);
-                    d = 0xFFFFFFFF;
-                }
-                _Buffer.oneInt(this, 18, d);
-                this._saveData.curData.storkeStyle = d;
+    }
+    set strokeStyle(v) {
+        if (typeof (v) == "string") {
+            var d = ColorUtil.getColorNum(v);
+            if (isNaN(d)) {
+                console.error("strokeStyle 不支持color:" + v);
+                d = 0xFFFFFFFF;
             }
-            else {
-                throw ("strokeStyle Not Support yet");
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    CanvasRenderingContext2D.prototype.stroke = function () {
+            _Buffer.oneInt(this, 18, d);
+            this._saveData.curData.storkeStyle = d;
+        }
+        else {
+            throw ("strokeStyle Not Support yet");
+        }
+    }
+    get strokeStyle() {
+        var d = this._saveData.curData.storkeStyle;
+        return ColorUtil.toHexColor(d);
+    }
+    stroke() {
         _Buffer.noParm(this, 19);
-    };
-    CanvasRenderingContext2D.prototype.strokeRect = function (x, y, w, h) {
+    }
+    strokeRect(x, y, w, h) {
         _Buffer.rect(this, 20, x, y, w, h);
-    };
-    CanvasRenderingContext2D.prototype._drawText = function (fid, text, x, y, maxWidth) {
+    }
+    _drawText(fid, text, x, y, maxWidth) {
         if (!text)
             return;
         var _ = conch.bf, j = (maxWidth === undefined) ? 0 : 1;
@@ -3586,58 +3222,46 @@ var CanvasRenderingContext2D = (function () {
         _.wf32(y);
         j && _.wu32(maxWidth);
         _.wstring(text, true);
-    };
-    CanvasRenderingContext2D.prototype.strokeText = function (text, x, y, maxWidth) {
+    }
+    strokeText(text, x, y, maxWidth) {
         this._drawText(21, text, x, y, maxWidth);
-    };
-    CanvasRenderingContext2D.prototype.fillText = function (text, x, y, maxWidth) {
+    }
+    fillText(text, x, y, maxWidth) {
         this._drawText(23, text, x, y, maxWidth);
-    };
-    CanvasRenderingContext2D.prototype.fill = function (fillRule) {
+    }
+    fill(fillRule) {
         _Buffer.noParm(this, 25);
-    };
-    Object.defineProperty(CanvasRenderingContext2D.prototype, "lineCap", {
-        get: function () {
-            return CanvasRenderingContext2D.LINECAP[this._saveData.curData.lineCap] || "butt";
-        },
-        set: function (v) {
-            var d = CanvasRenderingContext2D.LINECAP[v] || 0;
-            _Buffer.oneInt(this, 26, d);
-            this._saveData.curData.lineCap = d;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CanvasRenderingContext2D.prototype, "lineWidth", {
-        get: function () {
-            return this._saveData.curData.lineWidth;
-        },
-        set: function (v) {
-            _Buffer.oneNum(this, 27, v);
-            this._saveData.curData.lineWidth = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CanvasRenderingContext2D.prototype, "lineJoin", {
-        get: function () {
-            return CanvasRenderingContext2D.LINEJOIN[this._saveData.curData.lineJoin] || "miter";
-        },
-        set: function (v) {
-            var d = CanvasRenderingContext2D.LINEJOIN[v] || 0;
-            _Buffer.oneInt(this, 28, d);
-            this._saveData.curData.lineJoin = d;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    CanvasRenderingContext2D.prototype.moveTo = function (x, y) {
+    }
+    set lineCap(v) {
+        var d = CanvasRenderingContext2D.LINECAP[v] || 0;
+        _Buffer.oneInt(this, 26, d);
+        this._saveData.curData.lineCap = d;
+    }
+    get lineCap() {
+        return CanvasRenderingContext2D.LINECAP[this._saveData.curData.lineCap] || "butt";
+    }
+    set lineWidth(v) {
+        _Buffer.oneNum(this, 27, v);
+        this._saveData.curData.lineWidth = v;
+    }
+    get lineWidth() {
+        return this._saveData.curData.lineWidth;
+    }
+    set lineJoin(v) {
+        var d = CanvasRenderingContext2D.LINEJOIN[v] || 0;
+        _Buffer.oneInt(this, 28, d);
+        this._saveData.curData.lineJoin = d;
+    }
+    get lineJoin() {
+        return CanvasRenderingContext2D.LINEJOIN[this._saveData.curData.lineJoin] || "miter";
+    }
+    moveTo(x, y) {
         _Buffer.point(this, 29, x, y);
-    };
-    CanvasRenderingContext2D.prototype.lineTo = function (x, y) {
+    }
+    lineTo(x, y) {
         _Buffer.point(this, 30, x, y);
-    };
-    CanvasRenderingContext2D.prototype.arc = function (x, y, radius, startAngle, endAngle, anticlockwise) {
+    }
+    arc(x, y, radius, startAngle, endAngle, anticlockwise) {
         var _ = conch.bf;
         _.needsz(32);
         _.wu32(this.id);
@@ -3648,8 +3272,8 @@ var CanvasRenderingContext2D = (function () {
         _.wf32(startAngle);
         _.wf32(endAngle);
         _.wu32(anticlockwise ? 1 : 0);
-    };
-    CanvasRenderingContext2D.prototype.arcTo = function (x1, y1, x2, y2, radius) {
+    }
+    arcTo(x1, y1, x2, y2, radius) {
         var _ = conch.bf;
         _.needsz(28);
         _.wu32(this.id);
@@ -3659,128 +3283,92 @@ var CanvasRenderingContext2D = (function () {
         _.wf32(x2);
         _.wf32(y2);
         _.wf32(radius);
-    };
-    CanvasRenderingContext2D.prototype.bezierCurveTo = function (cp1x, cp1y, cp2x, cp2y, x, y) {
+    }
+    bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y) {
         _Buffer.setMatrix(this, 33, cp1x, cp1y, cp2x, cp2y, x, y);
-    };
-    CanvasRenderingContext2D.prototype.quadraticCurveTo = function (cpx, cpy, x, y) {
+    }
+    quadraticCurveTo(cpx, cpy, x, y) {
         _Buffer.rect(this, 34, cpx, cpy, x, y);
-    };
-    Object.defineProperty(CanvasRenderingContext2D.prototype, "font", {
-        get: function () {
-            return this._saveData.curData.font;
-        },
-        set: function (f) {
-            var _ = conch.bf;
-            _.needsz(12);
-            _.wu32(this.id);
-            _.wu32(38);
-            _.wstring(f, true);
-            this._saveData.curData.font = f;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CanvasRenderingContext2D.prototype, "globalCompositeOperation", {
-        get: function () {
-            return CanvasRenderingContext2D.BLEND[this._saveData.curData.blendType] || "source-over";
-        },
-        set: function (v) {
-            var b = CanvasRenderingContext2D.BLEND[v] || 0;
-            _Buffer.oneInt(this, 39, b);
-            this._saveData.curData.blendType = b;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CanvasRenderingContext2D.prototype, "textBaseline", {
-        get: function () {
-            return CanvasRenderingContext2D.TEXTBASELINE[this._saveData.curData.textBaseLineType] || "alphabetic";
-        },
-        set: function (v) {
-            var d = CanvasRenderingContext2D.TEXTBASELINE[v] || 0;
-            _Buffer.oneInt(this, 40, d);
-            this._saveData.curData.textBaseLineType = d;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CanvasRenderingContext2D.prototype, "textAlign", {
-        get: function () {
-            return CanvasRenderingContext2D.TEXTALIGN[this._saveData.curData.textAlignType] || "start";
-        },
-        set: function (v) {
-            var d = CanvasRenderingContext2D.TEXTALIGN[v] || 0;
-            _Buffer.oneInt(this, 41, d);
-            this._saveData.curData.textAlignType = d;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CanvasRenderingContext2D.prototype, "miterLimit", {
-        get: function () {
-            return this._saveData.curData.miterLimit;
-        },
-        set: function (v) {
-            _Buffer.oneNum(this, 42, v);
-            this._saveData.curData.miterLimit = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CanvasRenderingContext2D.prototype, "shadowOffsetX", {
-        get: function () {
-            return this._saveData.curData.shadowOffsetX;
-        },
-        set: function (v) {
-            _Buffer.oneNum(this, 43, v);
-            this._saveData.curData.shadowOffsetX = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CanvasRenderingContext2D.prototype, "shadowOffsetY", {
-        get: function () {
-            return this._saveData.curData.shadowOffsetY;
-        },
-        set: function (v) {
-            _Buffer.oneNum(this, 44, v);
-            this._saveData.curData.shadowOffsetY = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CanvasRenderingContext2D.prototype, "shadowColor", {
-        get: function () {
-            return ColorUtil.toHexColor(this._saveData.curData.shadowColor);
-        },
-        set: function (v) {
-            var n = ColorUtil.getColorNum(v);
-            if (isNaN(n)) {
-                console.error("shadowColor 不支持color:" + v);
-                n = 0xFFFFFFFF;
-            }
-            _Buffer.oneInt(this, 45, n);
-            this._saveData.curData.shadowColor = n;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CanvasRenderingContext2D.prototype, "shadowBlur", {
-        get: function () {
-            return this._saveData.curData.shadowBlur;
-        },
-        set: function (v) {
-            _Buffer.oneNum(this, 46, v);
-            this._saveData.curData.shadowBlur = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    CanvasRenderingContext2D.prototype.setFilter = function (r, g, b, gray) {
+    }
+    set font(f) {
+        var _ = conch.bf;
+        _.needsz(12);
+        _.wu32(this.id);
+        _.wu32(38);
+        _.wstring(f, true);
+        this._saveData.curData.font = f;
+    }
+    get font() {
+        return this._saveData.curData.font;
+    }
+    set globalCompositeOperation(v) {
+        var b = CanvasRenderingContext2D.BLEND[v] || 0;
+        _Buffer.oneInt(this, 39, b);
+        this._saveData.curData.blendType = b;
+    }
+    get globalCompositeOperation() {
+        return CanvasRenderingContext2D.BLEND[this._saveData.curData.blendType] || "source-over";
+    }
+    set textBaseline(v) {
+        var d = CanvasRenderingContext2D.TEXTBASELINE[v] || 0;
+        _Buffer.oneInt(this, 40, d);
+        this._saveData.curData.textBaseLineType = d;
+    }
+    get textBaseline() {
+        return CanvasRenderingContext2D.TEXTBASELINE[this._saveData.curData.textBaseLineType] || "alphabetic";
+    }
+    set textAlign(v) {
+        var d = CanvasRenderingContext2D.TEXTALIGN[v] || 0;
+        _Buffer.oneInt(this, 41, d);
+        this._saveData.curData.textAlignType = d;
+    }
+    get textAlign() {
+        return CanvasRenderingContext2D.TEXTALIGN[this._saveData.curData.textAlignType] || "start";
+    }
+    set miterLimit(v) {
+        _Buffer.oneNum(this, 42, v);
+        this._saveData.curData.miterLimit = v;
+    }
+    get miterLimit() {
+        return this._saveData.curData.miterLimit;
+    }
+    set shadowOffsetX(v) {
+        _Buffer.oneNum(this, 43, v);
+        this._saveData.curData.shadowOffsetX = v;
+    }
+    get shadowOffsetX() {
+        return this._saveData.curData.shadowOffsetX;
+    }
+    set shadowOffsetY(v) {
+        _Buffer.oneNum(this, 44, v);
+        this._saveData.curData.shadowOffsetY = v;
+    }
+    get shadowOffsetY() {
+        return this._saveData.curData.shadowOffsetY;
+    }
+    set shadowColor(v) {
+        var n = ColorUtil.getColorNum(v);
+        if (isNaN(n)) {
+            console.error("shadowColor 不支持color:" + v);
+            n = 0xFFFFFFFF;
+        }
+        _Buffer.oneInt(this, 45, n);
+        this._saveData.curData.shadowColor = n;
+    }
+    get shadowColor() {
+        return ColorUtil.toHexColor(this._saveData.curData.shadowColor);
+    }
+    set shadowBlur(v) {
+        _Buffer.oneNum(this, 46, v);
+        this._saveData.curData.shadowBlur = v;
+    }
+    get shadowBlur() {
+        return this._saveData.curData.shadowBlur;
+    }
+    setFilter(r, g, b, gray) {
         _Buffer.rect(this, 48, r, g, b, gray);
-    };
-    CanvasRenderingContext2D.prototype.fillBorderText = function (text, x, y, font, fillColor, borderColor, lineWidth, textAlign) {
+    }
+    fillBorderText(text, x, y, font, fillColor, borderColor, lineWidth, textAlign) {
         var _ = conch.bf;
         var fc = ColorUtil.getColorNum(fillColor);
         var bc = ColorUtil.getColorNum(borderColor);
@@ -3811,16 +3399,16 @@ var CanvasRenderingContext2D = (function () {
         cur.fillStyle = fc;
         cur.textAlignType = ta;
         cur.textBaseLineType = 2;
-    };
-    CanvasRenderingContext2D.prototype.clipRect = function (x, y, w, h) {
+    }
+    clipRect(x, y, w, h) {
         _Buffer.rect(this, 50, x, y, w, h);
-    };
-    CanvasRenderingContext2D.prototype.createLinearGradient = function (x0, y0, x1, y1) {
+    }
+    createLinearGradient(x0, y0, x1, y1) {
         return null;
-    };
-    CanvasRenderingContext2D.prototype.clear = function () {
-    };
-    CanvasRenderingContext2D.prototype.setSkinMesh = function (x, y, ib, vb, eleNum, iStart, texture, mat) {
+    }
+    clear() {
+    }
+    setSkinMesh(x, y, ib, vb, eleNum, iStart, texture, mat) {
         var img = texture.source;
         var _ = conch.bf;
         if (ib.conch_id === undefined || !ib._upload) {
@@ -3878,8 +3466,8 @@ var CanvasRenderingContext2D = (function () {
         _.wf32(mat.ty);
         _.wf32(x);
         _.wf32(y);
-    };
-    CanvasRenderingContext2D.prototype.drawParticle = function (x, y, par) {
+    }
+    drawParticle(x, y, par) {
         if (par.texture == null || par.texture.source == null)
             return;
         var _ = conch.bf;
@@ -3889,8 +3477,8 @@ var CanvasRenderingContext2D = (function () {
         _.wu32(par.id);
         _.wf32(x);
         _.wf32(y);
-    };
-    CanvasRenderingContext2D.prototype._setIBVB = function (x, y, ib, vb, numElement, mat, shader, shaderValues, startIndex, offset) {
+    }
+    _setIBVB(x, y, ib, vb, numElement, mat, shader, shaderValues, startIndex, offset) {
         var vertType = vb._vertType ? vb._vertType : 1;
         var _ = conch.bf;
         var imgid = -1;
@@ -3956,8 +3544,8 @@ var CanvasRenderingContext2D = (function () {
             _.wf32(0.0);
             _.wf32(0.0);
         }
-    };
-    CanvasRenderingContext2D.prototype.setFilterMatrix = function (mat, alpha) {
+    }
+    setFilterMatrix(mat, alpha) {
         if (!mat || !alpha) {
             return;
         }
@@ -3967,8 +3555,8 @@ var CanvasRenderingContext2D = (function () {
         _.wu32(52);
         _.wab(mat, 64);
         _.wab(alpha, 16);
-    };
-    CanvasRenderingContext2D.prototype.toBase64 = function (type, encoderOptions, callback) {
+    }
+    toBase64(type, encoderOptions, callback) {
         this._nativeObj.setToBase64Callback(callback);
         var _ = conch.bf;
         _.needsz(16);
@@ -3976,8 +3564,8 @@ var CanvasRenderingContext2D = (function () {
         _.wu32(56);
         _.wf32(encoderOptions);
         _.wstring(type, true);
-    };
-    CanvasRenderingContext2D.prototype.getPixels = function (x, y, w, h, callback) {
+    }
+    getPixels(x, y, w, h, callback) {
         this._nativeObj.setGetPixelsCallback(callback);
         var _ = conch.bf;
         _.needsz(24);
@@ -3987,16 +3575,16 @@ var CanvasRenderingContext2D = (function () {
         _.wf32(y);
         _.wf32(w);
         _.wf32(h);
-    };
-    CanvasRenderingContext2D.prototype.isPointInPath = function (x, y, fillRule) {
+    }
+    isPointInPath(x, y, fillRule) {
         return true;
-    };
-    CanvasRenderingContext2D.prototype.measureText = function (text) {
+    }
+    measureText(text) {
         return this._nativeObj.measureText(this._saveData.curData.font, text);
-    };
-    CanvasRenderingContext2D.prototype.disableClip = function (b) {
-    };
-    CanvasRenderingContext2D.prototype.createPattern = function (image, repetition, x, y, w, h) {
+    }
+    disableClip(b) {
+    }
+    createPattern(image, repetition, x, y, w, h) {
         var r = new CanvasPattern();
         r.image = image._nativeObj.conchImgId;
         r.repetition = CanvasRenderingContext2D.PATTERN[repetition] || 0;
@@ -4012,55 +3600,170 @@ var CanvasRenderingContext2D = (function () {
             r.h = image.height;
         }
         return r;
-    };
-    Object.defineProperty(CanvasRenderingContext2D.prototype, "lineDashOffset", {
-        get: function () {
-            return 0;
-        },
-        set: function (v) {
-        },
-        enumerable: true,
-        configurable: true
-    });
-    CanvasRenderingContext2D.prototype.createImageData = function (imageDataOrSw, sh) {
+    }
+    set lineDashOffset(v) {
+    }
+    get lineDashOffset() {
+        return 0;
+    }
+    createImageData(imageDataOrSw, sh) {
         return null;
-    };
-    CanvasRenderingContext2D.prototype.createRadialGradient = function (x0, y0, r0, x1, y1, r1) {
+    }
+    createRadialGradient(x0, y0, r0, x1, y1, r1) {
         return null;
-    };
-    CanvasRenderingContext2D.prototype.getImageData = function (sx, sy, sw, sh) {
+    }
+    getImageData(sx, sy, sw, sh) {
         return null;
-    };
-    CanvasRenderingContext2D.prototype.getLineDash = function () {
+    }
+    getLineDash() {
         return null;
-    };
-    CanvasRenderingContext2D.prototype.putImageData = function (imagedata, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight) {
-    };
-    CanvasRenderingContext2D.prototype.setLineDash = function (segments) {
-    };
-    CanvasRenderingContext2D.LINECAP = ["butt", "round", "square"];
-    CanvasRenderingContext2D.TEXTALIGN = ["start", "left", "center", "end", "right"];
-    CanvasRenderingContext2D.TEXTBASELINE = ["alphabetic", "top", "hanging", "middle", "ideographic", "bottom"];
-    CanvasRenderingContext2D.LINEJOIN = ["miter", "round", "bevel"];
-    CanvasRenderingContext2D.BLEND = ["source-over", "source-atop", "source-in", "source-out", "destination-over", "destination-atop", "destination-in", "destination-out", "lighter", "copy", 'xor',
-        'normal', 'add', 'multiply', 'screen', 'overlay', 'light', 'mask'];
-    CanvasRenderingContext2D.DRAWIMAGES = new Float32Array(0);
-    CanvasRenderingContext2D.skinMeshShader = {
-        conch_id: undefined,
-        id: 1025,
-        vs: "attribute vec2 position;\n                        attribute vec2 texcoord;\n                        attribute vec4 color;\n                        uniform vec4 g_DevInfo;\n                        uniform mat4 mmat;\n                        varying vec2 v_texcoord;\n                        varying vec4 v_color;\n                        void main() {\n                        vec4 pos=mmat*vec4(position.x,position.y,0,1 );\n                        gl_Position = vec4((pos.x/g_DevInfo.x-0.5)*2.0,(0.5-pos.y/g_DevInfo.y)*2.0,pos.z,1.0);\n                        v_color = color;\n                        v_color.rgb *= v_color.a;\n                        v_texcoord = texcoord;  \n                        }",
-        ps: "precision mediump float;\n            varying vec2 v_texcoord;\n            varying vec4 v_color;\n            uniform sampler2D texture;\n            uniform float g_Alpha;\n            void main() {\n                vec4 t_color = texture2D(texture, v_texcoord);\n                gl_FragColor = t_color * v_color;\n\t\t\t\tgl_FragColor *= g_Alpha;\n            }"
-    };
-    CanvasRenderingContext2D.particleShader = {
-        conch_id: undefined,
-        id: 1024,
-        ps: "precision mediump float;\n        varying vec4 v_Color;\n        varying vec2 v_TextureCoordinate;\n        uniform sampler2D texture;\n\n        void main()\n        {\t\n            gl_FragColor=texture2D(texture,v_TextureCoordinate)*v_Color;\n            gl_FragColor.rgb*=v_Color.a;\n        }\n        ",
-        vs: "\n        attribute vec4 a_CornerTextureCoordinate;\nattribute vec3 a_Position;\nattribute vec3 a_Velocity;\nattribute vec4 a_StartColor;\nattribute vec4 a_EndColor;\nattribute vec3 a_SizeRotation;\nattribute vec2 a_Radius;\nattribute vec4 a_Radian;\nattribute float a_AgeAddScale;\nattribute float a_Time;\n\nvarying vec4 v_Color;\nvarying vec2 v_TextureCoordinate;\n\nuniform  float u_CurrentTime;\nuniform float u_Duration;\nuniform float u_EndVelocity;\nuniform vec3 u_Gravity;\n\n uniform vec2 size;\n uniform mat4 mmat;\n\nvec4 ComputeParticlePosition(in vec3 position, in vec3 velocity,in float age,in float normalizedAge)\n{\n\n   float startVelocity = length(velocity);\n   float endVelocity = startVelocity * u_EndVelocity;\n\n   float velocityIntegral = startVelocity * normalizedAge +(endVelocity - startVelocity) * normalizedAge *normalizedAge/2.0;\n   \n   vec3 addPosition = normalize(velocity) * velocityIntegral * u_Duration; \n   addPosition += u_Gravity * age * normalizedAge;\n   \n   float radius=mix(a_Radius.x, a_Radius.y, normalizedAge);\n   float radianHorizontal =mix(a_Radian.x,a_Radian.z,normalizedAge);\n   float radianVertical =mix(a_Radian.y,a_Radian.w,normalizedAge);\n   \n   float r =cos(radianVertical)* radius;\n   addPosition.y += sin(radianVertical) * radius;\n\t\n   addPosition.x += cos(radianHorizontal) *r;\n   addPosition.z += sin(radianHorizontal) *r;\n  \n   addPosition.y=-addPosition.y;\n   position+=addPosition;\n    return  vec4(position,1.0);\n}\n\nfloat ComputeParticleSize(in float startSize,in float endSize, in float normalizedAge)\n{    \n    float size = mix(startSize, endSize, normalizedAge);\n\t return size;\n}\n\nmat2 ComputeParticleRotation(in float rot,in float age)\n{    \n    float rotation =rot * age;\n    float c = cos(rotation);\n    float s = sin(rotation);\n    return mat2(c, -s, s, c);\n}\n\nvec4 ComputeParticleColor(in vec4 startColor,in vec4 endColor,in float normalizedAge)\n{\n\tvec4 color=mix(startColor,endColor,normalizedAge);\n    color.a *= normalizedAge * (1.0-normalizedAge) * (1.0-normalizedAge) * 6.7;\n   \n    return color;\n}\n\nvoid main()\n{\n   float age = u_CurrentTime - a_Time;\n   age *= 1.0 + a_AgeAddScale;\n   float normalizedAge = clamp(age / u_Duration,0.0,1.0);\n   gl_Position = ComputeParticlePosition(a_Position, a_Velocity, age, normalizedAge);\n   float pSize = ComputeParticleSize(a_SizeRotation.x,a_SizeRotation.y, normalizedAge);\n   mat2 rotation = ComputeParticleRotation(a_SizeRotation.z, age);\n   mat4 mat=mmat;\n   gl_Position=vec4((mat*gl_Position).xy,0.0,1.0);\n   gl_Position.xy += (rotation*a_CornerTextureCoordinate.xy) * pSize*vec2(mat[0][0],mat[1][1]);\n   gl_Position=vec4((gl_Position.x/size.x-0.5)*2.0,(0.5-gl_Position.y/size.y)*2.0,0.0,1.0);\n   v_Color = ComputeParticleColor(a_StartColor,a_EndColor, normalizedAge);\n   v_TextureCoordinate =a_CornerTextureCoordinate.zw;\n}\n\n\n        "
-    };
-    CanvasRenderingContext2D.PATTERN = ["repeat", "repeat-x", "repeat-y", "no-repeat"];
-    CanvasRenderingContext2D.ID = 0;
-    return CanvasRenderingContext2D;
-}());
+    }
+    putImageData(imagedata, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight) {
+    }
+    setLineDash(segments) {
+    }
+}
+CanvasRenderingContext2D.LINECAP = ["butt", "round", "square"];
+CanvasRenderingContext2D.TEXTALIGN = ["start", "left", "center", "end", "right"];
+CanvasRenderingContext2D.TEXTBASELINE = ["alphabetic", "top", "hanging", "middle", "ideographic", "bottom"];
+CanvasRenderingContext2D.LINEJOIN = ["miter", "round", "bevel"];
+CanvasRenderingContext2D.BLEND = ["source-over", "source-atop", "source-in", "source-out", "destination-over", "destination-atop", "destination-in", "destination-out", "lighter", "copy", 'xor',
+    'normal', 'add', 'multiply', 'screen', 'overlay', 'light', 'mask'];
+CanvasRenderingContext2D.DRAWIMAGES = new Float32Array(0);
+CanvasRenderingContext2D.skinMeshShader = {
+    conch_id: undefined,
+    id: 1025,
+    vs: `attribute vec2 position;
+                        attribute vec2 texcoord;
+                        attribute vec4 color;
+                        uniform vec4 g_DevInfo;
+                        uniform mat4 mmat;
+                        varying vec2 v_texcoord;
+                        varying vec4 v_color;
+                        void main() {
+                        vec4 pos=mmat*vec4(position.x,position.y,0,1 );
+                        gl_Position = vec4((pos.x/g_DevInfo.x-0.5)*2.0,(0.5-pos.y/g_DevInfo.y)*2.0,pos.z,1.0);
+                        v_color = color;
+                        v_color.rgb *= v_color.a;
+                        v_texcoord = texcoord;  
+                        }`,
+    ps: `precision mediump float;
+            varying vec2 v_texcoord;
+            varying vec4 v_color;
+            uniform sampler2D texture;
+            uniform float g_Alpha;
+            void main() {
+                vec4 t_color = texture2D(texture, v_texcoord);
+                gl_FragColor = t_color * v_color;
+				gl_FragColor *= g_Alpha;
+            }`
+};
+CanvasRenderingContext2D.particleShader = {
+    conch_id: undefined,
+    id: 1024,
+    ps: `precision mediump float;
+        varying vec4 v_Color;
+        varying vec2 v_TextureCoordinate;
+        uniform sampler2D texture;
+
+        void main()
+        {	
+            gl_FragColor=texture2D(texture,v_TextureCoordinate)*v_Color;
+            gl_FragColor.rgb*=v_Color.a;
+        }
+        `,
+    vs: `
+        attribute vec4 a_CornerTextureCoordinate;
+attribute vec3 a_Position;
+attribute vec3 a_Velocity;
+attribute vec4 a_StartColor;
+attribute vec4 a_EndColor;
+attribute vec3 a_SizeRotation;
+attribute vec2 a_Radius;
+attribute vec4 a_Radian;
+attribute float a_AgeAddScale;
+attribute float a_Time;
+
+varying vec4 v_Color;
+varying vec2 v_TextureCoordinate;
+
+uniform  float u_CurrentTime;
+uniform float u_Duration;
+uniform float u_EndVelocity;
+uniform vec3 u_Gravity;
+
+ uniform vec2 size;
+ uniform mat4 mmat;
+
+vec4 ComputeParticlePosition(in vec3 position, in vec3 velocity,in float age,in float normalizedAge)
+{
+
+   float startVelocity = length(velocity);
+   float endVelocity = startVelocity * u_EndVelocity;
+
+   float velocityIntegral = startVelocity * normalizedAge +(endVelocity - startVelocity) * normalizedAge *normalizedAge/2.0;
+   
+   vec3 addPosition = normalize(velocity) * velocityIntegral * u_Duration; 
+   addPosition += u_Gravity * age * normalizedAge;
+   
+   float radius=mix(a_Radius.x, a_Radius.y, normalizedAge);
+   float radianHorizontal =mix(a_Radian.x,a_Radian.z,normalizedAge);
+   float radianVertical =mix(a_Radian.y,a_Radian.w,normalizedAge);
+   
+   float r =cos(radianVertical)* radius;
+   addPosition.y += sin(radianVertical) * radius;
+	
+   addPosition.x += cos(radianHorizontal) *r;
+   addPosition.z += sin(radianHorizontal) *r;
+  
+   addPosition.y=-addPosition.y;
+   position+=addPosition;
+    return  vec4(position,1.0);
+}
+
+float ComputeParticleSize(in float startSize,in float endSize, in float normalizedAge)
+{    
+    float size = mix(startSize, endSize, normalizedAge);
+	 return size;
+}
+
+mat2 ComputeParticleRotation(in float rot,in float age)
+{    
+    float rotation =rot * age;
+    float c = cos(rotation);
+    float s = sin(rotation);
+    return mat2(c, -s, s, c);
+}
+
+vec4 ComputeParticleColor(in vec4 startColor,in vec4 endColor,in float normalizedAge)
+{
+	vec4 color=mix(startColor,endColor,normalizedAge);
+    color.a *= normalizedAge * (1.0-normalizedAge) * (1.0-normalizedAge) * 6.7;
+   
+    return color;
+}
+
+void main()
+{
+   float age = u_CurrentTime - a_Time;
+   age *= 1.0 + a_AgeAddScale;
+   float normalizedAge = clamp(age / u_Duration,0.0,1.0);
+   gl_Position = ComputeParticlePosition(a_Position, a_Velocity, age, normalizedAge);
+   float pSize = ComputeParticleSize(a_SizeRotation.x,a_SizeRotation.y, normalizedAge);
+   mat2 rotation = ComputeParticleRotation(a_SizeRotation.z, age);
+   mat4 mat=mmat;
+   gl_Position=vec4((mat*gl_Position).xy,0.0,1.0);
+   gl_Position.xy += (rotation*a_CornerTextureCoordinate.xy) * pSize*vec2(mat[0][0],mat[1][1]);
+   gl_Position=vec4((gl_Position.x/size.x-0.5)*2.0,(0.5-gl_Position.y/size.y)*2.0,0.0,1.0);
+   v_Color = ComputeParticleColor(a_StartColor,a_EndColor, normalizedAge);
+   v_TextureCoordinate =a_CornerTextureCoordinate.zw;
+}
+
+
+        `
+};
+CanvasRenderingContext2D.PATTERN = ["repeat", "repeat-x", "repeat-y", "no-repeat"];
+CanvasRenderingContext2D.ID = 0;
 function _init(v) {
     for (var i = 0, sz = v.length; i < sz; i++) {
         v[v[i]] = i;
@@ -4073,12 +3776,12 @@ _init(CanvasRenderingContext2D.LINEJOIN);
 _init(CanvasRenderingContext2D.BLEND);
 _init(CanvasRenderingContext2D.PATTERN);
 window["CanvasRenderingContext2D"] = CanvasRenderingContext2D;
-var ProgramLocationTable = (function () {
-    function ProgramLocationTable() {
+class ProgramLocationTable {
+    constructor() {
         this.FADELOC_BASE = 50000;
         this._obj = {};
     }
-    ProgramLocationTable.prototype.getFadeLocation = function (fadeProgramID, name) {
+    getFadeLocation(fadeProgramID, name) {
         var key = fadeProgramID + "-" + name;
         var fadeID = this._obj[key];
         if (fadeID == undefined) {
@@ -4087,11 +3790,10 @@ var ProgramLocationTable = (function () {
             this._obj[key] = fadeID;
         }
         return fadeID;
-    };
-    return ProgramLocationTable;
-}());
-var WebGLRenderingContext = (function () {
-    function WebGLRenderingContext() {
+    }
+}
+class WebGLRenderingContext {
+    constructor() {
         this.drawingBufferWidth = getInnerWidth();
         this.drawingBufferHeight = getInnerHeight();
         this.currentTextureID = 0;
@@ -4405,7 +4107,7 @@ var WebGLRenderingContext = (function () {
         this.id = this._nativeObj.conchID;
         this._fadeArray.push(0);
     }
-    WebGLRenderingContext.prototype.createFadeID = function () {
+    createFadeID() {
         for (var i = 0, n = this._fadeArray.length; i < n; i++) {
             if (this._fadeArray[i] == -1) {
                 this._fadeArray[i] = i;
@@ -4415,52 +4117,52 @@ var WebGLRenderingContext = (function () {
         var nID = ++this._i;
         this._fadeArray.push(nID);
         return nID;
-    };
-    WebGLRenderingContext.prototype.deleteFadeID = function (nID) {
+    }
+    deleteFadeID(nID) {
         this._fadeArray[nID] = -1;
-    };
-    WebGLRenderingContext.prototype.getContextAttributes = function () {
+    }
+    getContextAttributes() {
         return {};
-    };
-    WebGLRenderingContext.prototype.onCssTransform = function () {
+    }
+    onCssTransform() {
         if (this.__priv_canvas) {
             this.viewport(this.viewportx, this.viewporty, this.viewportw, this.viewporth);
         }
-    };
-    WebGLRenderingContext.prototype.isContextLost = function () {
+    }
+    isContextLost() {
         return false;
-    };
-    WebGLRenderingContext.prototype.getShaderPrecisionFormat = function (a, b) {
+    }
+    getShaderPrecisionFormat(a, b) {
         return {
             precision: 23,
             rangeMax: 127,
             rangeMin: 127
         };
-    };
-    WebGLRenderingContext.prototype.getExtension = function (name) {
+    }
+    getExtension(name) {
         conch.bf.needsz(8);
         conch.bf.wu32(this.id);
         conch.bf.wu32(0);
-    };
-    WebGLRenderingContext.prototype.createBuffer = function () {
+    }
+    createBuffer() {
         var fadeID = this.createFadeID();
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(1);
         conch.bf.wu32(fadeID);
         return fadeID;
-    };
-    WebGLRenderingContext.prototype.bindBuffer = function (target, buffer) {
+    }
+    bindBuffer(target, buffer) {
         conch.bf.needsz(16);
         conch.bf.wu32(this.id);
         conch.bf.wu32(2);
         conch.bf.wu32(target);
         conch.bf.wu32(buffer);
-    };
-    WebGLRenderingContext.prototype.flush = function () {
+    }
+    flush() {
         conch.bf.flush();
-    };
-    WebGLRenderingContext.prototype.bufferData = function (target, sizeOrArray, usage) {
+    }
+    bufferData(target, sizeOrArray, usage) {
         conch.bf.needsz(20);
         conch.bf.wu32(this.id);
         if (typeof (arguments[1]) === 'number') {
@@ -4480,8 +4182,8 @@ var WebGLRenderingContext = (function () {
             conch.bf.wu32(length);
             conch.bf.wab(arguments[1], length);
         }
-    };
-    WebGLRenderingContext.prototype.createShader = function (type) {
+    }
+    createShader(type) {
         var fadeID = this.createFadeID();
         conch.bf.needsz(16);
         conch.bf.wu32(this.id);
@@ -4489,59 +4191,59 @@ var WebGLRenderingContext = (function () {
         conch.bf.wu32(type);
         conch.bf.wu32(fadeID);
         return fadeID;
-    };
-    WebGLRenderingContext.prototype.shaderSource = function (shader, source) {
+    }
+    shaderSource(shader, source) {
         conch.bf.needsz(16);
         conch.bf.wu32(this.id);
         conch.bf.wu32(6);
         conch.bf.wu32(shader);
         conch.bf.wstring(source, true);
-    };
-    WebGLRenderingContext.prototype.compileShader = function (shader) {
+    }
+    compileShader(shader) {
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(7);
         conch.bf.wu32(shader);
-    };
-    WebGLRenderingContext.prototype.getShaderParameter = function (shader, pname) {
+    }
+    getShaderParameter(shader, pname) {
         conch.bf.needsz(16);
         conch.bf.wu32(this.id);
         conch.bf.wu32(8);
         conch.bf.wu32(shader);
         conch.bf.wu32(pname);
         return true;
-    };
-    WebGLRenderingContext.prototype.createProgram = function () {
+    }
+    createProgram() {
         var fadeID = this.createFadeID();
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(9);
         conch.bf.wu32(fadeID);
         return fadeID;
-    };
-    WebGLRenderingContext.prototype.attachShader = function (program, shader) {
+    }
+    attachShader(program, shader) {
         conch.bf.needsz(16);
         conch.bf.wu32(this.id);
         conch.bf.wu32(10);
         conch.bf.wu32(program);
         conch.bf.wu32(shader);
-    };
-    WebGLRenderingContext.prototype.linkProgram = function (program) {
+    }
+    linkProgram(program) {
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(11);
         conch.bf.wu32(program);
-    };
-    WebGLRenderingContext.prototype.getProgramParameter = function (program, pname) {
+    }
+    getProgramParameter(program, pname) {
         return 0;
-    };
-    WebGLRenderingContext.prototype.useProgram = function (program) {
+    }
+    useProgram(program) {
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(13);
         conch.bf.wu32(program);
-    };
-    WebGLRenderingContext.prototype.getUniformLocation = function (program, name) {
+    }
+    getUniformLocation(program, name) {
         conch.bf.needsz(20);
         conch.bf.wu32(this.id);
         conch.bf.wu32(14);
@@ -4550,8 +4252,8 @@ var WebGLRenderingContext = (function () {
         conch.bf.wu32(fadeLoc);
         conch.bf.wstring(name, true);
         return fadeLoc;
-    };
-    WebGLRenderingContext.prototype.getAttribLocation = function (program, name) {
+    }
+    getAttribLocation(program, name) {
         conch.bf.needsz(20);
         conch.bf.wu32(this.id);
         conch.bf.wu32(15);
@@ -4560,20 +4262,20 @@ var WebGLRenderingContext = (function () {
         conch.bf.wu32(fadeLoc);
         conch.bf.wstring(name, true);
         return fadeLoc;
-    };
-    WebGLRenderingContext.prototype.disable = function (cap) {
+    }
+    disable(cap) {
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(16);
         conch.bf.wu32(cap);
-    };
-    WebGLRenderingContext.prototype.enable = function (cap) {
+    }
+    enable(cap) {
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(17);
         conch.bf.wu32(cap);
-    };
-    WebGLRenderingContext.prototype.colorMask = function (red, green, blue, alpha) {
+    }
+    colorMask(red, green, blue, alpha) {
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(18);
@@ -4581,8 +4283,8 @@ var WebGLRenderingContext = (function () {
         conch.bf.wu8(green ? 1 : 0);
         conch.bf.wu8(blue ? 1 : 0);
         conch.bf.wu8(alpha ? 1 : 0);
-    };
-    WebGLRenderingContext.prototype.viewport = function (x, y, width, height) {
+    }
+    viewport(x, y, width, height) {
         this.viewportx = x;
         this.viewporty = y;
         this.viewportw = width;
@@ -4601,14 +4303,14 @@ var WebGLRenderingContext = (function () {
         conch.bf.wu16(y);
         conch.bf.wu16(width);
         conch.bf.wu16(height);
-    };
-    WebGLRenderingContext.prototype.clear = function (mask) {
+    }
+    clear(mask) {
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(20);
         conch.bf.wu32(mask);
-    };
-    WebGLRenderingContext.prototype.clearColor = function (red, green, blue, alpha) {
+    }
+    clearColor(red, green, blue, alpha) {
         conch.bf.needsz(24);
         conch.bf.wu32(this.id);
         conch.bf.wu32(21);
@@ -4616,39 +4318,39 @@ var WebGLRenderingContext = (function () {
         conch.bf.wf32(green);
         conch.bf.wf32(blue);
         conch.bf.wf32(alpha);
-    };
-    WebGLRenderingContext.prototype.createTexture = function (invalidCallback, restoreCallback) {
+    }
+    createTexture(invalidCallback, restoreCallback) {
         var fadeID = this.createFadeID();
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(22);
         conch.bf.wu32(fadeID);
         return fadeID;
-    };
-    WebGLRenderingContext.prototype.bindTexture = function (target, texture) {
+    }
+    bindTexture(target, texture) {
         conch.bf.needsz(16);
         conch.bf.wu32(this.id);
         conch.bf.wu32(23);
         conch.bf.wu32(target);
         conch.bf.wu32(texture);
         this.currentTextureID = texture;
-    };
-    WebGLRenderingContext.prototype.pixelStorei = function (pname, param) {
+    }
+    pixelStorei(pname, param) {
         conch.bf.needsz(16);
         conch.bf.wu32(this.id);
         conch.bf.wu32(24);
         conch.bf.wu32(pname);
         conch.bf.wu32(param);
-    };
-    WebGLRenderingContext.prototype.texImage2D = function (target, level, internalformat, width, height, border, format, type, pixels) {
+    }
+    texImage2D(target, level, internalformat, width, height, border, format, type, pixels) {
         if (arguments.length == 9) {
             this.texImage2DEx(false, target, level, internalformat, width, height, border, format, type, pixels);
         }
         else if (arguments.length == 6) {
             this.texImage2DEx(false, target, level, internalformat, width, height, border);
         }
-    };
-    WebGLRenderingContext.prototype.texImage2DEx = function (premultiplyAlpha, target, level, internalformat, width, height, border, format, type, pixels) {
+    }
+    texImage2DEx(premultiplyAlpha, target, level, internalformat, width, height, border, format, type, pixels) {
         if (arguments.length == 10) {
             conch.bf.needsz(42);
             conch.bf.wu32(this.id);
@@ -4722,16 +4424,16 @@ var WebGLRenderingContext = (function () {
                 conch.bf.wu32(-1);
             }
         }
-    };
-    WebGLRenderingContext.prototype.texSubImage2D = function (target, level, xoffset, yoffset, format, type, source) {
+    }
+    texSubImage2D(target, level, xoffset, yoffset, format, type, source) {
         if (arguments.length == 6) {
             this.texSubImage2DEx(false, target, level, xoffset, yoffset, format, type);
         }
         else if (arguments.length == 7) {
             this.texSubImage2DEx(false, target, level, xoffset, yoffset, format, type, source);
         }
-    };
-    WebGLRenderingContext.prototype.texSubImage2DEx = function (premultiplyAlpha, target, level, xoffset, yoffset, format, type, source) {
+    }
+    texSubImage2DEx(premultiplyAlpha, target, level, xoffset, yoffset, format, type, source) {
         conch.bf.needsz(42);
         conch.bf.wu32(this.id);
         conch.bf.wu32(27);
@@ -4766,63 +4468,63 @@ var WebGLRenderingContext = (function () {
             conch.bf.wu32(0);
             conch.bf.wu32(-1);
         }
-    };
-    WebGLRenderingContext.prototype.texParameterf = function (target, pname, param) {
+    }
+    texParameterf(target, pname, param) {
         conch.bf.needsz(20);
         conch.bf.wu32(this.id);
         conch.bf.wu32(28);
         conch.bf.wu32(target);
         conch.bf.wu32(pname);
         conch.bf.wf32(param);
-    };
-    WebGLRenderingContext.prototype.texParameteri = function (target, pname, param) {
+    }
+    texParameteri(target, pname, param) {
         conch.bf.needsz(20);
         conch.bf.wu32(this.id);
         conch.bf.wu32(29);
         conch.bf.wu32(target);
         conch.bf.wu32(pname);
         conch.bf.wu32(param);
-    };
-    WebGLRenderingContext.prototype.activeTexture = function (texture) {
+    }
+    activeTexture(texture) {
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(30);
         conch.bf.wu32(texture);
-    };
-    WebGLRenderingContext.prototype.getShaderInfoLog = function (shader) {
+    }
+    getShaderInfoLog(shader) {
         return "unknown log";
-    };
-    WebGLRenderingContext.prototype.uniform1f = function (location, x) {
+    }
+    uniform1f(location, x) {
         conch.bf.needsz(16);
         conch.bf.wu32(this.id);
         conch.bf.wu32(32);
         conch.bf.wu32(location);
         conch.bf.wf32(x);
-    };
-    WebGLRenderingContext.prototype.uniform1i = function (location, x) {
+    }
+    uniform1i(location, x) {
         conch.bf.needsz(16);
         conch.bf.wu32(this.id);
         conch.bf.wu32(33);
         conch.bf.wu32(location);
         conch.bf.wu32(x);
-    };
-    WebGLRenderingContext.prototype.uniform2f = function (location, x, y) {
+    }
+    uniform2f(location, x, y) {
         conch.bf.needsz(20);
         conch.bf.wu32(this.id);
         conch.bf.wu32(34);
         conch.bf.wu32(location);
         conch.bf.wf32(x);
         conch.bf.wf32(y);
-    };
-    WebGLRenderingContext.prototype.uniform2i = function (location, x, y) {
+    }
+    uniform2i(location, x, y) {
         conch.bf.needsz(20);
         conch.bf.wu32(this.id);
         conch.bf.wu32(35);
         conch.bf.wu32(location);
         conch.bf.wu32(x);
         conch.bf.wu32(y);
-    };
-    WebGLRenderingContext.prototype.uniform3f = function (location, x, y, z) {
+    }
+    uniform3f(location, x, y, z) {
         conch.bf.needsz(24);
         conch.bf.wu32(this.id);
         conch.bf.wu32(36);
@@ -4830,8 +4532,8 @@ var WebGLRenderingContext = (function () {
         conch.bf.wf32(x);
         conch.bf.wf32(y);
         conch.bf.wf32(z);
-    };
-    WebGLRenderingContext.prototype.uniform3i = function (location, x, y, z) {
+    }
+    uniform3i(location, x, y, z) {
         conch.bf.needsz(24);
         conch.bf.wu32(this.id);
         conch.bf.wu32(37);
@@ -4839,8 +4541,8 @@ var WebGLRenderingContext = (function () {
         conch.bf.wu32(x);
         conch.bf.wu32(y);
         conch.bf.wu32(z);
-    };
-    WebGLRenderingContext.prototype.uniform4f = function (location, x, y, z, w) {
+    }
+    uniform4f(location, x, y, z, w) {
         conch.bf.needsz(28);
         conch.bf.wu32(this.id);
         conch.bf.wu32(38);
@@ -4849,8 +4551,8 @@ var WebGLRenderingContext = (function () {
         conch.bf.wf32(y);
         conch.bf.wf32(z);
         conch.bf.wf32(w);
-    };
-    WebGLRenderingContext.prototype.uniform4i = function (location, x, y, z, w) {
+    }
+    uniform4i(location, x, y, z, w) {
         conch.bf.needsz(28);
         conch.bf.wu32(this.id);
         conch.bf.wu32(39);
@@ -4859,32 +4561,32 @@ var WebGLRenderingContext = (function () {
         conch.bf.wu32(y);
         conch.bf.wu32(z);
         conch.bf.wu32(w);
-    };
-    WebGLRenderingContext.prototype.uniform1fv = function (location, v) {
+    }
+    uniform1fv(location, v) {
         this.uniformxv(40, location, v);
-    };
-    WebGLRenderingContext.prototype.uniform1iv = function (location, v) {
+    }
+    uniform1iv(location, v) {
         this.uniformxv(41, location, v);
-    };
-    WebGLRenderingContext.prototype.uniform2fv = function (location, v) {
+    }
+    uniform2fv(location, v) {
         this.uniformxv(42, location, v);
-    };
-    WebGLRenderingContext.prototype.uniform2iv = function (location, v) {
+    }
+    uniform2iv(location, v) {
         this.uniformxv(43, location, v);
-    };
-    WebGLRenderingContext.prototype.uniform3fv = function (location, v) {
+    }
+    uniform3fv(location, v) {
         this.uniformxv(44, location, v);
-    };
-    WebGLRenderingContext.prototype.uniform3iv = function (location, v) {
+    }
+    uniform3iv(location, v) {
         this.uniformxv(45, location, v);
-    };
-    WebGLRenderingContext.prototype.uniform4fv = function (location, v) {
+    }
+    uniform4fv(location, v) {
         this.uniformxv(46, location, v);
-    };
-    WebGLRenderingContext.prototype.uniform4iv = function (location, v) {
+    }
+    uniform4iv(location, v) {
         this.uniformxv(47, location, v);
-    };
-    WebGLRenderingContext.prototype.uniformxv = function (cmd, location, v) {
+    }
+    uniformxv(cmd, location, v) {
         conch.bf.needsz(16);
         conch.bf.wu32(this.id);
         conch.bf.wu32(cmd);
@@ -4892,8 +4594,8 @@ var WebGLRenderingContext = (function () {
         var length = v.byteLength;
         conch.bf.wu32(length);
         conch.bf.wab(v, length);
-    };
-    WebGLRenderingContext.prototype._uniformMatrixfv_x = function (cmd, location, transpose, values, number) {
+    }
+    _uniformMatrixfv_x(cmd, location, transpose, values, number) {
         conch.bf.needsz(20);
         conch.bf.wu32(this.id);
         conch.bf.wu32(cmd);
@@ -4914,17 +4616,17 @@ var WebGLRenderingContext = (function () {
         }
         conch.bf.wu32(length);
         conch.bf.wab(values, length);
-    };
-    WebGLRenderingContext.prototype.uniformMatrix2fv = function (location, transpose, values, number) {
+    }
+    uniformMatrix2fv(location, transpose, values, number) {
         this._uniformMatrixfv_x(48, location, transpose, values, number);
-    };
-    WebGLRenderingContext.prototype.uniformMatrix3fv = function (location, transpose, values, number) {
+    }
+    uniformMatrix3fv(location, transpose, values, number) {
         this._uniformMatrixfv_x(49, location, transpose, values, number);
-    };
-    WebGLRenderingContext.prototype.uniformMatrix4fv = function (location, transpose, values, number) {
+    }
+    uniformMatrix4fv(location, transpose, values, number) {
         this._uniformMatrixfv_x(50, location, transpose, values, number);
-    };
-    WebGLRenderingContext.prototype.vertexAttribPointer = function (index, size, type, normalized, stride, offset) {
+    }
+    vertexAttribPointer(index, size, type, normalized, stride, offset) {
         conch.bf.needsz(32);
         conch.bf.wu32(this.id);
         conch.bf.wu32(51);
@@ -4934,21 +4636,21 @@ var WebGLRenderingContext = (function () {
         conch.bf.wu32(normalized);
         conch.bf.wu32(stride);
         conch.bf.wu32(offset);
-    };
-    WebGLRenderingContext.prototype.enableVertexAttribArray = function (index) {
+    }
+    enableVertexAttribArray(index) {
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(52);
         conch.bf.wu32(index);
-    };
-    WebGLRenderingContext.prototype.blendFunc = function (sfactor, dfactor) {
+    }
+    blendFunc(sfactor, dfactor) {
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(53);
         conch.bf.wu16(sfactor);
         conch.bf.wu16(dfactor);
-    };
-    WebGLRenderingContext.prototype.bufferSubData = function (target, offset, data) {
+    }
+    bufferSubData(target, offset, data) {
         conch.bf.needsz(20);
         conch.bf.wu32(this.id);
         conch.bf.wu32(54);
@@ -4957,8 +4659,8 @@ var WebGLRenderingContext = (function () {
         var length = data.byteLength;
         conch.bf.wu32(length);
         conch.bf.wab(data, length, 0);
-    };
-    WebGLRenderingContext.prototype.drawElements = function (mode, count, type, offset) {
+    }
+    drawElements(mode, count, type, offset) {
         conch.bf.needsz(24);
         conch.bf.wu32(this.id);
         conch.bf.wu32(55);
@@ -4966,45 +4668,45 @@ var WebGLRenderingContext = (function () {
         conch.bf.wu32(count);
         conch.bf.wu32(type);
         conch.bf.wu32(offset);
-    };
-    WebGLRenderingContext.prototype.deleteTexture = function (texture) {
+    }
+    deleteTexture(texture) {
         this.deleteFadeID(texture);
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(56);
         conch.bf.wu32(texture);
-    };
-    WebGLRenderingContext.prototype.drawArrays = function (mode, first, count) {
+    }
+    drawArrays(mode, first, count) {
         conch.bf.needsz(20);
         conch.bf.wu32(this.id);
         conch.bf.wu32(57);
         conch.bf.wu32(mode);
         conch.bf.wu32(first);
         conch.bf.wu32(count);
-    };
-    WebGLRenderingContext.prototype.bindAttribLocation = function (program, index, name) {
+    }
+    bindAttribLocation(program, index, name) {
         conch.bf.needsz(20);
         conch.bf.wu32(this.id);
         conch.bf.wu32(58);
         conch.bf.wu32(program);
         conch.bf.wu32(index);
         conch.bf.wstring(name, true);
-    };
-    WebGLRenderingContext.prototype.cullFace = function (mode) {
+    }
+    cullFace(mode) {
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(59);
         conch.bf.wu32(mode);
-    };
-    WebGLRenderingContext.prototype.createFramebuffer = function () {
+    }
+    createFramebuffer() {
         var fadeID = this.createFadeID();
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(60);
         conch.bf.wu32(fadeID);
         return fadeID;
-    };
-    WebGLRenderingContext.prototype.getParameter = function (pname) {
+    }
+    getParameter(pname) {
         conch.bf.needsz(16);
         conch.bf.wu32(this.id);
         conch.bf.wu32(61);
@@ -5015,105 +4717,105 @@ var WebGLRenderingContext = (function () {
         }
         conch.bf.wu32(fadeValue);
         return fadeValue;
-    };
-    WebGLRenderingContext.prototype.bindFramebuffer = function (target, framebuffer) {
+    }
+    bindFramebuffer(target, framebuffer) {
         this.curFBO = framebuffer;
         conch.bf.needsz(16);
         conch.bf.wu32(this.id);
         conch.bf.wu32(62);
         conch.bf.wu32(target);
         conch.bf.wu32(framebuffer);
-    };
-    WebGLRenderingContext.prototype.depthFunc = function (func) {
+    }
+    depthFunc(func) {
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(63);
         conch.bf.wu32(func);
-    };
-    WebGLRenderingContext.prototype.depthMask = function (flag) {
+    }
+    depthMask(flag) {
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(64);
         conch.bf.wu32(flag);
-    };
-    WebGLRenderingContext.prototype.depthRange = function (zNear, zFar) {
+    }
+    depthRange(zNear, zFar) {
         conch.bf.needsz(16);
         conch.bf.wu32(this.id);
         conch.bf.wu32(65);
         conch.bf.wf32(zNear);
         conch.bf.wf32(zFar);
-    };
-    WebGLRenderingContext.prototype.stencilFunc = function (func, ref, mask) {
+    }
+    stencilFunc(func, ref, mask) {
         conch.bf.needsz(20);
         conch.bf.wu32(this.id);
         conch.bf.wu32(66);
         conch.bf.wu32(func);
         conch.bf.wu32(ref);
         conch.bf.wu32(mask);
-    };
-    WebGLRenderingContext.prototype.stencilMask = function (mask) {
+    }
+    stencilMask(mask) {
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(67);
         conch.bf.wu32(mask);
-    };
-    WebGLRenderingContext.prototype.stencilOp = function (fail, zfail, zpass) {
+    }
+    stencilOp(fail, zfail, zpass) {
         conch.bf.needsz(20);
         conch.bf.wu32(this.id);
         conch.bf.wu32(68);
         conch.bf.wu32(fail);
         conch.bf.wu32(zfail);
         conch.bf.wu32(zpass);
-    };
-    WebGLRenderingContext.prototype.deleteBuffer = function (buffer) {
+    }
+    deleteBuffer(buffer) {
         this.deleteFadeID(buffer);
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(69);
         conch.bf.wu32(buffer);
-    };
-    WebGLRenderingContext.prototype.deleteFramebuffer = function (framebuffer) {
+    }
+    deleteFramebuffer(framebuffer) {
         this.deleteFadeID(framebuffer);
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(70);
         conch.bf.wu32(framebuffer);
-    };
-    WebGLRenderingContext.prototype.deleteProgram = function (program) {
+    }
+    deleteProgram(program) {
         this.deleteFadeID(program);
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(71);
         conch.bf.wu32(program);
-    };
-    WebGLRenderingContext.prototype.deleteRenderbuffer = function (renderbuffer) {
+    }
+    deleteRenderbuffer(renderbuffer) {
         this.deleteFadeID(renderbuffer);
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(72);
         conch.bf.wu32(renderbuffer);
-    };
-    WebGLRenderingContext.prototype.deleteShader = function (shader) {
+    }
+    deleteShader(shader) {
         this.deleteFadeID(shader);
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(73);
         conch.bf.wu32(shader);
-    };
-    WebGLRenderingContext.prototype.isBuffer = function (buffer) {
+    }
+    isBuffer(buffer) {
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(74);
         conch.bf.wu32(buffer);
         return true;
-    };
-    WebGLRenderingContext.prototype.disableVertexAttribArray = function (index) {
+    }
+    disableVertexAttribArray(index) {
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(75);
         conch.bf.wu32(index);
-    };
-    WebGLRenderingContext.prototype.scissor = function (x, y, width, height) {
+    }
+    scissor(x, y, width, height) {
         if (!this.curFBO && this.__priv_canvas._hasTransform) {
             var t = this.__priv_canvas._tranform;
             width *= t[0];
@@ -5128,14 +4830,14 @@ var WebGLRenderingContext = (function () {
         conch.bf.wu32(y);
         conch.bf.wu32(width);
         conch.bf.wu32(height);
-    };
-    WebGLRenderingContext.prototype.generateMipmap = function (target) {
+    }
+    generateMipmap(target) {
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(77);
         conch.bf.wu32(target);
-    };
-    WebGLRenderingContext.prototype.framebufferTexture2D = function (target, attachment, textarget, texture, level) {
+    }
+    framebufferTexture2D(target, attachment, textarget, texture, level) {
         conch.bf.needsz(28);
         conch.bf.wu32(this.id);
         conch.bf.wu32(78);
@@ -5144,8 +4846,8 @@ var WebGLRenderingContext = (function () {
         conch.bf.wu32(textarget);
         conch.bf.wu32(texture);
         conch.bf.wu32(level);
-    };
-    WebGLRenderingContext.prototype.checkFramebufferStatus = function (target) {
+    }
+    checkFramebufferStatus(target) {
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(79);
@@ -5154,8 +4856,8 @@ var WebGLRenderingContext = (function () {
             return this.FRAMEBUFFER_COMPLETE;
         }
         return 0;
-    };
-    WebGLRenderingContext.prototype.createRenderbuffer = function () {
+    }
+    createRenderbuffer() {
         var _ = conch.bf;
         var fadeID = this.createFadeID();
         _.needsz(12);
@@ -5163,16 +4865,16 @@ var WebGLRenderingContext = (function () {
         _.wu32(80);
         _.wu32(fadeID);
         return fadeID;
-    };
-    WebGLRenderingContext.prototype.bindRenderbuffer = function (target, buffer) {
+    }
+    bindRenderbuffer(target, buffer) {
         var _ = conch.bf;
         _.needsz(16);
         _.wu32(this.id);
         _.wu32(81);
         _.wu32(target);
         _.wu32(buffer);
-    };
-    WebGLRenderingContext.prototype.renderbufferStorage = function (target, internalformat, width, height) {
+    }
+    renderbufferStorage(target, internalformat, width, height) {
         var _ = conch.bf;
         _.needsz(24);
         _.wu32(this.id);
@@ -5181,8 +4883,8 @@ var WebGLRenderingContext = (function () {
         _.wu32(internalformat);
         _.wu32(width);
         _.wu32(height);
-    };
-    WebGLRenderingContext.prototype.framebufferRenderbuffer = function (target, attachment, renderbuffertarget, buffer) {
+    }
+    framebufferRenderbuffer(target, attachment, renderbuffertarget, buffer) {
         var _ = conch.bf;
         _.needsz(24);
         _.wu32(this.id);
@@ -5191,8 +4893,8 @@ var WebGLRenderingContext = (function () {
         _.wu32(attachment);
         _.wu32(renderbuffertarget);
         _.wu32(buffer);
-    };
-    WebGLRenderingContext.prototype.blendFuncSeparate = function (srcRGB, dstRGB, srcAlpha, dstAlpha) {
+    }
+    blendFuncSeparate(srcRGB, dstRGB, srcAlpha, dstAlpha) {
         var _ = conch.bf;
         _.needsz(16);
         _.wu32(this.id);
@@ -5201,187 +4903,144 @@ var WebGLRenderingContext = (function () {
         _.wu16(dstRGB);
         _.wu16(srcAlpha);
         _.wu16(dstAlpha);
-    };
-    WebGLRenderingContext.prototype.frontFace = function (mode) {
+    }
+    frontFace(mode) {
         conch.bf.needsz(12);
         conch.bf.wu32(this.id);
         conch.bf.wu32(85);
         conch.bf.wu32(mode);
-    };
-    WebGLRenderingContext.prototype.getProgramParameterEx = function (vs, ps, define, pname) {
+    }
+    getProgramParameterEx(vs, ps, define, pname) {
         return this._nativeObj.getProgramParameterEx(vs, ps, define, pname);
-    };
-    WebGLRenderingContext.prototype.getActiveAttribEx = function (vs, ps, define, index) {
+    }
+    getActiveAttribEx(vs, ps, define, index) {
         return this._nativeObj.getActiveAttribEx(vs, ps, define, index);
-    };
-    WebGLRenderingContext.prototype.getActiveUniformEx = function (vs, ps, define, index) {
+    }
+    getActiveUniformEx(vs, ps, define, index) {
         return this._nativeObj.getActiveUniformEx(vs, ps, define, index);
-    };
-    return WebGLRenderingContext;
-}());
-var CSSStyleDeclaration = (function () {
-    function CSSStyleDeclaration() {
+    }
+}
+class CSSStyleDeclaration {
+    constructor() {
         this._transform = new Float32Array([1, 0, 0, 1, 0, 0]);
         this._styleNumber = 0;
     }
-    Object.defineProperty(CSSStyleDeclaration.prototype, "length", {
-        get: function () {
-            return this._styleNumber;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    CSSStyleDeclaration.prototype.getPropertyPriority = function (propertyName) {
+    get length() {
+        return this._styleNumber;
+    }
+    getPropertyPriority(propertyName) {
         return '';
-    };
-    CSSStyleDeclaration.prototype.getPropertyValue = function (propertyName) {
+    }
+    getPropertyValue(propertyName) {
         return '';
-    };
-    CSSStyleDeclaration.prototype.item = function (index) {
+    }
+    item(index) {
         return '';
-    };
-    CSSStyleDeclaration.prototype.removeProperty = function (propertyName) {
+    }
+    removeProperty(propertyName) {
         return '';
-    };
-    CSSStyleDeclaration.prototype.setProperty = function (propertyName, value, priority) {
-    };
-    Object.defineProperty(CSSStyleDeclaration.prototype, "left", {
-        set: function (l) {
-            var nl = parseInt(l);
-            this._htmlEle.clientLeft = nl;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CSSStyleDeclaration.prototype, "top", {
-        set: function (t) {
-            var nt = parseInt(t);
-            this._htmlEle.clientTop = nt;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CSSStyleDeclaration.prototype, "height", {
-        set: function (h) {
-            var nh = parseInt(h);
-            this._htmlEle.clientHeight = nh;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CSSStyleDeclaration.prototype, "width", {
-        set: function (w) {
-            var nw = parseInt(w);
-            this._htmlEle.clientWidth = nw;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CSSStyleDeclaration.prototype, "transform", {
-        set: function (trans) {
-            var s1 = trans.split(/[\(,\)]/);
-            if (s1 && s1.length > 2) {
-                if (s1[0] === 'matrix') {
-                    if (s1.length >= 7) {
-                        this._transform[0] = 1 * s1[1];
-                        this._transform[1] = 1 * s1[2];
-                        this._transform[2] = 1 * s1[3];
-                        this._transform[3] = 1 * s1[4];
-                        this._transform[4] = 1 * s1[5];
-                        this._transform[5] = 1 * s1[6];
-                        if (this._htmlEle && this._htmlEle.onCSS_Transform) {
-                            this._htmlEle.onCSS_Transform(this._transform);
-                        }
-                    }
-                    else if (s1[0] === 'scale') {
-                        alert('css scale not implemented');
+    }
+    setProperty(propertyName, value, priority) {
+    }
+    set left(l) {
+        var nl = parseInt(l);
+        this._htmlEle.clientLeft = nl;
+    }
+    set top(t) {
+        var nt = parseInt(t);
+        this._htmlEle.clientTop = nt;
+    }
+    set height(h) {
+    }
+    get height() {
+        return this._htmlEle.clientHeight;
+    }
+    set width(w) {
+    }
+    get width() {
+        return this._htmlEle.clientWidth;
+    }
+    set transform(trans) {
+        var s1 = trans.split(/[\(,\)]/);
+        if (s1 && s1.length > 2) {
+            if (s1[0] === 'matrix') {
+                if (s1.length >= 7) {
+                    this._transform[0] = 1 * s1[1];
+                    this._transform[1] = 1 * s1[2];
+                    this._transform[2] = 1 * s1[3];
+                    this._transform[3] = 1 * s1[4];
+                    this._transform[4] = 1 * s1[5];
+                    this._transform[5] = 1 * s1[6];
+                    if (this._htmlEle && this._htmlEle.onCSS_Transform) {
+                        this._htmlEle.onCSS_Transform(this._transform);
                     }
                 }
+                else if (s1[0] === 'scale') {
+                    alert('css scale not implemented');
+                }
             }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return CSSStyleDeclaration;
-}());
-var HTMLElement = (function (_super) {
-    __extends(HTMLElement, _super);
-    function HTMLElement() {
-        var _this = _super.call(this) || this;
-        _this.style = new CSSStyleDeclaration();
-        _this.style._htmlEle = _this;
-        return _this;
+        }
     }
-    HTMLElement.prototype.onCSS_Transform = function (mat) { };
+}
+class HTMLElement extends Element {
+    constructor() {
+        super();
+        this.style = new CSSStyleDeclaration();
+        this.style._htmlEle = this;
+    }
+    onCSS_Transform(mat) { }
     ;
-    HTMLElement.prototype.onerror = function (ev) {
-    };
-    HTMLElement.prototype.onload = function (ev) {
-    };
-    return HTMLElement;
-}(Element));
+    onerror(ev) {
+    }
+    onload(ev) {
+    }
+}
 window["HTMLElement"] = HTMLElement;
-var HTMLDivElement = (function (_super) {
-    __extends(HTMLDivElement, _super);
-    function HTMLDivElement() {
-        var _this = _super.call(this) || this;
-        _this.tagName = "DIV";
-        return _this;
+class HTMLDivElement extends HTMLElement {
+    constructor() {
+        super();
+        this.tagName = "DIV";
     }
-    return HTMLDivElement;
-}(HTMLElement));
-var HTMLScriptElement = (function (_super) {
-    __extends(HTMLScriptElement, _super);
-    function HTMLScriptElement() {
-        var _this = _super.call(this) || this;
-        _this.tagName = "SCRIPT";
-        return _this;
+}
+class HTMLScriptElement extends HTMLElement {
+    constructor() {
+        super();
+        this.tagName = "SCRIPT";
     }
-    Object.defineProperty(HTMLScriptElement.prototype, "src", {
-        get: function () {
-            return this._src;
-        },
-        set: function (url) {
-            var _t = this;
-            this._src = location.resolve(url);
-            console.log("HTMLScriptElement set src" + this._src);
-            document.uploadScript({ "src": this._src, "obj": this });
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLScriptElement.prototype, "text", {
-        get: function () {
-            return this._text;
-        },
-        set: function (t) {
-            this._text = t;
-            document.uploadScript({ "text": this._text, "obj": this });
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return HTMLScriptElement;
-}(HTMLElement));
-var HTMLCanvasElement = (function (_super) {
-    __extends(HTMLCanvasElement, _super);
-    function HTMLCanvasElement() {
-        var _this = _super.call(this) || this;
-        _this._isFirst = false;
-        _this._tranform = null;
-        _this._hasTransform = false;
-        _this._clientRect = { left: 0, top: 0, width: 0, height: 0, right: 0, bottom: 0 };
-        _this.clientLeft;
-        _this.tagName = "CANVAS";
+    set src(url) {
+        var _t = this;
+        this._src = location.resolve(url);
+        console.log("HTMLScriptElement set src" + this._src);
+        document.uploadScript({ "src": this._src, "obj": this });
+    }
+    get src() {
+        return this._src;
+    }
+    set text(t) {
+        this._text = t;
+        document.uploadScript({ "text": this._text, "obj": this });
+    }
+    get text() {
+        return this._text;
+    }
+}
+class HTMLCanvasElement extends HTMLElement {
+    constructor() {
+        super();
+        this._isFirst = false;
+        this._tranform = null;
+        this._hasTransform = false;
+        this._clientRect = { left: 0, top: 0, width: 0, height: 0, right: 0, bottom: 0 };
+        this.clientLeft;
+        this.tagName = "CANVAS";
         if (HTMLCanvasElement._isFirstCanv) {
-            _this._isFirst = true;
+            this._isFirst = true;
             HTMLCanvasElement._isFirstCanv = false;
             if (HTMLCanvasElement.rootContext)
                 return HTMLCanvasElement.rootContext["canvas"];
         }
-        return _this;
     }
-    HTMLCanvasElement.prototype.getBoundingClientRect = function () {
+    getBoundingClientRect() {
         var cr = this._clientRect;
         if (this._hasTransform) {
             cr.width = this._width * this._tranform[0];
@@ -5396,8 +5055,8 @@ var HTMLCanvasElement = (function (_super) {
             cr.bottom = cr.height = this.height;
         }
         return cr;
-    };
-    HTMLCanvasElement.prototype.getContext = function (contextId) {
+    }
+    getContext(contextId) {
         if (contextId === '2d') {
             if (this._ctx2d)
                 return this._ctx2d;
@@ -5433,8 +5092,8 @@ var HTMLCanvasElement = (function (_super) {
             ctx2d.setCanvasType(0);
         }
         return null;
-    };
-    HTMLCanvasElement.prototype.onCSS_Transform = function (mat) {
+    }
+    onCSS_Transform(mat) {
         this._tranform = mat;
         this._hasTransform = true;
         var e = new Event('csstransform');
@@ -5450,109 +5109,86 @@ var HTMLCanvasElement = (function (_super) {
                 console.warn("设置横竖屏错误! 请在初始html页面meta中设置screenorientation为竖屏portrait");
             }
         }
-    };
-    HTMLCanvasElement.prototype.toDataURL = function (type) {
+    }
+    toDataURL(type) {
         return null;
-    };
-    HTMLCanvasElement.prototype.setSize = function (w, h) {
+    }
+    setSize(w, h) {
         this._width = w;
         this._height = h;
         this._ctx2d && this._ctx2d.setSize(w, h);
-    };
-    Object.defineProperty(HTMLCanvasElement.prototype, "width", {
-        get: function () {
-            return this._width;
-        },
-        set: function (w) {
-            if (this._isFirst && HTMLCanvasElement.RS) {
-                this._w = w;
-                return;
-            }
-            if (this._width != w) {
-                this._width = w;
-                this._ctx2d && this._ctx2d.setSize(this._width, this._height);
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLCanvasElement.prototype, "height", {
-        get: function () {
-            return this._height;
-        },
-        set: function (h) {
-            if (this._isFirst && HTMLCanvasElement.RS) {
-                this._h = h;
-                return;
-            }
-            if (this._height != h) {
-                this._height = h;
-                this._ctx2d && this._ctx2d.setSize(this._width, this._height);
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLCanvasElement.prototype, "clientWidth", {
-        get: function () {
-            return this._width;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLCanvasElement.prototype, "clientHeight", {
-        get: function () {
-            return this._height;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    HTMLCanvasElement.prototype.toBase64 = function (type, encoderOptions, callback) {
+    }
+    set width(w) {
+        if (this._isFirst && HTMLCanvasElement.RS) {
+            this._w = w;
+            return;
+        }
+        if (this._width != w) {
+            this._width = w;
+            this._ctx2d && this._ctx2d.setSize(this._width, this._height);
+        }
+    }
+    get width() {
+        return this._width;
+    }
+    set height(h) {
+        if (this._isFirst && HTMLCanvasElement.RS) {
+            this._h = h;
+            return;
+        }
+        if (this._height != h) {
+            this._height = h;
+            this._ctx2d && this._ctx2d.setSize(this._width, this._height);
+        }
+    }
+    get height() {
+        return this._height;
+    }
+    get clientWidth() {
+        return this._width;
+    }
+    get clientHeight() {
+        return this._height;
+    }
+    toBase64(type, encoderOptions, callback) {
         if (this._ctx2d) {
             this._ctx2d.toBase64(type, encoderOptions, callback);
         }
-    };
-    HTMLCanvasElement.prototype.getPixels = function (x, y, w, h, callBack) {
+    }
+    getPixels(x, y, w, h, callBack) {
         if (this._ctx2d) {
             this._ctx2d.getPixels(x, y, w, h, callBack);
         }
-    };
-    HTMLCanvasElement._isFirstCanv = true;
-    return HTMLCanvasElement;
-}(HTMLElement));
-window.HTMLCanvasElement = HTMLCanvasElement;
-var HTMLImageElement = (function (_super) {
-    __extends(HTMLImageElement, _super);
-    function HTMLImageElement() {
-        var _this = _super.call(this) || this;
-        _this._nativeObj = null;
-        _this.complete = false;
-        _this._enableMerageInAtlas = true;
-        _this.tagName = 'IMG';
-        _this._nativeObj = new image();
-        _this._nativeObj.srcs = 0;
-        _this._nativeObj.obj = _this;
-        return _this;
     }
-    Object.defineProperty(HTMLImageElement.prototype, "src", {
-        get: function () {
-            return this._nativeObj.src;
-        },
-        set: function (url) {
-            this._nativeObj.onerror = this._nativeOnError;
-            this._nativeObj.onload = this._nativeOnload;
-            this._nativeObj.srcs = this._nativeObj.srcs || 0;
-            if (this._nativeObj.srcs == 0) {
-                this._nativeObj.obj = this;
-            }
-            this._nativeObj.srcs++;
-            url = location.resolve(url);
-            this._nativeObj.setSrc(url);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    HTMLImageElement.prototype._nativeOnload = function () {
+}
+HTMLCanvasElement._isFirstCanv = true;
+window.HTMLCanvasElement = HTMLCanvasElement;
+class HTMLImageElement extends HTMLElement {
+    constructor() {
+        super();
+        this._nativeObj = null;
+        this.complete = false;
+        this._enableMerageInAtlas = true;
+        this.tagName = 'IMG';
+        this._nativeObj = new image();
+        this._nativeObj.srcs = 0;
+        this._nativeObj.obj = this;
+    }
+    set src(url) {
+        this._nativeObj.onerror = this._nativeOnError;
+        this._nativeObj.onload = this._nativeOnload;
+        this._nativeObj.srcs = this._nativeObj.srcs || 0;
+        if (this._nativeObj.srcs == 0) {
+            this._nativeObj.obj = this;
+        }
+        this._nativeObj.srcs++;
+        url = location.resolve(url);
+        this._nativeObj.setSrc(url);
+    }
+    get src() {
+        return this._nativeObj.src;
+    }
+    _nativeOnload() {
         this.srcs = this.srcs || 1;
         this.srcs--;
         var temp = this.obj;
@@ -5564,8 +5200,8 @@ var HTMLImageElement = (function (_super) {
         if (this.srcs == 0) {
             this.obj = null;
         }
-    };
-    HTMLImageElement.prototype._nativeOnError = function (e) {
+    }
+    _nativeOnError(e) {
         this.srcs = this.srcs || 1;
         this.srcs--;
         var temp = this.obj;
@@ -5581,344 +5217,234 @@ var HTMLImageElement = (function (_super) {
         if (this.srcs == 0) {
             this.obj = null;
         }
-    };
-    Object.defineProperty(HTMLImageElement.prototype, "width", {
-        get: function () {
-            if (this._nativeObj)
-                return this._nativeObj.width;
-            return 0;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLImageElement.prototype, "height", {
-        get: function () {
-            if (this._nativeObj)
-                return this._nativeObj.height;
-            return 0;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLImageElement.prototype, "imgId", {
-        get: function () {
-            return this._nativeObj.conchImgId;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    HTMLImageElement.prototype.putImageData = function (data, w, h) {
+    }
+    get width() {
+        if (this._nativeObj)
+            return this._nativeObj.width;
+        return 0;
+    }
+    get height() {
+        if (this._nativeObj)
+            return this._nativeObj.height;
+        return 0;
+    }
+    get imgId() {
+        return this._nativeObj.conchImgId;
+    }
+    putImageData(data, w, h) {
         this._nativeObj.putBitmapData(data, w, h);
-    };
-    HTMLImageElement.prototype.getImageData = function (sx, sy, sw, sh) {
+    }
+    getImageData(sx, sy, sw, sh) {
         return this._nativeObj.getImageData(sx, sy, sw, sh);
-    };
-    HTMLImageElement.prototype.conchDestroy = function () {
+    }
+    conchDestroy() {
         this._nativeObj.destroy();
-    };
-    Object.defineProperty(HTMLImageElement.prototype, "enableMerageInAtlas", {
-        get: function () {
-            return this._enableMerageInAtlas;
-        },
-        set: function (value) {
-            this._enableMerageInAtlas = value;
-            this._nativeObj.enableMerageInAtlas(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    HTMLImageElement.prototype.releaseTexture = function () {
+    }
+    set enableMerageInAtlas(value) {
+        this._enableMerageInAtlas = value;
+        this._nativeObj.enableMerageInAtlas(value);
+    }
+    get enableMerageInAtlas() {
+        return this._enableMerageInAtlas;
+    }
+    releaseTexture() {
         this._nativeObj.releaseTexture();
-    };
-    return HTMLImageElement;
-}(HTMLElement));
-var HTMLInputElement = (function (_super) {
-    __extends(HTMLInputElement, _super);
-    function HTMLInputElement() {
-        var _this = _super.call(this) || this;
-        _this.tagName = "Input";
-        _this._nativeObj = new ConchInput();
-        _this.setLeft = _this._nativeObj.setLeft.bind(_this._nativeObj);
-        _this.setTop = _this._nativeObj.setTop.bind(_this._nativeObj);
-        _this.setWidth = _this._nativeObj.setWidth.bind(_this._nativeObj);
-        _this.setHeight = _this._nativeObj.setHeight.bind(_this._nativeObj);
-        _this.setOpacity = _this._nativeObj.setOpacity.bind(_this._nativeObj);
-        _this.setValue = _this._nativeObj.setValue.bind(_this._nativeObj);
-        _this.getValue = _this._nativeObj.getValue.bind(_this._nativeObj);
-        _this.setStyle = _this._nativeObj.setStyle.bind(_this._nativeObj);
-        _this.setVisible = _this._nativeObj.setVisible.bind(_this._nativeObj);
-        _this.focus = _this._nativeObj.focus.bind(_this._nativeObj);
-        _this.blur = _this._nativeObj.blur.bind(_this._nativeObj);
-        _this.setColor = _this._nativeObj.setColor.bind(_this._nativeObj);
-        _this.setFontSize = _this._nativeObj.setFontSize.bind(_this._nativeObj);
-        _this.setPos = _this._nativeObj.setPos.bind(_this._nativeObj);
-        _this.setSize = _this._nativeObj.setSize.bind(_this._nativeObj);
-        _this.setCursorPosition = _this._nativeObj.setCursorPosition.bind(_this._nativeObj);
-        _this.setScale = _this._nativeObj.setScale.bind(_this._nativeObj);
-        _this.setMaxLength = _this._nativeObj.setMaxLength.bind(_this._nativeObj);
-        _this.setType = _this._nativeObj.setType.bind(_this._nativeObj);
-        _this.setNumberOnly = _this._nativeObj.setNumberOnly.bind(_this._nativeObj);
-        _this.setRegular = _this._nativeObj.setRegular.bind(_this._nativeObj);
-        _this.setFont = _this._nativeObj.setFont.bind(_this._nativeObj);
-        _this.setMultiAble = _this._nativeObj.setMultiAble.bind(_this._nativeObj);
-        _this.setForbidEdit = _this._nativeObj.setForbidEdit.bind(_this._nativeObj);
-        if (_this._nativeObj.setBgColor) {
-            _this.setBgColor = _this._nativeObj.setBgColor.bind(_this._nativeObj);
+    }
+}
+class HTMLInputElement extends HTMLElement {
+    constructor() {
+        super();
+        this.tagName = "Input";
+        this._nativeObj = new ConchInput();
+        this.setLeft = this._nativeObj.setLeft.bind(this._nativeObj);
+        this.setTop = this._nativeObj.setTop.bind(this._nativeObj);
+        this.setWidth = this._nativeObj.setWidth.bind(this._nativeObj);
+        this.setHeight = this._nativeObj.setHeight.bind(this._nativeObj);
+        this.setOpacity = this._nativeObj.setOpacity.bind(this._nativeObj);
+        this.setValue = this._nativeObj.setValue.bind(this._nativeObj);
+        this.getValue = this._nativeObj.getValue.bind(this._nativeObj);
+        this.setStyle = this._nativeObj.setStyle.bind(this._nativeObj);
+        this.setVisible = this._nativeObj.setVisible.bind(this._nativeObj);
+        this.focus = this._nativeObj.focus.bind(this._nativeObj);
+        this.blur = this._nativeObj.blur.bind(this._nativeObj);
+        this.setColor = this._nativeObj.setColor.bind(this._nativeObj);
+        this.setFontSize = this._nativeObj.setFontSize.bind(this._nativeObj);
+        this.setPos = this._nativeObj.setPos.bind(this._nativeObj);
+        this.setSize = this._nativeObj.setSize.bind(this._nativeObj);
+        this.setCursorPosition = this._nativeObj.setCursorPosition.bind(this._nativeObj);
+        this.setScale = this._nativeObj.setScale.bind(this._nativeObj);
+        this.setMaxLength = this._nativeObj.setMaxLength.bind(this._nativeObj);
+        this.setType = this._nativeObj.setType.bind(this._nativeObj);
+        this.setNumberOnly = this._nativeObj.setNumberOnly.bind(this._nativeObj);
+        this.setRegular = this._nativeObj.setRegular.bind(this._nativeObj);
+        this.setFont = this._nativeObj.setFont.bind(this._nativeObj);
+        this.setMultiAble = this._nativeObj.setMultiAble.bind(this._nativeObj);
+        this.setForbidEdit = this._nativeObj.setForbidEdit.bind(this._nativeObj);
+        if (this._nativeObj.setBgColor) {
+            this.setBgColor = this._nativeObj.setBgColor.bind(this._nativeObj);
         }
         else {
-            _this.setBgColor = function (c) { };
+            this.setBgColor = function (c) { };
         }
-        return _this;
     }
-    Object.defineProperty(HTMLInputElement.prototype, "maxLength", {
-        set: function (v) {
-            this.setMaxLength(v);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLInputElement.prototype, "left", {
-        get: function () {
-            return this._nativeObj.left;
-        },
-        set: function (v) {
-            this._nativeObj.left = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLInputElement.prototype, "top", {
-        get: function () {
-            return this._nativeObj.top;
-        },
-        set: function (v) {
-            this._nativeObj.top = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLInputElement.prototype, "width", {
-        get: function () {
-            return this._nativeObj.width;
-        },
-        set: function (v) {
-            this._nativeObj.width = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLInputElement.prototype, "height", {
-        get: function () {
-            return this._nativeObj.height;
-        },
-        set: function (v) {
-            this._nativeObj.height = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLInputElement.prototype, "opacity", {
-        get: function () {
-            return this._nativeObj.opacity;
-        },
-        set: function (v) {
-            this._nativeObj.opacity = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLInputElement.prototype, "clientLeft", {
-        get: function () {
-            return this._nativeObj.left;
-        },
-        set: function (v) {
-            this._nativeObj.left = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLInputElement.prototype, "clientTop", {
-        get: function () {
-            return this._nativeObj.top;
-        },
-        set: function (v) {
-            this._nativeObj.top = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLInputElement.prototype, "clientWidth", {
-        get: function () {
-            return this._nativeObj.width;
-        },
-        set: function (v) {
-            this._nativeObj.width = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLInputElement.prototype, "clientHeight", {
-        get: function () {
-            return this._nativeObj.height;
-        },
-        set: function (v) {
-            this._nativeObj.height = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLInputElement.prototype, "value", {
-        get: function () {
-            return this._nativeObj.value;
-        },
-        set: function (v) {
-            this._nativeObj.value = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLInputElement.prototype, "visible", {
-        get: function () {
-            return this._nativeObj.visible;
-        },
-        set: function (v) {
-            this._nativeObj.visible = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    HTMLInputElement.prototype._addEventListener = function (type, listener, useCapture) {
-        _super.prototype._addEventListener.call(this, type, listener, useCapture);
+    set maxLength(v) {
+        this.setMaxLength(v);
+    }
+    set left(v) {
+        this._nativeObj.left = v;
+    }
+    get left() {
+        return this._nativeObj.left;
+    }
+    set top(v) {
+        this._nativeObj.top = v;
+    }
+    get top() {
+        return this._nativeObj.top;
+    }
+    set width(v) {
+        this._nativeObj.width = v;
+    }
+    get width() {
+        return this._nativeObj.width;
+    }
+    set height(v) {
+        this._nativeObj.height = v;
+    }
+    get height() {
+        return this._nativeObj.height;
+    }
+    set opacity(v) {
+        this._nativeObj.opacity = v;
+    }
+    get opacity() {
+        return this._nativeObj.opacity;
+    }
+    get clientLeft() {
+        return this._nativeObj.left;
+    }
+    set clientLeft(v) {
+        this._nativeObj.left = v;
+    }
+    get clientTop() {
+        return this._nativeObj.top;
+    }
+    set clientTop(v) {
+        this._nativeObj.top = v;
+    }
+    set clientWidth(v) {
+        this._nativeObj.width = v;
+    }
+    get clientWidth() {
+        return this._nativeObj.width;
+    }
+    set clientHeight(v) {
+        this._nativeObj.height = v;
+    }
+    get clientHeight() {
+        return this._nativeObj.height;
+    }
+    set value(v) {
+        this._nativeObj.value = v;
+    }
+    get value() {
+        return this._nativeObj.value;
+    }
+    set visible(v) {
+        this._nativeObj.visible = v;
+    }
+    get visible() {
+        return this._nativeObj.visible;
+    }
+    _addEventListener(type, listener, useCapture) {
+        super._addEventListener(type, listener, useCapture);
         var _t = this;
         this._nativeObj.addEventListener(type, function (e) {
             var ev = new _lbEvent(type);
             ev.target = this;
             _t.dispatchEvent(ev);
         });
-    };
-    return HTMLInputElement;
-}(HTMLElement));
-var HTMLMediaElement = (function (_super) {
-    __extends(HTMLMediaElement, _super);
-    function HTMLMediaElement() {
-        return _super !== null && _super.apply(this, arguments) || this;
     }
-    return HTMLMediaElement;
-}(HTMLElement));
-var HTMLMetaElement = (function (_super) {
-    __extends(HTMLMetaElement, _super);
-    function HTMLMetaElement() {
-        var _this = _super.call(this) || this;
-        _this.tagName = "META";
-        return _this;
+}
+class HTMLMediaElement extends HTMLElement {
+}
+class HTMLMetaElement extends HTMLElement {
+    constructor() {
+        super();
+        this.tagName = "META";
     }
-    Object.defineProperty(HTMLMetaElement.prototype, "httpEquiv", {
-        get: function () {
-            return this["http-equiv"];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLMetaElement.prototype, "name", {
-        get: function () {
-            return this._name;
-        },
-        set: function (n) {
-            this._name = n;
-            document._elements[n] = document._elements[n] || [];
-            document._elements[n].push(this);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return HTMLMetaElement;
-}(HTMLElement));
-var HTMLAudioElement = (function (_super) {
-    __extends(HTMLAudioElement, _super);
-    function HTMLAudioElement() {
-        var _this = _super.call(this) || this;
-        _this.readyState = 0;
-        _this.tagName = "AUDIO";
-        _this._nativeObj = new ConchAudio();
-        return _this;
+    get httpEquiv() {
+        return this["http-equiv"];
     }
-    HTMLAudioElement.prototype.load = function () {
-    };
-    HTMLAudioElement.prototype.setLoop = function (loop) {
+    set name(n) {
+        this._name = n;
+        document._elements[n] = document._elements[n] || [];
+        document._elements[n].push(this);
+    }
+    get name() {
+        return this._name;
+    }
+}
+class HTMLAudioElement extends HTMLMediaElement {
+    constructor() {
+        super();
+        this.readyState = 0;
+        this.tagName = "AUDIO";
+        this._nativeObj = new ConchAudio();
+    }
+    load() {
+    }
+    setLoop(loop) {
         this._nativeObj.setLoop(loop);
-    };
-    HTMLAudioElement.prototype.play = function () {
+    }
+    play() {
         this._nativeObj.play();
-    };
-    HTMLAudioElement.prototype.pause = function () {
+    }
+    pause() {
         this._nativeObj.pause();
-    };
-    HTMLAudioElement.prototype.stop = function () {
+    }
+    stop() {
         this._nativeObj.stop();
-    };
-    Object.defineProperty(HTMLAudioElement.prototype, "autoplay", {
-        get: function () {
-            return this._nativeObj.autoplay;
-        },
-        set: function (v) {
-            this._nativeObj.autoplay = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLAudioElement.prototype, "loop", {
-        get: function () {
-            return this._nativeObj.loop;
-        },
-        set: function (v) {
-            this._nativeObj.loop = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLAudioElement.prototype, "muted", {
-        get: function () {
-            return this._nativeObj.muted;
-        },
-        set: function (v) {
-            this._nativeObj.muted = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLAudioElement.prototype, "src", {
-        get: function () {
-            return this._nativeObj.src;
-        },
-        set: function (v) {
-            v = location.resolve(v);
-            this._nativeObj.src = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLAudioElement.prototype, "volume", {
-        get: function () {
-            return this._nativeObj.volume;
-        },
-        set: function (v) {
-            this._nativeObj.volume = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLAudioElement.prototype, "currentTime", {
-        get: function () {
-            return this._nativeObj.currentTime;
-        },
-        set: function (v) {
-            this._nativeObj.currentTime = v;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    HTMLAudioElement.prototype._addEventListener = function (type, listener, useCapture) {
-        _super.prototype._addEventListener.call(this, type, listener, useCapture);
+    }
+    set autoplay(v) {
+        this._nativeObj.autoplay = v;
+    }
+    get autoplay() {
+        return this._nativeObj.autoplay;
+    }
+    set loop(v) {
+        this._nativeObj.loop = v;
+    }
+    get loop() {
+        return this._nativeObj.loop;
+    }
+    set muted(v) {
+        this._nativeObj.muted = v;
+    }
+    get muted() {
+        return this._nativeObj.muted;
+    }
+    set src(v) {
+        v = location.resolve(v);
+        this._nativeObj.src = v;
+    }
+    get src() {
+        return this._nativeObj.src;
+    }
+    set volume(v) {
+        this._nativeObj.volume = v;
+    }
+    get volume() {
+        return this._nativeObj.volume;
+    }
+    set currentTime(v) {
+        this._nativeObj.currentTime = v;
+    }
+    get currentTime() {
+        return this._nativeObj.currentTime;
+    }
+    _addEventListener(type, listener, useCapture) {
+        super._addEventListener(type, listener, useCapture);
         var _t = this;
         this._nativeObj.addEventListener(type, function (e) {
             var ev = new _lbEvent(type);
@@ -5927,133 +5453,107 @@ var HTMLAudioElement = (function (_super) {
                 _t.readyState = 4;
             _t.dispatchEvent(ev);
         });
-    };
-    return HTMLAudioElement;
-}(HTMLMediaElement));
-var HTMLBodyElement = (function (_super) {
-    __extends(HTMLBodyElement, _super);
-    function HTMLBodyElement() {
-        var _this = _super.call(this) || this;
-        _this.tagName = "BODY";
-        return _this;
     }
-    Object.defineProperty(HTMLBodyElement.prototype, "clientHeight", {
-        get: function () {
-            return window.innerHeight;
-        },
-        set: function (h) {
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(HTMLBodyElement.prototype, "clientWidth", {
-        get: function () {
-            return window.innerWidth;
-        },
-        set: function (w) {
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return HTMLBodyElement;
-}(HTMLElement));
-var NodeList = (function (_super) {
-    __extends(NodeList, _super);
-    function NodeList() {
-        return _super.call(this) || this;
+}
+class HTMLBodyElement extends HTMLElement {
+    constructor() {
+        super();
+        this.tagName = "BODY";
     }
-    NodeList.prototype.item = function (index) {
+    get clientHeight() {
+        return window.innerHeight;
+    }
+    set clientHeight(h) {
+    }
+    get clientWidth() {
+        return window.innerWidth;
+    }
+    set clientWidth(w) {
+    }
+}
+class NodeList extends Array {
+    constructor() {
+        super();
+    }
+    item(index) {
         return this[index];
-    };
-    return NodeList;
-}(Array));
-var HTMLHeadElement = (function (_super) {
-    __extends(HTMLHeadElement, _super);
-    function HTMLHeadElement() {
-        var _this = _super.call(this) || this;
-        _this.tagName = 'head';
-        _this.__visible = false;
-        return _this;
     }
-    return HTMLHeadElement;
-}(HTMLElement));
-var HTMLCollection = (function (_super) {
-    __extends(HTMLCollection, _super);
-    function HTMLCollection() {
-        return _super !== null && _super.apply(this, arguments) || this;
+}
+class HTMLHeadElement extends HTMLElement {
+    constructor() {
+        super();
+        this.tagName = 'head';
+        this.__visible = false;
     }
-    HTMLCollection.prototype.item = function (nameOrIndex, optionalIndex) {
+}
+class HTMLCollection extends Array {
+    item(nameOrIndex, optionalIndex) {
         return this[nameOrIndex];
-    };
-    HTMLCollection.prototype.namedItem = function (name) {
-        return null;
-    };
-    return HTMLCollection;
-}(Array));
-var HTMLVideoElement = (function (_super) {
-    __extends(HTMLVideoElement, _super);
-    function HTMLVideoElement() {
-        return _super.call(this) || this;
     }
-    HTMLVideoElement.prototype.canPlayType = function () {
+    namedItem(name) {
+        return null;
+    }
+}
+class HTMLVideoElement extends HTMLDivElement {
+    constructor() {
+        super();
+    }
+    canPlayType() {
         return false;
-    };
-    return HTMLVideoElement;
-}(HTMLDivElement));
-var Document = (function (_super) {
-    __extends(Document, _super);
-    function Document() {
-        var _this = _super.call(this) || this;
-        _this.createMap = new Map();
-        _this._frameEndEvt = new Event('frameend');
-        _this.scriptTextList = [];
-        _this._loading = 0;
-        _this._evalNum = 0;
-        _this._eventPathCache = null;
-        _this.all = new HTMLCollection();
-        _this._elements = [];
-        window.document = _this;
-        _this.defaultView = window;
-        var cm = _this.createMap;
-        cm.set('div', _this.create_div);
-        cm.set('img', _this.create_img);
-        cm.set('image', _this.create_img);
-        cm.set('canvas', _this.create_canvas);
-        cm.set('virtualBitmap', _this.create_vbitmap);
-        cm.set('audio', _this.create_audio);
-        cm.set('input', _this.create_input);
-        cm.set('textarea', _this.create_input);
-        cm.set('video', _this.create_video);
-        cm.set('script', _this.create_script);
-        cm.set('meta', _this.create_meta);
+    }
+}
+class Document extends Node {
+    constructor() {
+        super();
+        this.createMap = new Map();
+        this._frameEndEvt = new Event('frameend');
+        this.scriptTextList = [];
+        this._loading = 0;
+        this._evalNum = 0;
+        this._eventPathCache = null;
+        this.all = new HTMLCollection();
+        this._elements = [];
+        window.document = this;
+        this.defaultView = window;
+        var cm = this.createMap;
+        cm.set('div', this.create_div);
+        cm.set('img', this.create_img);
+        cm.set('image', this.create_img);
+        cm.set('canvas', this.create_canvas);
+        cm.set('virtualBitmap', this.create_vbitmap);
+        cm.set('audio', this.create_audio);
+        cm.set('input', this.create_input);
+        cm.set('textarea', this.create_input);
+        cm.set('video', this.create_video);
+        cm.set('script', this.create_script);
+        cm.set('meta', this.create_meta);
         var html = new HTMLElement();
         var ww = getInnerWidth();
         var wh = getInnerHeight();
         html.clientWidth = ww;
         html.clientHeight = wh;
         html.tagName = "HTML";
-        html.ownerDocument = _this;
-        _this.documentElement = html;
-        _this._topElement = html;
-        _this.appendChild(_this.documentElement);
+        html.ownerDocument = this;
+        this.documentElement = html;
+        this._topElement = html;
+        this.appendChild(this.documentElement);
         var body = new HTMLBodyElement();
-        body.ownerDocument = _this;
-        _this.body = body;
-        _this.documentElement.appendChild(_this.body);
-        _this.head = new HTMLHeadElement();
-        _this.documentElement.appendChild(_this.head);
-        _this.dispatchEvent = _this._dispatchEvent.bind(_this);
-        _this._frameEndEvt.bubbles = false;
-        _this.nodeType = 9;
-        _this.location = window.location;
-        var _t = _this;
+        body.ownerDocument = this;
+        this.body = body;
+        this.documentElement.appendChild(this.body);
+        this.head = new HTMLHeadElement();
+        this.documentElement.appendChild(this.head);
+        this.dispatchEvent = this._dispatchEvent.bind(this);
+        this._frameEndEvt.bubbles = false;
+        this.nodeType = 9;
+        this.location = window.location;
+        var _t = this;
         var temp;
-        return _this;
     }
-    Document.prototype.setReferrer = function (s) {
+    setReferrer(s) {
         this.referrer = s;
-    };
-    Document.prototype.uploadScript = function (d) {
+    }
+    uploadScript(d) {
         var _t = this;
         d.i = this._loading;
         this._loading++;
@@ -6066,15 +5566,14 @@ var Document = (function (_super) {
                 var e = new Event("error");
                 e.target = e.currentTarget = d.obj;
                 d.obj.onerror && d.obj.onerror(e);
-                _t._downloadOk(d);
             });
         }
         else {
             d._stext = d.text;
             _t._downloadOk(d);
         }
-    };
-    Document.prototype._downloadOk = function (d) {
+    }
+    _downloadOk(d) {
         this.scriptTextList[d.i] = d;
         for (var i = this._evalNum, len = this.scriptTextList.length; i < len; i++) {
             var t = this.scriptTextList[i];
@@ -6093,11 +5592,11 @@ var Document = (function (_super) {
             this._loading = this._evalNum = 0;
             this.scriptTextList.length = 0;
         }
-    };
-    Document.prototype.pickElement = function (screenx, screeny) {
+    }
+    pickElement(screenx, screeny) {
         return this._topElement;
-    };
-    Document.prototype.createElement = function (tagName) {
+    }
+    createElement(tagName) {
         tagName = tagName.toLowerCase();
         var f = this.createMap.get(tagName);
         var ret = null;
@@ -6108,66 +5607,66 @@ var Document = (function (_super) {
             return new div();
         }
         return ret;
-    };
-    Document.prototype.createElementNS = function (tagName) {
+    }
+    createElementNS(tagName) {
         return this.createElement(tagName);
-    };
-    Document.prototype.create_div = function () {
+    }
+    create_div() {
         var ret = new HTMLDivElement();
         ret.ownerDocument = this;
         return ret;
-    };
-    Document.prototype.create_img = function () {
+    }
+    create_img() {
         var ret = new HTMLImageElement();
         ret.ownerDocument = this;
         return ret;
-    };
-    Document.prototype.create_canvas = function () {
+    }
+    create_canvas() {
         var ret = new HTMLCanvasElement();
         ret.ownerDocument = this;
         return ret;
-    };
-    Document.prototype.create_vbitmap = function () {
+    }
+    create_vbitmap() {
         return new ConchVirtualBitmap();
-    };
-    Document.prototype.create_audio = function () {
+    }
+    create_audio() {
         var ret = new HTMLAudioElement();
         ret.ownerDocument = this;
         return ret;
-    };
-    Document.prototype.create_input = function () {
+    }
+    create_input() {
         var rs = new HTMLInputElement();
         rs.ownerDocument = this;
         return rs;
-    };
-    Document.prototype.create_video = function () {
+    }
+    create_video() {
         var ret = new HTMLVideoElement();
         ret.ownerDocument = this;
         return ret;
-    };
-    Document.prototype.create_script = function () {
+    }
+    create_script() {
         var ret = new HTMLScriptElement();
         ret.ownerDocument = this;
         return ret;
-    };
-    Document.prototype.create_meta = function () {
+    }
+    create_meta() {
         var ret = new HTMLMetaElement();
         ret.ownerDocument = this;
         return ret;
-    };
-    Document.prototype.createDocumentFragment = function () {
+    }
+    createDocumentFragment() {
         return new HTMLDivElement();
-    };
-    Document.prototype.onframeend = function () {
+    }
+    onframeend() {
         this._frameEndEvt.eventPhase = Event.AT_TARGET;
-        _super.prototype._fireEventListeners.call(this, this._frameEndEvt);
-    };
-    Document.prototype._dispatchEvent = function (evt) {
+        super._fireEventListeners(this._frameEndEvt);
+    }
+    _dispatchEvent(evt) {
         var ancestores = null;
         if (evt.target)
             ancestores = evt.target.getAncestorsNode();
         if (ancestores == null || ancestores.length == 0) {
-            return _super.prototype._dispatchEvent.call(this, evt);
+            return super._dispatchEvent(evt);
         }
         var ancLen = ancestores.length;
         evt.eventPhase = Event.CAPTURING_PHASE;
@@ -6214,285 +5713,210 @@ var Document = (function (_super) {
         if (evt.preventDefault) {
         }
         return true;
-    };
-    Object.defineProperty(Document.prototype, "cookie", {
-        get: function () {
-            return _Cookie.toLocalString();
-        },
-        set: function (v) {
-            var t = _Cookie.addCookie(v);
-            if (t && _Cookie.pushCookie(t)) {
-                _Cookie.flush();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Document.prototype.loadCookie = function () {
+    }
+    set cookie(v) {
+        var t = _Cookie.addCookie(v);
+        if (t && _Cookie.pushCookie(t)) {
+            _Cookie.flush();
+        }
+    }
+    get cookie() {
+        return _Cookie.toLocalString();
+    }
+    loadCookie() {
         this._cookiePath = window.localStorage.fileNamePre + "_cookie.txt";
         var temp = readFileSync(this._cookiePath, "utf8");
         _Cookie.init(temp);
         return true;
-    };
-    Document.prototype.open = function (url, name, features, replace) {
+    }
+    open(url, name, features, replace) {
         throw 'not implements';
-    };
-    Document.prototype.getElementsByTagName = function (tagname) {
+    }
+    getElementsByTagName(tagname) {
         var d = new NodeList();
         if ("body" == tagname)
             d.push(this.body);
         else if ("head" == tagname)
             d.push(this.head);
         return d;
-    };
-    Document.prototype.onkeydown = function (ev) {
-    };
-    Document.prototype.onkeypress = function (ev) {
-    };
-    Document.prototype.onkeyup = function (ev) {
-    };
-    Document.prototype.onmousedown = function (ev) {
-    };
-    Document.prototype.onmousemove = function (ev) { };
-    Document.prototype.onmouseout = function (ev) { };
-    Document.prototype.onmouseover = function (ev) { };
-    Document.prototype.onmouseup = function (ev) { };
-    Document.prototype.onmousewheel = function (ev) { };
-    Document.prototype.ontouchcancel = function (ev) { };
-    Document.prototype.ontouchend = function (ev) { };
-    Document.prototype.ontouchmove = function (ev) { };
-    Document.prototype.ontouchstart = function (ev) { };
-    Document.prototype.getElementById = function (elementId) {
+    }
+    onkeydown(ev) {
+    }
+    onkeypress(ev) {
+    }
+    onkeyup(ev) {
+    }
+    onmousedown(ev) {
+    }
+    onmousemove(ev) { }
+    onmouseout(ev) { }
+    onmouseover(ev) { }
+    onmouseup(ev) { }
+    onmousewheel(ev) { }
+    ontouchcancel(ev) { }
+    ontouchend(ev) { }
+    ontouchmove(ev) { }
+    ontouchstart(ev) { }
+    getElementById(elementId) {
         for (var i = 0, sz = this.all.length; i < sz; i++) {
             var c = this.all[i];
             if (c.id === elementId)
                 return c;
         }
         return null;
-    };
-    Document.prototype.getElementsByClassName = function (classNames) {
+    }
+    getElementsByClassName(classNames) {
         throw 'not implemented';
-    };
-    Document.prototype.getElementsByName = function (name) {
+    }
+    getElementsByName(name) {
         return document._elements[name] || [];
-    };
-    return Document;
-}(Node));
+    }
+}
 applyMixins(Document, [Node, GlobalEventHandlers, NodeSelector, DocumentEvent]);
-var CloseEvent = (function (_super) {
-    __extends(CloseEvent, _super);
-    function CloseEvent() {
-        return _super.call(this, 'close') || this;
+class CloseEvent extends Event {
+    constructor() {
+        super('close');
     }
-    CloseEvent.prototype.initCloseEvent = function (typeArg, canBubbleArg, cancelableArg, wasCleanArg, codeArg, reasonArg) {
-    };
-    return CloseEvent;
-}(Event));
-var MessageEvent = (function (_super) {
-    __extends(MessageEvent, _super);
-    function MessageEvent(type, eventInitDict) {
-        return _super.call(this, type) || this;
+    initCloseEvent(typeArg, canBubbleArg, cancelableArg, wasCleanArg, codeArg, reasonArg) {
     }
-    MessageEvent.prototype.initMessageEvent = function (typeArg, canBubbleArg, cancelableArg, dataArg, originArg, lastEventIdArg, sourceArg) {
-    };
-    return MessageEvent;
-}(Event));
-var WebSocket = (function (_super) {
-    __extends(WebSocket, _super);
-    function WebSocket(url) {
-        var _this = _super.call(this) || this;
-        _this._nativeObj = null;
-        _this._nativeObj = new ConchWebSocket(url);
-        _this._nativeObj._onmessage = function (data) {
+}
+class MessageEvent extends Event {
+    constructor(type, eventInitDict) {
+        super(type);
+    }
+    initMessageEvent(typeArg, canBubbleArg, cancelableArg, dataArg, originArg, lastEventIdArg, sourceArg) {
+    }
+}
+class WebSocket extends EventTarget {
+    constructor(url) {
+        super();
+        this._nativeObj = null;
+        this._nativeObj = new ConchWebSocket(url);
+        this._nativeObj._onmessage = (data) => {
             var evt = new MessageEvent('message');
             evt.data = data;
-            evt.target = evt.currentTarget = _this;
-            _this.onmessage && _this.onmessage(evt);
+            evt.target = evt.currentTarget = this;
+            this.onmessage && this.onmessage(evt);
         };
-        return _this;
     }
-    Object.defineProperty(WebSocket.prototype, "binaryType", {
-        get: function () {
-            return this._nativeObj.binaryType;
-        },
-        set: function (b) {
-            this._nativeObj.binaryType = b;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WebSocket.prototype, "timegap", {
-        get: function () {
-            return this._nativeObj.timegap;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WebSocket.prototype, "onopen", {
-        set: function (f) {
-            this._nativeObj.onopen = function () {
-                var e = new Event("open");
-                e.target = e.currentTarget = this;
-                f(e);
-            };
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WebSocket.prototype, "onclose", {
-        set: function (f) {
-            this._nativeObj.onclose = f;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(WebSocket.prototype, "onerror", {
-        set: function (f) {
-            this._nativeObj.onerror = f;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    WebSocket.prototype.close = function () {
+    get binaryType() {
+        return this._nativeObj.binaryType;
+    }
+    set binaryType(b) {
+        this._nativeObj.binaryType = b;
+    }
+    get timegap() {
+        return this._nativeObj.timegap;
+    }
+    set onopen(f) {
+        this._nativeObj.onopen = function () {
+            var e = new Event("open");
+            e.target = e.currentTarget = this;
+            f(e);
+        };
+    }
+    set onclose(f) {
+        this._nativeObj.onclose = f;
+    }
+    set onerror(f) {
+        this._nativeObj.onerror = f;
+    }
+    close() {
         this._nativeObj.close();
-    };
-    WebSocket.prototype.send = function (msg) {
+    }
+    send(msg) {
         this._nativeObj.send(msg);
-    };
-    Object.defineProperty(WebSocket.prototype, "readyState", {
-        get: function () {
-            return this._nativeObj.readyState;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    WebSocket.CLOSED = 3;
-    WebSocket.CLOSING = 2;
-    WebSocket.CONNECTING = 0;
-    WebSocket.OPEN = 1;
-    return WebSocket;
-}(EventTarget));
+    }
+    get readyState() {
+        return this._nativeObj.readyState;
+    }
+}
+WebSocket.CLOSED = 3;
+WebSocket.CLOSING = 2;
+WebSocket.CONNECTING = 0;
+WebSocket.OPEN = 1;
 window.WebSocket = WebSocket;
-var Socket = (function (_super) {
-    __extends(Socket, _super);
-    function Socket(url) {
-        var _this = _super.call(this) || this;
-        _this._nativeObj = null;
-        _this._nativeObj = new ConchSocket(url);
-        _this._nativeObj._onmessage = function (data) {
+class Socket extends EventTarget {
+    constructor(url) {
+        super();
+        this._nativeObj = null;
+        this._nativeObj = new ConchSocket(url);
+        this._nativeObj._onmessage = (data) => {
             var evt = new MessageEvent('message');
             evt.data = data;
-            evt.target = evt.currentTarget = _this;
-            _this.onmessage && _this.onmessage(evt);
+            evt.target = evt.currentTarget = this;
+            this.onmessage && this.onmessage(evt);
         };
-        return _this;
     }
-    Object.defineProperty(Socket.prototype, "binaryType", {
-        get: function () {
-            return this._nativeObj.binaryType;
-        },
-        set: function (b) {
-            this._nativeObj.binaryType = b;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Socket.prototype, "timegap", {
-        get: function () {
-            return this._nativeObj.timegap;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Socket.prototype, "onopen", {
-        set: function (f) {
-            this._nativeObj.onopen = function () {
-                var e = new Event("open");
-                e.target = e.currentTarget = this;
-                f(e);
-            };
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Socket.prototype, "onclose", {
-        set: function (f) {
-            this._nativeObj.onclose = f;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Socket.prototype, "onerror", {
-        set: function (f) {
-            this._nativeObj.onerror = f;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Socket.prototype.close = function () {
+    get binaryType() {
+        return this._nativeObj.binaryType;
+    }
+    set binaryType(b) {
+        this._nativeObj.binaryType = b;
+    }
+    get timegap() {
+        return this._nativeObj.timegap;
+    }
+    set onopen(f) {
+        this._nativeObj.onopen = function () {
+            var e = new Event("open");
+            e.target = e.currentTarget = this;
+            f(e);
+        };
+    }
+    set onclose(f) {
+        this._nativeObj.onclose = f;
+    }
+    set onerror(f) {
+        this._nativeObj.onerror = f;
+    }
+    close() {
         this._nativeObj.close();
-    };
-    Socket.prototype.send = function (msg) {
+    }
+    send(msg) {
         this._nativeObj.send(msg);
-    };
-    Object.defineProperty(Socket.prototype, "readyState", {
-        get: function () {
-            return this._nativeObj.readyState;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Socket.CLOSED = 3;
-    Socket.CLOSING = 2;
-    Socket.CONNECTING = 0;
-    Socket.OPEN = 1;
-    return Socket;
-}(EventTarget));
+    }
+    get readyState() {
+        return this._nativeObj.readyState;
+    }
+}
+Socket.CLOSED = 3;
+Socket.CLOSING = 2;
+Socket.CONNECTING = 0;
+Socket.OPEN = 1;
 window.Socket = Socket;
-var DOMParser = (function () {
-    function DOMParser() {
+class DOMParser {
+    constructor() {
         this._parser = new _DOMParser();
     }
-    Object.defineProperty(DOMParser.prototype, "src", {
-        get: function () {
-            return this._src;
-        },
-        set: function (s) {
-            this._src = location.resolve(s);
-            this._parser.src = this._src;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(DOMParser.prototype, "onload", {
-        get: function () {
-            return this._parser._onload;
-        },
-        set: function (callback) {
-            this._parser._onload = callback;
-            this._parser.onload = this.nativeObjOnload;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    DOMParser.prototype.nativeObjOnload = function () {
+    set src(s) {
+        this._src = location.resolve(s);
+        this._parser.src = this._src;
+    }
+    get src() {
+        return this._src;
+    }
+    set onload(callback) {
+        this._parser._onload = callback;
+        this._parser.onload = this.nativeObjOnload;
+    }
+    nativeObjOnload() {
         this._onload();
-    };
-    Object.defineProperty(DOMParser.prototype, "onerror", {
-        get: function () {
-            return this._parser._onerror;
-        },
-        set: function (callback) {
-            this._parser._onerror = callback;
-            this._parser.onerror = this.nativeObjOnerror;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    DOMParser.prototype.nativeObjOnerror = function () {
+    }
+    get onload() {
+        return this._parser._onload;
+    }
+    set onerror(callback) {
+        this._parser._onerror = callback;
+        this._parser.onerror = this.nativeObjOnerror;
+    }
+    nativeObjOnerror() {
         this._onerror();
-    };
-    DOMParser.initXMl = function (xml) {
+    }
+    get onerror() {
+        return this._parser._onerror;
+    }
+    static initXMl(xml) {
         var result;
         if (!xml) {
             var temp = new _jsXmlNode();
@@ -6526,56 +5950,44 @@ var DOMParser = (function () {
             result.childNodes[i] = DOMParser.initXMl(chd);
         }
         return result;
-    };
-    DOMParser.prototype.parseFromString = function (s, t) {
+    }
+    parseFromString(s, t) {
         var xml = this._parser.parseFromString(s, t);
         var root = new _jsXmlDocument();
         root.childNodes[0] = DOMParser.initXMl(xml.childNodes[0]);
         return root;
-    };
-    DOMParser.prototype.getResult = function () {
+    }
+    getResult() {
         if (!this._result) {
             this._result = new _jsXmlDocument();
             this._result.childNodes[0] = DOMParser.initXMl(this._parser.getResult().childNodes[0]);
         }
         return this._result;
-    };
-    return DOMParser;
-}());
+    }
+}
 window["DOMParser"] = DOMParser;
-var _jsXmlAttr = (function () {
-    function _jsXmlAttr(key, value) {
+class _jsXmlAttr {
+    constructor(key, value) {
         this.nodeName = key;
         this.nodeValue = this.textContent = value;
     }
-    Object.defineProperty(_jsXmlAttr.prototype, "value", {
-        get: function () {
-            return this.nodeValue;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return _jsXmlAttr;
-}());
-var _jsXmlNode = (function (_super) {
-    __extends(_jsXmlNode, _super);
-    function _jsXmlNode() {
-        var _this = _super.call(this, "", "") || this;
-        _this.childNodes = [];
-        _this.childNodes["item"] = function (i) {
+    get value() {
+        return this.nodeValue;
+    }
+}
+class _jsXmlNode extends _jsXmlAttr {
+    constructor() {
+        super("", "");
+        this.childNodes = [];
+        this.childNodes["item"] = function (i) {
             return this[i];
         };
-        _this.attributes = [];
-        return _this;
+        this.attributes = [];
     }
-    Object.defineProperty(_jsXmlNode.prototype, "firstChild", {
-        get: function () {
-            return this.childNodes ? this.childNodes[0] : null;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    _jsXmlNode.prototype.getElementsByTagName = function (name) {
+    get firstChild() {
+        return this.childNodes ? this.childNodes[0] : null;
+    }
+    getElementsByTagName(name) {
         var result = [];
         if (this.nodeName == name)
             result.push(this);
@@ -6586,21 +5998,14 @@ var _jsXmlNode = (function (_super) {
             }
         }
         return result;
-    };
-    _jsXmlNode.prototype.getAttribute = function (name) {
+    }
+    getAttribute(name) {
         var attr = this.attributes[name];
         return attr ? attr["nodeValue"] : "";
-    };
-    return _jsXmlNode;
-}(_jsXmlAttr));
-var _jsXmlDocument = (function (_super) {
-    __extends(_jsXmlDocument, _super);
-    function _jsXmlDocument() {
-        return _super !== null && _super.apply(this, arguments) || this;
     }
-    return _jsXmlDocument;
-}(_jsXmlNode));
-var _this = this;
+}
+class _jsXmlDocument extends _jsXmlNode {
+}
 var GL_CAPS;
 (function (GL_CAPS) {
     GL_CAPS[GL_CAPS["NONE"] = 0] = "NONE";
@@ -6632,9 +6037,9 @@ window.cancelAnimationFrame = cancelAnimationFrame;
 var parent = window.parent = window;
 var frames = window.frames = null;
 var navigator = window.navigator = new Navigator();
-window.open = function (url, target, features, replace) {
+window.open = (url, target, features, replace) => {
     createProcess('scripts/index.js', url);
-    return _this;
+    return this;
 };
 var onload = window.onload = null;
 window.ConchVirtualBitmap = ConchVirtualBitmap;
@@ -6666,25 +6071,14 @@ conch.setOnResize(function (w, h) {
     window.dispatchEvent(evt);
 });
 conch.config = conchConfig;
-var Screen = (function () {
-    function Screen() {
+class Screen {
+    get width() {
+        return _$innerWidth;
     }
-    Object.defineProperty(Screen.prototype, "width", {
-        get: function () {
-            return _$innerWidth;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Screen.prototype, "height", {
-        get: function () {
-            return _$innerHeight;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return Screen;
-}());
+    get height() {
+        return _$innerHeight;
+    }
+}
 window.screen = new Screen();
 window.onresize = function (e) {
 };
@@ -6718,11 +6112,6 @@ var clearTimeout = window.clearTimeout = _window.clearTimeout;
 var setInterval = window.setInterval = _window.setInterval;
 var setTimeout = window.setTimeout = _window.setTimeout;
 Object.defineProperty(window, 'runtime', { get: function () { return true; } });
-window.postMessage = function (data, d) {
-    if (typeof (data) == "object")
-        data = JSON.stringify(data);
-    conch.callWebviewJS("window.__getMessemage", encodeURIComponent(data), "");
-};
 window.postRuntimeMessage = function (d) {
     if (typeof (d) == "object")
         d = JSON.stringify(d);
@@ -6779,11 +6168,8 @@ conch.showFPS = function (x, y) {
 };
 (function () {
     'use strict';
-    var AppInfo = (function () {
-        function AppInfo() {
-        }
-        return AppInfo;
-    }());
+    class AppInfo {
+    }
     ;
     var appobj = null;
     try {

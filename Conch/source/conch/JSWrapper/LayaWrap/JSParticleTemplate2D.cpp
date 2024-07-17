@@ -12,7 +12,7 @@
 #include "JSParticleTemplate2D.h"
 #include "../../JCCmdDispatchManager.h"
 #include "../../JCConch.h"
-#include "../../JCScrpitRuntime.h"
+#include "../../JCScriptRuntime.h"
 
 namespace laya 
 {

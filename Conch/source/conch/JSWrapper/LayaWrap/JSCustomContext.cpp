@@ -8,7 +8,7 @@
 
 #include "JSCustomContext.h"
 #include "JSMeasureTextInfo.h"
-#include "../../JCScrpitRuntime.h"
+#include "../../JCScriptRuntime.h"
 #include "../../JCCmdDispatchManager.h"
 #include "../../JCConchRender.h"
 #include "../../JCConch.h"
@@ -63,7 +63,7 @@ namespace laya
             JCFontInfo * pFontInfo = JCScriptRuntime::s_JSRT->m_pFontManager->getFontInfoFromText(sFont);
             pMeasureTextInfo->measureText(pFontInfo, sText);
         }
-        return JSP_TO_JS(JSMeasureTextInfo, pMeasureTextInfo);
+        return JSP_TO_JS(JSMeasureTextInfo*, pMeasureTextInfo);
     }
     int JSCustomContext::getID()
     {

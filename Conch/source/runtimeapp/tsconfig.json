@@ -1,12 +1,11 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "noLib": true,
-        "target": "es5",
+        "target": "es2017",
         "noImplicitAny": false,
         "rootDir": ".",
         "outDir": "../../../Redist/scripts/",
         "removeComments": true,
-        "sourceMap": false
+        "sourceMap": false,
     }
 }

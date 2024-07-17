@@ -31,15 +31,18 @@ class CSSStyleDeclaration {
         var nt = parseInt(t);
         this._htmlEle.clientTop = nt;
     }
-    set height(h: string) {
-        var nh = parseInt(h);
-        this._htmlEle.clientHeight = nh;
+    set height(h: number) {
+        //this._htmlEle.clientHeight = h;
     }
-    set width(w: string) {
-        var nw = parseInt(w);
-        this._htmlEle.clientWidth = nw;
+    get height():number {
+        return  this._htmlEle.clientHeight;
     }
-
+    set width(w: number) {
+        //this._htmlEle.clientWidth = w;
+    }
+    get width():number {
+        return this._htmlEle.clientWidth;
+    }
     set transform(trans: string) {
         var s1 = trans.split(/[\(,\)]/);
         if (s1 && s1.length > 2) {

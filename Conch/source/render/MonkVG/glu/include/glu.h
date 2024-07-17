@@ -38,6 +38,8 @@
 
 #if __APPLE__
 #include <OpenGLES/ES2/gl.h>
+#include <OpenGLES/ES2/glext.h>
+typedef float GLdouble;
 #else
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
@@ -137,7 +139,7 @@ extern "C" {
 /*************************************************************/
 
 /* Not defined in OpenGL ES */
-typedef float GLdouble;
+//typedef float GLdouble;
 typedef float GLclampd;
 	
 #ifdef __cplusplus
@@ -177,7 +179,7 @@ GLAPI void GLAPIENTRY gluTessNormal (GLUtesselator* tess, GLdouble valueX, GLdou
 GLAPI void GLAPIENTRY gluTessProperty (GLUtesselator* tess, GLenum which, GLdouble data);
 GLAPI void GLAPIENTRY gluTessVertex (GLUtesselator* tess, GLdouble *location, GLvoid* data);
 GLAPI GLint GLAPIENTRY gluUnProject (GLdouble winX, GLdouble winY, GLdouble winZ, const GLdouble *model, const GLdouble *proj, const GLint *view, GLdouble* objX, GLdouble* objY, GLdouble* objZ);
-GLAPI GLint GLAPIENTRY gluUnProject4 (GLdouble winX, GLdouble winY, GLdouble winZ, GLdouble clipW, const GLdouble *model, const GLdouble *proj, const GLint *view, GLdouble nearVal, GLdouble farVal, GLdouble* objX, GLdouble* objY, GLdouble* objZ, GLdouble* objW);
+//GLAPI GLint GLAPIENTRY gluUnProject4 (GLdouble winX, GLdouble winY, GLdouble winZ, GLdouble clipW, const GLdouble *model, const GLdouble *proj, const GLint *view, GLdouble nearVal, GLdouble farVal, GLdouble* objX, GLdouble* objY, GLdouble* objZ, GLdouble* objW);
 
 #ifdef __cplusplus
 }

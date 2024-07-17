@@ -5,8 +5,7 @@
 #include "util/Log.h"
 #include <vector>
 #include "JSCProxyType.h"
-#include "JSConchConfig.h"
-#include "EJConvertTypedArray.h"
+
 namespace laya {
     
 	//TODO 这里没有考虑多线程的问题，如果js要支持多线程的话，需要修改。
@@ -88,22 +87,13 @@ namespace laya{
         }
     }
     
+    
 	JSValueRef  createJSAB(char* pData, int len)
 	{
         JSContextRef ctx = __TlsData::GetInstance()->GetCurContext();
-        if (isSupportTypedArrayAPI())
-        {
-            char* pBuffer = new char[len];
-            memcpy(pBuffer, pData, len);
-            return JSObjectMakeArrayBufferWithBytesNoCopy(ctx, pBuffer, len, deallocator, pBuffer, NULL);
-        }
-        else
-        {
-            JSValueRef ab = JSObjectMakeTypedArrayEJ(ctx, _kJSTypedArrayTypeArrayBuffer, len);
-            JSObjectRef arrayObj = JSValueToObject(ctx,ab,NULL);
-            JSObjectSetTypedArrayData(ctx, arrayObj, (const uint8_t *)pData, len);
-            return ab;
-        }
+        char* pBuffer = new char[len];
+        memcpy(pBuffer, pData, len);
+        return JSObjectMakeArrayBufferWithBytesNoCopy(ctx, pBuffer, len, deallocator, pBuffer, NULL);
 	}
     JSValueRef  createJSABAligned(char* pData, int len)
     {
@@ -115,44 +105,36 @@ namespace laya{
         {
             pBuffer[i] = 0;
         }
-        if (isSupportTypedArrayAPI())
-        {
-            return JSObjectMakeArrayBufferWithBytesNoCopy(ctx, pBuffer, asz, deallocator, pBuffer, NULL);
-        }
-        else
-        {
-            JSValueRef ab = JSObjectMakeTypedArrayEJ(ctx, _kJSTypedArrayTypeArrayBuffer, asz);
-            JSObjectSetTypedArrayData(ctx, (JSObjectRef)ab, (const uint8_t *)pBuffer, asz);
-            delete[] pBuffer;//optmize
-            return ab;
-        }
+        return JSObjectMakeArrayBufferWithBytesNoCopy(ctx, pBuffer, asz, deallocator, pBuffer, NULL);
     }
-	bool extractJSAB(JSValueRef  ab, JsArrayBufferData& data)
+	bool extractJSAB(JSValueRef  ab, char*& data, int& len)
 	{
         JSContextRef ctx = __TlsData::GetInstance()->GetCurContext();
         JSObjectRef arrayObj = JSValueToObject(ctx,ab,NULL);
-        data.data = NULL;
-        data.len = 0;
-        if (isSupportTypedArrayAPI())
+        JSTypedArrayType arrayType = JSValueGetTypedArrayType(ctx, ab, NULL);
+        switch(arrayType)
         {
-            JSTypedArrayType arrayType = JSValueGetTypedArrayType(ctx, ab, NULL);
-            if (arrayType == kJSTypedArrayTypeNone){
+            case kJSTypedArrayTypeNone:
+            {
+                data = NULL;
+                len = 0;
                 return false;
             }
-            else if (arrayType == kJSTypedArrayTypeArrayBuffer){
-                data.data = (char*)JSObjectGetArrayBufferBytesPtr(ctx, arrayObj, NULL);
-                data.len = (int)JSObjectGetArrayBufferByteLength(ctx, arrayObj, NULL);
+            break;
+            case kJSTypedArrayTypeArrayBuffer:
+            {
+                data = (char*)JSObjectGetArrayBufferBytesPtr(ctx, arrayObj, NULL);
+                len = (int)JSObjectGetArrayBufferByteLength(ctx, arrayObj, NULL);
                 return true;
             }
-            else {
-                data.data = (char*)JSObjectGetTypedArrayBytesPtr(ctx, arrayObj, NULL) + JSObjectGetTypedArrayByteOffset(ctx, arrayObj, NULL);
-                data.len = (int)JSObjectGetTypedArrayByteLength(ctx, arrayObj, NULL);
+            break;
+            default:
+            {
+                data = (char*)JSObjectGetTypedArrayBytesPtr(ctx, arrayObj, NULL) + JSObjectGetTypedArrayByteOffset(ctx, arrayObj, NULL);
+                len = (int)JSObjectGetTypedArrayByteLength(ctx, arrayObj, NULL);
                 return true;
             }
-        }
-        else
-        {
-            return JSObjectGetTypedArrayData(ctx, arrayObj, data.data, data.len);
+            break;
         }
 	}
 }

@@ -916,12 +916,12 @@ public class ExportJavaFunction
 		ExportJavaFunction exp = ExportJavaFunction.GetInstance();
 		if(exp==null )
 			return "";
-		DevID pDevID = exp.m_pEngine.getDevID();
+		/*DevID pDevID = exp.m_pEngine.getDevID();
 		if( pDevID != null )
 		{
 			String wifi=pDevID.GetWifiMac();
 			return (wifi==null)?"":wifi;
-		}
+		}*/
 		return "";
 	}
 	//------------------------------------------------------------------------------
@@ -1281,14 +1281,17 @@ public class ExportJavaFunction
 			return "";
 		JSONObject obj = new JSONObject();
 		JSONArray imeiArr = new JSONArray();
-		imeiArr.put(pDevID.GetIMEI());
+		//imeiArr.put(pDevID.GetIMEI());
+		imeiArr.put("unknown");
 		JSONArray imsiArr = new JSONArray();
-		imsiArr.put(pDevID.GetIMSI());
+		//imsiArr.put(pDevID.GetIMSI());
+		imsiArr.put("unknown");
 		try {
 			int temp[]=pDevID.GetResolutionArray();
 			obj.put("dpi", temp[2]);
 			obj.put("resolution",temp[1]+"*"+temp[0]);
-			obj.put("guid",pDevID.GetWifiMac());
+			//obj.put("guid",pDevID.GetWifiMac());
+			obj.put("guid","unknown");
 			obj.put("imei", imeiArr);
 			obj.put("imsi", imsiArr);
 			obj.put("os", "android");

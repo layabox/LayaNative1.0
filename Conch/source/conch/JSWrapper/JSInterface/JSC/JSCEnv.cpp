@@ -122,10 +122,10 @@ namespace laya
         JSValueProtect(jsGlobalContext, jsUndefined);
         __TlsData::GetInstance()->SetCurContext( jsGlobalContext );
         
-        if (!isSupportTypedArrayAPI())
+        /*if (!isSupportTypedArrayAPI())
         {
             JSContextPrepareTypedArrayAPI(jsGlobalContext);
-        }
+        }*/
         
         // expose gc()
         JSStringRef pjsName = JSStringCreateWithUTF8CString( "gc" );

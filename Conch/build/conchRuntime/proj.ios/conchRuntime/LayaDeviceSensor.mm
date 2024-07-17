@@ -1,7 +1,7 @@
 
 #import "LayaDeviceSensor.h"
 #import <CoreMotion/CMGyro.h>
-#import "../../../../source/conch/JCScrpitRuntime.h"
+#import "../../../../source/conch/JCScriptRuntime.h"
 
 static const double UPDATE_INTERVAL = 1.0 / 60.0;
 static const double G = 9.80665;

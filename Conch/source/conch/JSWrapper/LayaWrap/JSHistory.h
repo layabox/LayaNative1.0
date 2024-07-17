@@ -19,13 +19,16 @@ namespace laya {
     public:
         static JsObjClassInfo JSCLSINFO;
         void exportJS();
-
+        static JSHistory* getInstance();
+        ~JSHistory();
     public:
         int getLength();
         void back();
         void forward();
         void go(int step);
         void push(char* strUrl);
+    private:
+		static JSHistory* ms_pHistory;
     };
 
 }

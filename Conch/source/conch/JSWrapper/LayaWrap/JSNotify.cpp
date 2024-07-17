@@ -109,11 +109,11 @@ namespace laya
     //------------------------------------------------------------------------------
     void JSNotify::exportJS() 
     {
-        JSP_GLOBAL_CLASS("conchNotify", JSNotify);
-	    JSP_ADD_METHOD("setRepeatNotify", JSNotify::setRepeatNotify);
-	    JSP_ADD_METHOD("setOnceNotify", JSNotify::setOnceNotify);
-	    JSP_ADD_METHOD("deleteOnceNotify", JSNotify::deleteOnceNotify);
-	    JSP_ADD_METHOD("deleteAllNotify", JSNotify::deleteAllNotify);
+        JSP_GLOBAL_CLASS("conchNotify", JSNotify, JSNotify::GetInstance());
+	    JSP_GLOBAL_ADD_METHOD("setRepeatNotify", JSNotify::setRepeatNotify);
+	    JSP_GLOBAL_ADD_METHOD("setOnceNotify", JSNotify::setOnceNotify);
+	    JSP_GLOBAL_ADD_METHOD("deleteOnceNotify", JSNotify::deleteOnceNotify);
+	    JSP_GLOBAL_ADD_METHOD("deleteAllNotify", JSNotify::deleteAllNotify);
 	    JSP_INSTALL_GLOBAL_CLASS("conchNotify", JSNotify, JSNotify::GetInstance());
     }
 }

@@ -6,10 +6,10 @@
 @date			2016_5_18
 */
 
-//°üº¬Í·ÎÄ¼þ
+//ï¿½ï¿½ï¿½ï¿½Í·ï¿½Ä¼ï¿½
 #include "JSDOMParser.h"
 #include <downloadMgr/JCDownloadMgr.h>
-#include "../../JCScrpitRuntime.h"
+#include "../../JCScriptRuntime.h"
 #include <util/Log.h>
 #include <util/JCIThreadCmdMgr.h>
 
@@ -39,14 +39,14 @@ namespace laya
     {
         jsDOC = new JSXmlDocument();
         jsDOC->parse(str);
-        return JSP_TO_JS(JSXmlDocument, jsDOC);
+        return JSP_TO_JS(JSXmlDocument*, jsDOC);
     }
     const char* JSDOMParser::getSrc()
     {
         return m_sUrl.c_str();
     }
 
-    //Õâ¸ö¿ÉÄÜÔÚÏÂÔØÏß³Ì£¬ËùÒÔ²»ÄÜÊÇ³ÉÔ±¶ÔÏó¡£
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³Ì£ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½ï¿½Ç³ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
     void JSDOM_onDownloadOK(JSDOMParser* pThis, JCResStateDispatcher* p_pRes, std::weak_ptr<int>& callbackref)
     {
         JCFileRes* pFileRes = (JCFileRes*)p_pRes;
@@ -104,7 +104,7 @@ namespace laya
         jsDOC = new JSXmlDocument();
         jsDOC->parse(str.c_str());
 
-        //²ÎÊýTODO
+        //ï¿½ï¿½ï¿½ï¿½TODO
         m_pOnLoadJSFunction.Call();
     }
     void JSDOMParser::onErrorCallJSFunction(int e, std::weak_ptr<int>& callbackref)
@@ -115,7 +115,7 @@ namespace laya
 
     JsValue JSDOMParser::getXml()
     {
-        return JSP_TO_JS(JSXmlDocument, jsDOC);
+        return JSP_TO_JS(JSXmlDocument*, jsDOC);
     }
 
     void JSDOMParser::exportJS()

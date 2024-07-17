@@ -1,7 +1,7 @@
 #import "refection.h"
 //#import "../../../../source/conch/CToObjectC.h"
 //#import "CToObjectCIOS.h"
-#import "../../../../source/conch/JCScrpitRuntime.h"
+#import "../../../../source/conch/JCScriptRuntime.h"
 #import "JCThreadCmdMgr.h"
 
 extern void reflectionCallback(const std::string& jsonret);

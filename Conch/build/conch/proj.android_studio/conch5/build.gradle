@@ -4,13 +4,13 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion "28.0.0"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 28
-        versionCode 31
-        versionName "1.0.7"
+        versionCode 32
+        versionName "1.0.8"
     }
     sourceSets.main{
         jniLibs.srcDir 'libs'
@@ -31,13 +31,14 @@ android {
     lintOptions {
         abortOnError false
     }
+    namespace 'layaair.game'
 }
 
 
 def SDK_BASENAME = "conch5";
 def SDK_VERSION = "_1.0";
 def sdkDestinationPath = "outJar";
-def zipFile = file('build/intermediates/packaged-classes/release/classes.jar');
+def zipFile = file('build/intermediates/aar_main_jar/release/classes.jar');
 
 def fromJar=sdkDestinationPath +"/"+ SDK_BASENAME + SDK_VERSION + ".jar";
 def toJar=sdkDestinationPath +"/"+ SDK_BASENAME + SDK_VERSION + "_min.jar";
@@ -60,8 +61,8 @@ task conchMakeJar(type: Jar) {
     from zipTree(zipFile)
     //from fileTree(dir:'build/intermediates/classes/release',includes:['laya/**'])
     from fileTree(dir: 'src/main',includes: ['assets/**'])
-    baseName = SDK_BASENAME + SDK_VERSION
-    destinationDir = file(sdkDestinationPath)
+    def baseName = SDK_BASENAME + SDK_VERSION
+    def destinationDir = file(sdkDestinationPath + baseName)
 }
 
 

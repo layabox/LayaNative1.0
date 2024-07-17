@@ -1,145 +1,119 @@
+
 #ifndef V8_DEBUG_AGENT_H_
 #define V8_DEBUG_AGENT_H_
-#ifdef JS_V8
+#ifdef JS_V8_DEBUGGER
 #include <v8.h>
-#include <v8-debug.h>
-#include <misc/boostSemaphore.h>
-#include "V8HeapProfiler.h"
-#include "V8CpuProfile.h"
-#include "V8Console.h"
+#include <v8-inspector.h>
+//#include <misc/boostSemaphore.h>
 #include <thread>
 #include <mutex>
+#include "buffer/JCBuffer.h"
+
 #define ASSERT(condition)      ((void) 0)
 
 namespace laya {
-	class V8Socket;
-	class DebuggerAgentSession;
-	class JSThread;
-	// Debugger agent which starts a socket listener on the debugger port and
-	// handles connection from a remote debugger.
+	class JSMThread;
+    class JSThreadInterface;
+    class strIter {
+    public:
+        //ï¿½ï¿½ï¿½Ø¿Õ¾Í±ï¿½Ê¾Ã»ï¿½ï¿½ï¿½Ë¡ï¿½
+        virtual char* get(int& len) = 0;
+    };
+    class StrBuff :public JCMemClass {
+    public:
+        StrBuff(int sz, int adsz) :JCMemClass(sz, adsz) {}
+        StrBuff& operator <<(int v) {
+            char buf[64];
+            sprintf(buf, "%d", v);
+            addStr(buf);
+            return *this;
+        }
+        StrBuff& operator <<(double v) {
+            char buf[64];
+            sprintf(buf, "%f", v);
+            addStr(buf);
+            return *this;
+        }
+        StrBuff& operator <<(unsigned int v) {
+            char buf[64];
+            sprintf(buf, "%d", v);
+            addStr(buf);
+            return *this;
+        }
+        StrBuff& operator <<(int64_t v) {
+            char buf[64];
+            sprintf(buf, "%lld", v);
+            addStr(buf);
+            return *this;
+        }
+        StrBuff& operator <<(const char* v) {
+            addStr(v);
+            return *this;
+        }
+        StrBuff& operator <<(strIter& pIter) {
+            int len;
+            while (true) {
+                char* pStr = pIter.get(len);
+                if (!pStr || len <= 0)break;
+                append(pStr, len);
+            }
+            return *this;
+        }
+        void addStr(const char* str) {
+            append(str, strlen(str));
+        }
+    };
+
+    //ï¿½æ»»ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ðµï¿½',",ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½Ø²ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½ï¿½
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ÎªJSON×¼ï¿½ï¿½ï¿½ï¿½
+    std::string encodeStrForJSON(const char* pStr);
+    class InspectorFrontend;
+    class per_session_data__v8dbg;
 	class DebuggerAgent {
 	public:
-		enum Proto_MsgType {
-			Request=0,
-			Response=1,
-			Event=2
-		};
-		enum Proto_Event {
-			Console_messageAdded = 100,
-			Perf_BaseInfo = 200,
-		};
-
-		DebuggerAgent(const char* name, int port);//Èç¹ûÖ»ÊÇ²âÊÔSocketºÍÏûÏ¢ÊÕ·¢²¿·Ö£¬Ö±½ÓNew DebuggerAgent(const char* name, int port)
-		//Èç¹ûÊÇÍêÕûµ÷ÊÔÔòÒª´ÓChormeDebugAPI¿ªÊ¼µ÷ÓÃ
+		DebuggerAgent(const char* name, int port);//ï¿½ï¿½ï¿½Ö»ï¿½Ç²ï¿½ï¿½ï¿½Socketï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Õ·ï¿½ï¿½ï¿½ï¿½Ö£ï¿½Ö±ï¿½ï¿½New DebuggerAgent(const char* name, int port)
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ChormeDebugAPIï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
 		~DebuggerAgent();
 
 		void Shutdown();
-		void WaitUntilListening();
 		v8::Isolate* isolate() { return isolate_; }
-		void enableJSDebug();
 		/**
-		* Æô¶¯jsÏß³ÌÁË£¬´´½¨Ò»¸öÐÂµÄjsid£¬ÒÔºójsÏà¹ØµÄÏûÏ¢£¬¶¼Ê¹ÓÃÕâ¸öjsid¡£
-		* Ìá¹©Ò»¸öº¯Êý£¬Ï£ÍûjsÏß³ÌÔÚÑ­»·ÖÐµ÷ÓÃËû¡£
+		* ï¿½ï¿½ï¿½ï¿½jsï¿½ß³ï¿½ï¿½Ë£ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Âµï¿½jsidï¿½ï¿½ï¿½Ôºï¿½jsï¿½ï¿½Øµï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½jsidï¿½ï¿½
+		* ï¿½á¹©Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï£ï¿½ï¿½jsï¿½ß³ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		*/
-		typedef void(*JSDebugger_OnJSUpdate)();
-		typedef void(*JSDebugger_DebuggerMessage)(const v8::Debug::Message& message);
-		void onJSStart(JSThread* pJSThread);
+		void onJSStart(JSThreadInterface* pJSThread,bool bDebugWait);
 		/**
-		* jsÏß³Ì½áÊøÁË£¬µ±Ç°µÄjsid¾ÍÊ§Ð§ÁË£¬ÒÔºó½ÓÊÕµ½µÄ´ËidµÄÏûÏ¢¶¼ºöÂÔ¡£
+		* jsï¿½ß³Ì½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Ç°ï¿½ï¿½jsidï¿½ï¿½Ê§Ð§ï¿½Ë£ï¿½ï¿½Ôºï¿½ï¿½ï¿½Õµï¿½ï¿½Ä´ï¿½idï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Ô¡ï¿½
 		*/
 		void onJSExit();
-		void setMessageHandler();
-		void DebuggerMessage(const v8::Debug::Message& message);
-		void Run();
-		void onjsupdate();
-		//¸øµ÷ÊÔÆ÷·¢ËÍlog
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½log
 		void sendToDbgConsole(char* pMsg, const char* src, int line, int colum, const char* type);
-		//·¢ËÍÒ»¸ö¶ÔÏó¸øµ÷ÊÔÆ÷¡£seq²»ÐèÒªÉèÖÃ¡£
-		void sendToDbg(char* pJSON);
-		void sendToDbg_command(int seq, const char* cmd, const char* arguments);
-		void sendToDbg_event(int seq, const char* event, const char* body);
-		void sendToDbg_resinfo(const char* resname, const char* event);
-		void sendPerfInfo(int* pData, int nDataLen);
-	private:
-		void CreateSession(V8Socket* socket);
 
-		void CloseSession();
-		void OnSessionClosed(DebuggerAgentSession* session);
+        void onAcceptNewFrontend(per_session_data__v8dbg* pData);
+        void onFrontEndClose();
+        void onDbgMsg(char* pMsg, int len);
+        void sendMsgToFrontend(char* pMsg, int len);
+        void onMsgToV8End(int id);    //jsï¿½ß³ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ÏµÄ»Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½jsï¿½ß³ï¿½
+	private:
 
 		v8::Isolate* isolate_;
 		std::string name_;
-		///*v8::base::SmartArrayPointer<const char>*/const char* name_;  // Name of the embedding application.
-		int port_;  // Port to use for the agent.
-		V8Socket* server_;  // Server socket for listen/accept.
-		bool terminate_;  // Termination flag.
+		int port_; 
+		bool terminate_;  
 		std::mutex session_access_;  // Mutex guarging access to session_.
-		semaphore terminate_now_;  // Semaphore to signal termination.
-		semaphore listening_;
-		friend class DebuggerAgentSession;
-		bool	    v8debugEnabled_;	//ÒÑ¾­ÉèÖÃv8µ÷ÊÔÁË
-		JSThread*	pJSThread_;
+		//semaphore terminate_now_;  // Semaphore to signal termination.
+		JSThreadInterface*	pJSThread_;
+        per_session_data__v8dbg*    pWsSessionData=nullptr;
+        bool        bHasFrontend = false;//ï¿½Èµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½js
+        bool        bFirst = true;
+        int         nFrontEndMsgID = 0; //ï¿½Ô¼ï¿½ï¿½æ¶¨ï¿½ï¿½ï¿½ï¿½Ï¢idï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½jsonï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ð©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Debugger.enable
+        int         nEnableDebuggerMsgID = -1;  //ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Â¼ï¿½ï¿½ï¿½Ä¸ï¿½
+        static int  sMsgID;
 	public:
-		DebuggerAgentSession*       session_;  // Current active session if any.
-		std::thread*		        m_pAgentThread;
-		static DebuggerAgent*		s_Instance;
-		std::string				    m_strBreakEvt;	//±£´æµÄbreakÊÂ¼þ£¬¼´Ê¹Ã»ÓÐsessionÒ²Òª±£´æÕâ¸ö£¬Ò»µ©ÓÐsessionÁ´½ÓÉÏÁË£¬¾Í·¢¸øËû¡£
-		static int g_nSeqNum;
-		//DISALLOW_COPY_AND_ASSIGN(DebuggerAgent);
-	public:
-		static const char* const kContentLength;
-
-		static char* ReceiveMessage(const V8Socket* conn);
-		static bool SendConnectMessage(const V8Socket* conn, const char* embedding_host);
-		//static bool SendMessage(const V8Socket* conn, const uint16_t* message, int msgLen);
-		//ß@‚€°lËÍµÄÊÇutf8µÄ
-		static bool SendDbgMessage(const V8Socket* conn, const char* message, int msgLen);
-		static bool SendDbgMessage(const V8Socket* conn, const v8::Handle<v8::String> message);
-		static int ReceiveAll(const V8Socket* conn, char* data, int len);
-	};
-
-
-	// Debugger agent session. The session receives requests from the remote
-	// debugger and sends debugger events/responses to the remote debugger.
-	class DebuggerAgentSession {//: public v8::base::Thread {
-	public:
-		struct BinMsgHead {
-			enum DataType {
-				JSON,
-				BIN
-			};
-			unsigned int flag:32;//0xfedc0123
-			unsigned int version : 8;
-			unsigned int session : 8;		//no use
-			unsigned int type : 1;			//0 json, 1. bin
-			unsigned int padd : 15;
-			unsigned int payloadlen : 32;
-		};
-	public:
-		DebuggerAgentSession(DebuggerAgent* agent, V8Socket* client);
-		~DebuggerAgentSession();
-		///void DebuggerMessage(v8::internal::Vector<uint16_t> message);
-		void Shutdown();
-
-		void DebuggerMessage(const char* message, int msgLen);
-		void Run();
-		void onjsupdate();
-		void onjsexit();
-		void sendToDbgConsole(char* pMsg, const char* src, int line, int colum, const char* type);
-		void sendToDbg(char* pJSON);
-		void sendToDbg_command(int seq, const char* cmd, const char* arguments);
-		void sendToDbg_event(int seq, const char* event, const char* body);
-		void sendToDbg_resinfo(const char* resname, const char* event);
-		void sendPerfInfo(int* pData, int nDataLen);
-		bool SendDbgMessage(const char* data, int datalen, BinMsgHead::DataType type);
-	private:
-		DebuggerAgent* agent_;
-		V8Socket* client_;
-		V8HeapProfiler*		heap_profile_;
-		V8CpuProfile*		cpu_profile_;
-		V8Console*			console;
-	public:
-		std::thread*		m_pSessionThread;
-		//DISALLOW_COPY_AND_ASSIGN(DebuggerAgentSession);
+        std::unique_ptr<v8_inspector::V8Inspector> _new_inspector;
+        std::unique_ptr<v8_inspector::V8InspectorSession> _dbg_session_; //new debugger
+        v8_inspector::V8InspectorClient*    m_pInspectorClient=nullptr;
+        InspectorFrontend*                  m_pInspectorChannel = nullptr;
 	};
 }
 #endif

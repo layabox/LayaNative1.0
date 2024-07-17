@@ -10,7 +10,7 @@
 //包含头文件
 #include "TouchFilter.h"
 #include "../../../../source/conch/JSWrapper/LayaWrap/JSInput.h"
-#include "../../../../source/conch/JCScrpitRuntime.h"
+#include "../../../../source/conch/JCScriptRuntime.h"
 #include <util/Log.h>
 
 static const int __iMoveRangeDefault = 10;
