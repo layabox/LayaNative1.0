@@ -95,7 +95,7 @@ public:
 								void *user, void *in, size_t len)
 	{
         if (reason == LWS_CALLBACK_GET_THREAD_ID) {
-            //Õâ¸öÒ²²»ÖªµÀÓÐÊ²Ã´ÓÃ£¬¾ÍËæ±ã·µ»ØÒ»¸öÖµ°É
+            //ï¿½ï¿½ï¿½Ò²ï¿½ï¿½Öªï¿½ï¿½ï¿½ï¿½Ê²Ã´ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ã·µï¿½ï¿½Ò»ï¿½ï¿½Öµï¿½ï¿½
             auto id = std::this_thread::get_id();
             std::hash<std::thread::id> sh;
             return sh(id);
@@ -149,8 +149,8 @@ void WsThreadHelper::quitSubThread()
 void WsThreadHelper::wsThreadEntryFunc()
 {
 	m_pWebSocket->onSubThreadStarted();
-	//ÏÈµÈ¸ö500ºÁÃëÔÙµ÷ÓÃ libwebsocket_service 
-	//·ñÔòÔÙµÚ¶þ´Îµ÷ÓÃconnectµÄÊ±ºò»á³ö´í£¨¿ÉÄÜÊÇwin64ºÍws2µÄÒì²½Á¬½ÓµÄÎÊÌâ£¿£©
+	//ï¿½ÈµÈ¸ï¿½500ï¿½ï¿½ï¿½ï¿½ï¿½Ùµï¿½ï¿½ï¿½ libwebsocket_service 
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ÙµÚ¶ï¿½ï¿½Îµï¿½ï¿½ï¿½connectï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½win64ï¿½ï¿½ws2ï¿½ï¿½ï¿½ì²½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½â£¿ï¿½ï¿½
 #ifdef WIN32
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 #endif
@@ -295,8 +295,8 @@ bool WebSocket::init(const Delegate& delegate,
 		char* name = new char[20];
 		strcpy(name, "default-protocol");
 		m_wsProtocols[0].name = name;
-		m_wsProtocols[0].rx_buffer_size=65536;	//Èç¹ûÕâÀï²»Éè£¬ÔòÔÚandroidÏÂµ±·¢ËÍµÄÊý¾ÝºÜ¶àµÄÊ±ºò£¬»áµ¼ÖÂ·¢ËÍÊ§°Ü£¨·µ»Ø0£©
-												//ÁÔÈÐÓÐÊ±ºò´ò²»µ½¹Ö¾ÍÊÇÒòÎªÕâ¸ö£¨×¥°ü¿´µ½µÄÊÇ·¢ËÍµÄÎªÔ­Ê¼ÄÚÈÝ£¬Í¬ÆÕÍ¨socket²»ÖªµÀÎªÊ²Ã´£¬¿ÉÄÜÎÞ¹Ø£¿£©
+		m_wsProtocols[0].rx_buffer_size=65536;	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï²»ï¿½è£¬ï¿½ï¿½ï¿½ï¿½androidï¿½Âµï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ÝºÜ¶ï¿½ï¿½Ê±ï¿½ò£¬»áµ¼ï¿½Â·ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½
+												//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ò²»µï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Íµï¿½ÎªÔ­Ê¼ï¿½ï¿½ï¿½Ý£ï¿½Í¬ï¿½ï¿½Í¨socketï¿½ï¿½Öªï¿½ï¿½ÎªÊ²Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¹Ø£ï¿½ï¿½ï¿½
 		m_wsProtocols[0].callback = WebSocketCallbackWrapper::onSocketCallback;
 	}
     
@@ -349,8 +349,8 @@ void WebSocket::close()
 	}
     
 	LOGI("websocket connection closed by client");
-	//TODO ÕâÀïÆäÊµ²»Ó¦¸ÃÉèÖÃ. Ô­À´ÊÇ¿¿Õâ¸öÀ´¹Øµôws£¬µ«ÊÇÊµ¼ÊÉÏ
-	//Õâ¸ö±äÁ¿ºÜÈÝÒ×±»wsÏß³ÌÐÞ¸Ä£¬µ¼ÖÂÏÂÃæjoinµÄÊ±ºò¿¨ËÀ¡£
+	//TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. Ô­ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½wsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×±ï¿½wsï¿½ß³ï¿½ï¿½Þ¸Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½joinï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	m_readyState = State::CLOSED;	
 	
 	m_bWantClose = true;
@@ -510,7 +510,7 @@ int WebSocket::onSocketCallback(
                         
 						bytesWrite = lws_write(wsi,  &buf[LWS_SEND_BUFFER_PRE_PADDING], data->len, writeProtocol);
 						  if( bytesWrite==0){
-							//ÔÝÊ±ÎÞ·¨·¢ËÍ£¬µÈ»á¶ùÔÙÊÔ
+							//ï¿½ï¿½Ê±ï¿½Þ·ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							break;
 						  }
 						if( bytesWrite==0){
@@ -518,7 +518,7 @@ int WebSocket::onSocketCallback(
 						}
 						if (bytesWrite < 0)
 						{
-						    //·¢Éú´íÎóÁË¡£
+						    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½
 						    LOGE("WebSocket::onSocketCallback libwebsocket_write error! ");
 							break;
 						}
@@ -563,11 +563,11 @@ int WebSocket::onSocketCallback(
             
 		case LWS_CALLBACK_CLIENT_RECEIVE:
 			{
-                //bool finalfrg = lws_is_final_fragment(wsi)!=0;   Õâ¸öÓÀÔ¶¶¼ÊÇ1
+                //bool finalfrg = lws_is_final_fragment(wsi)!=0;   ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½1
                 const size_t remaining = lws_remaining_packet_payload(wsi);
 				if (in && len > 0){
                     if (remaining>0) {
-                        //Ö¡²»ÍêÕû
+                        //Ö¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                         char* pData = new char[m_nCurDataLen + len];
                         if(m_nCurDataLen)
                             memcpy(pData, m_pLastData, m_nCurDataLen);
@@ -576,7 +576,7 @@ int WebSocket::onSocketCallback(
                         if (m_pLastData) {
                             delete [] m_pLastData;
                             if (m_bLastIsBin != lws_frame_is_binary(wsi)) {
-                                LOGE("warn:difference frame type£¡");
+                                LOGE("warn:difference frame typeï¿½ï¿½");
                             }
                         }
                         m_pLastData = pData;
@@ -652,7 +652,7 @@ void WebSocket::onJSThreadReceiveMessage(WsMessage* msg)
 			{
                 /*
 				Data* data = (Data*)msg->obj;
-				m_delegate->onMessage(this, *data); //TODO Õâ¸öÖ¸ÕëÖ±½Ó´«¸øjs£¬jsÀ´É¾³ý£¬ÄÜ±ÜÃâÒ»´ÎnewºÍmemcpy
+				m_delegate->onMessage(this, *data); //TODO ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Ö±ï¿½Ó´ï¿½ï¿½ï¿½jsï¿½ï¿½jsï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½Ü±ï¿½ï¿½ï¿½Ò»ï¿½ï¿½newï¿½ï¿½memcpy
 				LAYA_SAFE_DELETE_ARRAY(data->bytes);
 				LAYA_SAFE_DELETE(data);
                 */
@@ -717,7 +717,7 @@ lws_vhost* WebSocket::createVhost(struct lws_protocols* protocols, int& sslConne
     {
         if (isCAFileExist)
         {
-#ifdef OHOS || ANDROID
+#if defined(OHOS) || defined(ANDROID)
             // if ca file is in the apk, try to extract it to writable path
             std::string writablePath = gRedistPath;
             static std::string newCaFilePath = writablePath + caFileName;

@@ -21,7 +21,7 @@
 
 #ifdef WIN32
 extern void SetNameInternal(unsigned int thread_id, const char* name);
-#elif ANDROID || OHOS
+#elif defined(ANDROID) || defined(OHOS)
 #include <sys/syscall.h>  
 #include <unistd.h>
 #define gettidv1() syscall(__NR_gettid)  
@@ -42,9 +42,9 @@ namespace laya
 	void ___datathread_onthreadstop(const char* threadname);
 	template<class _Tp>
     /** 
-      * @brief  ¹ÜÀí¶à¸ö¹¤×÷Ïß³Ì¡£ËùÓÐÏß³ÌµÄ¹¤×÷ÈÎÎñÀàËÆ¡£
-              * Õâ¸öÊÇÓÃÀ´´úÌæÔ­À´µÄthreadpoolµÄ¡£ÒòÎªÔ­À´µÄÒÑ¾­¿´²»¶®ÁË£¬²»ºÃÎ¬»¤¡£
-              * TODO ÁÙÊ±Ð´µÄ£¬¹¦ÄÜÉè¼ÆÓÐÐ©»ìÂÒ¡£ÒÔºóÔÙÕûÀí
+      * @brief  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ÌµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¡ï¿½
+              * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½threadpoolï¿½Ä¡ï¿½ï¿½ï¿½ÎªÔ­ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½
+              * TODO ï¿½ï¿½Ê±Ð´ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð©ï¿½ï¿½ï¿½Ò¡ï¿½ï¿½Ôºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     */
 	class JCDataThread{
 	public:
@@ -67,7 +67,7 @@ namespace laya
 				Stop();
 			}
 			m_ThreadFunc = p_pfnThreadFunc;
-			//TODO m_Semaphore µÄstop±ê¼ÇÏÖÔÚ²»ÊÇÔ­×ÓµÄ¡£
+			//TODO m_Semaphore ï¿½ï¿½stopï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½Ô­ï¿½ÓµÄ¡ï¿½
 			//std::interprocess::ipcdetail::atomic_write32( &m_bWantToStop, 0 );
 			m_pThread = new std::thread(std::bind(&JCDataThread::__ThreadEntry,this));
 			if( 0 == m_pThread )
@@ -120,10 +120,10 @@ namespace laya
 		}
 
 		/**
-		* ¶à´Î³¢ÊÔjoin
-		* ·µ»Øtrue±íÊ¾³É¹¦joinÁË
-		* timeout Ã¿´Î³¢ÊÔµÄ³¬Ê±Ê±¼ä£¬µ¥Î»ÊÇºÁÃë
-		* traStopWorker £º ·µ»Øtrue±íÊ¾Ï£ÍûÍ£Ö¹³¢ÊÔ¡£²ÎÊýÊÇµ±Ç°³¢ÊÔ´ÎÊýºÍÓÃ»§¶¨Òå²ÎÊý
+		* ï¿½ï¿½Î³ï¿½ï¿½ï¿½join
+		* ï¿½ï¿½ï¿½ï¿½trueï¿½ï¿½Ê¾ï¿½É¹ï¿½joinï¿½ï¿½
+		* timeout Ã¿ï¿½Î³ï¿½ï¿½ÔµÄ³ï¿½Ê±Ê±ï¿½ä£¬ï¿½ï¿½Î»ï¿½Çºï¿½ï¿½ï¿½
+		* traStopWorker ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½trueï¿½ï¿½Ê¾Ï£ï¿½ï¿½Í£Ö¹ï¿½ï¿½ï¿½Ô¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½Ç°ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		*/
 		typedef bool (*tryStopWorker)(int,void*);
 		bool tryStop(int timeout, tryStopWorker func, void* userdata) {
@@ -135,7 +135,7 @@ namespace laya
 			m_Datas.clear();
 		}
 
-		//±ØÐëÔÚÆô¶¯Ïß³ÌÇ°ÉèÖÃ¡£
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½Ç°ï¿½ï¿½ï¿½Ã¡ï¿½
 		void setName(const char* p_pszName){
 			m_strName = p_pszName;
 		}
@@ -190,7 +190,7 @@ namespace laya
 			}
 		}
 
-        //·¢ËÍµ½ÈÎÎñ×îÉÙµÄÏß³ÌÖÐ
+        //ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ùµï¿½ï¿½ß³ï¿½ï¿½ï¿½
         bool sendToThread(_DataType p_dt) {
             if (m_nThreadNum <= 0)
                 return false;

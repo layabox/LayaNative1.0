@@ -107,7 +107,7 @@ namespace laya
         char* jsportfile = "d:/temp/sdcard/layabox/jsdebug.txt";
 #elif ANDROID
         char* jsportfile = "/sdcard/layabox/jsdebug.txt";
-#elif __APPLE__ || OHOS
+#elif defined(__APPLE__) || defined(OHOS)
         char* jsportfile = "";
 #endif
         if (s_nDebugPort <= 0) {
