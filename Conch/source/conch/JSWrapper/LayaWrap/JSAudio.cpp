@@ -468,23 +468,15 @@ void JSAudio::onPlayEnd()
 	auto pFunction = std::bind(&JSAudio::onPlayEndCallJSFunction,this, cbref);
 	JCScriptRuntime::s_JSRT->m_pPoster->postToJS( pFunction );
 }
+
 //------------------------------------------------------------------------------
 void JSAudio::onPlayEndCallJSFunction( std::weak_ptr<int> callbackref)
 {
-	if( !callbackref.lock())
-		return;
-	m_pJSFunctionAudioEnd.Call();
-	#ifdef OHOS
-	if(audioRenderInfo->_audioRender!=nullptr) {
-        OH_AudioRenderer_Release(audioRenderInfo->_audioRender);
-    }
-    if(audioRenderInfo->_builder != nullptr) {
-        OH_AudioStreamBuilder_Destroy(audioRenderInfo->_builder);
-    }
-    audioRenderInfo->m_pAudio = NULL;
-    audioRenderInfo->m_bPlaying = false;
-	#endif
+    if( !callbackref.lock())
+	    return;
+    m_pJSFunctionAudioEnd.Call();
 }
+
 //------------------------------------------------------------------------------
 void JSAudio::onCanplayCallJSFunction( std::weak_ptr<int> callbackref)
 {

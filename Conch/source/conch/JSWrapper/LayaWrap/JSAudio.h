@@ -79,11 +79,12 @@ public:
 public:
 
 	void onPlayEnd();
+    
 
     void onCanplayCallJSFunction(std::weak_ptr<int> callbackref);
 
 	void onPlayEndCallJSFunction(std::weak_ptr<int> callbackref);
-
+    
 	void onErrorCallJSFunction(int p_nErrCode,std::weak_ptr<int> callbackref);
 
 public:

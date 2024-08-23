@@ -217,6 +217,15 @@ void NAPIFun::ConchNAPI_onRunCmd(std::string cmd)
         func->g_pConch->onRunCmdInMainThread(atoi(cmd.c_str()),0,0);
     }
 }
+
+void NAPIFun::ConchNAPI_gameMsgHandle(std::string key, std::string value)
+{
+    JCScriptRuntime::s_JSRT->onJsObjHandle(key,value);
+}
+void NAPIFun::ConchNAPI_RunJS(const std::string &js)
+{
+     JCScriptRuntime::s_JSRT->callJSString(js);
+}
 JSBIND_GLOBAL()
 {
     JSBIND_FUNCTION(NAPIFun::ConchNAPI_configSetParamExt, "ConchNAPI_configSetParamExt");
@@ -240,4 +249,6 @@ JSBIND_GLOBAL()
     JSBIND_FUNCTION(NAPIFun::ConchNAPI_handleDeviceMotionEvent, "ConchNAPI_handleDeviceMotionEvent");
     JSBIND_FUNCTION(NAPIFun::ConchNAPI_handleDeviceOrientationEvent, "ConchNAPI_handleDeviceOrientationEvent");
     JSBIND_FUNCTION(NAPIFun::ConchNAPI_onRunCmd, "ConchNAPI_onRunCmd");
+    JSBIND_FUNCTION(NAPIFun::ConchNAPI_gameMsgHandle, "ConchNAPI_gameMsgHandle");
+    JSBIND_FUNCTION(NAPIFun::ConchNAPI_RunJS, "ConchNAPI_RunJS");
 }

@@ -417,9 +417,7 @@ namespace laya
 #elif __APPLE__
        //CToObjectCSetExternalLink( sUrl,x,y,w,h, bCloseWebview);
 #elif OHOS
-        if(auto setExternalLink = aki::JSBind::GetJSFunction("WebUtils.createWebview")) {
-            setExternalLink->Invoke<void>(sUrl,x,y,w,h, bCloseWebview?1:0);
-        }
+        NapiHelper::GetInstance()->handleCreateWebview(sUrl,x,y,w,h, bCloseWebview?1:0);
 #elif WIN32
 
 #endif
@@ -433,9 +431,7 @@ namespace laya
 #elif __APPLE__
         //CToObjectCSetExternalLink(sUrl, 0, 0, 0, 0, true);
 #elif OHOS
-        if(auto setExternalLink = aki::JSBind::GetJSFunction("WebUtils.createWebview")) {
-            setExternalLink->Invoke<void>(sUrl,0, 0, 0, 0, 1);
-        }
+        NapiHelper::GetInstance()->handleCreateWebview(sUrl,0, 0, 0, 0, 1);
 #elif WIN32
 
 #endif
@@ -448,9 +444,7 @@ namespace laya
 #elif __APPLE__
         //CToObjectCCloseExternalLink();
 #elif OHOS
-        if(auto closeWebview = aki::JSBind::GetJSFunction("WebUtils.closeWebview")) {
-            closeWebview->Invoke<void>();
-        }
+        NapiHelper::GetInstance()->handleCloseWebview();
 #elif WIN32
 
 #endif
@@ -464,9 +458,7 @@ namespace laya
 #elif __APPLE__
         //CToObjectCCallWebviewJS(sFunctionName, sJsonParam, sCallbackFunction);
 #elif OHOS
-        if(auto callWebViewJS = aki::JSBind::GetJSFunction("WebUtils.callWebViewJS")) {
-            callWebViewJS->Invoke<void>(sFunctionName, sJsonParam, sCallbackFunction);
-        }
+        NapiHelper::GetInstance()->handleCallWebviewJS(sFunctionName, sJsonParam, sCallbackFunction);
 #elif WIN32
 
 #endif
@@ -479,9 +471,7 @@ namespace laya
 #elif __APPLE__
         //CToObjectCHideWebView();
 #elif OHOS
-        if(auto hideWebview = aki::JSBind::GetJSFunction("WebUtils.hideWebview")) {
-            hideWebview->Invoke<void>();
-        }
+        NapiHelper::GetInstance()->handleHideWebview();
 #elif WIN32
         
 #endif
@@ -494,9 +484,7 @@ namespace laya
 #elif __APPLE__
         //CToObjectCShowWebView();
 #elif OHOS
-        if(auto showWebView = aki::JSBind::GetJSFunction("WebUtils.showWebView")) {
-            showWebView->Invoke<void>();
-        }
+        NapiHelper::GetInstance()->handleShowWebview();
 #elif WIN32
         
 #endif
@@ -537,6 +525,10 @@ namespace laya
     std::string JSRuntime::postSyncMessage(const char *eventName, const char *data) {
         std::string result = NapiHelper::GetInstance()->postSyncMessageToUIThread(eventName, data);
         return result;
+    }
+    void JSRuntime::setGameJsOnMessage(JSValueAsParam p_pFunction)
+    {
+        m_pScrpitRuntime->m_pGameJsOnMessage.set(handJsMessage, this, p_pFunction);
     }
 #endif
     void JSRuntime::exportJS()
@@ -594,6 +586,7 @@ namespace laya
         #ifdef OHOS
         JSP_GLOBAL_ADD_METHOD("postMessage", JSRuntime::postMessage);
 		JSP_GLOBAL_ADD_METHOD("postSyncMessage", JSRuntime::postSyncMessage);
+        JSP_GLOBAL_ADD_METHOD("setGameJsOnMessage", JSRuntime::setGameJsOnMessage);
         #endif
         JSP_INSTALL_GLOBAL_CLASS("conch", JSRuntime, this );
     }

@@ -451,6 +451,9 @@ namespace laya {
         m_pJSOnDrawFunction.Reset();
         m_pJSCmdABObjSharedWithJS.Reset();
         m_pJSCmdOtherBufferSharedWithJS.Reset();
+#ifdef OHOS
+        m_pGameJsOnMessage.Reset();
+#endif
 #ifdef ANDROID
         m_pCurEditBox = NULL;
 #endif
@@ -647,6 +650,17 @@ namespace laya {
 			});
 		return true;
 	}
+#if OHOS
+    void JCScriptRuntime::onJsObjHandle(std::string key, std::string value)
+    {
+        std::function<void(void)> pFunction = std::bind(&JCScriptRuntime::onJsObjHandleCallJSFunction, this, key,value);
+        m_ScriptThread.post(pFunction);
+    }
+    void JCScriptRuntime::onJsObjHandleCallJSFunction(std::string key, std::string value)
+    {
+        m_pGameJsOnMessage.Call(key,value);
+    }
+#endif
 }
 //------------------------------------------------------------------------------
 
