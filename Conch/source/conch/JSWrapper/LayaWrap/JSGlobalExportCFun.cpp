@@ -220,7 +220,11 @@ namespace laya
     }
     void evalJS(const char* p_sSource)
     {
-        JSP_RUN_SCRIPT(p_sSource);
+//#ifdef JS_V8    
+//        JSP_RUN_SCRIPT(p_sSource);
+//#elif JS_JSVM
+        JSP_RUN_SCRIPT(p_sSource,nullptr);
+//#endif
     }
     void JSPrint(const char* p_sBuffer)
     {
@@ -357,6 +361,14 @@ namespace laya
         return ret;
     }
 
+#ifdef JS_JSVM
+    void gc() {
+        auto env = ENV;
+        JSVM_Status status;
+        JSVM_API_CALL(status, env, OH_JSVM_MemoryPressureNotification(env, JSVM_MEMORY_PRESSURE_LEVEL_CRITICAL));
+    }
+#endif
+
 	void JSGlobalExportC()	
     {
 		JSP_GLOBAL_START1();
@@ -444,6 +456,9 @@ namespace laya
         JSP_ADD_GLOBAL_FUNCTION(downloadBigFile, _downloadBigFile);
         JSP_ADD_GLOBAL_FUNCTION(downloadGetHeader, _downloadGetHeader);
         JSP_ADD_GLOBAL_FUNCTION(calcmd5, calcMD5_JSAB);
+        #ifdef JS_JSVM
+            JSP_ADD_GLOBAL_FUNCTION(gc, gc);
+        #endif
 	}
 }
 //------------------------------------------------------------------------------

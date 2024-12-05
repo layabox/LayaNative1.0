@@ -42,9 +42,7 @@ namespace laya
 	void ___datathread_onthreadstop(const char* threadname);
 	template<class _Tp>
     /** 
-      * @brief  ������������̡߳������̵߳Ĺ����������ơ�
-              * �������������ԭ����threadpool�ġ���Ϊԭ�����Ѿ��������ˣ�����ά����
-              * TODO ��ʱд�ģ����������Щ���ҡ��Ժ�������
+              * TODO 临时写的，功能设计有些混乱。以后再整理
     */
 	class JCDataThread{
 	public:
@@ -67,7 +65,7 @@ namespace laya
 				Stop();
 			}
 			m_ThreadFunc = p_pfnThreadFunc;
-			//TODO m_Semaphore ��stop������ڲ���ԭ�ӵġ�
+
 			//std::interprocess::ipcdetail::atomic_write32( &m_bWantToStop, 0 );
 			m_pThread = new std::thread(std::bind(&JCDataThread::__ThreadEntry,this));
 			if( 0 == m_pThread )
@@ -120,10 +118,7 @@ namespace laya
 		}
 
 		/**
-		* ��γ���join
-		* ����true��ʾ�ɹ�join��
-		* timeout ÿ�γ��Եĳ�ʱʱ�䣬��λ�Ǻ���
-		* traStopWorker �� ����true��ʾϣ��ֹͣ���ԡ������ǵ�ǰ���Դ������û��������
+
 		*/
 		typedef bool (*tryStopWorker)(int,void*);
 		bool tryStop(int timeout, tryStopWorker func, void* userdata) {
@@ -135,7 +130,7 @@ namespace laya
 			m_Datas.clear();
 		}
 
-		//�����������߳�ǰ���á�
+
 		void setName(const char* p_pszName){
 			m_strName = p_pszName;
 		}
@@ -190,7 +185,7 @@ namespace laya
 			}
 		}
 
-        //���͵��������ٵ��߳���
+
         bool sendToThread(_DataType p_dt) {
             if (m_nThreadNum <= 0)
                 return false;

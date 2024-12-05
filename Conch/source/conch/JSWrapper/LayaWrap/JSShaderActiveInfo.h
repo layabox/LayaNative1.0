@@ -14,7 +14,7 @@
 #include <string>
 #include <map>
 #include "../JSInterface/JSInterface.h"
-#include "../JSInterface/jsobjbase.h"
+#include "../JSInterface/JSObjBase.h"
 
 namespace laya
 {

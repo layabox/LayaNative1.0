@@ -6,7 +6,7 @@
 @date			2016_5_18
 */
 
-//包含头文件
+
 #include "JSInput.h"
 #include <util/Log.h>
 #include "../../JSWrapper/LayaWrap/JSInput.h"
@@ -59,6 +59,7 @@ namespace laya
         t[7] = e.rb;
         t[8] = e.rg;
         t[9] = e.interval;
+
 /*#ifdef JS_JSC
         if (!isSupportTypedArrayAPI())
         {
@@ -67,6 +68,7 @@ namespace laya
             JSObjectSetTypedArrayData(ctx,arrayObj,(const uint8_t *)JCScriptRuntime::s_JSRT->m_pOtherBufferSharedWidthJS,(size_t)JCScriptRuntime::s_JSRT->m_nOtherBufferSharedWidthJSLen);
         
         }
+
 #endif*/
         
         JCScriptRuntime::s_JSRT->m_pJSDeviceMotionEvtFunction.Call(e.type);
@@ -94,12 +96,12 @@ namespace laya
         {
             JCScriptRuntime::s_JSRT->m_pJSTouchEvtFunction.Call(e.nTouchType, e.id, e.type, e.posX, e.posY);
         }
-        //鼠标
+
         else if (e.nType >= E_ONMOUSEDOWN && e.nType <= E_ONMOUSEUP)
         {
             JCScriptRuntime::s_JSRT->m_pJSMouseEvtFunction.Call(e.nTouchType, e.type, e.posX, e.posY, e.nWheel);
         }
-        //键盘
+
         else if (e.nType >= E_ONKEYDOWN && e.nType <= E_ONKEYUP)
         {
             int bAlt = e.bAlt ? 1 : 0;
@@ -138,7 +140,7 @@ namespace laya
                 if (JCConch::s_pConchRender)
                     JCConch::s_pConchRender->onTouchStart(fTime);
 #elif ANDROID  
-				//如何转到渲染线程？有线程问题但应该影响不大
+
 				if (JCConch::s_pConchRender)
                     JCConch::s_pConchRender->onTouchStart(fTime);
 #elif WIN32
@@ -183,6 +185,8 @@ namespace laya
     {
 #ifdef JS_V8
         v8::HandleScope scope(v8::Isolate::GetCurrent());
+#elif JS_JSVM
+        AutoHandleScope scope;
 #endif
         JsValue ab = createJSAB(p_pBuffer, p_nlen);
 		delete[] p_pBuffer;

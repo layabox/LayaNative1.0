@@ -20,11 +20,13 @@
 	#include "aki/jsbind.h"
 	#include "napi/NAPIFun.h"
 	#include "helper/NapiHelper.h"
+    #include "JSSensor.h"
 #endif
 #include "../../JCSystemConfig.h"
 #include "JSInput.h"
 #include "JSConchConfig.h"
 #include "../../../common/imageLib/JCImageRW.h"
+
 //------------------------------------------------------------------------------
 namespace laya
 {
@@ -296,11 +298,9 @@ namespace laya
         CToJavaBridge::GetInstance()->callMethod(CToJavaBridge::JavaClass.c_str(), "setSensorAble", p_bSensorAble, kRet);
 #elif OHOS
         if(p_bSensorAble) {
-            NapiHelper::GetInstance()->enableAccelerometer();
-            NapiHelper::GetInstance()->enableOrientation();
+            JSSensor::enableSensor();
         } else {
-            NapiHelper::GetInstance()->disableAccelerometer();
-            NapiHelper::GetInstance()->disableOrientation();
+            JSSensor::disableSensor();
         } 
 #elif WIN32
 
@@ -323,7 +323,6 @@ namespace laya
         sFilePath += "/imagesLog.txt";
         pImageManger->printCorpseImages(sFilePath.c_str());
     }
-
     std::string JSRuntime::callMethod(int objid,bool isSyn,const char*clsName, const char* methodName, const char* paramStr)
     {
 #ifdef ANDROID
@@ -340,6 +339,9 @@ namespace laya
 #elif __APPLE__
         CToObjectCCallMethod( objid, isSyn, clsName, methodName,paramStr);
         return "";
+#elif OHOS
+        // 暂不支持调用非静态方法
+        return NapiHelper::GetInstance()->callNativeMethod(isSyn, clsName, methodName, paramStr);
 #endif
         return "";
     }

@@ -54,7 +54,7 @@ set(common_src
     ../../../source/common/util/JCFlog.cpp
     ../../../source/common/resource/Atlas/JCAtlas.cpp
     ../../../source/common/resource/Atlas/JCAtlasManager.cpp
-    ../../../source/common/resource/Audio/JCAudioWavplayer-openharmony.cpp
+    ../../../source/common/resource/Audio/JCAudioWavplayer.cpp
     ../../../source/common/resource/Audio/JCOggParser.cpp
     ../../../source/common/resource/Audio/JCWaveInfo.cpp
     ../../../source/common/resource/Audio/JCWaveParser.cpp
@@ -79,6 +79,7 @@ target_include_directories(common PUBLIC
     ../../../../ThirdParty/zip/include/ohos
     ../../../../ThirdParty/ogg/include/ohos
     ../../../../ThirdParty/zlib/include/ohos
+    ../../../../ThirdParty/openal/include/ohos
     ../../../../source/common/glm
     ../../../../Conch/source
 )

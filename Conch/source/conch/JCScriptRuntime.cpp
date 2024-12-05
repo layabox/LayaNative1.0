@@ -287,7 +287,11 @@ namespace laya {
             int nSize = 0;
             if (m_pAssetsRes->loadFileContent("scripts/runtimeInit.js", sJSRuntime, nSize))
             {
-                JSP_RUN_SCRIPT(sJSRuntime);
+//#ifdef JS_V8
+//                JSP_RUN_SCRIPT(sJSRuntime);
+//#elif JS_JSVM
+                JSP_RUN_SCRIPT(sJSRuntime, "scripts/runtimeInit.js");
+//#endif
                 delete[] sJSRuntime;
             }
         }
@@ -302,13 +306,17 @@ namespace laya {
                 v8::Isolate* isolate = v8::Isolate::GetCurrent();
                 v8::HandleScope handle_scope(isolate);
                 v8::TryCatch try_catch(isolate);
-                JSP_RUN_SCRIPT(kBuf.c_str());
+                JSP_RUN_SCRIPT(kBuf.c_str(),nullptr);
                 if (try_catch.HasCaught())
                 {
                     __JSRun::ReportException(isolate, &try_catch);
                 }
             #else
-                JSP_RUN_SCRIPT(kBuf.c_str());
+//#ifdef JS_V8
+//                JSP_RUN_SCRIPT(kBuf.c_str());
+//#elif JS_JSVM
+                JSP_RUN_SCRIPT(kBuf.c_str(),nullptr);
+//#endif
             #endif	
             delete[] sJCBuffer;
             sJCBuffer = NULL;
@@ -478,6 +486,23 @@ namespace laya {
             m_pDbgAgent->onJSExit();
         }
         #endif
+#elif JS_JSVM
+        JSObjBaseJSVM::restarting = true;
+        JSObjBaseJSVM::resetBaseSet();
+        JCSimpList* pNodeLists = JSObjNode::s_pListJSObj;
+        if (pNodeLists != NULL)
+        {
+            JCListNode* pCur = pNodeLists->begin();
+            JCListNode* pEnd = pNodeLists->end();
+            while (pCur != pEnd)
+            {
+                JSObjNode* pJsCur = (JSObjNode*)pCur;
+                pCur = pNodeLists->delNode(pCur);
+                delete pJsCur;
+            }
+            delete JSObjNode::s_pListJSObj;
+            JSObjNode::s_pListJSObj = nullptr;
+        }
 #elif JS_JSC
         JSP_RESET_GLOBAL_FUNCTION;
 #endif
@@ -577,7 +602,11 @@ namespace laya {
     }
     void JCScriptRuntime::jsGCCallJSFunction()
     {
-        JSP_RUN_SCRIPT("gc()");
+//#ifdef JS_V8
+//                JSP_RUN_SCRIPT("gc();");
+//#elif JS_JSVM
+                JSP_RUN_SCRIPT("gc();",nullptr);
+//#endif
     }
     void JCScriptRuntime::callJC(std::string sFunctionName, std::string sJsonParam, std::string sCallbackFunction)
     {
@@ -591,7 +620,11 @@ namespace laya {
     }
     void JCScriptRuntime::callJSStringFunction( std::string sBuffer )
     {
-        JSP_RUN_SCRIPT(sBuffer.c_str());
+//#ifdef JS_V8
+//                JSP_RUN_SCRIPT(sBuffer.c_str());
+//#elif JS_JSVM
+                JSP_RUN_SCRIPT(sBuffer.c_str(),nullptr);
+//#endif
     }
     void JCScriptRuntime::callJSFuncton(std::string sFunctionName, std::string sJsonParam, std::string sCallbackFunction)
     {
@@ -602,7 +635,11 @@ namespace laya {
         sBuffer += sCallbackFunction;
         sBuffer += "\");";
         LOGI("JCScriptRuntime::callJSFuncton buffer=%s",sBuffer.c_str() );
-        JSP_RUN_SCRIPT( sBuffer.c_str() );
+//#ifdef JS_V8
+//                JSP_RUN_SCRIPT(sBuffer.c_str());
+//#elif JS_JSVM
+                JSP_RUN_SCRIPT(sBuffer.c_str(),nullptr);
+//#endif
     }
     void JCScriptRuntime::restoreAudio()
     {
@@ -623,7 +660,11 @@ namespace laya {
     }
     void JCScriptRuntime::jsReloadUrlJSFunction()
     {
-        JSP_RUN_SCRIPT("reloadJS(true)");
+//#ifdef JS_V8
+//                JSP_RUN_SCRIPT("reloadJS(true)");
+//#elif JS_JSVM
+                JSP_RUN_SCRIPT("reloadJS(true)",nullptr);
+//#endif
     }
     void JCScriptRuntime::jsUrlback()
     {
@@ -632,7 +673,11 @@ namespace laya {
     }
     void JCScriptRuntime::jsUrlbackJSFunction()
     {
-        JSP_RUN_SCRIPT("history.back()");
+//#ifdef JS_V8
+//                JSP_RUN_SCRIPT("history.back()");
+//#elif JS_JSVM
+                JSP_RUN_SCRIPT("history.back()",nullptr);
+//#endif
     }
     int JCScriptRuntime::getDispathGlobalID()
     {

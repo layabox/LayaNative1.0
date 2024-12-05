@@ -16,6 +16,7 @@ LOCAL_CFLAGS := \
   -DANDROID_STL=c++_shared \
   -DANDROID_TOOLCHAIN=clang \
   -fno-rtti \
+  -DAL_ALEXT_PROTOTYPES \
   #todo -DJS_V8_DEBUGGER \
 
 LOCAL_CPPFLAGS += -std=c++11

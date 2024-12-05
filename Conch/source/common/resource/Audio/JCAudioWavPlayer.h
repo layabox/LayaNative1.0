@@ -17,7 +17,7 @@
 #elif __APPLE__
     #include <OpenAL/al.h>
     #include <OpenAl/alc.h>
-#elif ANDROID
+#elif defined(ANDROID) || defined(OHOS)
 	#include <AL/al.h>
     #include <AL/alc.h>
 #endif
@@ -87,6 +87,10 @@ public:
     void stopAll();
 
 	void checkWavePlayEnd();
+    
+    void pause();
+    
+    void resume();
 
 public:
 

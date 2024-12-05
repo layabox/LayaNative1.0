@@ -9,7 +9,7 @@
 #ifndef __JSWebGLContext_H__
 #define __JSWebGLContext_H__
 
-#include "../JSInterface/jsobjbase.h"
+#include "../JSInterface/JSObjBase.h"
 #include "../JSInterface/JSInterface.h"
 #include <WebGLRender/JCWebGLRender.h>
 #include <3DRS/JCGpuProgram.h>

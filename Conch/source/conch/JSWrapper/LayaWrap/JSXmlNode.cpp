@@ -6,7 +6,7 @@
 @date			2016_5_18
 */
 
-//О©╫О©╫О©╫О©╫м╥О©╫д╪О©╫
+//╟Э╨╛м╥нд╪Ч
 #include "JSXmlNode.h"
 #include <sstream>
 //#include "util/JCCommonMethod.h"

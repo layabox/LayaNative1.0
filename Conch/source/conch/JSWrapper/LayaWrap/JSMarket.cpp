@@ -872,7 +872,11 @@ void JSMarket::clearConchEngineMemory()
 	if( m_bClearConchMemory )
 	{
 		LOGI(">>>>>>>>>>JSMarket::clearConchEngineMemory()");
-		JSP_RUN_SCRIPT( "gc();" );
+//#ifdef JS_V8
+//                JSP_RUN_SCRIPT("gc();");
+//#elif JS_JSVM
+                JSP_RUN_SCRIPT("gc();",nullptr);
+//#endif
 		if( JCConch::s_pConch ) 
 		{
             JCConch::s_pConch->onClearMemory();
@@ -890,38 +894,38 @@ void JSMarket::openAppStoreUrl( const char* p_sAppID )
 void JSMarket::exportJS()
 {
     JSP_GLOBAL_CLASS("conchMarket", JSMarket, JCScriptRuntime::s_JSRT->m_pMarket);
-    JSP_ADD_METHOD("getMarketName", JSMarket::getMarketName);
-    JSP_ADD_METHOD("getLoginType", JSMarket::getLoginType);
-    JSP_ADD_METHOD("setIsClearConchEngineMemory", JSMarket::setIsClearConchEngineMemory);
-    JSP_ADD_METHOD("getEnterPlatformType", JSMarket::getEnterPlatformType);
-    JSP_ADD_METHOD("getIsLogined", JSMarket::getIsLogined);
-    JSP_ADD_METHOD("init", JSMarket::init);
-    JSP_ADD_METHOD("login", JSMarket::login);
-    JSP_ADD_METHOD("logout", JSMarket::logout);
-    JSP_ADD_METHOD("switchUser", JSMarket::switchUser);
-    JSP_ADD_METHOD("enterPlatform", JSMarket::enterPlatform);
-    JSP_ADD_METHOD("enterBBS", JSMarket::enterBBS);
-    JSP_ADD_METHOD("enterFeedback", JSMarket::enterFeedback);
-    JSP_ADD_METHOD("enterAccountMgr", JSMarket::enterAccountMgr);
-    JSP_ADD_METHOD("authorize", JSMarket::authorize);
-    JSP_ADD_METHOD("refreshToken", JSMarket::refreshToken);
-    JSP_ADD_METHOD("cz", JSMarket::CZ);
-    JSP_ADD_METHOD("buyProps", JSMarket::buyProps);
-    JSP_ADD_METHOD("setCZInfo", JSMarket::setCZInfo);
-    JSP_ADD_METHOD("enterShareAndFeed", JSMarket::enterShareAndFeed);
-    JSP_ADD_METHOD("enterInvite", JSMarket::enterInvite);
-    JSP_ADD_METHOD("getGameFriends", JSMarket::getGameFriends);
-    JSP_ADD_METHOD("sendToDesktop", JSMarket::sendToDesktop);
-    JSP_ADD_METHOD("sendMessageToPlatform", JSMarket::sendMessageToPlatform);
-    JSP_ADD_METHOD("canSendToDesktop", JSMarket::canSendToDesktop);
-    JSP_ADD_METHOD("openTopicCircle", JSMarket::openTopicCircle);
-    JSP_ADD_METHOD("getUserInfo", JSMarket::getUserInfo);
-    JSP_ADD_METHOD("getAvailableLoginType", JSMarket::getAvailableLoginType);
-    JSP_ADD_METHOD("getValue", JSMarket::getValue);
-    JSP_ADD_METHOD("setValue", JSMarket::setValue);
-    JSP_ADD_METHOD("writeLocalInfo", JSMarket::writeLocalInfo);
-    JSP_ADD_METHOD("getLocalInfo", JSMarket::getLocalInfo);
-    JSP_ADD_METHOD("openAppStoreUrl", JSMarket::openAppStoreUrl);
+    JSP_GLOBAL_ADD_METHOD("getMarketName", JSMarket::getMarketName);
+    JSP_GLOBAL_ADD_METHOD("getLoginType", JSMarket::getLoginType);
+    JSP_GLOBAL_ADD_METHOD("setIsClearConchEngineMemory", JSMarket::setIsClearConchEngineMemory);
+    JSP_GLOBAL_ADD_METHOD("getEnterPlatformType", JSMarket::getEnterPlatformType);
+    JSP_GLOBAL_ADD_METHOD("getIsLogined", JSMarket::getIsLogined);
+    JSP_GLOBAL_ADD_METHOD("init", JSMarket::init);
+    JSP_GLOBAL_ADD_METHOD("login", JSMarket::login);
+    JSP_GLOBAL_ADD_METHOD("logout", JSMarket::logout);
+    JSP_GLOBAL_ADD_METHOD("switchUser", JSMarket::switchUser);
+    JSP_GLOBAL_ADD_METHOD("enterPlatform", JSMarket::enterPlatform);
+    JSP_GLOBAL_ADD_METHOD("enterBBS", JSMarket::enterBBS);
+    JSP_GLOBAL_ADD_METHOD("enterFeedback", JSMarket::enterFeedback);
+    JSP_GLOBAL_ADD_METHOD("enterAccountMgr", JSMarket::enterAccountMgr);
+    JSP_GLOBAL_ADD_METHOD("authorize", JSMarket::authorize);
+    JSP_GLOBAL_ADD_METHOD("refreshToken", JSMarket::refreshToken);
+    JSP_GLOBAL_ADD_METHOD("cz", JSMarket::CZ);
+    JSP_GLOBAL_ADD_METHOD("buyProps", JSMarket::buyProps);
+    JSP_GLOBAL_ADD_METHOD("setCZInfo", JSMarket::setCZInfo);
+    JSP_GLOBAL_ADD_METHOD("enterShareAndFeed", JSMarket::enterShareAndFeed);
+    JSP_GLOBAL_ADD_METHOD("enterInvite", JSMarket::enterInvite);
+    JSP_GLOBAL_ADD_METHOD("getGameFriends", JSMarket::getGameFriends);
+    JSP_GLOBAL_ADD_METHOD("sendToDesktop", JSMarket::sendToDesktop);
+    JSP_GLOBAL_ADD_METHOD("sendMessageToPlatform", JSMarket::sendMessageToPlatform);
+    JSP_GLOBAL_ADD_METHOD("canSendToDesktop", JSMarket::canSendToDesktop);
+    JSP_GLOBAL_ADD_METHOD("openTopicCircle", JSMarket::openTopicCircle);
+    JSP_GLOBAL_ADD_METHOD("getUserInfo", JSMarket::getUserInfo);
+    JSP_GLOBAL_ADD_METHOD("getAvailableLoginType", JSMarket::getAvailableLoginType);
+    JSP_GLOBAL_ADD_METHOD("getValue", JSMarket::getValue);
+    JSP_GLOBAL_ADD_METHOD("setValue", JSMarket::setValue);
+    JSP_GLOBAL_ADD_METHOD("writeLocalInfo", JSMarket::writeLocalInfo);
+    JSP_GLOBAL_ADD_METHOD("getLocalInfo", JSMarket::getLocalInfo);
+    JSP_GLOBAL_ADD_METHOD("openAppStoreUrl", JSMarket::openAppStoreUrl);
     JSP_INSTALL_GLOBAL_CLASS("conchMarket", JSMarket, JCScriptRuntime::s_JSRT->m_pMarket);
 }
 

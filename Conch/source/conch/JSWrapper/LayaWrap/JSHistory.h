@@ -10,7 +10,7 @@
 #ifndef __JSHistory_H__
 #define __JSHistory_H__
 
-#include "../JSInterface/jsobjbase.h"
+#include "../JSInterface/JSObjBase.h"
 #include "../JSInterface/JSInterface.h"
 
 namespace laya {

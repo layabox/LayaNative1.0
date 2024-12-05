@@ -13,6 +13,7 @@ LOCAL_CFLAGS := \
   -DANDROID_ARM_NEON=TRUE \
   -DANDROID_STL=c++_shared \
   -DANDROID_TOOLCHAIN=clang \
+  -DAL_ALEXT_PROTOTYPES \
   -frtti
 
 LOCAL_CPPFLAGS += -std=c++11

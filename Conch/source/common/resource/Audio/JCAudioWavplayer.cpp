@@ -12,10 +12,13 @@
 #include "JCWaveParser.h"
 #include "JCOggParser.h"
 #include "../JCFileResManager.h"
+#if defined(ANDROID) || defined(OHOS)
+#include "AL/alext.h"
+#endif
 //------------------------------------------------------------------------------
 namespace laya
 {
-int JCAudioWavPlayer::s_nGarbageCollectionTime = 30000; //30Ãë
+int JCAudioWavPlayer::s_nGarbageCollectionTime = 30000; //30ï¿½ï¿½
 //------------------------------------------------------------------------------
 JCAudioWavPlayer::JCAudioWavPlayer(JCFileResManager* pFileResManager)
 {
@@ -185,7 +188,7 @@ OpenALSourceInfo* JCAudioWavPlayer::playAudioFromBuffer( JCAudioInterface* p_pAu
 	alSourcef ( pOpenALInfo->m_nOpenALSouceID, AL_PITCH, 1.0 );
 	alSourcef ( pOpenALInfo->m_nOpenALSouceID, AL_GAIN, 1.0 );
 	alSourcei ( pOpenALInfo->m_nOpenALSouceID, AL_LOOPING, 0 );
-	//ÏÈÆÁ±Î
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	//alSourcefv( pOpenALInfo->m_nOpenALSouceID, AL_VELOCITY, pOpenALInfo->m_vSourceVel );
 	//alSourcefv( pOpenALInfo->m_nOpenALSouceID, AL_POSITION, pOpenALInfo->m_vSourcePos );
 
@@ -247,7 +250,7 @@ OpenALSourceInfo* JCAudioWavPlayer::playAudioFromBuffer( JCAudioInterface* p_pAu
 	pOpenALInfo->m_nBufferID = nBufferID;
 	//play
 	alSourcePlay( pOpenALInfo->m_nOpenALSouceID );
-	//±£ÁôÐÅÏ¢
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
     pOpenALInfo->m_pAudio = p_pAudio;
 	pOpenALInfo->m_bPlaying = true;
     return pOpenALInfo;
@@ -319,6 +322,29 @@ void JCAudioWavPlayer::Release()
         m_pDevice=NULL; 
     } 
 	m_bStop=true;
+}
+
+void JCAudioWavPlayer::pause()
+{
+    int m_nALCount = m_pOpenALSource.size();
+    for (int i = 0; i < m_nALCount; i++)
+    {
+        alSourcePause(m_pOpenALSource[i]->m_nOpenALSouceID);
+    }
+	#if defined(ANDROID) || defined(OHOS)
+		alcDevicePauseSOFT(m_pDevice);
+	#endif
+}
+void JCAudioWavPlayer::resume()
+{
+    int m_nALCount = m_pOpenALSource.size();
+    for (int i = 0; i < m_nALCount; i++)
+    {
+        alSourcePlay(m_pOpenALSource[i]->m_nOpenALSouceID);
+    }
+	#if defined(ANDROID) || defined(OHOS)
+		alcDeviceResumeSOFT(m_pDevice);
+	#endif
 }
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------

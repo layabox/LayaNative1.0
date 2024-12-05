@@ -31,6 +31,7 @@ target_link_libraries(${PROJECT_NAME}
     ${LAYA_ROOT_PATH}/ThirdParty/openssl/lib/ohos/libssl.a
     ${LAYA_ROOT_PATH}/ThirdParty/openssl/lib/ohos/libcrypto.a
     ${LAYA_ROOT_PATH}/ThirdParty/zlib/lib/ohos/libz.a
+    ${LAYA_ROOT_PATH}/ThirdParty/openal/lib/ohos/libopenal.a
     )
 
  target_include_directories(${PROJECT_NAME} PUBLIC 
@@ -38,6 +39,7 @@ target_link_libraries(${PROJECT_NAME}
     ${LAYA_ROOT_PATH}/ThirdParty/png/include/ohos
     ${LAYA_ROOT_PATH}/ThirdParty/jpeg/include/ohos
     ${LAYA_ROOT_PATH}/ThirdParty/freetype/include/ohos
+    ${LAYA_ROOT_PATH}/ThirdParty/openal/include/ohos
     ${LAYA_ROOT_PATH}/ThirdParty/zip/include/ohos
     ${LAYA_ROOT_PATH}/ThirdParty/v8_9.1/include
     ${LAYA_ROOT_PATH}/ThirdParty/ogg/include/ohos

@@ -11,7 +11,7 @@
 
 #include <vector>
 #include "../JSInterface/JSInterface.h"
-#include "../JSInterface/jsobjbase.h"
+#include "../JSInterface/JSObjBase.h"
 #include <Text/JCTextMemoryCanvas.h>
 
 namespace laya

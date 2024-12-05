@@ -11,7 +11,7 @@
 
 //包含头文件
 #include <stdio.h>
-#include "../JSInterface/jsobjbase.h"
+#include "../JSInterface/JSObjBase.h"
 #include "../JSInterface/JSInterface.h"
 #include <Image/JCImage.h>
 #include <resource/JCResource.h>

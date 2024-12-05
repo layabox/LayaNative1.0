@@ -12,7 +12,7 @@
 
 //包含头文件
 //------------------------------------------------------------------------------
-#include "../JSInterface/jsobjbase.h"
+#include "../JSInterface/JSObjBase.h"
 #include "../JSInterface/JSInterface.h"
 
 namespace laya {
