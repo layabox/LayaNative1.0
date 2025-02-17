@@ -84,7 +84,7 @@ set(${PROJECT_NAME}_src
     	../../../source/napi/render/plugin_render.cpp
     	../../../source/napi/render/egl_core.cpp
     	../../../source/napi/modules/TouchesNapi.cpp
-    ../../../source/napi/helper/NapiValueConverter.cpp
+        ../../../source/napi/helper/NapiValueConverter.cpp
 )
 
 if (USE_JS_V8)

@@ -199,6 +199,8 @@ void NAPIFun::ConchNAPI_RunJS(const std::string &js)
 {
      JCScriptRuntime::s_JSRT->callJSString(js);
 }
+
+
 JSBIND_GLOBAL()
 {
     JSBIND_FUNCTION(NAPIFun::ConchNAPI_configSetParamExt, "ConchNAPI_configSetParamExt");
